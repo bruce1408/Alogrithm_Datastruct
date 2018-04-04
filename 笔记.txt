@@ -1,0 +1,134 @@
+242 关于字符排序，我使用了算法sort，如何自己写出一个。
+56 这个题，关键在于写一个数据类型！这个套路很重要。
+767. Reorganize String 此题没有理解；重新做一次
+test_part1.cpp 合并两个有序数组
+164 基数排序算法很厉害
+104 和 404的思路非常相似！
+341 还要多做几次，没有很好的理解
+503 思路很好，逻辑清楚，还有引入了栈的思路。
+//循环一个数组，可以用一下方法；
+for(int i=0;i<n;i++)
+	for(j=i+1;j<n+i;j++)
+		if(nums[j%n]<nums[i])
+			j%n//这个用法非常重要。
+		
+//对数组循环遍历两遍 2*n		
+for (int i = 0; i < 2 * n; ++i) 
+    int num = nums[i % n];
+//-----------------------------------
+计算一个数字的最大是几位数，方法1
+int bit_weight(int a) //计算容器中最大的数是几位数，除了这种办法还可以用string，先转化成string，然后利用string的size函数即可。
+{
+	int n=0;
+	while(a)
+	{
+		// cout<<a<<endl;
+		a/=10;
+		++n;
+	}
+	return n;
+}
+//计算一个数字的最大是几位数，方法2
+string str = to_string(n);//数字转换成字符！
+int len = str.size()
+
+
+//--------------------------------------
+//这个例子的for循环的开头很有讲究，i写在外面，这样可以输出最后的i的值来。
+int nextGreaterElement(int n)
+{
+	string str = to_string(n);
+	int len = str.size();
+	int i=len-1;
+	for(;i>0;i--)
+	{
+		if(str[i]>str[i-1])
+			break;
+	}
+	cout<<i<<endl;	
+	return i;
+	
+}
+
+//---------------------------------------
+to_string      //是把数字转换成字符串
+stoll(str);    //是把字符串转换成数字。
+INT_MAX // 21.47亿，防止越界，在头文件#include<climits>里面 
+
+556 这道题不错，严格按照思路逻辑来写！
+739 和 503 的思路非常类似，一定要掌握。
+456_132 这个题目的逻辑很抽象，再做一编
+402. Remove K Digits 
+//这道题目又是一个套路。和503很像。关于字符串的函数resize和
+//erase函数的用法
+//resize就是原来的size大于n不上多的那几个数字，每个数字都是默认值
+int main ()
+{
+  vector<int> myvector;
+
+  // set some initial content:
+  for (int i=1;i<10;i++) myvector.push_back(i);
+
+  myvector.resize(5);
+  myvector.resize(8,100);
+  myvector.resize(12);
+
+  cout << "myvector contains:";
+  for (int i=0;i<myvector.size();i++)
+    cout << ' ' << myvector[i];
+  cout << '\n';
+
+  return 0;
+}
+//结果是：myvector contains: 1 2 3 4 5 100 100 100 0 0 0 0
+int main ()
+{
+  string str ("This is an example sentence.");
+  cout << str << '\n';    // "This is an example sentence."
+  str.erase (10,8);                     
+  cout << str << '\n';    // "This is an sentence."
+  str.erase (str.begin()+9);               
+  cout << str << '\n';    // "This is a sentence."
+  str.erase (str.begin()+5, str.end()-9);  
+  cout << str << '\n';    // "This sentence."
+  return 0;
+}
+
+394. Decode String
+字符串解码程序。
+//isdigit() 函数是判断字符是否是数字
+//字符变成数字‘9’的操作是减去‘0’
+
+735 和 503一样 605
+150 字符串的处理变成数字
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
