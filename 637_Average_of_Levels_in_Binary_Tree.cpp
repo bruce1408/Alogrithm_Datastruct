@@ -9,6 +9,8 @@ Input:
    15   7
 Output: [3, 14.5, 11]
 
+和此题目类似的还有102 和 107。
+
 */
 #include<iostream>
 #include<vector>
@@ -22,65 +24,65 @@ struct TreeNode
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+//层序遍历一棵二叉树
+void cengxuPre(TreeNode* root)
+{
+	int front=0;
+	int rear=0;
+	TreeNode* q;
+	TreeNode* Q[20];
+	if(!root)  // 不用else的原因是因为return 执行之后自动退出。
+		return;
+	Q[rear++] = root;
+	while(front!=rear)
+	{
+		q = Q[front++];
+		cout<<q->val<<" ";
+		if(q->left) Q[rear++] = q->left;
+		if(q->right) Q[rear++] = q->right;
+	}
+	
+}
 
-// class Solution
-// {
-	// public:
-	// vector<double> averageOfLevels(TreeNode* root)
-	// {
-		// static int i;
-		// vector<double> res;
-		// if(root && i==0)
-		// {
-			// res.push_back(root->val);
-			// i++;
-		// }
-		// if(root->left && root->right)
-			// res.push_back((root->left->val + root->right->val)/2);
-		// return res;
-	// }	
-// };
+//方法1：利用广度优先遍历方法：层序遍历
+vector<double> BinaryTree(TreeNode* root)
+{
+	TreeNode* q;
+	queue<TreeNode*> Q;
+	vector<double>res;
+	if(!root)
+		return {};    //返回空的容器的写法
+	Q.push(root); 
+	while(!Q.empty())
+	{
+		int n=Q.size();   //必须要设置一个n，否则你无法求出层序的个数
+		double t = 0;
+		for(int i=0;i<n;i++)
+		{
+			q = Q.front();
+			Q.pop();
+			t+=q->val;
+			if(q->left) Q.push(q->left);
+			if(q->right) Q.push(q->right);
+		}
+		res.push_back(t/n);
+	}
+	return res;
+}
 
 
 
-// class Solution 
-// {
-	// public:
-    // vector<double> averageOfLevels(TreeNode* root) 
-	// {
-        // if (!root) return {};
-        // vector<double> res;
-        // queue<TreeNode*> q{{root}};
-        // while (!q.empty()) 
-		// {
-            // int n = q.size();
-            // double sum = 0;
-            // for (int i = 0; i < n; ++i) 
-			// {
-                // TreeNode *t = q.front(); q.pop();
-                // sum += t->val;
-                // if (t->left) q.push(t->left);
-                // if (t->right) q.push(t->right);
-            // }
-            // res.push_back(sum / n);
-        // }
-        // return res;
-    // }
-// };
-
-
-
+//方法1的改进版本；
 vector<double> averageOfLevels(TreeNode* root) 
 {
 	vector<double> res;
-	queue<TreeNode*> q;
+	queue<TreeNode*> q;  //这个队列的内容都是树节点的指针；
 	q.push(root);
-	
 	while(!q.empty()) 
 	{
 		long temp=0;
 		int s=q.size();
-		cout<<"the size:"<<s<<endl;
+		// cout<<"the size:"<<s<<endl;
 		for(int i=0;i<s;i++) 
 		{
 			TreeNode* t=q.front();
@@ -96,6 +98,12 @@ vector<double> averageOfLevels(TreeNode* root)
 
 
 
+
+
+
+
+
+
 int main()
 {
 	TreeNode *head = new TreeNode(1);
@@ -108,9 +116,10 @@ int main()
 	h1->left = h3;
 	h1->right = h4;
 	vector<double> res;
+	cengxuPre(head);
+	cout<<"层序遍历方法："<<endl;
+	res = BinaryTree(head);
 	
-	// Solution ss;
-	res = averageOfLevels(head);
 	for(auto i:res)
 	{
 		cout<<i<<" ";
