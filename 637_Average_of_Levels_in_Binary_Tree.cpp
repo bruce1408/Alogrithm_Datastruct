@@ -1,4 +1,5 @@
 /*
+这道题目的做法是层序遍历，然后计算每一层节点数目的均值。
 637. Average of Levels in Binary Tree
 
 Input:
@@ -95,13 +96,6 @@ vector<double> averageOfLevels(TreeNode* root)
 	}
 	return res;
 }
-
-
-
-
-
-
-
 
 
 int main()
