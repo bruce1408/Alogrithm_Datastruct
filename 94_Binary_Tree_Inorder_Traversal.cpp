@@ -42,27 +42,27 @@ struct TreeNode
 
 //方法2：不用静态变量
 
-// class Solution
-// {
-	// public:
-	// void midTraversal(TreeNode *root ,vector<int> &res) //res必须加上引用
-	// {
-		// if(!root) return;
-		// else
-		// {
-			// midTraversal(root->left,res);
-			// res.push_back(root->val);
-			// midTraversal(root->right,res);
-		// }	
-	// }
+class Solution
+{
+	public:
+	void midTraversal(TreeNode *root ,vector<int> &res) //res必须加上引用
+	{
+		if(!root) return;
+		else
+		{
+			midTraversal(root->left,res);
+			res.push_back(root->val);
+			midTraversal(root->right,res);
+		}	
+	}
 	
-	// vector<int> inorderTraversal(TreeNode *root)
-	// {
-		// vector<int> res; //这个作用是传res
-		// midTraversal(root,res);	
-		// return res;
-	// }
-// };
+	vector<int> inorderTraversal(TreeNode *root)
+	{
+		vector<int> res; //这个作用是传res
+		midTraversal(root,res);	
+		return res;
+	}
+};
 
 //方法3.1：利用迭代的方法，也用了栈的思想，但是没有具体用stack的标准库
 // vector<int> inorderTraversal(TreeNode *root)
