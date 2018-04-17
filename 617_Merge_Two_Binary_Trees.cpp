@@ -22,11 +22,7 @@ Merged tree:
 	 5   4   7
 */
 
-/*94. Binary Tree Inorder Traversal
-二叉树的中序遍历
 
-
-*/
 
 #include<iostream>
 #include<vector>
@@ -95,8 +91,8 @@ TreeNode* mergeTrees1(TreeNode* t1, TreeNode* t2)
 	if(!t2)
 		return t1;
 	TreeNode* head = new TreeNode(t1->val + t2->val);
-	head->left = mergeTrees(t1->left,t2->left);
-	head->right = mergeTrees(t1->right,t2->right);
+	head->left = mergeTrees1(t1->left,t2->left);
+	head->right = mergeTrees1(t1->right,t2->right);
 	return head;
 }
 
