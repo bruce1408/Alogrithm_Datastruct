@@ -19,29 +19,34 @@ class MyQueue {
     void push(int x) { myStack.push(x); }
 
     /** Removes the element from in front of queue and returns that element. */
-    int pop() {
-        while (!myStack.empty()) {
+    int pop() 
+	{
+        while (!myStack.empty()) //把主栈的元素全部给辅栈，然后主栈清空；
+		{
             myStackTemp.push(myStack.top());
             myStack.pop();
         }
-        int x = myStackTemp.top();
-        myStackTemp.pop();
-        while (!myStackTemp.empty()) {
+        int x = myStackTemp.top();//辅栈的top元素就是队列对应的第一个元素。
+        myStackTemp.pop();        //然后删除这个元素。
+        while (!myStackTemp.empty()) //接着再把辅栈的元素装回主栈。
+		{
             myStack.push(myStackTemp.top());
-            myStackTemp.pop();
+            myStackTemp.pop();     //辅栈清空；
         }
         return x;
     }
 
     /** Get the front element. */
-    int peek()/* Get the front element*/
+    int peek()/* Get the front element*/   //返回队列首元素，但不删除
 	{
-        while (!myStack.empty()) {
+        while (!myStack.empty()) 
+		{
             myStackTemp.push(myStack.top());
             myStack.pop();
         }
-        int x = myStackTemp.top();
-        while (!myStackTemp.empty()) {
+        int x = myStackTemp.top(); //没有删除的操作
+        while (!myStackTemp.empty()) 
+		{
             myStack.push(myStackTemp.top());
             myStackTemp.pop();
         }
@@ -55,6 +60,8 @@ class MyQueue {
     stack<int> myStack;//一个主栈
     stack<int> myStackTemp;//辅助栈
 };
+
+
 
 /*MyQueue_0 leetcode上比较好的解法  代码比较优雅*/ 
 // https://discuss.leetcode.com/topic/17974/short-o-1-amortized-c-java-ruby
