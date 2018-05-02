@@ -39,7 +39,7 @@ public:
 	
 };
 
-
+//快速排序部分
 void Quicksort(vector<int> &a,int low,int high)
 {
 	int pivot;

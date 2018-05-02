@@ -12,8 +12,6 @@ Output:
 */
 
 
-
-
 #include<iostream>
 #include<vector>
 #include<unordered_map>
@@ -21,8 +19,6 @@ Output:
 #include<sstream>
 
 using namespace std;
-
-
 
 int numberOfBoomerangs(vector<pair<int, int>>& points)
 {

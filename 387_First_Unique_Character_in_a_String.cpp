@@ -15,7 +15,7 @@ return 2.
 using namespace std;
 
 
-/*方法一：我这个代码还是不够简洁；*/
+
 int firstUniqChar(string s)
 {
 	unordered_map<char,int>res;
