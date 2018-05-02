@@ -31,17 +31,15 @@ int singleNumber(vector<int>& nums)
 	return 0;
 }
 
-/*第二种思路；利用异或！！*/
-vector<int> twoSum(vector<int>& numbers, int target) 
+/*第二种思路；利用异或！！
+但是这种方法只能求解一个不重复的数
+*/
+
+int singleNumber(vector<int>& nums) 
 {
-	int l = 0, r = numbers.size() - 1;
-	while (l < r) {
-		int sum = numbers[l] + numbers[r];
-		if (sum == target) return {l + 1, r + 1};
-		else if (sum < target) ++l;
-		else --r;
-	}
-	return {};
+	int res = 0;
+	for (auto num : nums) res ^= num;
+	return res;
 }
 
 
