@@ -23,22 +23,22 @@ void print_list(ListNode *head);
 class Solution
 {
 	public:
-	ListNode* ReverseList(ListNode* pHead){
-    if (pHead == NULL || pHead->next == NULL){
-        return pHead;
-	}
+	ListNode* ReverseList(ListNode* pHead)
+	{
+		if (pHead == NULL || pHead->next == NULL) return pHead;
  
-    ListNode* rear = NULL;
-    ListNode* p = pHead;
-	ListNode* before = pHead;
-    while(p){
-		
-        before = p; 
-		p = p->next;//工作指针		
-        before->next = rear;     
-        rear = before;
-		
-	}
+		ListNode* rear = NULL;
+		ListNode* p = pHead;
+		ListNode* before = pHead;
+		while(p)
+		{
+			
+			before = p; 
+			p = p->next;//工作指针		
+			before->next = rear;     
+			rear = before;
+			
+		}
     return rear;
 	}	
 		
