@@ -13,7 +13,6 @@ struct linkList
 {
 	int num;
 	linkList *next;
-	
 };
 
 int main()
@@ -40,7 +39,7 @@ int main()
 			
 	}
 	
-	if(before == NULL)//如果是开头删除的话
+	if(before == NULL)//如果是删除第一个节点的话
 		head = p->next;
 	else
 	{
