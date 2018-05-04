@@ -7,7 +7,7 @@ using namespace std;
 struct linkNode
 {
 	char c;
-	linkList *next;
+	linkNode *next;
 		
 };
 

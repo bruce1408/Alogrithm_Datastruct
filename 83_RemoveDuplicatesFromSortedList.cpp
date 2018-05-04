@@ -13,8 +13,11 @@ struct ListNode
 	
 };
 
-void print_list(struct ListNode *head);
 
+
+
+void print_list(struct ListNode *head);
+//method 1
 class Solution
 {
 	public:
@@ -36,6 +39,36 @@ class Solution
 	}
 	
 };
+
+
+
+//method 2
+
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode(int x):val(x),next(NULL){}
+};
+
+ListNode* delete_deplicateNode(ListNode*head)
+{
+	if (!head || !head->next) return head;
+	
+	ListNode *start = head;
+	while (start && start->next) 
+	{
+		if (start->val == start->next->val) 
+		{
+			ListNode *tmp = start->next;
+			start->next = start->next->next;
+			delete tmp;
+		} else start = start->next;
+	}
+	return head;
+}
+
+
 
 int main()
 {
