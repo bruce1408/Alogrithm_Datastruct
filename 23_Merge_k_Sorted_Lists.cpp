@@ -50,10 +50,5 @@ ListNode* mergeKLists(vector<ListNode*> &lists)
 }
 int main()
 {
-    ListNode *a = new ListNode(-1);
-    ListNode *b = new ListNode(24);
-    ListNode *u = new ListNode(-3);
-    cout<<""<<endl;
-    ListNode *g = new ListNode(24);
     return 0;
 }
