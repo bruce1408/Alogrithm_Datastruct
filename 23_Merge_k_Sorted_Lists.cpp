@@ -51,6 +51,9 @@ ListNode* mergeKLists(vector<ListNode*> &lists)
 int main()
 {
     ListNode *a = new ListNode(-1);
+<<<<<<< HEAD
     ListNode *b = new ListNode(24);
+=======
+>>>>>>> 043ce8609caae144b2633a15d0baa243af2d63ab
     return 0;
 }
