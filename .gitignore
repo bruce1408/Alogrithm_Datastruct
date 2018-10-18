@@ -5,3 +5,7 @@
 *.swo
 *.swm
 *.exec
+*
+!/**/
+!*.cpp*
+!.gitignore
