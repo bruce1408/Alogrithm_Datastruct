@@ -44,7 +44,7 @@ class Solution
 	int depth(TreeNode* root)
 	{
 		if(root == nullptr) return 0;
-		return 1 + max(depth(root->left), depths(root->right));
+		return 1 + max(depth(root->left), depth(root->right));
 	}
 };
 

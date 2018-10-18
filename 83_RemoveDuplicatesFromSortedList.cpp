@@ -6,15 +6,13 @@
 #include<vector>
 using namespace std;
 
+
 struct ListNode
 {
-	int val;
-	ListNode *next;
-	
-};
-
-
-
+    int val;
+    ListNode *next;
+    ListNode(int x):val(x),next(NULL){}
+}; 
 
 void print_list(struct ListNode *head);
 //method 1
@@ -41,16 +39,7 @@ class Solution
 };
 
 
-
-//method 2
-
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x):val(x),next(NULL){}
-};
-
+// 方法二；
 ListNode* delete_deplicateNode(ListNode*head)
 {
 	if (!head || !head->next) return head;
@@ -73,12 +62,16 @@ ListNode* delete_deplicateNode(ListNode*head)
 int main()
 {
 	
-	ListNode e = {3,NULL};
-	ListNode d = {3,&e};
-	ListNode c = {2,&d};
-	ListNode b = {1,&c};
-	ListNode a = {1,&b};
-	ListNode *head = &a;
+	ListNode *e = new ListNode(3);
+	ListNode *d = new ListNode(3);
+	ListNode *c = new ListNode(2);
+	ListNode *b = new ListNode(1);
+	ListNode *a = new ListNode(1);
+	ListNode *head = a;
+	a->next = b;
+	b->next = c;
+	c->next = d;
+	d->next = e;
 	ListNode *before = head;
 	
 	print_list(head);

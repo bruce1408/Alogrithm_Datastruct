@@ -2,7 +2,7 @@
 Input: [2,2,1]
 Output: 1
 Example 2:
-
+不重复的数字
 Input: [4,1,2,1,2]
 Output: 4
 */
@@ -35,7 +35,7 @@ int singleNumber(vector<int>& nums)
 但是这种方法只能求解一个不重复的数
 */
 
-int singleNumber(vector<int>& nums) 
+int singleNumber2(vector<int>& nums) 
 {
 	int res = 0;
 	for (auto num : nums) res ^= num;
@@ -50,14 +50,14 @@ int main()
 	int t = singleNumber(nums);
 	cout<<t<<endl;
 	
-	int mm=2;
-	mm=m^mm;
-	cout<<mm<<endl;
-	for(auto i:nums)
-	{
-		m^=i;
-		cout<<m<<" ";
-	}
+	// int mm=2;
+	// mm=m^mm;
+	// cout<<mm<<endl;
+	// for(auto i:nums)
+	// {
+	// 	m^=i;
+	// 	cout<<m<<" ";
+	// }
 	
 	return 0;
 

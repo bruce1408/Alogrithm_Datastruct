@@ -3,18 +3,14 @@
 #include<iostream>
 using namespace std;
 
-
 struct linkList
 {
 	int val;
 	linkList *next;
 };
-
 void printf_list(struct linkList *u);
-
 int main()
 {
-	
 	linkList g1 = {6,NULL};
 	linkList f1 = {5,&g1};
 	linkList e1 = {4,&f1};
@@ -32,14 +28,11 @@ int main()
 	int i;//这里i是可以自己选择的值；
 	cout<<"请输入你要删除的节点的值："<<endl;
 	cin>>i;
-	
 	while(p)
 	{
-		
 		if(p->val==i)//删除节点的值是6的节点；
 		{
 			before->next = p->next;
-			
 			cout<<"正在删除"<<i<<"····"<<endl;
 		}
 		before = p;
@@ -47,9 +40,6 @@ int main()
 	}
 	p = head;
 	printf_list(p);
-	
-	
-	
 	return 0;
 	
 
