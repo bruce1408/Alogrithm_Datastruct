@@ -12,18 +12,14 @@
 // };
 
 // void printf_list(struct linkList *u);
-
 // int main()
 // {
-	
 	// linkList d1 = {4,NULL};
 	// linkList c1 = {3,&d1};
 	// linkList b1 = {2,&c1};
 	// linkList a1 = {1,&b1};
 	// linkList *head1 = &a1;
 	// linkList*p1 = head1;
-	
-	
 	
 	// linkList c2 = {4,NULL};
 	// linkList b2 = {3,&c2};
@@ -50,18 +46,9 @@
 		// }
 		// else
 		// {p1 = p1->next;}
-		
-	
 	// }
-	
-	
-	
-	
 	// return 0;
-	
-
 // }
-
 // void printf_list(struct linkList *u)//输出链表的函数
 // {
 	// while(u)

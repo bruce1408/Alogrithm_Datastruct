@@ -15,6 +15,7 @@ return its zigzag level order traversal as:
 
 #include<iostream>
 #include<vector>
+#include<stack>
 using namespace std;
 
 
@@ -29,28 +30,36 @@ struct TreeNode
 
 vector<vector<int>> zigzagLevelOrder(TreeNode* root) 
 {
-	vector<TreeNode*> Q;
-	TreeNode* q;
+	vector<vector<int>>res;
+	stack<TreeNode*>s1;
+	stack<TreeNode*>s2;
 	vector<int> temp;
-	if(!root)
-		return {};
-	else
+	s1.push(root);
+	if(!root) return res;
+	while(!s1.empty() ||!s2.empty())
 	{
-		int count = 0;
-		Q.push(root);
-		int n = Q.size();
-		while(!Q.empty())
+		while(!s1.empty())
 		{
-			q = Q.front();
-			Q.pop();
-			temp.push_back(q->val);
-			count++;
-			
+			TreeNode*cur = s1.top();
+			s1.pop();
+			temp.push_back(cur->val);
+			if(cur->left) s2.push(cur->left);
+			if(cur->right) s2.push(cur->right);
 		}
-	
+		if(!temp.empty()) res.push_back(temp);
+		temp.clear();
+		while(!s2.empty())
+		{
+			TreeNode*cur = s2.top();
+			temp.push_back(cur->val);
+			s2.pop();
+			if(cur->right) s1.push(cur->right);
+			if(cur->left) s1.push(cur->left);
+		}
+		if(!temp.empty()) res.push_back(temp);
+		temp.clear();
 	}
-	
-	
+	return res;
 	
 }
 

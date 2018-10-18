@@ -11,7 +11,7 @@ struct ListNode
 {
 	int val;
 	ListNode *next;
-	ListNode(int x) : val(x), next(NULL) {}	
+	ListNode(int x) : val(x),next(NULL) {}	
 };
 
 void print_list(struct ListNode *head);
@@ -68,33 +68,6 @@ void print_list(struct ListNode *head);
 
 
 
-
-
-int main()
-{
-	ListNode c1 {3,NULL};
-	ListNode b1 {4,&c1};
-	ListNode a1 {2,&b1};
-	ListNode *head1 = a1;
-	
-	ListNode c2 {4,NULL};
-	ListNode b2 {6,&c2};
-	ListNode a2 {5,&b2};
-	ListNode *head2 = &a2;
-
-	ListNode *before = NULL;
-	
-	print_list(head1);
-	print_list(head2);
-	
-	Solution s;
-	before = s.addTwoNumbers(head1,head2);
-	print_list(before);
-	return 0;
-
-}
-
-
 void print_list(struct ListNode *head)
 {
 	while(head)
@@ -133,6 +106,7 @@ public:
             l2=l2->next;
             res=res->next;
         }        
+		// 最后考虑 carray 是否还有进位，如果有，就再增加一位；
         if (carry>0){
             res->next = new ListNode(carry);
         }        
@@ -142,7 +116,66 @@ public:
 
 
 
+ListNode* addTwoNum(ListNode *l1,ListNode *l2)
+{
+	ListNode *result = new ListNode(0);
+	ListNode*res = result;
+	if(l1==nullptr && l2==nullptr) return nullptr;
+	// if(l1==nullptr && l2!=nullptr) return l2;
+	// else return l1;
+	int carray = 0;
+	while(l1 && l2)
+	{
+		int x = l1->val + l2->val + carray;
+		carray = x/10;
+		ListNode *p = new ListNode(x%10);
+		result->next = p;
+		result = p;
+		l1 = l1->next;
+		l2 = l2->next;
+	}
 
+	while(l1)
+	{
+		int x = l1->val+carray;
+		carray = x/10;
+		ListNode * p = new ListNode(x%10);
+		result ->next = p;
+		result = p;
+		l1 = l1->next;
+	}
+	return res->next;
+}
+
+
+int main()
+{
+	ListNode *c1 = new ListNode(3);
+	ListNode *b1 = new ListNode(4);
+	ListNode *a1 = new ListNode(2);
+	ListNode *head1 = a1;
+	a1->next = b1;
+	b1->next = c1;
+	
+	// ListNode *c2 = new ListNode(4);
+	ListNode *b2 = new ListNode(6);
+	ListNode *a2 = new ListNode(5);
+	ListNode *head2 = a2;
+	a2->next = b2;
+	// b2->next = c2;
+
+	ListNode *before = NULL;
+	
+	print_list(head1);
+	print_list(head2);
+	
+	Solution s;
+	// before = s.addTwoNumbers(head1,head2);
+	before = addTwoNum(head1,head2);
+	print_list(before);
+	return 0;
+
+}
 
 
 

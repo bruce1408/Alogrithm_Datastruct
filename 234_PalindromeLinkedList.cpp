@@ -2,16 +2,13 @@
 // #include<vector>
 // using namespace std;
 
-
 // struct listNode
 // {
 	// int val;
-	// listNode *next;
-	
+	// listNode *next;	
 // };
 
 // void print_list(struct listNode *head);
-
 /*算法一：判断是否是回文链表，就是遍历链表，然后把值放到
   容器中去，在容器中判断是否是回文数
   容器中，设置两个数值，i和j，一个从0开始，一个从最后一个位置开始比较，分别自增
@@ -69,7 +66,6 @@
 
 
 /*算法二：回文链表，找到中间链表然后反转。*/
-
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -87,8 +83,6 @@ public:
 		{
             return true;
         }
-        
-		
         ListNode* slow = head;
         ListNode* fast = head->next;
         while(fast && fast->next){
