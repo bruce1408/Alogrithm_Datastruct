@@ -50,5 +50,6 @@ ListNode* mergeKLists(vector<ListNode*> &lists)
 }
 int main()
 {
+    ListNode *a = new ListNode(-1);
     return 0;
 }
