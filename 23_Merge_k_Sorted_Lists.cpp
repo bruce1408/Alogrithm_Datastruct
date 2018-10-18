@@ -52,5 +52,8 @@ int main()
 {
     ListNode *a = new ListNode(-1);
     ListNode *b = new ListNode(24);
+    ListNode *u = new ListNode(-3);
+    cout<<""<<endl;
+
     return 0;
 }
