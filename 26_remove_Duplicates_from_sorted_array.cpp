@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-// 去掉数组中重复的数字，返回的是非重复数组的长度；
+// 去掉数组中重复的数字，返回的是非重复数组的长度；使用两个指针
 int findDuplicate(vector<int>& nums)
 {
     int j=0,n = nums.size();
