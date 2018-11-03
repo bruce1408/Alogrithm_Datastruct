@@ -63,8 +63,7 @@ int MaxSubArray(vector<int>&nums)
 
 int main() 
 { 
-    int arr[] = {-2,1,-3,4,-1,2,1,-5,4}; 
-    vector<int> nums = {arr, arr+9};
+    vector<int> nums = {-2,1,-3,4,-1,2,1,-5,4}; 
     cout<<MaxSubArray(nums)<<endl;
     // int n = sizeof(arr)/sizeof(arr[0]); 
     // int max_sum = maxSubArraySum(arr, 0, n-1); 
