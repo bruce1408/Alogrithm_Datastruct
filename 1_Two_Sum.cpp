@@ -32,7 +32,6 @@ using namespace std;
 		// temp[nums[i]]=i;
 	// }
 	
-	
 	// for(int i=0;i<nums.size();i++)
 	// {
 		// int t = target-nums[i];
@@ -80,9 +79,7 @@ int main()
 	res_inde = twoSum(nums,t);
 	for(auto i:res_inde)
 		cout<<i<<" ";
-	
 	return 0;
-
 }
 
 

@@ -67,7 +67,6 @@ void print_list(struct ListNode *head);
 // };
 
 
-
 void print_list(struct ListNode *head)
 {
 	while(head)
@@ -77,7 +76,6 @@ void print_list(struct ListNode *head)
 	}
 	cout<<"end"<<endl;
 }
-
 
 
 /*leetcode标准参考答案*/
@@ -115,7 +113,6 @@ public:
 };
 
 
-
 ListNode* addTwoNum(ListNode *l1,ListNode *l2)
 {
 	ListNode *result = new ListNode(0);
@@ -134,7 +131,6 @@ ListNode* addTwoNum(ListNode *l1,ListNode *l2)
 		l1 = l1->next;
 		l2 = l2->next;
 	}
-
 	while(l1)
 	{
 		int x = l1->val+carray;
@@ -165,7 +161,6 @@ int main()
 	// b2->next = c2;
 
 	ListNode *before = NULL;
-	
 	print_list(head1);
 	print_list(head2);
 	

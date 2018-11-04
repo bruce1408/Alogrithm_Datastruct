@@ -1,7 +1,4 @@
 /*     100. Same Tree       */
-
-
-
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -14,8 +11,6 @@ struct TreeNode
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-
-
 void preThrough(TreeNode * head)
 {
 	if(head)
@@ -24,9 +19,7 @@ void preThrough(TreeNode * head)
 		preThrough(head->left);
 		preThrough(head->right);
 	}
-	
 }
-
 
 //方法1；有技巧的
 bool isSameTree(TreeNode* p, TreeNode* q)
@@ -38,7 +31,6 @@ bool isSameTree(TreeNode* p, TreeNode* q)
 }
 
 
-
 //方法2：很接地气，非常好。牢记
 bool isSameTree(TreeNode* p, TreeNode* q)
 {
@@ -46,7 +38,6 @@ bool isSameTree(TreeNode* p, TreeNode* q)
 		return p->val==q->val && isSameTree(p->left,q->left) && isSameTree(p->right,q->right);
 	return p==q;
 }
-
 
 
 int main()
@@ -72,7 +63,6 @@ int main()
 	cout<<isSameTree(p,q);
 	// cout<<"end"<<endl;
 	
-	
 	//善后处理，释放内存，令其指向空
 	delete p;
 	delete q;
@@ -88,5 +78,4 @@ int main()
 	h5 = nullptr;
 	
 	return 0;
-
 }
