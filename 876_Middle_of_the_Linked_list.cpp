@@ -58,7 +58,13 @@ int main()
     node5->next = node6;
     node6->next = node7;
     cout<<middleNode2(head)<<endl;
-
+    delete head;
+    delete node2;
+    delete node3;
+    delete node4;
+    delete node5;
+    delete node6;
+    delete node7;
 }
 
 
