@@ -60,7 +60,8 @@ vector<int> twoSum(vector<int>& nums, int target)
 	
 	for(int i=0;i<nums.size();i++)
 	{
-		auto t = temp.find(target-nums[i]); /*先找到这个数，判断是否存在，且位置坐标不是当前循环的i的位置，因为是同一个数，闹乌龙了，然后添加到res里面*/
+	 /*先找到这个数，判断是否存在，且位置坐标不是当前循环的i的位置，因为是同一个数，闹乌龙了，然后添加到res里面*/
+		auto t = temp.find(target-nums[i]); 
 		if(t!=temp.end() && t->second != i)
 		{
 			res.push_back(i);
