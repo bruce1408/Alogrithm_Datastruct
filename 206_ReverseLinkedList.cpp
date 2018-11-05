@@ -10,10 +10,9 @@ struct ListNode
 	ListNode *next;
 	ListNode (int x):val(x),next(NULL){}
 };
-// void print_list(struct ListNode *head);
 void print_list(ListNode *head);
-// ListNode* ReverseList(ListNode* pHead);
-//链表反转算法：不带头结点的写法
+// 链表反转算法：不带头结点的写法,需要三个指针，一个当前cur，一个rear，一个pre。
+// 重点掌握
 class Solution
 {
 	public:
@@ -35,20 +34,37 @@ class Solution
 };
 
 
-// 头插法，用一个temp指针来保存cur 的下一个地址即可 ：带头结点的写法
-ListNode*reverlist(ListNode*head)
+// 带头结点的写法，一般不这么写，太麻烦了用一个,temp指针来保存cur 的下一个地址即可 
+ListNode*reverseList1(ListNode*head)
 {
 	ListNode *cur = head;
-	ListNode *dummy = new ListNode(-1);
-	dummy->next = head;
+	ListNode dummy(-1);
+	dummy.next = head;
 	while(cur->next)
 	{
 		ListNode *temp = cur->next;
 		cur->next = temp->next;
-		temp->next = dummy->next;
-		dummy->next = temp;
+		temp->next = dummy.next;
+		dummy.next = temp;
 	}
-	return dummy->next;
+	return dummy.next;
+}
+
+
+ListNode *reverseList2(ListNode*head)
+{
+	if(head==nullptr||head->next==nullptr) return head;
+	ListNode *cur = head;
+	ListNode *pre = head;
+	ListNode *rear = nullptr;
+	while(cur)
+	{
+		pre = cur;
+		cur = cur->next;
+		pre->next = rear;
+		rear = pre;
+	}
+	return rear;
 }
 
 int main()
@@ -66,13 +82,15 @@ int main()
     a4->next = a5;  
 	
 	print_list(a1);
-	Solution s;
-	print_list(s.ReverseList(a1));
-	// print_list(reverlist(a1));
-	
-
-	
-return 0;	
+	// Solution s;
+	// print_list(s.ReverseList(a1));
+	print_list(reverseList1(a1));
+	delete a1;
+	delete a2;
+	delete a3;
+	delete a4;
+	delete a5;
+	return 0;	
 }
 
 //打印部分：	
