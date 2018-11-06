@@ -48,7 +48,3 @@ ListNode* mergeKLists(vector<ListNode*> &lists)
     }
     return lists[0];
 }
-int main()
-{
-    return 0;
-}
