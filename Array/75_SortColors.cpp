@@ -53,7 +53,7 @@ class Solution
 };
 
 
-print_vec(vector<int> num)
+void print_vec(vector<int> num)
 {
 	for(auto i:num)
 		cout<<i<<" ";
