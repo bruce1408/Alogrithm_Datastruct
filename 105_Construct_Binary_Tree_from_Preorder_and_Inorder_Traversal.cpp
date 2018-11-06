@@ -1,10 +1,5 @@
 /*105. Construct Binary Tree from Preorder and Inorder Traversal
-	
-	
 */
-
-
-
 
 //已知前序和中序，来构造一课二叉树
 #include<iostream>
