@@ -43,11 +43,11 @@ ListNode * sortList(ListNode * head)
 {
     if(head==nullptr|| head->next==nullptr) return head;
     ListNode *slow = head;
-    ListNode *fast = head;
+    ListNode *fast = head; // 不用fast为head的下一个节点。因为设了pre节点。
     ListNode *pre = head;
     while(fast && fast->next)
     {
-        pre = slow;
+        pre = slow;  // pre就是slow的前一个节点
         slow = slow->next;
         fast = fast->next->next;
     }
@@ -57,7 +57,6 @@ ListNode * sortList(ListNode * head)
 
 
 // 方法二： 不用递归，归并排序
-
 ListNode *merge2(ListNode*l1, ListNode *l2)
 {
     if(!l1) return l2;
@@ -86,7 +85,7 @@ ListNode*sortList2(ListNode*head)
 {
     if(head==nullptr || head->next==nullptr) return head;
     ListNode *slow = head;
-    ListNode *fast = head->next;
+    ListNode *fast = head->next; // 这里要从head的下一个开始才能断开。
     while(fast && fast->next)
     {
         fast = fast->next->next;
