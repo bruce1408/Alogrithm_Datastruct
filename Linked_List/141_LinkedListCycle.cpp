@@ -4,34 +4,34 @@
 using namespace std;
 
 
-struct linkNode
+struct ListNode
 {
 	char c;
-	linkNode *next;
+	ListNode *next;
+    ListNode(char x,ListNode* next_):c(x),next(next_){}
 		
 };
 
 
-int main()
-{
-	
-	linkNode *p = head;
-	linkNode *head = &a;
-	linkNode a = {'a',&b};
-	linkNode b = {'b',&c};
-	linkNode c = {'c',&d};
-	linkNode d = {'d',&e};
-	linkNode e = {'e',&f};
-	linkNode f = {'f',&d};
-	return 0;
-}
+// int main()
+// {
+// 	ListNode *p = head;
+// 	ListNode *head = &a;
+// 	ListNode a = {'a',&b};
+// 	ListNode b = {'b',&c};
+// 	ListNode c = {'c',&d};
+// 	ListNode d = {'d',&e};
+// 	ListNode e = {'e',&f};
+// 	ListNode f = {'f',&d};
+// 	return 0;
+// }
 
 
 /*判断是否链表环*/
-bool hasCycle(struct linkNode *head)
+bool hasCycle(struct ListNode *head)
 {
-	linkNode *fast = head;
-	linkNode *slow = head;
+	ListNode *fast = head;
+	ListNode *slow = head;
 	
 	while(fast!=NULL&&slow!=NULL&&fast->next!=NULL)
 	{
@@ -43,11 +43,6 @@ bool hasCycle(struct linkNode *head)
 	}
 	return false;//如果到最后没有跳出，那么就是说链表没有环
 }
-
-
-
-
-
 
 
 /*求链表环的第一个结点*/
