@@ -11,6 +11,7 @@ using namespace std;
 
 int findShortestSubArray(vector<int>& nums)
 {
+    if(nums.size()==1) return 1;
     int count=0,numMax = 0,result=0;
     unordered_map<int,int> res;
     for(int i=0;i<nums.size();i++)
@@ -22,7 +23,7 @@ int findShortestSubArray(vector<int>& nums)
             numMax = nums[i];
         }
     }
-    cout<<numMax<<endl;
+    // cout<<numMax<<endl;
     int index1=0,index2;
     for(int i=0;i<nums.size();i++)
     {
@@ -36,15 +37,14 @@ int findShortestSubArray(vector<int>& nums)
     {
         if(nums[i]==numMax && index1!=index2) index2 = i;
     }
-    cout<<"index2 is:"<<index2<<endl;
+    // cout<<"index2 is:"<<index2<<endl;
     
     return index2 - index1 + 1;
-
 }
 
 int main()
 {
-    vector<int>nums = {1,2,2,3,1,4,2};
+    vector<int>nums = {1,1,2,2,2,1};
     cout<<findShortestSubArray(nums);
     return 0;
 }
