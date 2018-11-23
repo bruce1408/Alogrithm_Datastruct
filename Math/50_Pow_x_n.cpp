@@ -2,9 +2,8 @@
 #include<cmath>
 using namespace std;
 
-// 算法超时了
-
-
+// 如果只是简单的循环，算法超时。
+// 方法一：递归，每次折半的计算
 double power(double x, int n)
 {
     
@@ -15,18 +14,15 @@ double power(double x, int n)
     else return half * half * x;
 }
 
-
 double myPow(double x, int n)
 {
     if(n<0) return 1/power(x, -n);
     else return power(x, n);
 }
 
-
-//
 int main()
 {
-    double x = 2,n = 10;
+    double x = 2,n = -10;
     cout<<myPow(x, n);
     return 0;
 }
