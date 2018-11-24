@@ -52,31 +52,57 @@ vector<int> twoSum(vector<int>& nums, int target)
 {
 	unordered_map<int,int>temp;
 	vector<int>res;
-	for(int i=0;i<nums.size();i++)
-	{
-		temp[nums[i]]=i;
-	}
-	
-	
+	for(int i=0;i<nums.size();i++) temp[nums[i]]=i; // 位置索引
 	for(int i=0;i<nums.size();i++)
 	{
 	 /*先找到这个数，判断是否存在，且位置坐标不是当前循环的i的位置，因为是同一个数，闹乌龙了，然后添加到res里面*/
-		auto t = temp.find(target-nums[i]); 
-		if(t!=temp.end() && t->second != i)
+		int left = target - nums[i]; // 找到了这个数字
+		if(temp.count(left) && temp[left]!=i) // 找到这个数字并且这个数字不是自己
 		{
-			res.push_back(i);
-			res.push_back(t->second);
-			break;
+			// res.push_back(i);
+			// res.push_back(temp[left]);
+			return {i, temp[left]}; // 有了这一步，前面两行都不用了，但是推荐用生成res
 		}
+	}
+	return {};
+}
+
+
+// 自己再做一遍
+vector<int> sumofTwo(vector<int> & nums, int k)
+{
+	int sum;
+	// sort(nums.begin(),nums.end());
+	vector<int>res;
+	for(int i=0;i<nums.size();i++)
+	{
+		int left = i,right = nums.size()-1;
+		// if(nums[i]==nums[i+1]) continue;
+		while(left<right && res.empty())
+		{
+			sum = nums[left]+nums[right];
+			if(sum==k)
+			{
+				res.push_back(left);
+				res.push_back(right);
+				cout<<left<<" "<<right<<endl;
+				// left++;
+				// right--;
+				break;
+			}
+			else if(sum>k) right--;
+			else left++;
+		}	
 	}
 	return res;
 }
 
+
 int main()
 {
-	vector<int>nums = {0,4,3,0};
+	vector<int>nums = {-10,-1,-18,-19};
 	vector<int>res_inde;
-	int t = 0;
+	int t = -19;
 	res_inde = twoSum(nums,t);
 	for(auto i:res_inde)
 		cout<<i<<" ";
