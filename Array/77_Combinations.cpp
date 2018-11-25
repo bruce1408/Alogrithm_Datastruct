@@ -6,7 +6,7 @@
 using namespace std;
 
 
-// 给两个数字进行全排列
+// 给两个数字进行全排列c(4,2) = 6
 void helper(int n, int k, vector<int>out, vector<vector<int>>& res,int begin)
 {
     if(out.size()==k) {res.push_back(out);return ;}
