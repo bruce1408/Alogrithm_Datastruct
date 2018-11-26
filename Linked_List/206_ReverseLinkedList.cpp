@@ -34,7 +34,7 @@ class Solution
 };
 
 
-// 带头结点的写法，一般不这么写，太麻烦了用一个,temp指针来保存cur 的下一个地址即可 
+// 带头结点的写法,temp指针来保存cur 的下一个地址即可 
 ListNode*reverseList1(ListNode*head)
 {
 	ListNode *cur = head;
