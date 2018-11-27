@@ -2,7 +2,7 @@
 #include<vector>
 #include<cmath>
 using namespace std;
-
+// 求一个数组缺省的数字。数字0~n是连续的数字中缺少的数
 // 方法一：利用n项和
 int missingNumber(vector<int>& nums)
 {
