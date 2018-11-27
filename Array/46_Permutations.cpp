@@ -74,7 +74,7 @@ vector<vector<int>> permute1(vector<int>& nums)
 }
 
 
-// 100% 的写法,和思路比较自然
+// 100% 的写法,思路比较自然
 void helper(vector<int> nums,int begin, vector<vector<int>>& result)
 {
     if(begin>=nums.size())
@@ -95,8 +95,18 @@ vector<vector<int>>permute(vector<int>nums)
     helper(nums, 0, result);
     return result; 
 }
+
+
 int main()
 {
-    vector<int> nums = {1, 2,3};
-    permute1(nums);
+    vector<int> nums = {1, 1, 2};
+    
+    for(auto i:permute1(nums))
+    {
+        for(auto j: i)
+        {
+            cout<<j<<" ";
+        }
+        cout<<endl;
+    }
 }
