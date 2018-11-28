@@ -100,8 +100,7 @@ vector<vector<int>>permute(vector<int>nums)
 int main()
 {
     vector<int> nums = {1, 1, 2};
-    
-    for(auto i:permute1(nums))
+    for(auto i:permute(nums))
     {
         for(auto j: i)
         {
