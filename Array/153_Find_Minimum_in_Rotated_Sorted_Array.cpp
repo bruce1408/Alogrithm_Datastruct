@@ -5,7 +5,7 @@
 #include<set>
 using namespace std;
 
-
+// 在一个旋转的数组中找出最小的数
 int findMin(vector<int>& nums) 
 {
     int n = nums.size();
@@ -25,7 +25,7 @@ int findMin(vector<int>& nums)
 
 int main()
 {
-    vector<int> res = {4,5,6,7,0,1,2};
+    vector<int> res = {4, 5, 6, 7, 0, 1, 2};
     int k = findMin(res);
     cout<<k<<endl;
 }
