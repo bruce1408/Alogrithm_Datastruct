@@ -1,11 +1,6 @@
 /*219. Contains Duplicate II
 求得两数相同，而且下标的差最大不能超过k;
 思路是：之前没出现的数全部放到res，如果有这个数，那么看下标是否满足，输出true，否则，继续放进res
-
-
-
-
-
 */
 
 #include<iostream>
