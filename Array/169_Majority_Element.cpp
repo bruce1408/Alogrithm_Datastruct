@@ -69,7 +69,8 @@ int majorityElement2(vector<int>&nums)
 }
 int main()
 {
-    vector<int> res = {1,2,3,4,5,6,6,6,7};
+    // vector<int> res = {1,2,3,4,5,6,6,6,7};
+    vector<int> res = {2,2,3};
     cout<<majorityElement2(res)<<endl;
     return 0;
 }
