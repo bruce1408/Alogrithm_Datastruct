@@ -25,6 +25,6 @@ int findNthDigit(int n)  // 234
 
 int main()
 {
-    cout<<findNthDigit(234);
+    cout<<findNthDigit(234)<<endl;
     return 0;
 }
