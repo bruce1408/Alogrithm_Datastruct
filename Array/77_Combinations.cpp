@@ -36,3 +36,4 @@ vector<vector<int>> combine1(int n, int k)
     for(auto &i:combine(n-1, k)) res.push_back(i);
     return res;
 }
+
