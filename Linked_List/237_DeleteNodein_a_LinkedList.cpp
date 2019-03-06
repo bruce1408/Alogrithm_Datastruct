@@ -47,3 +47,18 @@ int main()
 	cout<<"end"<<endl;
 	return 0;
 }
+
+// 这个题目的意思是没有给你头结点，直接是给你要删除的节点让你删改节点
+class Solution
+{
+	pubic:
+	void deleteNode(ListNode *node)
+	{
+		//先把后一个值覆盖到当前节点
+		node->val = node->next->val;
+		//现在两个节点值完全一样，删除后面的几点
+		ListNode*tmp =node->next;
+		node->next = node->next->next;
+		delete node->next;
+	}
+};

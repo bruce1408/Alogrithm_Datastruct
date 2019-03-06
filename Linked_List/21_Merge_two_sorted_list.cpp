@@ -11,7 +11,7 @@ struct ListNode{
     ListNode *next;
     ListNode(int x):val(x),next(nullptr){}
 };
-
+// 递归方法简介。
 ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
 {
     if(!l1||!l2) return l1?l1:l2;
@@ -53,5 +53,32 @@ ListNode * mergeTwoLists2(ListNode* l1, ListNode* l2)
 }
 
 
-
+// 20190306
+class Solution
+{
+    public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)
+    {
+        if(!l1|| !l2) return l1?l1:l2; // 有一个是空的情况下怎么操作。
+        ListNode * dummy = NULL;
+        ListNode * cur = dummy;
+        while(l1 && l2)
+        {
+            if(l1->val > l2->val)
+            {
+                cur->next = l1; 
+                l1 = l1->next;
+            }
+            else
+            {
+                cur->next = l2;
+                l2 = l2->next;
+            }
+            cur = cur->next;
+        }
+        if(l1) cur->next = l1;
+        if(l2) cur->next = l2;
+        return dummy->next;
+    }
+}
 

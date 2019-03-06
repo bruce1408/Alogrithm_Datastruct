@@ -1,6 +1,6 @@
-// #include<iostream>
-// #include<vector>
-// using namespace std;
+#include<iostream>
+#include<vector>
+using namespace std;
 
 // // Random Function to that returns 0 or 1 with 
 // // equal probability 
@@ -41,23 +41,40 @@
 
 // ---------------------------------------------------------------------------------------------
 #include<iostream>
+#include<stdlib.h>
 using namespace std;
-int rand7()
-{
- // 产生随机数1--7之间的的数；   
-}
+// int rand7()
+// {
+//  // 产生随机数1--7之间的的数；   
+// }
 
-int rand10()
-{
-    int i = rand7()*7+rand7()-7;
-    if(i<41) return i % 10 + 1;
-    return rand10();
-}
+// int rand10()
+// {
+//     int i = rand7()*7+rand7()-7;
+//     if(i<41) return i % 10 + 1;
+//     return rand10();
+// }
+// int main()
+// {
+//     for(int i=0;i<10;i++)
+//     {
+//         cout<<rand()<<endl;
+//         // cout<<rand10()<<endl;
+//     }
+//     return 0;
+// }
+
+#include <iostream>
+#include <stdlib.h>
+#include <time.h> 
+
+using namespace std; 
+
 int main()
-{
-    for(int i=0;i<10;i++)
-    {
-        cout<<rand10()<<endl;
-    }
+{ 
+    srand((unsigned)time(NULL)); 
+    for(int i = 0; i < 10;i++ ) 
+            cout << rand()<<'\t';
+    cout << endl; 
     return 0;
 }
