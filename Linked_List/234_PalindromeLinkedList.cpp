@@ -151,6 +151,36 @@ int main(){
 }
 
 
+// 20190306 判断是否是回文串，那就是要先找到中间节点，然后翻转！分两步来实现
+
+bool isPalindrome(ListNode* head){
+    if(!head || !head->next) return true;
+    ListNode *slow = head, *fast = head;
+    while(fast->next && fast->next->next)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    // 中间节点找到了，是slow
+    ListNode *cur = head;
+    ListNode *last = slow->next;
+    while(last->next)  // 后半部分翻转,这里前一个是slow，可以认为它是头结点的翻转！
+    {
+        ListNode *tmp = last->next;
+        last->next = tmp->next;
+        tmp->next = slow->next;
+        slow->next = tmp;
+    }
+    // judge if the list is palindrome
+    while(slow->next)
+    {
+        slow = slow->next;
+        if(cur->val != slow->val) return false;
+        cur = cur->next;
+    }
+    return true;
+}
+
 
 
 
