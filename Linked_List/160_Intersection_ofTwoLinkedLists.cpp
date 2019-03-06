@@ -62,18 +62,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /*找出两个链表的交集，(链表的值是数字，不是其他类型的)
   这个前提是已经排好序了，然后利用下面的算法来找，
   */
@@ -154,3 +142,56 @@ void printf_list(struct linkList *u)//输出链表的函数
 	
 }
 
+
+//2019-3-5 第一是比较长度,然后是长度长的那个减去短的，差值进行循环。
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
+{
+	ListNode *a = headA, *b = headB;
+	int lena = getLength(a), lenb = getLength(b);
+	if(lena < lenb)
+	{
+		for (int i=0;i<lenb-lena;i++)
+		{
+			b = b->next;
+		}
+	}
+	else
+	{
+		for (int i=0;i<lena-lenb;i++)
+		{
+			a = a ->next;
+		}
+	}
+
+	while(a && b && a!=b)
+	{
+		a = a->next;
+		b = b->next;
+	}
+	return (a && b)? a : NULL;
+}
+int getLength(ListNode *head)
+{
+	int cnt=0;
+	while(head)
+	{
+		head = head->next;
+		cnt+=1;
+	}
+	return cnt;
+}
+
+
+// 方法二是利用环的思想。
+ListNode *getIntersectionNode1(ListNode *headA, ListNode *headB)
+{
+	if(!headA || !headB) return NULL;// 边界条件给忘了？
+	ListNode *a = headA, *b = headB;
+	while(a!=b)
+	{
+		a = a? a->next:headB;
+		b = b? b->next:headA;
+	}
+	return a;
+	
+}
