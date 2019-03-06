@@ -50,7 +50,7 @@ ListNode*reverseList1(ListNode*head)
 	return dummy.next;
 }
 
-
+// 不带头结点理解起来比价麻烦
 ListNode *reverseList2(ListNode*head)
 {
 	if(head==nullptr||head->next==nullptr) return head;
@@ -104,8 +104,24 @@ void print_list(struct ListNode *head)
 	cout<<"end"<<endl;
 }
 
-
-
+// 带头结点
+class Solution1
+{
+	ListNode*reverseList(ListNode*head)
+	{
+		ListNode * p = head;
+		ListNode *dummy = NULL;
+		dummy->next = head;
+		while(p->next)
+		{
+			ListNode *tmp = p->next;
+			p->next = tmp->next;
+			tmp->next = dummy->next;
+			dummy->next = tmp;
+		}
+		return dummy->next;
+	}
+}
 
 
 

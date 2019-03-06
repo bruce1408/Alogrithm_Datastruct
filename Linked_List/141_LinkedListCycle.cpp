@@ -118,6 +118,28 @@ public:
 // }
 
 
+// 判断链表是否有环。代码的循环条件是while(fast && fast->next)
+while(fast && fast->next)
+{
+    slow = slow->next;
+    fast = fast->next->next;
+    if(fast==slow) return true; //如果是环一定会推出循环，否则不是换，最后一个链表也会推出循环
+}
+// 另外判断一个环的入口怎么办，就是在两个环第一次相交的地方，停下来，让其中一个指针从头开始，然后两个指针每次走一步。再次相遇的地方就是入口的交点
+while(fast && fast->next)
+{
+    slow = slow->next;
+    fast = fast->next->next;
+    if(slow==fast) break;
+}
+if(!fast || !fast->next) return NULL;
+slow = head;
+while(slow!=fast)
+{
+    slow = slow->next;
+    fast = fast->next;
+}
+return slow;
 
 
 

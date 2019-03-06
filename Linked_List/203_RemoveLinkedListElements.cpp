@@ -55,3 +55,26 @@ void printf_list(struct linkList *u)//输出链表的函数
 	cout<<"end"<<endl;
 	
 }
+
+
+// 方法二；增设头结点
+class Solution{
+	public:
+	ListNode *removeElements(ListNode * head, int val)
+	{
+		ListNode *dummy = new ListNode(-1);
+		dummy->next = head;
+		ListNode *pre = dummy;
+		while(pre->next)
+		{
+			if(pre->next->val == val)
+			{
+				ListNode *tmp = pre->next;
+				pre->next = pre->next->next;
+				delete tmp;
+			}
+			else pre = pre->next;
+		}
+		return dummy->next;
+	}
+}

@@ -2,7 +2,6 @@
 #include<vector>
 #include<string>
 using namespace std;
-
 /*
     字符串压缩，
     Input:
@@ -21,7 +20,6 @@ using namespace std;
 //         while(j<n-1 && )
 //     }
 // }
-
 
 int compress(vector<char>& chars) 
 {
@@ -42,7 +40,6 @@ int compress(vector<char>& chars)
     }
     return p;
 }
-
 
 int main()
 {
