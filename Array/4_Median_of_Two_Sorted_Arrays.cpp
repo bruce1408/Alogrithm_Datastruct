@@ -77,10 +77,40 @@ double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2)
     }
     return 0;
 }
+
+// 有点问题
+double findMedianSortArrys3(vector<int> &num1, vector<int>& num2)
+{
+    int len1 = num1.size();
+    int len2 = num2.size();
+    if(len1 > len2) return findMedianSortArrys3(num2, num1);
+    int low = 0;
+    int high = len1;
+    while(low<=high)
+    {
+        int partitionx = (low+high)/2;
+        int partitiony = (len1 + len2 +1)/2 - partitionx;
+        
+        int maxLeftx = (partitionx == 0)? INT_MIN:num1[partitionx-1];
+        int minrightx = (partitionx == len1)?INT_MAX:num1[partitionx];
+
+        int maxLefty = (partitiony == 0)? INT_MIN:num1[partitiony-1];
+        int minrighty = (partitiony == len2)?INT_MAX:num1[partitiony];
+
+        if(maxLeftx <= minrighty && maxLefty <= minrightx)
+        {
+            if((len1 + len2)%2==0) return (max(maxLeftx, maxLefty) + max(minrightx, minrighty))/2;
+            else return max(maxLeftx, maxLefty);
+        }
+        else if (maxLeftx > minrighty) high = partitionx - 1;
+        else low = partitionx + 1;
+    }
+}
+
 int main()
 {
     vector<int> a = {1, 2};
     vector<int> b = {3, 4};
-    cout<<findMedianSortedArrays2(a, b)<<endl;
+    cout<<findMedianSortedArrays3(a, b)<<endl;
     return 0;
 }
