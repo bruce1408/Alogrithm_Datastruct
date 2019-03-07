@@ -78,3 +78,28 @@ int main()
     return 0;
 	
 }
+
+// 方法二：利用一个函数。计算总长度，然后每次在k长度内进行翻转
+ListNode *reverseKGroup1(ListNode *head, int k)
+{
+    ListNode *dummy = new ListNode(-1), *pre = dummy;
+    dummy->next = head;
+    ListNode *cur = pre->next;
+    int num=0;
+    while(cur = cur->next) ++num;
+    while(num >= k)
+    {
+        cur = pre->next;
+        for(int i=1; i<k; ++i)
+        {
+            ListNode *t = cur->next;
+            cur->next = t->next;
+            t->next = pre->next;
+            pre->next = t;
+        }
+        pre = cur;
+        num -= k;
+    }
+    return dummy->next;
+    
+}
