@@ -59,9 +59,9 @@
 class Solution {
 public:
     int wiggleMaxLength(vector<int>& nums) {
-        int p = 1, q = 1
-    
-        for(int i=0; i<nums.size()-1; i++)
+        int p = 1, q = 1; 
+        int n = nums.size();
+        for(int i=0; i< n-1; i++)
         {
             if(nums[i+1] - nums[i] > 0)
             {
@@ -69,7 +69,7 @@ public:
             }
             else if(nums[i+1] - nums[i] < 0) q = p+1;
         }
-        return min(nums.size(), max(p, q));
+        return min(n, max(p, q));
     }
 };
 
