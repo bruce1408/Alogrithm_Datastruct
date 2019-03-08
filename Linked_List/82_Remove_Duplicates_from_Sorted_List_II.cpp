@@ -2,13 +2,9 @@
 	删除一个单链表的重复节点
 	1->1->1->2->3->4 变成 2->3->4
 */
-
-
-
 #include<iostream>
 #include<cstring>
 using namespace std;
-
 // struct linkList
 // {
 	// int num;
@@ -80,8 +76,7 @@ ListNode* deleteDuplicates(ListNode*head)
 	while(pre->next)
 	{
 		ListNode*cur = pre->next;
-		while(cur->next && cur->next->val==cur->val)
-			cur = cur->next;
+		while(cur->next && cur->next->val==cur->val) cur = cur->next;
 		if(cur!=pre->next) pre->next = cur->next;
 		else pre = pre->next;
 	}	
@@ -106,7 +101,7 @@ ListNode * deleteDuplicate(ListNode *head)
 	dummy->next = head;
 	while(pre->next)
 	{
-		if(cur->next->val == pre->val)
+		if(cur->next->val == pre->val) // 这个错犯了好几次
 		{
 			cout<<"xiayige: "<<cur->next->val<<endl;
 			cur = cur->next;

@@ -24,6 +24,24 @@ ListNode* removeNthFromEnd(ListNode* head, int n)
     return head;
 }
 
+ListNode* removeNthFromEnd1(ListNode* head, int n) {
+    if(!head->next) return NULL;
+    ListNode *cur = head, *pre = head;
+    while(n>0) 
+    {
+        n--;
+        cur = cur->next;
+    }
+    if(!cur) return head->next;
+    while(cur->next)
+    {
+        pre = pre->next;
+        cur = cur->next;
+    }
+    pre->next = pre->next->next;
+    return head;
+}
+
 void print_list(struct ListNode *head)
 {
 	while(head)
@@ -33,6 +51,8 @@ void print_list(struct ListNode *head)
 	}
 	cout<<"end"<<endl;
 }
+
+
 
 int main()
 {
@@ -47,7 +67,8 @@ int main()
     a2->next = a3;   
     a3->next = a4;   
     a4->next = a5;   
-    print_list(removeNthFromEnd(head,5));
+    // print_list(removeNthFromEnd(head,5));
+    print_list(removeNthFromEnd1(head, 5));
 
     return 0;
 
