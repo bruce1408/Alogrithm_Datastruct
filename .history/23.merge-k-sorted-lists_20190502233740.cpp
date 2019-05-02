@@ -50,8 +50,9 @@ public:
             n = k;
         }
         return lists[0];
+        
     }
-    
+
     ListNode *mergeLists(ListNode *l1, ListNode *l2)
     {
         ListNode*dummy = new ListNode(-1), *cur = dummy;
