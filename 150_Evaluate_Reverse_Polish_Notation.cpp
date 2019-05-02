@@ -27,9 +27,7 @@ int evalRPN(vector<string>& tokens)
 			if(tokens[i]=="-") s.push(b-a);
 			if(tokens[i]=="*") s.push(b*a);
 			if(tokens[i]=="/") s.push(b/a);
-		
 		}
-		
 	}
 	return s.top();
 	
