@@ -22,7 +22,7 @@ public:
     int search(vector<int>& nums, int target) {
         int n = nums.size();
         int left = 0, right = n-1;
-        while(left<=right) // if only one num in vector, the "=" is important !
+        while(left<=right) // 如果容器中只有一个数，那么就需要“=”，重点！
         {
             int mid = left + (right - left)/2;
             if(nums[mid]>target)
