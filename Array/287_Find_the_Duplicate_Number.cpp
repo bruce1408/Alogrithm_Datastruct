@@ -14,11 +14,11 @@ int findDuplicate1(vector<int>&nums)
         {
             if(i<=mid) ++countNum;
         }
-        if(countNum <= mid)
+        if(countNum > mid)
         {
-            left = mid + 1;
+            right = mid;
         }
-        else right = mid;
+        else left = mid + 1;
     }
     return right;
 }
