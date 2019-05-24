@@ -6,19 +6,19 @@ using namespace std;
 int findDuplicate1(vector<int>&nums)
 {
     int left=0, right=nums.size();
-    while(left<=right)
+    while(left<right) // 这个只有一个数那么不返回，所以是<号
     {
         int mid = left + (right - left)/2;
         int countNum = 0;
         for(auto i:nums)
         {
-            if(i<=mid) countNum++;
+            if(i<=mid) ++countNum;
         }
-        if(countNum >= mid)
+        if(countNum <= mid)
         {
-            right = mid;
+            left = mid + 1;
         }
-        else left = mid + 1;
+        else right = mid;
     }
     return right;
 }
@@ -49,7 +49,6 @@ int findDuplicate(vector<int>&nums)
 }
 int main()
 {
-    vector<int> a = {2,5,9,6,9,3,8,9,7,1};
+    vector<int> a = {2,3,5,4,3,2,6,7};
     cout<<findDuplicate1(a)<<endl;
-
 }
