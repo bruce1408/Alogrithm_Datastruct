@@ -2,7 +2,28 @@
 #include<vector>
 
 using namespace std;
+// 方法1 使用类似二分查找的方式；
+int findDuplicate1(vector<int>&nums)
+{
+    int left=0, right=nums.size();
+    while(left<=right)
+    {
+        int mid = left + (right - left)/2;
+        int countNum = 0;
+        for(auto i:nums)
+        {
+            if(i<=mid) countNum++;
+        }
+        if(countNum >= mid)
+        {
+            right = mid;
+        }
+        else left = mid + 1;
+    }
+    return right;
+}
 /**
+ * 数组不是有序的，不能排序，时间复杂度少于O(n^2),空间复杂度是O(1);
  * 找到第一个不重复的数，数的范围限定在1--n之间，利用快慢指针，由于是
  * 重复的数，肯定会形成闭环，用快慢指针找到环的起始位置，用两次while，第一次
  * 找到相交的入口处。
@@ -15,10 +36,7 @@ int findDuplicate(vector<int>&nums)
     {
         slow = nums[slow];
         fast = nums[nums[fast]];
-        if(slow==fast)
-        {
-            break;
-        }
+        if(slow==fast) break;
     }
     int t=0;
     while(true)
@@ -32,6 +50,6 @@ int findDuplicate(vector<int>&nums)
 int main()
 {
     vector<int> a = {2,5,9,6,9,3,8,9,7,1};
-    cout<<findDuplicate(a)<<endl;
+    cout<<findDuplicate1(a)<<endl;
 
 }
