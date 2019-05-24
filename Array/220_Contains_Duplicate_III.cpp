@@ -38,5 +38,5 @@ bool containsNearbyAlmostDuplicate1(vector<int>& nums, int k, int t) {
 int main()
 {
     vector<int>res = {1,2,3,1};
-    cout<<containsNearbyAlmostDuplicate1(res, 3, 0)<<endl;;
+    cout<<containsNearbyAlmostDuplicate1(res, 3, 0)<<endl;
 }
