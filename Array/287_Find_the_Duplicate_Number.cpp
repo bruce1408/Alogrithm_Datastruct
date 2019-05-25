@@ -35,7 +35,7 @@ int findDuplicate1(vector<int>&nums)
 }
 
 /**
- * 方法二：快慢指针的办法
+ * 方法2 快慢指针的办法
  * 数组不是有序的，不能排序，时间复杂度少于O(n^2),空间复杂度是O(1);
  * 找到第一个不重复的数，数的范围限定在1--n之间，利用快慢指针，由于是
  * 重复的数，肯定会形成闭环，用快慢指针找到环的起始位置，用两次while，第一次
@@ -84,9 +84,34 @@ int findDuplicate3(vector<int>&nums)
     return slow;
 }
 
+/**
+ * 方法3 利用位操作
+ * 思路：
+ * 
+ * 补充，关于负数的移位看c++_code移位相关代码说明；
+ */
+
+int findDuplicate4(vector<int>& nums) {
+    int res = 0, n = nums.size();
+    for (int i = 0; i < 32; ++i) {
+        int bit = (1 << i), cnt1 = 0, cnt2 = 0;
+        for (int k = 0; k < n; ++k) {
+            if ((k & bit) > 0)
+            {
+                ++cnt1;
+            }
+            if ((nums[k] & bit) > 0)
+            {
+                ++cnt2;
+            } 
+        }
+        if (cnt2 > cnt1) res += bit;
+    }
+    return res;
+}
 int main()
 {
     vector<int> a = {2,3,5,4,3,2,6,7};
-    cout<<findDuplicate3(a)<<endl;
+    cout<<findDuplicate4(a)<<endl;
 }
 
