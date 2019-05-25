@@ -14,7 +14,6 @@ using namespace std;
  * 
 */
 
-
 int findDuplicate1(vector<int>&nums)
 {
     int left=0, right=nums.size();
@@ -34,6 +33,7 @@ int findDuplicate1(vector<int>&nums)
     }
     return right;
 }
+
 /**
  * 方法二：快慢指针的办法
  * 数组不是有序的，不能排序，时间复杂度少于O(n^2),空间复杂度是O(1);
@@ -41,7 +41,8 @@ int findDuplicate1(vector<int>&nums)
  * 重复的数，肯定会形成闭环，用快慢指针找到环的起始位置，用两次while，第一次
  * 找到相交的入口处。
  * 第二次就是找重复数的过程。
- * */
+ */
+
 int findDuplicate2(vector<int>&nums)
 {
     int slow=0, fast=0;
@@ -60,8 +61,32 @@ int findDuplicate2(vector<int>&nums)
     }
     return slow;
 }
+
+/**
+ * 和方法2是一个思路，只不过我这里没有用到t，少用了一个变量，代码按照思路更加直观一点
+ */
+
+int findDuplicate3(vector<int>&nums)
+{
+    int slow = 0, fast = 0;
+    while(true)
+    {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+        if(slow==fast) break;   
+    }
+    slow = 0;
+    while(fast!=slow)
+    {
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+    return slow;
+}
+
 int main()
 {
     vector<int> a = {2,3,5,4,3,2,6,7};
-    cout<<findDuplicate1(a)<<endl;
+    cout<<findDuplicate3(a)<<endl;
 }
+
