@@ -12,8 +12,10 @@ using namespace std;
  * 存在路径 bfcc，但是不存在 abfb
  * 方法 利用
  * 思路：
+ * 发散 leetcode 79题 属于backtracking 回溯算法
  * 
 */
+
 class Solution {
 public:
 	bool hasPath(char* matrix, int rows, int cols, char* str)
@@ -61,10 +63,6 @@ public:
 	}
 };
 
-
-
-
-
 bool search(vector<vector<char>> &matrix_char,string str,int index,int i, int j,vector<vector<bool>> &visited)
 {
 	if(index==str.size()) return true;
@@ -76,21 +74,17 @@ bool search(vector<vector<char>> &matrix_char,string str,int index,int i, int j,
 	bool res = search(matrix_char,str,index+1,i-1,j,visited)
 	||search(matrix_char,str,index+1,i+1,j,visited)
 	||search(matrix_char,str,index+1,i,j-1,visited)
-	||search(matrix_char,str,index+1,i,j+1,visited);
-	
-	
+	||search(matrix_char,str,index+1,i,j+1,visited);	
 	if(!res)  //如果是res=false，既没有匹配到下一个字符，就是当前的字符在矩阵的位置不正确，重新调整，让这个值设成false，然后
 	{
 		--index;
 		cout<<"error"<<i<<""<<j<<endl;
 		visited[i][j]=false;
 	}
-	
 	return res;
 }
 
-
-bool exist(vector<vector<char>> &matrix_char,string str)
+bool exist(vector<vector<char>> &matrix_char, string str)
 {
 	if(str.empty()) return true;
 	if(matrix_char.empty()) return false;
@@ -103,11 +97,7 @@ bool exist(vector<vector<char>> &matrix_char,string str)
 		}
 	}
 	return false;
-	
 }
-
-
-
 
 int main()
 {
@@ -119,9 +109,7 @@ int main()
 	cout<<"input a string"<<endl;
 	string a;
 	cin>>a;
-	
-	cout<<exist(matrix_char,a);
-		
+	cout<<exist(matrix_char,a)<<endl;	
 }
 
 

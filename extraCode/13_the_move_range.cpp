@@ -2,7 +2,6 @@
 #include<vector>
 using namespace std;
 
-
 //得到位数和函数
 int getsumOfdigit(int n)
 {
