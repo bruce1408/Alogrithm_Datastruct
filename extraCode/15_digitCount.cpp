@@ -46,6 +46,16 @@ int digitCount3(int n)
 }
 
 
+int bit1(int num)
+{
+	int count=0;
+	while(num)
+	{
+		if(num&1) count++;
+		num = num>>1;
+	}
+	return count;
+}
 int main()
 {
 	unsigned int n = 1;
@@ -55,7 +65,8 @@ int main()
 		// n =n<<1;
 		// cout<<n<<endl;
 	// }
-	cout<<digitCount3(n);
+	cout<<digitCount3(n)<<endl;
+	cout<<bit1(9)<<endl;
 }
 
 

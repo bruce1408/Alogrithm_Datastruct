@@ -2,7 +2,13 @@
 #include<vector>
 using namespace std;
 
-//得到位数和函数
+/**
+ * 题目：机器人运动范围，在m行n列的方格，机器人每次可以上，下，左，右移动，从(0, 0)坐标开始，
+ * 坐标数位之和大于k的格子，当k是18的时候，(35, 37) 3+5+3+7=18可以满足，问机器人可以到达多少格子
+ * 方法 回溯算法
+ * 思路：
+ * 
+*/
 int getsumOfdigit(int n)
 {
 	int i=0;
@@ -46,9 +52,39 @@ int countMove(int m,int n, int key)
 	
 }
 
+// 第二遍做题；先写一个数位和的函数
+int digitSum(int x)
+{
+	int sum=0;
+	while(x!=0)
+	{
+		sum+=x%10;
+		x=x/10;
+	}
+	return sum;
+}
+
+int movingCount1(int num, int rows, int columns)
+{
+	int count=0;
+	for(int i=0; i<rows; i++)
+	{
+		for(int j=0; j<columns; j++)
+		{
+			if(digitSum(i) + digitSum(j) == num)
+			{
+				count++;
+				cout<<i<<" "<<j<<endl;
+			}
+		}
+	}
+	return count;
+}
+
 int main()
 {
 	// vector<vector<int>>temp =;
-	cout<<getsumOfdigit(45)+getsumOfdigit(67)<<endl;
-	cout<<countMove(3,4,2);
+	cout<<countMove(3,4,2)<<endl;
+	cout<<digitSum(1099)<<endl;
+	cout<<movingCount1(18, 40, 40)<<endl;
 }

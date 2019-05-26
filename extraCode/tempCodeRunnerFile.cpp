@@ -1,3 +1,4 @@
-str4)
-		cout<<"yes"<<endl;
-	else cout<
+int movingCount(int num, int rows, int columns)
+// {
+
+// }
