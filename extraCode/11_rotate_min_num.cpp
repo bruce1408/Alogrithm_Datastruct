@@ -6,8 +6,9 @@ using namespace std;
  * 旋转后是[1,2,3,4,5]，那么最小的旋转数字是 1, 时间复杂度是O(logN)
  * 方法 
  * 思路：
- * 
+ * 发散：leetcode 153. Find Minimum in Rotated Sorted Array
 */
+
 // void sortAges(vector<int> &res)
 // {
 // 	if(res.size()<=0)
@@ -62,7 +63,8 @@ int min_num(vector<int> res)
 }
 int main()
 {
-	vector<int>res = {3,4,5,1,2};
+	// vector<int>res = {3,4,5,1,2};
+	vector<int> res = {4, 5, 6, 7, 0, 1, 2};
 	// sortAges(res);
 	cout<<min_num(res)<<endl;	
 }

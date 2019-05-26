@@ -44,6 +44,6 @@ int findMin1(vector<int>& nums)
 int main()
 {
     vector<int> res = {4, 5, 6, 7, 0, 1, 2};
-    int k = findMin(res);
+    int k = findMin1(res);
     cout<<k<<endl;
 }
