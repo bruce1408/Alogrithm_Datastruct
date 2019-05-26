@@ -9,11 +9,10 @@ using namespace std;
  * a  b  t  g
  * c  f  c  s
  * j  d  e  h
- * 存在路径 bfcc，但是不存在 abfb
+ * 存在路径 bfcc, 但是不存在 abfb
  * 方法 利用
- * 思路：
- * 发散 leetcode 79题 属于backtracking 回溯算法
- * 
+ * 思路：如果每一个位置的数在上下左右存在，那么就是true, 否则, false, 同时, 退回到前一个字母的判断当中去;
+ * 发散 leetcode 79题 属于backtracking 回溯算法;研究一下回溯算法
 */
 
 class Solution {
@@ -63,18 +62,18 @@ public:
 	}
 };
 
-bool search(vector<vector<char>> &matrix_char,string str,int index,int i, int j,vector<vector<bool>> &visited)
+bool search(vector<vector<char>> &matrix_char, string str, int index, int i, int j, vector<vector<bool>> &visited)
 {
-	if(index==str.size()) return true;
+	if(index==str.size()) return true; // 没有字符，默认是true
 	if(i<0 || j<0 || i>=matrix_char.size() || j>=matrix_char[0].size() || visited[i][j] || matrix_char[i][j]!=str[index])
 		return false;
 	
-	visited[i][j]=true;
+	visited[i][j]=true; // 每一个访问过多都是true
 	cout<<i<<""<<j<<endl;
-	bool res = search(matrix_char,str,index+1,i-1,j,visited)
-	||search(matrix_char,str,index+1,i+1,j,visited)
-	||search(matrix_char,str,index+1,i,j-1,visited)
-	||search(matrix_char,str,index+1,i,j+1,visited);	
+	bool res = search(matrix_char,str,index+1,i-1,j,visited) || 
+	search(matrix_char,str,index+1,i+1,j,visited) || 
+	search(matrix_char,str,index+1,i,j-1,visited) || 
+	search(matrix_char,str,index+1,i,j+1,visited);	
 	if(!res)  //如果是res=false，既没有匹配到下一个字符，就是当前的字符在矩阵的位置不正确，重新调整，让这个值设成false，然后
 	{
 		--index;
@@ -88,8 +87,8 @@ bool exist(vector<vector<char>> &matrix_char, string str)
 {
 	if(str.empty()) return true;
 	if(matrix_char.empty()) return false;
-	vector<vector<bool>>visited(matrix_char.size(),vector<bool>(matrix_char[0].size(),false));
-	for(int i=0;i<matrix_char.size();i++)
+	vector<vector<bool>>visited(matrix_char.size(), vector<bool>(matrix_char[0].size(),false)); // mxn
+	for(int i=0; i<matrix_char.size(); i++)
 	{	
 		for(int j=0;j<matrix_char[0].size();j++)
 		{
