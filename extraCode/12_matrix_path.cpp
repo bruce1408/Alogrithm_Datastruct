@@ -3,8 +3,17 @@
 #include<cstring>
 using namespace std;
 
-
-//book
+/**
+ * 题目：请设计一个函数，用来判断矩阵中是否存在一条包含字符串所有字符的路径，每一步可以在矩阵中移动上、下、左、右各一格子。
+ * 例如:
+ * a  b  t  g
+ * c  f  c  s
+ * j  d  e  h
+ * 存在路径 bfcc，但是不存在 abfb
+ * 方法 利用
+ * 思路：
+ * 
+*/
 class Solution {
 public:
 	bool hasPath(char* matrix, int rows, int cols, char* str)
