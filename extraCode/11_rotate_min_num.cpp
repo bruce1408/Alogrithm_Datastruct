@@ -2,38 +2,41 @@
 #include<vector>
 using namespace std;
 /**
- * 题目： 数组开始的若干位旋转到数组的末尾；
+ * 题目： 数组开始的若干位旋转到数组的末尾，输入时一个部分递增的数组，例如[3,4,5,1,2]
+ * 旋转后是[1,2,3,4,5]，那么最小的旋转数字是 1, 时间复杂度是O(logN)
+ * 方法 
+ * 思路：
+ * 
 */
-void sortAges(vector<int> &res)
-{
-	if(res.size()<=0)
-		return ;
-	int n=res.size();
+// void sortAges(vector<int> &res)
+// {
+// 	if(res.size()<=0)
+// 		return ;
+// 	int n=res.size();
 	
-	vector<int>temp(n,0);
-	for(int i=0;i<n;i++)
-	{
-		int age = res[i];
-		++temp[age];
-	}
-	cout<<"temp :"<<endl;
-	for(auto i:temp)
-		cout<<i<<" ";
-	cout<<endl;
+// 	vector<int>temp(n,0);
+// 	for(int i=0;i<n;i++)
+// 	{
+// 		int age = res[i];
+// 		++temp[age];
+// 	}
+// 	cout<<"temp :"<<endl;
+// 	for(auto i:temp)
+// 		cout<<i<<" ";
+// 	cout<<endl;
 	
-	int index = 0;
-	for(int i=0;i<=n;i++)
-	{
-		for(int j=0;j<temp[i];j++)
-		{
-			res[index] = i;
-			cout<<i<<endl;
-			++index;
-		}
-	}
-}
+// 	int index = 0;
+// 	for(int i=0;i<=n;i++)
+// 	{
+// 		for(int j=0;j<temp[i];j++)
+// 		{
+// 			res[index] = i;
+// 			// cout<<i<<endl;
+// 			++index;
+// 		}
+// 	}
+// }
 
-//11_旋转数组得到最小值
 int min_num(vector<int> res)
 {
 	int n = res.size();
@@ -59,12 +62,9 @@ int min_num(vector<int> res)
 }
 int main()
 {
-	vector<int>res = {3,5,2,7,3,8,3,6,7,6,5,4,5,4,12,12,2,4,5,6,8,9};
-	sortAges(res);
-	cout<<endl;
-	for(auto i:res)
-		cout<<i<<" ";
-	
+	vector<int>res = {3,4,5,1,2};
+	// sortAges(res);
+	cout<<min_num(res)<<endl;	
 }
 
 
