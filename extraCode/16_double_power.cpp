@@ -6,11 +6,10 @@ using namespace std;
 
 /**
  * 题目：数值的整数次方,不是用函数power，而是直接求解数值的帧数次方
- * 方法 
+ * 方法 递归思路，考虑到负数的情况应该怎么去判断
  * 思路：
- * 一是考虑边界条件，负面测试，功能测试
- * 二是尽量不用乘除操作，而是用与，或操作来替换，这样效率会很高
- * 三是 左移相当于乘以 2，右移是除以 2，和 1 做位与操作可以判断奇数还是偶数，异或也可以。
+ * 利用递归的方法来做，递归每次如果n的次数是0次，那么直接输出1，然后每次递归折半n/2的方式进入递归，如果是n是偶数的话，那么就应该返回值**2，如果n>0的话
+ * 那么直接返回的是返回值**2*num，如果是小于0，那么就返回值**2/num；方法 3 和方法 4 都很好
 */
 
 // 时间复杂度是O(n)
@@ -48,6 +47,30 @@ double myPow(double x, int n)
 	return half * half /x;
 }
 
+// 方法3：这种方法更愿意接受，因为逻辑上思路更好理解
+double myPow1(double x, int n)
+{
+	if(n==0) return 1.0;
+	double half = myPow(x, n/2);
+	if(n%2==0) return half * half;
+	if(n>0) return half * half * x;
+	else return half * half /x;
+}
+
+//方法4：按照迭代的思想来做, 我们让i初始化为n，然后看i是否是2的倍数，如果不是的话res乘以x，同时 x每次要乘以自己，相当于res * (x**2), i每次循环缩小一半，
+// 直到为0停止循环。最后看n的正负，如果为负，返回其倒数
+double myPow2(double x, int n)
+{
+	int res = 1.0;
+	if(n==0) return 1.0;
+	for(int i=n; i!=0; i/=2)
+	{
+		if(i%2!=0) res = res * x;
+		x *= x;
+	}
+	return (n<0)? 1.0/res:res;
+}
+
 int main()
 {
 	// solution 1;
@@ -58,6 +81,5 @@ int main()
 	// cout<<"plea input a n"<<endl;
 	// cin>>n;
 	// cout<<"the num:"<<num<<": ^n is:"<<num_N(num,n)<<endl;
-	cout<<myPow(4.0, -3)<<endl;
-
+	cout<<myPow2(2, -3)<<endl;
 }
