@@ -3,7 +3,12 @@
 #include<vector>
 using namespace std;
 
-//3的时候是2，为什么4的时候是3？不是4？
+/**
+ * 题目：剪绳子问题，一段长为8的绳子，然后剪成几段几段，这几段的乘积最大化，比如是2，3，3，乘积就是18；
+ * 方法 动态规划
+ * 思路：
+ * 利用动态规划方法，这一部分详细要做，leetcode
+ * */
 
 int getfunc_N_num(int n)
 {
@@ -24,7 +29,6 @@ int getfunc_N_num(int n)
 			max_num = max(temp[j]*temp[i-j],max_num);
 			temp[i] = max_num;
 		}
-
 	}
 	// max_num = temp[n]; 可以取到n,不用再次赋值
 	return max_num;
