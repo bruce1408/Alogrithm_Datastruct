@@ -2,12 +2,17 @@
 	删除节点，用两个指针，一个是下一个节点，一个是指向当前节点；
 	注意第一个结点如何删除。非常重要
 */
-
 #include<iostream>
 #include<vector>
 #include<string>
 using namespace std;
 
+/**
+ * 题目：删除链表的节点
+ * 方法 顺序查找到前一个节点，然后删除
+ * 思路：
+ * 链表删除的一般方法
+*/
 /*
 struct linkList
 {
@@ -98,7 +103,6 @@ void deleteNode2(ListNode* node,ListNode* head)
 	cout<<endl;
 
 }
-
 
 //相关题目1：除去重复节点的数,但是不删除重复项
 ListNode* delete_deplicateNode(ListNode*head)
