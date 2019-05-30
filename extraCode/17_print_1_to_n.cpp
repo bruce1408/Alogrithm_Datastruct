@@ -27,13 +27,17 @@ using namespace std;
 void Print(vector<char>number, int n)
 {
     int i = 0;
+    char temp;
     for (; i<n; i++)
         if (number[i] != '0')
             break;
     if (i == n)
         return;
     for (; i<n; i++)
+    {
         cout<<number[i];
+        temp = number[i];
+    }
     cout<<" ";
 }
 

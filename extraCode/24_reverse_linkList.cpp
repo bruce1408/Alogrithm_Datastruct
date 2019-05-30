@@ -10,7 +10,6 @@ struct ListNode
     ListNode(int x):val(x),next(NULL){}
 };
 
-
 void print_list(ListNode* head)
 {
 	while(head)
@@ -22,7 +21,6 @@ void print_list(ListNode* head)
 }
 
 // Iterative
-
 ListNode* reverseList(ListNode* head) 
 {
 	if (!head) return head;
@@ -38,9 +36,6 @@ ListNode* reverseList(ListNode* head)
 	}
 	return dummy->next;
 }
-
-
-
 
 int main()
 {
@@ -62,8 +57,5 @@ int main()
 
 	ListNode* rehead = reverseList(head);
 	print_list(rehead);
-
-
-
 	return 0;
 }

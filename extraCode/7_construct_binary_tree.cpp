@@ -26,7 +26,16 @@ TreeNode* buildNode(vector<int>& preorder,int pleft,int pright,vector<int>& inor
 	{
 		if(inorder[i]==cur->val) break;
 	}
-	
+	/**
+	 * 这个区间可以这么理解，i就是中序的根节点的位置，
+	 * 左子树的前序遍历的范围是从(pleft+1, pleft + 中序遍历时候的根节点的位置i-ileft)
+	 * 中序遍历时候的节点位置 i 减去 ileft 表示中序遍历的长度，然后 pleft 加上这个长度；
+	 * 所以左子树的前序遍历范围是从 pleft+1 到 pleft+i-ileft 
+	 * 左子树的中序遍历范围比较简单，就是ileft，i-1
+	 * 
+	 * 右子树的前序遍历的范围是 pleft+i-ileft+1 到 pright，和左子树前序范围相差1，
+	 * 右子树的中序遍历的范围是 i+1 到 iright。
+	 * */ 
 	cur->left = buildNode(preorder,pleft+1,pleft+i-ileft, inorder,ileft,i-1);
 	cur->right = buildNode(preorder,pleft-ileft+i+1,pright,inorder,i+1,iright);
 	return cur;
