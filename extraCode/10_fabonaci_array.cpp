@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
 /**
  * 题目：求解斐波那契数列的第n项
@@ -19,10 +20,9 @@ long long faboni1(int n)
  * 思路
  * 斐波那契数列计算只需要前两项即可，没有必要记录所有的数值，利用滚动变量递归即可
  * 时间复杂度是O(n)
- * 
 */
 
-long long faboni(int n)
+long long faboni2(int n)
 {
 	int result[2]={1, 1};
 	if(n<2)
@@ -36,6 +36,49 @@ long long faboni(int n)
 	}
 	return x;
 }
+
+/**
+ * 方法3 矩阵运算 + 快速幂 计算
+ * 思路：
+ * 利用快速幂和矩阵计算
+*/
+void mul(int a[][2], int b[][2], int c[][2])
+{
+	int temp[][2] = {{0,0},{0,0}};
+	for(int i=0;i<2;i++)
+	{
+		for(int j=0;j<2;j++)
+		{
+			for(int k=0;k<2;k++)
+			{
+				temp[i][j] += a[i][k]*b[k][j];
+			}
+		}
+	}
+
+	for(int i=0;i<2;i++)
+	{
+		for(int j=0;j<2;j++)
+		{
+			c[i][j] = temp[i][j];
+		}
+	}
+}
+long long faboni3(int n)
+{
+	int x[2] = {1, 1};
+	int a[2][2] = {{1, 1},{1, 0}};
+	int I[][2] = {{1, 0},{0,1}};
+	int E[][2] = {{1, 1},{1, 0}};
+	int k = n - 1;
+	while(k)
+	{
+		if(k&1) mul(a, I, a);
+		mul(E, E, E);
+
+	}
+}
+
 /**
  * 题目：青蛙跳台阶，第n阶台阶有几种跳法，要么一次跳1阶，要么跳2阶；
  * 方法 利用斐波那契的求第n个数的方法来做，
