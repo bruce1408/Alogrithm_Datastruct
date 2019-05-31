@@ -44,7 +44,7 @@ long long faboni2(int n)
 */
 void mul(int a[][2], int b[][2], int c[][2])
 {
-	int temp[][2] = {{0,0},{0,0}};
+	int temp[][2] = {{0, 0}, {0, 0}};
 	for(int i=0;i<2;i++)
 	{
 		for(int j=0;j<2;j++)
@@ -64,19 +64,30 @@ void mul(int a[][2], int b[][2], int c[][2])
 		}
 	}
 }
+
 long long faboni3(int n)
 {
 	int x[2] = {1, 1};
-	int a[2][2] = {{1, 1},{1, 0}};
-	int I[][2] = {{1, 0},{0,1}};
+	// int a[2][2] = {{1, 1},{1, 0}};
+	int I[][2] = {{1, 0},{0, 1}};
 	int E[][2] = {{1, 1},{1, 0}};
 	int k = n - 1;
 	while(k)
 	{
-		if(k&1) mul(a, I, a);
+		if(k&1) mul(I, E, I);
 		mul(E, E, E);
-
+		k>>=1;
 	}
+
+	int res[2] = {0, 0};
+	for(int i=0;i<2;i++)
+	{
+		for(int j=0;j<2;j++)
+		{
+			res[i] = res[i] + x[i] * I[i][j];
+		}
+	}
+	return res[0];
 }
 
 /**
@@ -104,8 +115,8 @@ long long stepN(int n)
 int main()
 {
 	//斐波那契
-	for(int n=0;n<50;n++)
-		cout<<faboni(n)<<" ";
+	for(int n=1;n<5;n++)
+		cout<<faboni2(n)<<" ";
 	//青蛙跳台阶
 	// for(int n=1;n<50;n++)
 	// 	cout<<stepN(n)<<" ";
