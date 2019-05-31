@@ -62,37 +62,42 @@ public:
 	}
 };
 
-bool search(vector<vector<char>> &matrix_char, string str, int index, int i, int j, vector<vector<bool>> &visited)
+/**
+ * 方法2 在上面判断上下左右移动的时候比较麻烦，可以继续优化
+ * 思路：
+ * 和上面的思路是一样的，但是唯一不同的就是这里我们不再使用冗长的判断上、下、左、右的判断，优化这部分代码
+ * */ 
+bool search(vector<vector<char>> &matrix_char, string str, int index, int i, int j)
 {
-	if(index==str.size()) return true; // 没有字符，默认是true
-	if(i<0 || j<0 || i>=matrix_char.size() || j>=matrix_char[0].size() || visited[i][j] || matrix_char[i][j]!=str[index])
+	if(index==str.size()) return true; // index的长度是字符的长度，找到了
+	// if(matrix_char[i][j]!=str[index]) return false;
+	if(i<0 || j<0 || i>=matrix_char.size() || j>=matrix_char[0].size() || matrix_char[i][j]!=str[index])
 		return false;
-	
-	visited[i][j]=true; // 每一个访问过多都是true
-	cout<<i<<""<<j<<endl;
-	bool res = search(matrix_char,str,index+1,i-1,j,visited) || 
-	search(matrix_char,str,index+1,i+1,j,visited) || 
-	search(matrix_char,str,index+1,i,j-1,visited) || 
-	search(matrix_char,str,index+1,i,j+1,visited);	
-	if(!res)  //如果是res=false，既没有匹配到下一个字符，就是当前的字符在矩阵的位置不正确，重新调整，让这个值设成false，然后
+	int positionX[4] = {0, 0, -1, 1}, positionY[4] = {-1, 1, 0, 0};
+	char t = matrix_char[i][j];
+	matrix_char[i][j]='*';
+	for(int i=0;i<4;i++)
 	{
-		--index;
-		cout<<"error"<<i<<""<<j<<endl;
-		visited[i][j]=false;
+		int x_ = positionX[i] + i, y_ = positionY[i] + j;
+		if(x_ >=0 && y_>=0 && x_ < matrix_char.size() && y_ < matrix_char[y_].size())
+		{
+			if (search(matrix_char, str, index+1, x_, y_)) return true;
+		}
+		
 	}
-	return res;
+	matrix_char[i][j] = t;
+	return false;
 }
 
 bool exist(vector<vector<char>> &matrix_char, string str)
 {
 	if(str.empty()) return true;
 	if(matrix_char.empty()) return false;
-	vector<vector<bool>>visited(matrix_char.size(), vector<bool>(matrix_char[0].size(),false)); // mxn
 	for(int i=0; i<matrix_char.size(); i++)
 	{	
 		for(int j=0;j<matrix_char[0].size();j++)
 		{
-			if(search(matrix_char,str,0,i,j,visited)) return true;
+			if(search(matrix_char, str, 0, i, j)) return true;
 		}
 	}
 	return false;
