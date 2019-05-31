@@ -46,7 +46,6 @@ TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder)
 	return buildNode(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1);
 }
 
-
 int main()
 {
 	vector<int> inorder = {1,3,4,5,6};
