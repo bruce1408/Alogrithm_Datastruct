@@ -30,7 +30,7 @@
 // 	string pattern = "a.a";
 // 	cout<<match(str,pattern);
 // }
-/*------------------------------------------------------------*/
+/*----------------------------------------------------------*/
 #include<iostream>
 #include<string>
 using namespace std;
