@@ -3,16 +3,31 @@
 using namespace std;
 /**
  * 题目：求解斐波那契数列的第n项
- * 方法1 
- * 思路：取巧的思路，就是给三个变量，然后x=a+b，输出最后的x；
+ * 方法1 递归的思想
+ * 思路：给定递归的结束条件和递归判别式，但是时间复杂度极高，是O(2^n)每次递归的次数*递归总数,
+ * 大约到 n=50 就算不动了，重复计算项太多，递归到一定的程度，会发生栈溢出，
+*/
+
+long long faboni1(int n)
+{
+	if(n<=1) return 1;
+	return (faboni1(n - 1) + faboni1(n-2)); 
+}
+
+/**
+ * 方法2 利用滚动递归变量的方法
+ * 思路
+ * 斐波那契数列计算只需要前两项即可，没有必要记录所有的数值，利用滚动变量递归即可
+ * 时间复杂度是O(n)
+ * 
 */
 
 long long faboni(int n)
 {
-	int result[2]={0,1};
+	int result[2]={1, 1};
 	if(n<2)
 		return result[n];
-	long long a = 1, b = 0, x = 0;
+	long long a = 1, b = 1, x = 0;
 	for(unsigned int i=2;i<=n;i++)
 	{
 		x = a+b;
@@ -21,7 +36,6 @@ long long faboni(int n)
 	}
 	return x;
 }
-
 /**
  * 题目：青蛙跳台阶，第n阶台阶有几种跳法，要么一次跳1阶，要么跳2阶；
  * 方法 利用斐波那契的求第n个数的方法来做，
@@ -47,11 +61,11 @@ long long stepN(int n)
 int main()
 {
 	//斐波那契
-	// for(int n=0;n<50;n++)
-		// cout<<faboni(n)<<" ";
+	for(int n=0;n<50;n++)
+		cout<<faboni(n)<<" ";
 	//青蛙跳台阶
-	for(int n=1;n<50;n++)
-		cout<<stepN(n)<<" ";
-	cout<<endl;
+	// for(int n=1;n<50;n++)
+	// 	cout<<stepN(n)<<" ";
+	// cout<<endl;
 	return 0;
 }
