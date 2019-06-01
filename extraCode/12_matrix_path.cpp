@@ -70,7 +70,6 @@ public:
 bool search(vector<vector<char>> &matrix_char, string str, int index, int i, int j)
 {
 	if(index==str.size()) return true; // index的长度是字符的长度，找到了
-	// if(matrix_char[i][j]!=str[index]) return false;
 	if(i<0 || j<0 || i>=matrix_char.size() || j>=matrix_char[0].size() || matrix_char[i][j]!=str[index])
 		return false;
 	int positionX[4] = {0, 0, -1, 1}, positionY[4] = {-1, 1, 0, 0};
@@ -83,7 +82,6 @@ bool search(vector<vector<char>> &matrix_char, string str, int index, int i, int
 		{
 			if (search(matrix_char, str, index+1, x_, y_)) return true;
 		}
-		
 	}
 	matrix_char[i][j] = t;
 	return false;
@@ -95,7 +93,7 @@ bool exist(vector<vector<char>> &matrix_char, string str)
 	if(matrix_char.empty()) return false;
 	for(int i=0; i<matrix_char.size(); i++)
 	{	
-		for(int j=0;j<matrix_char[0].size();j++)
+		for(int j=0; j<matrix_char[0].size(); j++)
 		{
 			if(search(matrix_char, str, 0, i, j)) return true;
 		}
