@@ -9,7 +9,7 @@ using namespace std;
 
 /**
  * 题目：删除链表的节点
- * 方法1 顺序查找到前一个节点，然后删除；方法2 ；方法3 ；
+ * 方法1 顺序查找到前一个节点，然后删除；方法2，方法3 ；
  * 思路：
  * 链表删除的一般方法
 */
@@ -36,7 +36,6 @@ int main()
 
 */
 
-
 struct ListNode
 {
     int val;
@@ -44,14 +43,13 @@ struct ListNode
     ListNode(int x):val(x),next(NULL){}
 };
 
-
 void print_list(ListNode* head)
 {
 	cout<<head->val<<" ";
 	head = head->next;
 }
 //method 1 删除指定val值的节点，时间复杂度较高(因为涉及查找)，用两个指针，注意第一个节点的删除。不过不是赋值后在链接，而是直接删除即可。
-void deleteNode1(ListNode* head,int key)
+void deleteNode1(ListNode* head, int key)
 {
 	if(!head)
 		return ;
@@ -62,11 +60,11 @@ void deleteNode1(ListNode* head,int key)
 	{
 		if(cur->val==key)
 			break;
-		pre = cur;
-		cur= cur->next;
+		pre = cur; // pre指向前驱节点
+		cur= cur->next; // cur指向的是后继节点
 	}
 
-	if(pre==NULL) //判断是否是删除第一个结点，如果是，就直接删除，接下一个节点即可，否则，正常删除
+	if(pre==NULL) // 判断是否是删除第一个结点，如果是，就直接删除，接下一个节点即可，否则，正常删除
 		head = cur->next;
 	else
 		pre->next = cur->next;
@@ -82,7 +80,7 @@ void deleteNode2(ListNode* node,ListNode* head)
 	if(node->next!=nullptr) //判断不是尾节点的情况
 	{
 		node->val = node->next->val; //把值复制过来之后，让当前的指向下一个next即可
-		ListNode *tmp = node->next;
+		ListNode *tmp = node->next; 
 		node->next = tmp->next;
 		delete tmp;
 	}
@@ -92,9 +90,9 @@ void deleteNode2(ListNode* node,ListNode* head)
 		ListNode* cur = head;
 		while(cur->next!=node)
 		{
-			cur = cur->next;
+			cur = cur->next; // 最后指向的是尾节点的前一个节点
 		}
-		cur->next= NULL;
+		cur->next= NULL; 
 		delete node;
 		node=nullptr;
 	}
@@ -104,7 +102,12 @@ void deleteNode2(ListNode* node,ListNode* head)
 
 }
 
-//相关题目1：除去重复节点的数,但是不删除重复项
+/**
+ * 题目：除去重复节点的数,但是不删除重复项
+ * 方法
+ * 思路：
+ * 
+ * */
 ListNode* delete_deplicateNode(ListNode*head)
 {
 	if (!head || !head->next) return head;
