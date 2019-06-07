@@ -1,5 +1,7 @@
 #include<iostream>
 #include<vector>
+#include<queue>
+#include<utility>
 using namespace std;
 
 /**
@@ -9,6 +11,7 @@ using namespace std;
  * 思路：
  * 
 */
+
 int getsumOfdigit(int n)
 {
 	int i=0;
@@ -21,13 +24,11 @@ int getsumOfdigit(int n)
 	return i;
 }
 
-
 bool check(int m,int n,int i,int j,int key,vector<vector<bool>> &visited)
 {
-	if(i>=0&&j>=0&&i<m&&j<n&&getsumOfdigit(i)+getsumOfdigit(j)<=key&&!visited[i][j]) return true;
+	if(i>=0 && j>=0 && i<m && j<n && getsumOfdigit(i)+getsumOfdigit(j)<=key && !visited[i][j]) return true;
 	return false;
 }
-
 
 int countCore(int m,int n,int i,int j,int key,vector<vector<bool>> &visited)
 {
@@ -40,19 +41,16 @@ int countCore(int m,int n,int i,int j,int key,vector<vector<bool>> &visited)
 	return count;
 }
 
-
-int countMove(int m,int n, int key)
+int countMove(int m, int n, int key)
 {
 	
 	if(key<0 || m<=0 || n<=0) return 0;
 	vector<vector<bool>>visited(m,vector<bool>(n,false));
-	
 	int count = countCore(m,n,0,0,key,visited);
 	return count;
-	
 }
 
-// 第二遍做题；先写一个数位和的函数
+// 第二遍做题；先写一个数位和的函数，然后开始两重for循环遍历，如果满足条件那么就计数加1，
 int digitSum(int x)
 {
 	int sum=0;
@@ -71,7 +69,7 @@ int movingCount1(int num, int rows, int columns)
 	{
 		for(int j=0; j<columns; j++)
 		{
-			if(digitSum(i) + digitSum(j) == num)
+			if(digitSum(i) + digitSum(j) <= num)
 			{
 				count++;
 				cout<<i<<" "<<j<<endl;
@@ -81,10 +79,54 @@ int movingCount1(int num, int rows, int columns)
 	return count;
 }
 
+// 方法3
+int getsumOfdigit1(pair<int int> x)
+{
+	int sum=0;
+	while(x.first)
+	{
+		sum+=x.first%10;
+		x.first/=10;
+	}
+
+	while(x.second)
+	{
+		sum+=x.second%10;
+		x.second/=10;
+	}
+	return sum;
+}
+int movingCount(int rows, int columns, int target)
+{
+	if(!rows || !columns) return 0; // 边界条件
+	queue<pair<int, int >> point;
+	vector<vector<bool>> visited(rows, vector<bool>(columns));
+	int dx[4] = {0,0,-1,1}, dy[4]={1,-1,0,0};
+	
+	int res = 0;
+	point.push({0, 0});
+	while(point.size())
+	{
+		auto i = point.front();
+		point.pop();
+		if(visited[i.first][i.second] || getsumOfdigit1(i) > target) continue;
+		res++;
+		visited[i.second][i.second] = true;
+		for(int j=0; j<4; j++)
+		{
+			int x_ = 
+		}
+	}
+
+	
+}
+
+
+
 int main()
 {
 	// vector<vector<int>>temp =;
 	cout<<countMove(3,4,2)<<endl;
-	cout<<digitSum(1099)<<endl;
-	cout<<movingCount1(18, 40, 40)<<endl;
+	// cout<<digitSum(1099)<<endl;
+	cout<<movingCount1(2, 3, 4)<<endl;
 }
