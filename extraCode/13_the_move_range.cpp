@@ -80,45 +80,45 @@ int movingCount1(int num, int rows, int columns)
 }
 
 // 方法3
-int getsumOfdigit1(pair<int int> x)
+int getsumOfdigit1(pair<int, int> x)
 {
 	int sum=0;
 	while(x.first)
 	{
-		sum+=x.first%10;
-		x.first/=10;
+		sum += x.first % 10;
+		x.first /= 10;
 	}
 
 	while(x.second)
 	{
-		sum+=x.second%10;
-		x.second/=10;
+		sum += x.second % 10;
+		x.second /= 10;
 	}
 	return sum;
 }
-int movingCount(int rows, int columns, int target)
+int movingCount2(int rows, int columns, int target)
 {
 	if(!rows || !columns) return 0; // 边界条件
 	queue<pair<int, int >> point;
 	vector<vector<bool>> visited(rows, vector<bool>(columns));
 	int dx[4] = {0,0,-1,1}, dy[4]={1,-1,0,0};
-	
 	int res = 0;
 	point.push({0, 0});
+
 	while(point.size())
 	{
 		auto i = point.front();
 		point.pop();
 		if(visited[i.first][i.second] || getsumOfdigit1(i) > target) continue;
 		res++;
-		visited[i.second][i.second] = true;
+		visited[i.first][i.second] = true;
 		for(int j=0; j<4; j++)
 		{
-			int x_ = 
+			int x_ = dx[j] + i.first, y_ = dy[j] + i.second;
+			if(x_ >=0 && x_ < rows && y_ >=0 && y_< columns) point.push({x_, y_});
 		}
 	}
-
-	
+	return res;	
 }
 
 
@@ -126,7 +126,8 @@ int movingCount(int rows, int columns, int target)
 int main()
 {
 	// vector<vector<int>>temp =;
-	cout<<countMove(3,4,2)<<endl;
+	// cout<<countMove(3,4,2)<<endl;
 	// cout<<digitSum(1099)<<endl;
 	cout<<movingCount1(2, 3, 4)<<endl;
+	cout<<movingCount2(3, 4, 2)<<endl;
 }
