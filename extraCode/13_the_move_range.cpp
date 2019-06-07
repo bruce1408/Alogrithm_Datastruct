@@ -19,8 +19,7 @@ int getsumOfdigit(int n)
 	{
 		i+=n%10;
 		n = n/10;
-	}
-	
+	} 
 	return i;
 }
 
@@ -45,7 +44,7 @@ int countMove(int m, int n, int key)
 {
 	
 	if(key<0 || m<=0 || n<=0) return 0;
-	vector<vector<bool>>visited(m,vector<bool>(n,false));
+	vector<vector<bool>>visited(m,vector<bool>(n,false)); // mxn 2 dim array
 	int count = countCore(m,n,0,0,key,visited);
 	return count;
 }
@@ -80,7 +79,7 @@ int movingCount1(int num, int rows, int columns)
 }
 
 // 方法3
-int getsumOfdigit1(pair<int, int> x)
+int getsumOfdigit1(pair<int, int> x) // 坐标的各个位相加
 {
 	int sum=0;
 	while(x.first)
@@ -96,6 +95,7 @@ int getsumOfdigit1(pair<int, int> x)
 	}
 	return sum;
 }
+
 int movingCount2(int rows, int columns, int target)
 {
 	if(!rows || !columns) return 0; // 边界条件
@@ -121,12 +121,10 @@ int movingCount2(int rows, int columns, int target)
 	return res;	
 }
 
-
-
 int main()
 {
 	// vector<vector<int>>temp =;
-	// cout<<countMove(3,4,2)<<endl;
+	cout<<countMove(3,4,2)<<endl;
 	// cout<<digitSum(1099)<<endl;
 	cout<<movingCount1(2, 3, 4)<<endl;
 	cout<<movingCount2(3, 4, 2)<<endl;
