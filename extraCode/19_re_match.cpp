@@ -35,7 +35,13 @@
 #include<string>
 using namespace std;
 
-//利用指针。
+/**
+ * 题目：正则表达式匹配
+ * 方法：动态规划的问题
+ * 思路：
+ * 
+ * */
+
 bool matchCore(const char* str, const char*pattern)
 {
 	if(*str=='\0' && *pattern=='\0') return true;
