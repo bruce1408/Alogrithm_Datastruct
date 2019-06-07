@@ -104,9 +104,9 @@ void deleteNode2(ListNode* node,ListNode* head)
 
 /**
  * 题目：除去重复节点的数,但是不删除重复项
- * 方法
+ * 方法 一个指针就可以做
  * 思路：
- * 
+ * 判断一个指针的值和它的后一个节点的值是否相同，如果相同的话，那么就要删除这个节点，然后继续判断
  * */
 ListNode* delete_deplicateNode(ListNode*head)
 {
