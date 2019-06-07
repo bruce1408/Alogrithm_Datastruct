@@ -37,7 +37,7 @@ double num_N(double num, double n)
 		return 1.0;
 }
 
-// 方法2：
+// 方法2：利用递归来做
 double myPow(double x, int n)
 {
 	if(n==0) return 1.0;
@@ -48,6 +48,8 @@ double myPow(double x, int n)
 }
 
 // 方法3：这种方法更愿意接受，因为逻辑上思路更好理解
+// 递归的思想，如果n为0，那么直接返回递归终止条件，然后递归n/2,然后判断n是奇数还是偶数，如果是偶数，那么就自乘，如果是奇数的话，乘上x，最后n小于0的话，那么就是
+// 除以自己
 double myPow1(double x, int n)
 {
 	if(n==0) return 1.0;
