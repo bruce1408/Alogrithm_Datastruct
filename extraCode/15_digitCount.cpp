@@ -21,7 +21,7 @@ int digitCount1(int n)
 	return count;
 }
 
-//利用位运算,遇到有符号数会陷入死循环
+//方法2 利用位运算,遇到有符号数会陷入死循环
 int digitCount2(int n)
 {
 	if(n<1) return 0;
@@ -35,7 +35,7 @@ int digitCount2(int n)
 	return count;
 }
 
-//升级版，数字 1 左移然后在和 n 做与运算；
+//方法3 升级版，数字 1 左移然后在和 n 做与运算；
 int digitCount3(int n)
 {
 	if(n<1) return 0;
