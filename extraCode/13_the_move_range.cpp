@@ -9,7 +9,7 @@ using namespace std;
  * 坐标数位之和大于k的格子，当k是18的时候，(35, 37) 3+5+3+7=18可以满足，问机器人可以到达多少格子
  * 方法 回溯算法
  * 思路：
- * 
+ * 利用递归，给一个二维数组 visited 表示是否之前访问过，然后从坐标0，0开始访问。
 */
 
 int getsumOfdigit(int n)
@@ -23,18 +23,19 @@ int getsumOfdigit(int n)
 	return i;
 }
 
-bool check(int m,int n,int i,int j,int key,vector<vector<bool>> &visited)
+bool check(int m, int n, int i, int j, int key, vector<vector<bool>> &visited)
 {
 	if(i>=0 && j>=0 && i<m && j<n && getsumOfdigit(i)+getsumOfdigit(j)<=key && !visited[i][j]) return true;
 	return false;
 }
 
-int countCore(int m,int n,int i,int j,int key,vector<vector<bool>> &visited)
+int countCore(int m, int n, int i, int j, int key, vector<vector<bool>> &visited)
 {
 	int count = 0;
-	if(check(m,n,i,j,key,visited))
+	if(check(m, n, i, j, key, visited))
 	{
 		visited[i][j]=true;
+		// 上、下、左、右四个方位进行操作；
 		count = 1+countCore(m,n,i,j+1,key,visited)+countCore(m,n,i,j-1,key,visited)+countCore(m,n,i-1,j,key,visited)+countCore(m,n,i+1,j,key,visited);
 	}
 	return count;
@@ -44,8 +45,8 @@ int countMove(int m, int n, int key)
 {
 	
 	if(key<0 || m<=0 || n<=0) return 0;
-	vector<vector<bool>>visited(m,vector<bool>(n,false)); // mxn 2 dim array
-	int count = countCore(m,n,0,0,key,visited);
+	vector<vector<bool>>visited(m,vector<bool>(n, false)); // mxn 2 dim array
+	int count = countCore(m, n, 0, 0, key, visited);
 	return count;
 }
 
