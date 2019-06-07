@@ -126,26 +126,29 @@ ListNode* delete_deplicateNode(ListNode*head)
 }
 
 
-//相关题目2：删除重复项，都删除，注意头指针；这道题对于头指针会变的，要加一个头指针来定位！
-/*删除重复节点的情况很经典。*/
-// ListNode* delete_deplicateNode(ListNode*head)
-// {
-//
-// 	if(!head || !head->next)
-// 		return head;
-// 	ListNode*start = new ListNode(0);
-// 	start->next = head;
-// 	ListNode* pre = start;
-// 	while(pre->next)
-// 	{
-// 		ListNode*cur = pre->next;
-// 		while(cur->next && cur->next->val==cur->val)
-// 			cur = cur->next;
-// 		if(cur!=pre->next) pre->next = cur->next;
-// 		else pre = pre->next;
-// 	}
-// 	return head;
-// }
+/**
+ * 相关题目2：对于重复的节点都删除
+ * 方法 利用双指针
+ * 思路：
+ * 需要一个定位的前驱节点，和一个扫描节点
+ *  */
+ListNode* delete_deplicateNode(ListNode*head)
+{
+	if(!head || !head->next)
+		return head;
+	ListNode*start = new ListNode(0);
+	start->next = head;
+	ListNode* pre = start;
+	while(pre->next)
+	{
+		ListNode*cur = pre->next;
+		while(cur->next && cur->next->val==cur->val) // 扫描重复节点
+			cur = cur->next;
+		if(cur!=pre->next) pre->next = cur->next; // 如果前驱和后继的长度不是1，那么就直接删除中间的节点
+		else pre = pre->next; // 否则就把前驱节点往后遍历即可
+	}
+	return head;
+}
 
 int main()
 {
