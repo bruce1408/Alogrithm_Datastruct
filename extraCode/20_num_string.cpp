@@ -19,7 +19,7 @@ bool isNumeric(string s)
     bool hasE = false, decP = false, sign = false;
     for(int i = 0; i<s.size(); i++)
     {
-        if(s[i]=='e' || s[i]=='E') // 第一种情况，如果出现了e，那么e不能在最后，前面不能有e，而且i不能是首位置元素，例如e2；
+        if(s[i]=='e' || s[i]=='E') // 第一种情况，如果出现了e，那么e不能在最后，前面不能有e，而且e不能是首位置元素，例如e2；
         {
             if(hasE || i==s.size()-1 || !i) return false;
             hasE = true;
