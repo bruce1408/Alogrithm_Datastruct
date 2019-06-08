@@ -37,13 +37,14 @@ using namespace std;
 
 /**
  * 题目：正则表达式匹配
- * 方法：动态规划的问题
- * 思路：递归方法
+ * 方法1 递归
+ * 思路：递归方法，最清晰也最容易理解
  * 若p为空，若s也为空，返回true，反之返回false。
  * 若p的长度为1，若s长度也为1，且相同或是p为'.'则返回true，反之返回false。
  * 若p的第二个字符不为*，若此时s为空返回false，否则判断首字符是否匹配，
  * 且从各自的第二个字符开始调用递归函数匹配。
  * 若p的第二个字符为*，进行下列循环，条件是若s不为空且首字符匹配（包括p[0]为点)
+ * leetcode第10题
  * 
  * 调用递归函数匹配s和去掉前两个字符的p（这样做的原因是假设此时的星号的作用是让前面的字符出现0次，
  * 验证是否匹配），若匹配返回true，否则s去掉首字母（因为此时首字母匹配了，我们可以去掉s的首字母，
@@ -54,6 +55,7 @@ using namespace std;
  * 再举个例子，比如s="", p="a*"，由于s为空，不会进入任何的if和while，只能到最后的return来比较了，
  * 返回true，正确）。
  * */
+
 bool isMatch(string s, string p)
 {
 	if(!p.size()) return !s.size();
@@ -68,9 +70,10 @@ bool isMatch(string s, string p)
 		if(isMatch(s, p.substr(2))) return true;
 		s = s.substr(1);
 	}
-	return isMatch(s, p.substr(2));
+	return isMatch(s, p.substr(2)); // 最后考虑如果s是空，p是"a*"的话;
 }
 
+// 方法2
 bool matchCore(const char* str, const char*pattern)
 {
 	if(*str=='\0' && *pattern=='\0') return true;
