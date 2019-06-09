@@ -24,7 +24,7 @@ void print_list(ListNode* head)
 	}
 }
 
-// 带头结点的做法
+// 带头结点的做法，最好理解
 ListNode* reverseList1(ListNode* head) 
 {
 	if (!head) return head;
