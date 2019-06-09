@@ -1,4 +1,5 @@
-int movingCount(int num, int rows, int columns)
-// {
-
-// }
+res = findKthtotail(head,a);
+	if(res)
+		cout<<res->val<<endl;
+	else
+		cout<<""<<endl;
