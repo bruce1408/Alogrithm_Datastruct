@@ -53,13 +53,14 @@ ListNode* reverseList2(ListNode * head)
 		dummy = head;
 		head = t;	
 	}
+	return dummy;
 }
 
 // 递归解法
 ListNode *reverseList3(ListNode *head)
 {
 	if(head==nullptr) return NULL;
-	ListNode *newHead = reverseList(head->next);
+	ListNode *newHead = reverseList3(head->next);
 	head->next->next = head;
 	head->next = NULL;
 	return newHead;
@@ -83,7 +84,7 @@ int main()
     node5->next = node6;
     node6->next = node7;
 
-	ListNode* rehead = reverseList(head);
+	ListNode* rehead = reverseList1(head);
 	print_list(rehead);
 	return 0;
 }
