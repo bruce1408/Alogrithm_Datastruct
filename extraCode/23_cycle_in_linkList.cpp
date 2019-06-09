@@ -44,7 +44,8 @@ ListNode *entryListNode(ListNode * head)
 	return slow;
 }
 
-// 方法2 利用两个指针，但是不用计算环的长度，当两个指针除了头指针外的第一次相遇时，慢指针开始从头指针出发，和快指针每次只走一步，下一次相遇点就是环的入口！
+// 方法2 利用两个指针，但是不用计算环的长度，当两个指针除了头指针外的第一次相遇时，
+// 慢指针开始从头指针出发，和快指针每次只走一步，下一次相遇点就是环的入口！
 ListNode *entryListNode1(ListNode *head)
 {
 	if(head==nullptr) return nullptr;
@@ -66,6 +67,8 @@ ListNode *entryListNode1(ListNode *head)
 	return fast;
 }
 
+// 方法3 只要是在环内部，断开环，然后相当于求两个链表的交点即可
+// TODO
 int main()
 {
 	ListNode* head = new ListNode(1);
