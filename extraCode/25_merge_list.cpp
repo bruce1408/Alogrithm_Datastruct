@@ -2,7 +2,12 @@
 #include<string>
 #include<stack>
 using namespace std;
-
+/**
+ * 题目：合并链表，两个递增排序的链表，合并链表之后还是递增的顺序。
+ * 方法
+ * 思路：
+ * 
+*/
 struct ListNode
 {
     int val;
