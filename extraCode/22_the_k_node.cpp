@@ -59,7 +59,7 @@ ListNode * findKNode(ListNode * head, int k)
 }
 
 // 方法3 只遍历一遍，那么需要定义两个指针，一个指针是到k-1之后，和另一个指针一起开始从后遍历，知道第一个指针到尾
-ListNode*findKthtotail(ListNode*head,int k)
+ListNode*findKthtotail(ListNode*head, int k)
 {
 	if(head==nullptr || k==0)
 		return NULL;
@@ -99,6 +99,7 @@ int main()
     node5->next = node6;
     node6->next = node7;
 	//1:返回第k个数的话可以用栈
+	cout<<"请输入返回的倒数第 k 个节点的数字："<<endl;
 	int a;
 	cin>>a;
 	// cout<<findKthtotail(head,a);
@@ -112,6 +113,6 @@ int main()
 	// else
 	// 	cout<<""<<endl;
 
-	cout<<"倒数第 "<<a<<" 个节点是 ："<<findKNode(head, a)->val<<endl;
+	cout<<"倒数第 "<<a<<" 个节点是 ："<<findKthtotail(head, a)->val<<endl;
 	return 0;
 }
