@@ -47,6 +47,7 @@ Given tree t:
  1   2
 */
 /*-方法1-*/
+
 bool Dosetree(TreeNode*t1,TreeNode*t2)
 {
 	if(t2==nullptr)
