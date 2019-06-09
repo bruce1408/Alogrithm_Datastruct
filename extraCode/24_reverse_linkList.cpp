@@ -2,7 +2,12 @@
 #include<string>
 #include<stack>
 using namespace std;
-
+/**
+ * 题目：反转链表
+ * 方法 加头结点
+ * 思路：
+ * 链表的经典题目，利用指针操作来对每一个链表进行反转，利用头结点来做
+*/
 struct ListNode
 {
     int val;
@@ -17,10 +22,9 @@ void print_list(ListNode* head)
 		cout<<head->val<<" ";
 		head = head->next;
 	}
-
 }
 
-// Iterative
+// 带头结点的做法
 ListNode* reverseList(ListNode* head) 
 {
 	if (!head) return head;
@@ -36,6 +40,22 @@ ListNode* reverseList(ListNode* head)
 	}
 	return dummy->next;
 }
+
+// 不带头结点的做法
+ListNode* reverseNode(ListNode * head)
+{
+	if(head==nullptr) return NULL;
+	ListNode *dummy = nullptr;
+	while(head)
+	{
+		ListNode *t = head->next;
+		head->next = dummy;
+		dummy = head;
+		head = t;	
+	}
+
+}
+
 
 int main()
 {
