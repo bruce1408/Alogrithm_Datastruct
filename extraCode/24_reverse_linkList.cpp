@@ -25,7 +25,7 @@ void print_list(ListNode* head)
 }
 
 // 带头结点的做法
-ListNode* reverseList(ListNode* head) 
+ListNode* reverseList1(ListNode* head) 
 {
 	if (!head) return head;
 	ListNode *dummy = new ListNode(-1);
@@ -41,8 +41,8 @@ ListNode* reverseList(ListNode* head)
 	return dummy->next;
 }
 
-// 不带头结点的做法
-ListNode* reverseNode(ListNode * head)
+// 不带头结点的做法，理解起来稍微抽象一些
+ListNode* reverseList2(ListNode * head)
 {
 	if(head==nullptr) return NULL;
 	ListNode *dummy = nullptr;
@@ -53,9 +53,17 @@ ListNode* reverseNode(ListNode * head)
 		dummy = head;
 		head = t;	
 	}
-
 }
 
+// 递归解法
+ListNode *reverseList3(ListNode *head)
+{
+	if(head==nullptr) return NULL;
+	ListNode *newHead = reverseList(head->next);
+	head->next->next = head;
+	head->next = NULL;
+	return newHead;
+}
 
 int main()
 {
