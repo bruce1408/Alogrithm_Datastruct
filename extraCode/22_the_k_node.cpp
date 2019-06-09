@@ -67,13 +67,13 @@ ListNode*findKthtotail(ListNode*head, int k)
 	int n = k-1;
 	ListNode* cur = head;
 	ListNode* p2 = head;
-	while(cur && n>=0)
+	while(cur && n>=0) // 第一个指针走到 k-1 的位置
 	{
 		cur = cur->next;
 		n--;
 	}
 	
-	while(cur)
+	while(cur) // 然后第二个指针开始走，知道第一个指针走到结尾，就停下来，当前第二个指针所指向的位置就是倒数第 k 个位置；
 	{
 		cur = cur->next;
 		p2 = p2->next;
@@ -103,8 +103,6 @@ int main()
 	int a;
 	cin>>a;
 	// cout<<findKthtotail(head,a);
-	
-	
 	//2:返回节点
 	// ListNode* res;
 	// res = findKthtotail(head,a);
