@@ -1,10 +1,24 @@
-/*572. Subtree of Another Tree
+#include<iostream>
+#include<vector>
+#include<stack>
+using namespace std;
 
-这个题目是判断是否是子树。但是从剑指offer上看，exampl 2其实也是它的子树
+struct TreeNode 
+{
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
 
-Given tree s:
-
-     3
+/**
+ * 题目：树的子结构，输入两棵二叉树 A 和 B，然后判断B是不是A的子结构；
+ * 方法
+ * 思路：572. Subtree of Another Tree
+ * 这个题目是判断是否是子树。但是从剑指offer上看，exampl 2其实也是它的子树
+ * Given tree s:
+ * 
+ *   3
     / \
    4   5
   / \
@@ -33,22 +47,6 @@ Given tree t:
   / \
  1   2
 */
-
-
-
-#include<iostream>
-#include<vector>
-#include<stack>
-using namespace std;
-
-struct TreeNode 
-{
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
 /*-----------------------------------------------------------方法1-----------------------------------------------------*/
 bool Dosetree(TreeNode*t1,TreeNode*t2)
 {
@@ -83,9 +81,6 @@ bool hasSubtree(TreeNode*t1, TreeNode*t2)
 	
 }
 
-
-
-
 int main()
 {
 	TreeNode *head1 = new TreeNode(3);
@@ -103,9 +98,7 @@ int main()
 	TreeNode *h22 = new TreeNode(7);
 	head2->left = h21;
 	head2->right = h22;
-	
 	cout<<hasSubtree(head1,head2);
-	
 	return 0;
 }
 
