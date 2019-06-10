@@ -6,8 +6,8 @@ using namespace std;
 struct TreeNode 
 {
 	int val;
-	TreeNode *left;
-	TreeNode *right;
+	TreeNode *left; //左子节点
+	TreeNode *right; // 右子节点
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
@@ -46,7 +46,6 @@ Given tree t:
   / \
  1   2
 */
-/*-方法1-*/
 
 bool Dosetree(TreeNode*t1,TreeNode*t2)
 {
