@@ -49,12 +49,9 @@ Given tree t:
 
 bool Dosetree(TreeNode*t1, TreeNode*t2)
 {
-	if(t2==nullptr)
-		return true;
-	if(t1==nullptr)
-		return false;
-	if(t1->val != t2->val)
-		return false;
+	if(t2==nullptr) return true;
+	if(t1==nullptr) return false;
+	if(t1->val != t2->val) return false;
 	return Dosetree(t1->left,t2->left) && Dosetree(t1->right,t2->right);
 }
 
