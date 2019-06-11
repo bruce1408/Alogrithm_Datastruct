@@ -47,12 +47,13 @@ Given tree t:
  1   2
 */
 
+// 第一版代码，写的太啰嗦了
 bool Dosetree(TreeNode*t1, TreeNode*t2)
 {
 	if(t2==nullptr) return true;
 	if(t1==nullptr) return false;
 	if(t1->val != t2->val) return false;
-	return Dosetree(t1->left,t2->left) && Dosetree(t1->right,t2->right);
+	return Dosetree(t1->left, t2->left) && Dosetree(t1->right, t2->right);
 }
 
 bool hasSubtree(TreeNode*t1, TreeNode*t2)
@@ -62,7 +63,7 @@ bool hasSubtree(TreeNode*t1, TreeNode*t2)
 	{
 		if(t1->val==t2->val)
 		{
-			result = Dosetree(t1,t2);
+			result = Dosetree(t1, t2);
 		}
 		if(!result)
 		{
@@ -84,15 +85,12 @@ bool isPart(TreeNode* tr1, TreeNode* tr2)
 	return (isPart(tr1->left, tr2->left) && isPart(tr1->right, tr2->right));
 }
 
-bool subTree(TreeNode *tr1, TreeNode *tr2)
+bool subTree(TreeNode *tr1, TreeNode *tr2) // 主方法
 {
 	if(tr1==nullptr) return false;
 	if(tr2==nullptr) return true;
 	if(isPart(tr1, tr2)) return true;
-	else 
-	{
-		return (subTree(tr1->left, tr2) || subTree(tr1->right, tr2));
-	}
+	else return (subTree(tr1->left, tr2) || subTree(tr1->right, tr2));
 }
 
 int main()
