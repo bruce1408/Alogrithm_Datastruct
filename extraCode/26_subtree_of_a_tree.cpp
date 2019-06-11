@@ -84,7 +84,15 @@ bool subTree(TreeNode *tr1, TreeNode *tr2)
 {
 	if(tr1==nullptr) return false;
 	if(tr2==nullptr) return true;
-	
+	if(tr1->val == tr2->val)
+	{
+		return (subTree(tr1->left, tr2->left) && subTree(tr1->right, tr2->right));
+	}
+	else 
+	{
+		return (subTree(tr1->left, tr2) && subTree(tr1->right, tr2));
+	}
+	return false;
 }
 
 int main()
@@ -104,7 +112,8 @@ int main()
 	TreeNode *h22 = new TreeNode(7);
 	head2->left = h21;
 	head2->right = h22;
-	cout<<hasSubtree(head1,head2);
+	cout<<hasSubtree(head1,head2)<<endl;
+	cout<<subTree(head1, head2)<<endl;
 	return 0;
 }
 
