@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<sstream>
 #include<stack>
 using namespace std;
 
@@ -77,7 +78,7 @@ bool hasSubtree(TreeNode*t1, TreeNode*t2)
 	return result;
 }
 
-// 重新做20190610
+// 重新做20190610, 双层递归
 bool isPart(TreeNode* tr1, TreeNode* tr2)
 {
 	if(tr2 != nullptr) return true;
@@ -91,6 +92,23 @@ bool subTree(TreeNode *tr1, TreeNode *tr2) // 主方法
 	if(tr2==nullptr) return true;
 	if(isPart(tr1, tr2)) return true;
 	else return (subTree(tr1->left, tr2) || subTree(tr1->right, tr2));
+}
+
+// TODO方法2 序列化和反序列化
+bool isSubtree(TreeNode* s, TreeNode* t) {
+	ostringstream os1, os2;
+	serialize(s, os1);
+	serialize(t, os2);
+	return os1.str().find(os2.str()) != string::npos;
+}
+
+void serialize(TreeNode* node, ostringstream& os) {
+	if (!node) os << ",#";
+	else {
+		os << "," << node->val;
+		serialize(node->left, os);
+		serialize(node->right, os);
+	}
 }
 
 int main()
