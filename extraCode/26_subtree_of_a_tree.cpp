@@ -77,6 +77,13 @@ bool hasSubtree(TreeNode*t1, TreeNode*t2)
 		}
 	}
 	return result;
+}
+
+// 重新做20190610
+bool subTree(TreeNode *tr1, TreeNode *tr2)
+{
+	if(tr1==nullptr) return false;
+	if(tr2==nullptr) return true;
 	
 }
 
