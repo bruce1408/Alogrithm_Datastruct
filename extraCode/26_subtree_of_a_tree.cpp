@@ -46,6 +46,10 @@ Given tree t:
    4
   / \
  1   2
+ 方法 递归
+ 思路：
+ 利用递归的思路，首先判段是不是子树头结点是否是空，或者是子树和树1是否相同，如果不同，返回false，
+ 否则，返回子函数的isPart进行比较左子节点和右子节点是否相同，
 */
 
 // 第一版代码，写的太啰嗦了
@@ -78,7 +82,7 @@ bool hasSubtree(TreeNode*t1, TreeNode*t2)
 	return result;
 }
 
-// 重新做20190610, 双层递归
+// 重新做20190610, 双层递归，最好的解法之一；
 bool isPart(TreeNode* tr1, TreeNode* tr2)
 {
 	if(tr2 != nullptr) return true;
@@ -89,27 +93,28 @@ bool isPart(TreeNode* tr1, TreeNode* tr2)
 bool subTree(TreeNode *tr1, TreeNode *tr2) // 主方法
 {
 	if(tr1==nullptr) return false;
-	if(tr2==nullptr) return true;
 	if(isPart(tr1, tr2)) return true;
 	else return (subTree(tr1->left, tr2) || subTree(tr1->right, tr2));
 }
 
 // TODO方法2 序列化和反序列化
-bool isSubtree(TreeNode* s, TreeNode* t) {
-	ostringstream os1, os2;
-	serialize(s, os1);
-	serialize(t, os2);
-	return os1.str().find(os2.str()) != string::npos;
-}
-
-void serialize(TreeNode* node, ostringstream& os) {
-	if (!node) os << ",#";
-	else {
-		os << "," << node->val;
-		serialize(node->left, os);
-		serialize(node->right, os);
+class Solution{
+	bool isSubtree(TreeNode* s, TreeNode* t) {
+		ostringstream os1, os2;
+		serialize(s, os1);
+		serialize(t, os2);
+		return os1.str().find(os2.str()) != string::npos;
 	}
-}
+
+	void serialize(TreeNode* node, ostringstream& os) {
+		if (!node) os << ",#";
+		else {
+			os << "," << node->val;
+			serialize(node->left, os);
+			serialize(node->right, os);
+		}
+	}
+};
 
 int main()
 {
