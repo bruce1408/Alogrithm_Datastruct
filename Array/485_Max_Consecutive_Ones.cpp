@@ -3,7 +3,7 @@
 using namespace std;
 
 // 该方法超时了
-class Solution {
+class Solution1 {
 public:
     int findMaxConsecutiveOnes(vector<int>& nums) {
         int count = 1, maxnum = 0;
@@ -25,21 +25,36 @@ public:
 };
 
 //方法 2
-class Solution {
+// class Solution2 {
+// public:
+//     int findMaxConsecutiveOnes(vector<int>& nums) {
+//         if (nums.size() == 1) return nums[0]==1? 1 : 0;
+//         int count = 0, maxnum = 0;
+//         for(int i=0;i<nums.size();i++)
+//         {
+//             if(nums[i]==1) count+=1;
+//             else count=0;
+//             maxnum = max(maxnum, count);
+//         }
+//         return maxnum;
+//     }
+// };
+
+
+// 方法3
+class Solution3 {
 public:
     int findMaxConsecutiveOnes(vector<int>& nums) {
         if (nums.size() == 1) return nums[0]==1? 1 : 0;
         int count = 0, maxnum = 0;
         for(int i=0;i<nums.size();i++)
         {
-            if(nums[i]==1) count+=1;
-            else count=0;
+            count = (nums[i]+count)*nums[i];
             maxnum = max(maxnum, count);
         }
         return maxnum;
     }
 };
-
 int main()
 {  
     vector<int> num = {1,1};
