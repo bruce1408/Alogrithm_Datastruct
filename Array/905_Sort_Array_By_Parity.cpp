@@ -3,7 +3,6 @@
 using namespace std;
 
 
-<<<<<<< HEAD
 // vector<int> sortArrayByParity(vector<int>& A) 
 // {
 //     /*
@@ -76,7 +75,9 @@ vector<int> sortArrayByParity(vector<int>& A)
             }
         }
         else slow+=1;
-=======
+    }
+}
+
 vector<int> sortArrayByParity(vector<int>& A) 
 {
     /*
@@ -96,13 +97,11 @@ vector<int> sortArrayByParity(vector<int>& A)
             }
             if(i<A.size() && j<A.size()) swap(A[i],A[j]);
         }
->>>>>>> f2bc59436f4a9fc1aa237d00aad3fd030e1d49de
     }
     return A;
 }
 
 
-<<<<<<< HEAD
 vector<int> sortArrayByParity4(vector<int>& A)
 {
     int fast = 0;
@@ -124,11 +123,10 @@ int main()
 {
     vector<int> re = {3,1,2,4};
     for(auto i:sortArrayByParity4(re))
-=======
 // 方法二：
 vector<int> sortArrayByParity(vector<int>& A) 
 {
-    std::sort(A.begin(), A.end(), [](int& a,int& b)->bool{ return a % 2 < b % 2; });
+    sort(A.begin(), A.end(), [](int& a,int& b)->bool{ return a % 2 < b % 2; });
     return A;
 }
 
@@ -148,11 +146,11 @@ vector<int> sortArrayByParity(vector<int>& A)
     }
     return A;       
 }
+
 int main()
 {
     vector<int> re = {3,2,1,4};
     for(auto i:sortArrayByParity(re))
->>>>>>> f2bc59436f4a9fc1aa237d00aad3fd030e1d49de
     {
         cout<<i<<endl;
     }
