@@ -121,7 +121,7 @@ class Solution1
 		}
 		return dummy->next;
 	}
-}
+};
 
 
 

@@ -44,6 +44,10 @@ int findMin1(vector<int>& nums)
 int main()
 {
     vector<int> res = {4, 5, 6, 7, 0, 1, 2};
+<<<<<<< HEAD
     int k = findMin(res);
+=======
+    int k = findMin1(res);
+>>>>>>> f2bc59436f4a9fc1aa237d00aad3fd030e1d49de
     cout<<k<<endl;
 }
