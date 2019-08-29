@@ -67,7 +67,7 @@ vector<vector<int>> flipAndInvertImage2(vector<vector<int>> &A)
     vector<vector<int>> res(A.size()); // vector知识点，不可以用数组下标，而是push_back
     for (int i = 0; i < A.size(); i++)
     {
-        for (int j = A[0].size() - 1; j >= 0; j--)
+        for (int j = A[i].size() - 1; j >= 0; j--)
         {
             res[i].push_back(A[i][j] ^ 1);
         }
