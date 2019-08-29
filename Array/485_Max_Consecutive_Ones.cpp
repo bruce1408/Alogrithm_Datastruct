@@ -55,11 +55,11 @@ public:
         return maxnum;
     }
 };
+
 int main()
 {  
     vector<int> num = {1,1};
     Solution s;
     int a = s.findMaxConsecutiveOnes(num);
     cout<<"the result is:"<<a<<endl;
-
 }
