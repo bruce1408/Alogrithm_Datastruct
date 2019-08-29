@@ -82,11 +82,12 @@ int main()
         {1, 0, 1},
         {0, 0, 0}};
 
+    // 方法1
     // Solution s;
     // vector<vector<int>> res = s.flipAndInvertImage(p);
-    // vector<vector<int>> res;
-    // res = flipAndInvertImage1(p);
-
+    // 方法2
+    // vector<vector<int>> res = flipAndInvertImage1(p);
+    // 方法3
     vector<vector<int>> res = flipAndInvertImage2(p);
     for (int i = 0; i < 3; i++)
     {
