@@ -1,3 +1,1 @@
-stream>
-// #include<vector>
-// using namespace std;
+	for (auto &i: res) reverse(res.begin(), res.end());
