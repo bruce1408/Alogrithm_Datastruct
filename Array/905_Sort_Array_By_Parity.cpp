@@ -52,7 +52,7 @@ using namespace std;
 // }
 
 
-
+// 超时
 vector<int> sortArrayByParity(vector<int>& A)
 {
     int len = A.size();
@@ -123,29 +123,32 @@ int main()
 {
     vector<int> re = {3,1,2,4};
     for(auto i:sortArrayByParity4(re))
-// 方法二：
-vector<int> sortArrayByParity(vector<int>& A) 
-{
-    sort(A.begin(), A.end(), [](int& a,int& b)->bool{ return a % 2 < b % 2; });
-    return A;
+
+    // 方法二：
+    vector<int> sortArrayByParity(vector<int>& A) 
+    {
+        sort(A.begin(), A.end(), [](int& a,int& b)->bool{ return a % 2 < b % 2; });
+        return A;
+    }
+
+    // 方法三： 重点掌握的方法
+    vector<int> sortArrayByParity(vector<int>& A) 
+    {
+        int last = 0;
+        for(int i = 0; i < A.size(); i++)
+        {
+            if(!(A[i] & 1)) // 是偶数
+            {
+                int t  = A[last];
+                A[last] = A[i];
+                A[i] = t;
+                last++;
+            }
+        }
+        return A;       
+    }
 }
 
-// 方法三： 重点掌握的方法
-vector<int> sortArrayByParity(vector<int>& A) 
-{
-    int last = 0;
-    for(int i = 0; i < A.size(); i++)
-    {
-        if(!(A[i] & 1)) // 是偶数
-        {
-            int t  = A[last];
-            A[last] = A[i];
-            A[i] = t;
-            last++;
-        }
-    }
-    return A;       
-}
 
 int main()
 {
@@ -155,4 +158,19 @@ int main()
         cout<<i<<endl;
     }
     return 0;
+}
+
+
+vector<int> sortArrayByParity(vector<int>& A) {
+    int i = 0;
+    while(i<A.size()){
+        int j = i;
+        if(A[j]%2==0)
+        {
+            int temp = A[j];
+            A[j] = A[i+1];
+            A[i+1] = temp;
+            i+=1;
+        }
+    }
 }
