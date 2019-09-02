@@ -1,3 +1,7 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
 
 /**
  * The Fibonacci numbers, commonly denoted F(n) form a sequence,
@@ -11,3 +15,38 @@
  * Output: 1
  * Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.
 */
+
+/**
+ * 方法 1 菲波那切数列数列
+*/
+int fib(int N)
+{
+    if (N == 0)
+        return 0;
+    if (N == 1)
+        return 1;
+    int a = 0, b = 1;
+    int c = 0;
+    for (int i = 1; i < N; i++)
+    {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return c;
+}
+
+/**
+ * 方法 2 利用动态规划来做
+*/
+int fib2(int N)
+{
+    if (N < 2)
+        return N;
+    return fib2(N - 1) + fib2(N - 2);
+}
+
+int main()
+{
+    cout << fib2(5) << endl;
+}
