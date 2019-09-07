@@ -5,30 +5,30 @@
 #include <vector>
 using namespace std;
 
-class Solution
-{
-public:
-	string largestNumber(vector<int> &nums)
-	{
-		sort(nums.begin(), nums.end(), compare);
-		string res;
-		for (auto n : nums)
-		{
-			res += to_string(n);
-		}
+// class Solution
+// {
+// public:
+// 	string largestNumber(vector<int> &nums)
+// 	{
+// 		sort(nums.begin(), nums.end(), compare);
+// 		string res;
+// 		for (auto n : nums)
+// 		{
+// 			res += to_string(n);
+// 		}
 
-		auto pos = res.find_first_not_of('0');
-		return pos == string::npos ? "0" : res.substr(pos);
-	}
+// 		auto pos = res.find_first_not_of('0');
+// 		return pos == string::npos ? "0" : res.substr(pos);
+// 	}
 
-private:
-	static bool compare(int a, int b)
-	{
-		auto strA = to_string(a);
-		auto strB = to_string(b);
-		return (strA + strB > strB + strA);
-	}
-};
+// private:
+// 	static bool compare(int a, int b)
+// 	{
+// 		auto strA = to_string(a);
+// 		auto strB = to_string(b);
+// 		return (strA + strB > strB + strA);
+// 	}
+// };
 
 int main()
 {
@@ -54,7 +54,7 @@ int main()
 	// else
 	// cout<<stb+sta<<endl;
 
-	string s("12345asdf");
+	// string s("12345asdf");
 	// string aa=s.substr(2);
 	// cout<<aa<<endl;
 	// cout<<max(9,10)<<endl;
@@ -79,15 +79,24 @@ int main()
 	// i++;
 	// cout<<i<<endl;
 
-	string a = "hello";
-	string b = "elh";
-	for (auto i : b)
+	// string a = "hello";
+	// string b = "elh";
+	// for (auto i : b)
+	// {
+	// 	if (a.find(i) != a.npos)
+	// 	{
+	// 		cout << i << endl;
+	// 	}
+	// }
+
+	for (int i = 5; i > 0;)
 	{
-		if (a.find(i) != a.npos)
+		cout << "before" << i << endl;  //运算符的优先级
+		if (--i < 5)
 		{
-			cout << i << endl;
+			cout << "after" << i << endl;
+			// break;
 		}
 	}
-
 	return 0;
 }
