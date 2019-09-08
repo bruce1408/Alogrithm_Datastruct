@@ -84,10 +84,7 @@ int arrayPairSum2(vector<int> &nums)
             }
             // i++; //切记不可使用这一句话，这一句是对于重复数字来讲的情况
         }
-        else
-        {
-            i++;
-        }
+        else i++;
     }
     return sunMun;
 }

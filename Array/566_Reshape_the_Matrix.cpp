@@ -37,8 +37,7 @@ vector<vector<int>> matrixReshape(vector<vector<int>> &nums, int r, int c)
     int row = nums.size(), column = nums[0].size();
     if (row * column != r * c)
         return nums;
-    vector<vector<int>> res(r, vector<int>(c));
-    vector<int> temp(row * column);
+    vector<vector<int>> res(r, vector<int>(c)); // 二维矩阵初始化
     for (int i = 0; i < r; i++)
     {
         for (int j = 0; j < c; j++)

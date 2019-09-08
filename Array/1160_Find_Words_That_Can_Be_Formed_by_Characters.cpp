@@ -61,13 +61,13 @@ int countCharacters(vector<string> &words, string chars)
     return count;
 }
 
-
 /**
  * 方法 2,和上面的方法一样，但是在84行非常简洁，可以替换方法 1
  * 50行到55行代码，主要利用运算符的优先级
 */
-class Solution{
-    public:
+class Solution
+{
+public:
     int countCharacters(vector<string> &words, string chars)
     {
         int count = 0;
@@ -82,14 +82,15 @@ class Solution{
             bool match = true;
             for (char &c : word)
             {
-                if(--temp[c-'a']<0) // 先减后判断
+                if (--temp[c - 'a'] < 0) // 先减后判断
                 {
                     match = false;
                     break;
-                } 
+                }
             }
-            
-            if (match) count += word.length();
+
+            if (match)
+                count += word.length();
         }
         return count;
     }
