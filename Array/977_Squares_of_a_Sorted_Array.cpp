@@ -43,12 +43,12 @@ vector<int> sortedSquares2(vector<int> &A)
 
         if (abs(A[slow]) < abs(A[fast]))
         {
-            res[fast - slow] = (rightNum);
+            res[fast - slow] = rightNum;
             fast--;
         }
         else
         {
-            res[fast - slow] = (leftNum);
+            res[fast - slow] = leftNum;
             slow++;
         }
     }
