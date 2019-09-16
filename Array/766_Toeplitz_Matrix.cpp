@@ -57,22 +57,42 @@ bool isToeplitzMatrix(vector<vector<int>> &matrix)
     return true;
 }
 
-
 /**
- * 方法 2比较暴力，直接是每一个数字都和它右下角的数字进行对比，然后得到结果
+ * 方法 2比较暴力，直接是每一个数字都和它右下角的数字进行对比，然后得到结果,和方法 1
+ * 思路很像
 */
-bool isToeplitzMatrix1(vector<vector<int>>&matrix)
+bool isToeplitzMatrix1(vector<vector<int>> &matrix)
 {
-    for(int i=0;i<matrix.size()-1;i++)
+    for (int i = 0; i < matrix.size() - 1; i++)
     {
-        for(int j=0;j<matrix[i].size()-1;j++)
+        for (int j = 0; j < matrix[i].size() - 1; j++)
         {
-            if(matrix[i][j]!=matrix[i+1][j+1]) return false;
+            if (matrix[i][j] != matrix[i + 1][j + 1])
+                return false;
         }
     }
     return true;
 }
 
+/**
+ * 方法 3 从矩阵看是从左下到右上遍历，行从row-1 to 0, 列从0 to column-1；
+*/
+bool isToeplitzMatrix2(vector<vector<int>> &matrix)
+{
+    int row = matrix.size(), column = matrix[0].size();
+    int p = row - 1, q = 0;
+    while (p >= 0 && q < column)
+    {
+        int i = p, j = q, val = matrix[i][j];
+        while (i + 1 < row && j + 1 < column)
+        {
+            if (val != matrix[i++][j++])
+                return false;
+        }
+        (p > 0) ? --p : ++q;
+    }
+    return true;
+}
 
 int main()
 {
@@ -82,5 +102,5 @@ int main()
         {9, 5, 1, 2}};
     // vector<vector<int>> res = {{1, 2},
     //                            {2, 2}};
-    cout << isToeplitzMatrix(res) << endl;
+    cout << isToeplitzMatrix2(res) << endl;
 }
