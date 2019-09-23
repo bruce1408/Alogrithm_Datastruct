@@ -23,8 +23,6 @@ void preTraverse(TreeNode *T)
     }
 }
 
-
-
 //判断两棵树是否是相同的
 bool symmetricBinarytree(TreeNode*head1,TreeNode*head2)
 {
