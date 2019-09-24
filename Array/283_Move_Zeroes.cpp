@@ -49,19 +49,6 @@ void moveZeroes(vector<int> &nums)
  * 方法 2,利用两个指针,然后其中一个指向的是非0的元素,如果存在0,那么第一个非0的元素和其交换位置即可时间复杂度是O(n),空间复杂度是O(1)
 */
 
-// void moveZeroes1(vector<int> &nums)
-// {
-//     int notZeros = 0, zeroIndex = 0;
-//     for(int i=0,j=0;i<nums.size();i++)
-//     {
-//         if(nums[i]==0)
-//         {
-//             ;
-
-//         }
-//     }
-
-// }
 void moveZeroes2(vector<int> &nums)
 {
     /*
