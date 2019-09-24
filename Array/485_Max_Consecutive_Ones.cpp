@@ -36,6 +36,8 @@ int findMaxConsecutiveOnes(vector<int>& nums){
 
 /**
  * 方法 2,此方法超时,记录的连续的出现1的个数,但是这个思路自然,写法并不讨巧.
+ * 它主要是把当前的数字和下一个数字做了一个比较，认为是连续且相同的就加1，其实
+ * 不用这样做。
  * */
 class Solution1 {
 public:
