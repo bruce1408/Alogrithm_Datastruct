@@ -18,7 +18,6 @@ using namespace std;
  * 
  * 给一个数组和整数k,找到范围在k的重复数字
 */
-
 bool containsNearbyDuplicate1(vector<int>& nums, int k)
 {
 	unordered_map<int, int>res;
