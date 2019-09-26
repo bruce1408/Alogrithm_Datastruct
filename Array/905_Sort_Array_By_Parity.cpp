@@ -16,8 +16,23 @@ using namespace std;
 /**
  * 方法 1：
  * 偶数全部放前面，奇数全部放后面 [3,2,1,4]==> [2,4,1,3]
- * 不过复杂度来讲的话有点高；
+ * 设置两个指针，一个是i，从0开始遍历数组，还有一个是j，从0开始。i遍历数组，如果这个数字是偶数的话，
+ * 那么就是当前的指针i指向的数和j开始交换位置，同时j++，如果不是的话，那么继续i向后遍历。只用时间复杂度是
+ * O(n)即可；
 */
+vector<int> sortArrayByParity_1(vector<int> &A)
+{
+    for (int i = 0, j = 0; i < A.size(); i++)
+    {
+        if ((A[i] & 1) == 0)
+        {
+            swap(A[i], A[j]);
+            j++;
+        }
+    }
+    return A;
+}
+
 vector<int> sortArrayByParity1(vector<int> &A)
 {
     int j = 0;
@@ -130,10 +145,12 @@ vector<int> sortArrayByParity5(vector<int> &A)
     int j = A.size() - 1;
     while (i < j)
     {
-        if (A[i] % 2 == 0) i++;
+        if (A[i] % 2 == 0)
+            i++;
         else
         {
-            if (A[j] % 2 != 0) j--; // 如果尾指针也是奇数，那么减1
+            if (A[j] % 2 != 0)
+                j--;           // 如果尾指针也是奇数，那么减1
             if (A[j] % 2 == 0) // 偶数的话互换
             {
                 swap(A[i], A[j]);
@@ -147,7 +164,7 @@ vector<int> sortArrayByParity5(vector<int> &A)
 int main()
 {
     vector<int> re = {0, 1, 2};
-    for (auto i : sortArrayByParity5(re))
+    for (auto i : sortArrayByParity_1(re))
     {
         cout << i << endl;
     }
