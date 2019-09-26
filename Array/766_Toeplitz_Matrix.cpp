@@ -22,17 +22,19 @@ using namespace std;
 */
 
 /**
- * 方法 1思路很自然，就是把第一行的数字和第一列的数字遍历，然后每次遇到这个数字的时候就行与列同时
+ * 方法 1思路很自然，就是把第一行的数字和第一列的数字遍历，第一行的数字列为0，所以初始可以表示为[i][0]
+ * 然后数组的下标不得超过矩阵范围，每次行和列加1，加1之后正是斜对角的元素，如果matrix[indexI][indexJ] 和
+ * matrix[indexI + 1][indexJ + 1]不相等，那么不满足条件，直接return false；否则，接着判断第一列的情况；
  * 加1与它进行对比，如果不等直接返回false，如果相同的话那么就最后返回true。
 */
 bool isToeplitzMatrix(vector<vector<int>> &matrix)
 {
     int row = matrix.size();
     int column = matrix[0].size();
-    for (int i = 0; i < row; i++)
+    for (int i = 0; i < row; i++) // 第一行的情况
     {
         int indexI = i, indexJ = 0;
-        while (indexJ < row - 1 && indexJ < column - 1)
+        while (indexJ < row - 1 && indexJ < column - 1) 
         {
             if (matrix[indexI][indexJ] != matrix[indexI + 1][indexJ + 1])
             {
@@ -42,7 +44,7 @@ bool isToeplitzMatrix(vector<vector<int>> &matrix)
         }
     }
 
-    for (int j = 0; j < column; j++)
+    for (int j = 0; j < column; j++) // 第一列的情况
     {
         int indexI = 0, indexJ = j;
         while (indexI < row - 1 && indexJ < column - 1)
@@ -75,7 +77,8 @@ bool isToeplitzMatrix1(vector<vector<int>> &matrix)
 }
 
 /**
- * 方法 3 从矩阵看是从左下到右上遍历，行从row-1 to 0, 列从0 to column-1；
+ * 方法 3 从矩阵看是从左下到右上遍历，行p从row-1 to 0, 列q从0 to column-1；然后行和列p, q 加1，看这个数和加1后的数组值
+ * 是否相等，如果不等直接返回false；遍历后 p>0的话p--,否则就是q++；
 */
 bool isToeplitzMatrix2(vector<vector<int>> &matrix)
 {
@@ -89,7 +92,7 @@ bool isToeplitzMatrix2(vector<vector<int>> &matrix)
             if (val != matrix[i++][j++])
                 return false;
         }
-        (p > 0) ? --p : ++q;
+        (p > 0) ? --p : ++q; // p 和 q 的变化关系
     }
     return true;
 }
