@@ -11,6 +11,7 @@ using namespace std;
  * The outputs [4,2,3,1], [2,4,1,3], and [4,2,1,3] would also be accepted.
  * 
  * 返回一个偶数在前，奇数在后的数组；
+ * *再做一次
 */
 
 /**
@@ -20,7 +21,7 @@ using namespace std;
  * 那么就是当前的指针i指向的数和j开始交换位置，同时j++，如果不是的话，那么继续i向后遍历。只用时间复杂度是
  * O(n)即可；
 */
-vector<int> sortArrayByParity_1(vector<int> &A)
+vector<int> sortArrayByParity(vector<int> &A)
 {
     for (int i = 0, j = 0; i < A.size(); i++)
     {
@@ -33,18 +34,23 @@ vector<int> sortArrayByParity_1(vector<int> &A)
     return A;
 }
 
+/**
+ * 方法 2，遍历数组，如果当前的数字是奇数，那么来一个新的指针j，让它指向当前的数字下标，
+ * 然后这个指针j的范围不能超过数组长度，如果j从i开始向后遍历，如果是偶数，直接退出当前的
+ * 循环，否则j继续遍历；偶数的情况j退出之后，j和i都不超过数组长度的情况，交换i和j的数字即可； 
+ * */
 vector<int> sortArrayByParity1(vector<int> &A)
 {
     int j = 0;
     for (int i = 0; i < A.size(); i++)
     {
-        if (A[i] % 2 != 0) // 先判断是不是奇数，如果是
+        if (A[i] % 2 != 0) // 是奇数就进行交换
         {
             j = i;
             while (j < A.size())
             {
                 if (A[j] % 2 == 0)
-                    break;
+                    break; // 只要找到了一个偶数就停止寻找
                 else
                     ++j;
             }
@@ -56,11 +62,12 @@ vector<int> sortArrayByParity1(vector<int> &A)
 }
 
 /**
- * 方法 1，和上面的思路差不多一样，但是比上面的很自然，就是用两个指针来做，
+ * 方法 3，和上面的思路差不多一样，但是比上面的很自然，就是用两个指针来做，
  * 一个指向当前，还有一个指向下一个数，指当前数先判断是否是奇数，如果是奇数，那么下一下
  * 指针则判断是否是偶数，如果是偶数，交换两个数的位置，然后break退出，
- * 否则，那个快指针继续指向下一个数，知道数组末尾位置。
- * 时间复杂度：由于是两个指针，应该是nlgn的时间复杂度；
+ * 否则，那个快指针继续指向下一个数，知道数组末尾位置。方法 3和 方法 1的思路一样，但是
+ * 写法上多了一重循环，建议以方法1为准即可！
+ * 时间复杂度：由于是两个指针，应该是nlogn的时间复杂度；
 */
 vector<int> sortArrayByParity_(vector<int> &res)
 {
@@ -86,7 +93,9 @@ vector<int> sortArrayByParity_(vector<int> &res)
     return res;
 }
 
-// 方法 2 这个就是利用C++排序的比较算法，很取巧的算法。
+/**
+ * 方法 4 这个就是利用C++排序的比较算法，很取巧的算法。
+ * */
 vector<int> sortArrayByParity2(vector<int> &A)
 {
     std::sort(A.begin(), A.end(), [](int &a, int &b) -> bool { return a % 2 < b % 2; });
@@ -94,29 +103,7 @@ vector<int> sortArrayByParity2(vector<int> &A)
 }
 
 /**
- * 方法 3 可以叫做偶数前移方法, 这种方法的思路两个指针，慢指针和快指针，快、慢初始设置为0，
- * 快指针遍历数组，先判断是不是偶数，如果是偶数就交换，和慢指针指向的数字交换，然后满指针交换
- * 之后就要自加1次，比如2，3，1，4，第一次2和2交换之后，慢指针加1指向3，然后快指针遍历到4的时候，
- * 是偶数，需要和慢指针交换，那么就是 4 和 3 交换。
- * */
-vector<int> sortArrayByParity3(vector<int> &A)
-{
-    int slow = 0;
-    for (int fast = 0; fast < A.size(); fast++)
-    {
-        if (!(A[fast] & 1)) // 如果快指针遍历的是偶数的话，快慢指针互换，同时慢指针加1；
-        {
-            int temp = A[slow];
-            A[slow] = A[fast];
-            A[fast] = temp;
-            slow++;
-        }
-    }
-    return A;
-}
-
-/**
- * 方法 4 设置两个数组，一个存奇数一个存偶数然后合并。
+ * 方法 5，设置两个数组，一个存奇数一个存偶数然后合并。
  * 之后把两个数组合并
 */
 vector<int> mergeTwoVector(vector<int> &res)
@@ -134,7 +121,7 @@ vector<int> mergeTwoVector(vector<int> &res)
 }
 
 /**
- * 还是两个指针，分别指向数组的头和尾，如果是偶数，头指针后移一位，如果是奇数且尾指针指向的是
+ * 方法 6，还是两个指针，分别指向数组的头和尾，如果是偶数，头指针后移一位，如果是奇数且尾指针指向的是
  * 偶数，那么就互换一下，同时头指针加1，尾指针减1，而如果是头指针指向的是奇数且尾指针也是奇数，
  * 尾指针自减1，因为本来就是需要把奇数放到最后：
  * 例如 3，1，2，4，头指向3，尾指向4，头是奇数且尾是偶数，那么互换，4，1，2，3
@@ -145,7 +132,7 @@ vector<int> sortArrayByParity5(vector<int> &A)
     int j = A.size() - 1;
     while (i < j)
     {
-        if (A[i] % 2 == 0)
+        if (A[i] % 2 == 0) // 偶数的情况
             i++;
         else
         {
@@ -164,7 +151,7 @@ vector<int> sortArrayByParity5(vector<int> &A)
 int main()
 {
     vector<int> re = {0, 1, 2};
-    for (auto i : sortArrayByParity_1(re))
+    for (auto i : sortArrayByParity(re))
     {
         cout << i << endl;
     }

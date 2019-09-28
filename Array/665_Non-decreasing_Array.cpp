@@ -2,7 +2,6 @@
 #include <vector>
 using namespace std;
 
-
 /**
  * Given an array with n integers, your task is to check if it could become
  *  non-decreasing by modifying at most 1 element.
@@ -17,6 +16,8 @@ using namespace std;
  * Example 2:
  * Input: [4,2,1]
  * Output: False
+ * 
+ * 给定一个数组，然后最多修改1位来判断是否该数组是非单调递减的
 */
 
 /**
@@ -24,7 +25,7 @@ using namespace std;
  * 否则，判断当前数的后一个数和前一个数的大小，后一个数小于前一个数，那么修改后一个数为当前数，
  * 否则，修改当前数为后一个数,比如 3，4，2，5.当前数字4不满足，后一个数字2小于前一个数3，
  * 修改的是2，而不是4。如果修改4，那么有问题。
- * */ 
+ * */
 bool checkPossibility(vector<int> &nums)
 {
     int cnt = 1;
@@ -89,10 +90,23 @@ bool checkPossibility2(vector<int> &nums)
         return true;
 }
 
+bool checkPossibility3(vector<int> &nums)
+{
+    int cnt = 1;
+    for(int i=1;i<nums.size();i++)
+    {
+        if(cnt==0) return false;
+        if(i==1 || nums[i]>nums[i-2]) nums[i-1] = nums[i];
+        else nums[i] = nums[i-1];
+        cnt--;
+    }
+    return true;
+}
+
 int main()
 {
-    vector<int> res = {2, 3, 3, 2, 4};
-    cout << checkPossibility2(res) << endl;
+    vector<int> res = {3, 4, 2, 3};
+    cout << checkPossibility3(res) << endl;
     // for(auto i:res)
     // {
     //     cout<<i<<endl;

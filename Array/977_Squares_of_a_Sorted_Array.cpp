@@ -9,6 +9,10 @@ using namespace std;
  * in non-decreasing order, return an array of 
  * the squares of each number,
  *  also in sorted non-decreasing order.
+ * 
+ * Input: [-4,-1,0,3,10]
+ * Output: [0,1,9,16,100]
+ * 
  * 给定一个按照升序排列的含有负数的数组，然后输出每个元素平方之后
  * 的排序。其实这道题目可以看成是对负数的绝对值排序。都是一样的道理
 */
@@ -29,8 +33,8 @@ vector<int> sortedSquares(vector<int> &A)
 }
 
 /**
- * 方法 2，这道题目和绝对值排序其实一样，先按照绝对值排序，然后
- * 再遍历每个数平方
+ * 方法 2，这道题目和绝对值排序其实一样，新建一个数组存放结果，
+ * 先按照绝对值排序，然后再遍历每个数平方，把最大的存放到新建的数组res中
 */
 vector<int> sortedSquares2(vector<int> &A)
 {
@@ -56,7 +60,7 @@ vector<int> sortedSquares2(vector<int> &A)
 }
 
 /**
- * 方法 3，和上面的方法 2的思路类似，但是不再遍历，用一次循环即可
+ * 方法 3，和上面的方法 2的思路类似，写法上上面的更好理解
 */
 vector<int> sortedSquares3(vector<int> &A)
 {
@@ -78,6 +82,13 @@ vector<int> sortedSquares3(vector<int> &A)
         }
     }
     return res;
+}
+
+
+vector<int> sortedSquares4(vector<int> &A)
+{
+
+
 }
 
 
