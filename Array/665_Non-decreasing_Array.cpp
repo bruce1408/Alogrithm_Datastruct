@@ -21,6 +21,13 @@ using namespace std;
 */
 
 /**
+ * 4，2，3
+ * -1，4，2，3
+ * 2，3，3，2，4
+ * 主要是上面的三种情况需要讨论，第一种就是当前数小于前面的数字，而且再前面的数字不存在，难么只要修改
+ * 前面的数字为2即可，第二种就是再前面的数字存在，例如是-1，且是小于2的，那么就把前面的数字4修改为2即可，
+ * 第三种情况就是再前面的数字大于当前的数字，例如3大于2，所以这个时候把2改成3
+ * 
  * 方法 1，分两种情况，第一种情况就是如果要修改的数是第一个数，那么后面的数字复制给第一个数
  * 否则，判断当前数的后一个数和前一个数的大小，后一个数小于前一个数，那么修改后一个数为当前数，
  * 否则，修改当前数为后一个数,比如 3，4，2，5.当前数字4不满足，后一个数字2小于前一个数3，
@@ -31,7 +38,6 @@ bool checkPossibility(vector<int> &nums)
     int cnt = 1;
     for (int i = 0; i < nums.size() - 1; i++)
     {
-        cout << "before: " << nums[i] << endl;
         if (nums[i] > nums[i + 1])
         {
             if (i == 0)
@@ -90,6 +96,9 @@ bool checkPossibility2(vector<int> &nums)
         return true;
 }
 
+/**
+ * 方法 3，和方法1类似，需要改变原来数组的值
+*/
 bool checkPossibility3(vector<int> &nums)
 {
     int cnt = 1;
@@ -103,10 +112,24 @@ bool checkPossibility3(vector<int> &nums)
     return true;
 }
 
+/**
+ * 方法 4，不需要修改原来的数组。
+*/
+bool checkPossibility4(vector<int>&nums)
+{
+    int modify = 0;
+    for(int i=1, pre = nums[0];i<nums.size();i++)
+    {
+        if(pre>nums[i] && modify++) return false;
+        if(pre>nums[i] && i-2>=0 && nums[i-2]>nums[i]) continue;
+        pre = nums[i];
+    }
+    return true;
+}
 int main()
 {
     vector<int> res = {3, 4, 2, 3};
-    cout << checkPossibility3(res) << endl;
+    cout << checkPossibility4(res) << endl;
     // for(auto i:res)
     // {
     //     cout<<i<<endl;

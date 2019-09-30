@@ -1,7 +1,7 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<unordered_map>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
 using namespace std;
 
 /**
@@ -20,37 +20,36 @@ using namespace std;
  * 判断是否数组中出现重复的数
 */
 
-
 /**
- * 方法 1 利用448题目的那个方法,只需要一次遍历即可,时间复杂度是O(n),但是这个前提必须是
+ * 方法 1 利用448题目的那个方法,只需要一次遍历即可,
+ * 时间复杂度是O(n),但是这个前提必须是长度为n的数组，元素
  * 从1-n开始的数字,否则会越界;这种方法有局限性!
  * 
 */
-bool containsDuplicate(vector<int>& nums)
+bool containsDuplicate(vector<int> &nums)
 {
-	for(int i=0;i<nums.size();i++)
+	for (int i = 0; i < nums.size(); i++)
 	{
-		int idx = abs(nums[i])-1;
-		if(nums[idx]>0)
+		int idx = abs(nums[i]) - 1;
+		if (nums[idx] > 0)
 		{
 			nums[idx] = -nums[idx];
 		}
 		else
-		{
 			return true;
-		}
 	}
 	return false;
 }
 /**
  * 方法 2, 利用hash_map来做,把数组的出现次数放进hashmap中,每次查看,如果出现了这个数字,直接返回true;
+ * 时间复杂度是O(n)，空间复杂度是O(n)
 */
-bool containsDuplicate1(vector<int>& nums)
+bool containsDuplicate1(vector<int> &nums)
 {
-	unordered_map<int,int> res;
-	for(int i=0;i<nums.size();i++)
+	unordered_map<int, int> res;
+	for (int i = 0; i < nums.size(); i++)
 	{
-		if(res.find(nums[i])!=res.end()) // hashmap的find函数
+		if (res.find(nums[i]) != res.end()) // hashmap的find函数
 			return true;
 		++res[nums[i]];
 	}
@@ -60,60 +59,27 @@ bool containsDuplicate1(vector<int>& nums)
 /**
  * 方法 3,先排序,然后判断前后两个数字是否是相同的,用这样的办法来判断,时间复杂度取决于排序算法
  * 这个题目在lc上提交的时候一直是runtime error,后来发现可能是i=0;i<nums.size()-1;然后后面
- * i的值有可能取到nums.size()-1,虽然题目没有报错,但是可能存在越界问题,所以这里修改成i=1开始,然后到i<nums.size()
+ * i的值有可能取到nums.size()-1,虽然题目没有报错,但是可能存在越界问题,所以这里修改成i=1开始,
+ * 然后到i<nums.size()
+ * 时间复杂度是O(nlgn)，空间复杂度是O(n)
 */
-bool containsDuplicate2(vector<int>& nums)
+bool containsDuplicate2(vector<int> &nums)
 {
 	sort(nums.begin(), nums.end());
-	for(size_t i=1;i<nums.size();i++)
+	for (size_t i = 1; i < nums.size(); i++)
 	{
-		if(nums[i]==nums[i-1]) return true;
+		if (nums[i] == nums[i - 1])
+			return true;
 	}
 	return false;
 }
 
 int main()
 {
-	vector<int> nums = {1,2,3,4,5,6,9};
-	if(containsDuplicate2(nums))
-		cout<<"有重复的值"<<endl;
-	else cout<<"no"<<endl;
+	vector<int> nums = {1, 2, 3, 4, 5, 6, 9};
+	if (containsDuplicate(nums))
+		cout << "有重复的值" << endl;
+	else
+		cout << "no" << endl;
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
