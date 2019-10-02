@@ -471,6 +471,8 @@ using namespace std;
 
 int main()
 {
+	cout << "the int min is: " << INT_MIN << endl;
+	cout << "the long min is: " << LONG_MIN << endl;
 	// vector<vector<int>> res = {
 	// 	{1, 1, 0},
 	// 	{1, 0, 1},
@@ -509,15 +511,15 @@ int main()
 	// for (int i = nums.size() - 2; i >= 0; --i)
 	// 	if (nums[i] > nums[i + 1]) //当前位置数字比后面数字还要大，那么可能是最大值；这样的思路很容易写位置的初始化
 	// 		maxVal = max(nums[i], maxVal);
-
+	
 	// cout << minVal << " " << maxVal << endl;
-	vector<string> res;
-	for (int i = 0; i < 4; i++)
-	{
-		res.push_back(string(1, i + 'a'));
-	}
-	for (auto i : res)
-	{
-		cout << i << endl;
-	}
+	// vector<string> res;
+	// for (int i = 0; i < 4; i++)
+	// {
+	// 	res.push_back(string(1, i + 'a'));
+	// }
+	// for (auto i : res)
+	// {
+	// 	cout << i << endl;
+	// }
 }
