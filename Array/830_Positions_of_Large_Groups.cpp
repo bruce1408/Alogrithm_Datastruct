@@ -20,7 +20,24 @@ using namespace std;
 
 vector<vector<int>> largeGroupPositions(string S)
 {
-    
+    int left = 0, right = S.size();
+    while(left+1<right)
+    {
+        int count =1;
+        int index = left+1;
+        int beginIndex = left, endIndex = left;
+        if(S[left] == S[index])
+        {
+            count+=1;
+            leftIndex = left;
+            if(count>3)
+            {
+                endIndex = index;
+            }
+        }
+        left++;
+
+    }
 }
 
 int main()
