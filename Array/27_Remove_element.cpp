@@ -3,19 +3,18 @@
 #include <algorithm>
 using namespace std;
 /**
- * Given an array nums and a value val, remove all instances of that value in-place and return the new length.
-
-Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
-
-The order of elements can be changed. It doesn't matter what you leave beyond the new length.
-
-Example 1:
-
-Given nums = [3,2,2,3], val = 3,
-
-Your function should return length = 2, with the first two elements of nums being 2.
-
-It doesn't matter what you leave beyond the returned length.
+ * Given an array nums and a value val, 
+ * remove all instances of that value in-place and return the new length.
+ * Do not allocate extra space for another array, 
+ * you must do this by modifying the input array in-place with O(1) extra memory.
+ * The order of elements can be changed. 
+ * It doesn't matter what you leave beyond the new length.
+ * 
+ * Example 1:
+ * Given nums = [3,2,2,3], val = 3,
+ * Your function should return length = 2, 
+ * with the first two elements of nums being 2.
+ * It doesn't matter what you leave beyond the returned length.
  * 题目描述，删除指定的元素，然后返回当前新的数组的长度
 */
 
@@ -38,29 +37,10 @@ int removeElement(vector<int> &nums, int val)
 }
 
 /**
- * 方法 2，不需要用erase，而是用1个指针来做
- * */
-
-int removeElement2(vector<int> &nums, int val)
-{
-    int left = 0, right = nums.size();
-    int newLength = 0;
-    while (left < right)
-    {
-        if (nums[left] != val)
-        {
-            newLength += 1;
-        }
-        left++;
-    }
-    return newLength;
-}
-
-/**
- * 方法 3，利用一个指针，然后每次不等于这个数的时候，那么就把后面的数字往前拷贝即可，最后
+ * 方法 2，利用一个指针，然后每次不等于这个数的时候，那么就把后面的数字往前拷贝即可，最后
  * 返回的指针的数字res
 */
-int removeElement3(vector<int> &nums, int val)
+int removeElement2(vector<int> &nums, int val)
 {
     int res = 0;
     for (int i = 0; i < nums.size(); ++i)
@@ -75,6 +55,6 @@ int main()
 {
     vector<int> nums = {3, 2, 2, 3};
     // vector<int> nums = {3,3};
-    cout << removeElement3(nums, 3) << endl;
+    cout << removeElement2(nums, 3) << endl;
     return 0;
 }
