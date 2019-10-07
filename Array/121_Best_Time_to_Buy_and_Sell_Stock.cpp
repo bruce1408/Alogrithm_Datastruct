@@ -21,7 +21,8 @@ using namespace std;
  * Not 7-1 = 6, as selling price needs to be larger 
  * than buying price.
  * 
- * 
+ * 求利益最大化，数组中两个数字相减的差最大，这两个数字必须减数
+ * 索引大于被减数，保证先买后卖；
  */
 
 /**
@@ -43,19 +44,26 @@ int maxProfit(vector<int> &prices)
 
 /**
  * 方法 2，只用一次遍历即可，不用两次遍历
+ * 他利用了 kadane's algorithm 算法的思路，详见leetcode53题
 */
-// int maxProfit1(vector<int> &prices)
-// {
-//     for(int i=0,j=1;i<prices.size() && j<prices.size();i++)
-//     {
 
-//     }
-// }
+int maxProfit1(vector<int> &prices)
+{
+    if (prices.size() == 0)
+        return 0;
+    int currentMax = prices[0], maxNum = 0;
+    for (int i = 1; i < prices.size(); i++)
+    {
+        currentMax = min(prices[i], currentMax);
+        maxNum = max(prices[i] - currentMax, maxNum);
+    }
+    return maxNum;
+}
 
 int main()
 {
-    vector<int> nums = {7, 2,4,3, 1};
-    cout << maxProfit(nums) << endl;
+    vector<int> nums = {1};
+    cout << maxProfit1(nums) << endl;
 
     return 0;
 }

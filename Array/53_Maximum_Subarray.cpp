@@ -13,6 +13,7 @@ using namespace std;
  * Explanation: [4,-1,2,1] has the largest sum = 6.
  * 
  * 求数组中的子数组的最大和
+ * 利用kadane 算法
 */
 
 /**
@@ -37,24 +38,63 @@ int maxSubArray1(vector<int> &nums)
 /**
  * 方法 2；kadane's algorithm 求子序列最大值问题，
  * 设置当前最大值和全局最大值的初始值都是第一个元素，
- * 遍历数组，每次找到最大的：当前最大值 = max(nums[i],当前最大值 + nums[i])，
+ * 遍历数组，每次找到最大的：
+ * 当前最大值 = max(nums[i],当前最大值 + nums[i])，
  * 最后保留最大的给global_sum
+ * https://afshinm.name/2018/06/24/why-kadane-algorithm-works/
  * */
-// int MaxSubArray2(vector<int>&nums)
-// {
-//     int global_sum = nums[0], current_sum=nums[0];
-//     int Maxsum = 0;
-//     for(int i=1;i<nums.size();i++)
-//     {
-//         current_sum = max(nums[i],current_sum+nums[i]);
-//         if(current_sum>global_sum) global_sum = current_sum;
-//     }
-//     return global_sum;
-// }
+
+int maxSubArray2(vector<int> &nums)
+{
+
+    int global_sum = nums[0], current_sum = nums[0];
+    for (int i = 1; i < nums.size(); i++)
+    {
+        current_sum = max(nums[i], current_sum + nums[i]);
+        if (current_sum > global_sum)
+            global_sum = current_sum;
+    }
+    return global_sum;
+}
+
+
+/**
+ * 方法 3，分治法来求解，二分搜索，
+ * 需要把数组一分为二，分别找出左边和右边的最大子数组之和，然后还要从中间开始向左右分别扫描，
+ * 求出的最大值分别和左右两边得出的最大值相比较取最大的那一个
+ * */
+int helper(vector<int> &nums, int left, int right)
+{
+    if (left >= right)
+        return nums[left];
+    int mid = left + (right - left) / 2;
+    int leftMax = helper(nums, left, mid - 1);
+    int rightMax = helper(nums, mid + 1, right);
+    int midMax = nums[mid], t = midMax;
+    for (int i = mid - 1; i >= left; i--)
+    {
+        t += nums[i];
+        midMax = max(midMax, t);
+    }
+    t = midMax;
+    for (int i = mid + 1; i <= right; i++)
+    {
+        t += nums[i];
+        midMax = max(midMax, t);
+    }
+    return max(midMax, max(leftMax, rightMax));
+}
+
+int maxSubArray3(vector<int> &nums)
+{
+    if (nums.size() == 0)
+        return 0;
+    return helper(nums, 0, nums.size() - 1);
+}
 
 int main()
 {
     vector<int> nums = {-1};
-    cout << maxSubArray1(nums) << endl;
+    cout << maxSubArray3(nums) << endl;
     return 0;
 }
