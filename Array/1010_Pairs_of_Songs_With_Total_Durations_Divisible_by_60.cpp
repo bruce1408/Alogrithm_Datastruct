@@ -12,6 +12,7 @@ using namespace std;
  * (time[i] + time[j]) % 60 == 0.
  * 
  * 两个数的和相加之后能够被60整除即可；
+ * 这个题目是twoSum的变体，题目更加灵活；
 */
 
 /**

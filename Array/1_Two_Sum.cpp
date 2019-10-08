@@ -88,7 +88,6 @@ vector<int> twoSum3(vector<int> &nums, int target)
  * 给定两个指针，一个指向开头，一个指向结尾，如果开头的和结尾的相加，看sum是不是等于目标值target，如果
  * 大于这个数，尾指针--，如果小于这个数，头指针++；可是排序后数组的下标会乱掉；
  * */
-
 // vector<int> twoSum4(vector<int> &nums, int k)
 // {
 // 	int sum;
