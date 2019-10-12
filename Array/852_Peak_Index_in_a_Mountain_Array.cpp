@@ -9,15 +9,25 @@ using namespace std;
 */
 int peakIndexInMountainArray(vector<int> &A)
 {
-    int len = A.size(), maxNum = INT_MIN;
-    for(int i=0;i<A.size();i++)
+    if (A.size() < 3)
+        return -1;
+    int left = 1, n = A.size() - 1, right = n;
+    while (left <= right)
     {
-        if(A[i])
+        if (A[left] >= A[left - 1])
+        {
+            left++;
+        }
+        if (A[right] <= A[right - 1])
+        {
+            right--;
+        }
     }
+    return left - 1;
 }
 
 int main()
 {
     vector<int> res = {0, 1, 1, 2, 1, 0};
-    cout << binarySearch(res, 9) << endl;
+    cout << peakIndexInMountainArray(res) << endl;
 }

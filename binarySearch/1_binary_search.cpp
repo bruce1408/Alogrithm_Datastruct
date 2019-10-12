@@ -38,8 +38,15 @@ int binarySearch(vector<int> &res, int k)
 
 /**
  * 方法 2，二分查找，边界我们取的是左闭右开区间，right取不到最后一个数组；
+ * 最后的right要取到mid，因为right本来是右开区间，循环结束的条件就是left==right，所以
+ * 一旦找到这个数字，那么就right赋值为mid，和left相等，循环结束，返回left或者right都可以；
+ * 如果return left，那么可能的范围是[0, 数组长度]，例如数组[1,2,2,3,4]，
+ * 如果k=2，返回的数字就是1，说明比2小的数字只有1个，
+ * 如果k是5，返回的是5，说明比5小的数字是5，
+ * 如果k是1，返回的是0，说明比1小的数字是0，整个函数返回的范围在0到数组长度之间；
+ * 所以这个时候加上一句，是不是res[left]==k ? left : -1;
+ * 如果最后left这个数是k，返回left下标索引，否则，返回-1，表示没有找到；
 */
-
 int binarySearch1(vector<int> &res, int k)
 {
     int left = 0, right = res.size();
@@ -56,15 +63,16 @@ int binarySearch1(vector<int> &res, int k)
         }
         else
         {
-            right = mid;
+            right = mid; // 收紧右侧边界来确定条件是否可以终止；
         }
     }
-    return left;
+    // return left; // 如果查到了，返回下标；否则返回的是整个数组的长度，解释见开头
+    return res[left] == k ? left : -1;
 }
 
 /**
  * 用法 2，二分查找；用它来查找第一个大于等于某个数字的下标
- * 方法 1，循环遍历，时间复杂度是O(n)
+ * 
 */
 int binarySearch2(vector<int> &res, int k)
 {
@@ -117,6 +125,6 @@ int binarySearch3(vector<int> &res, int k)
 // }
 int main()
 {
-    vector<int> res = {1, 2, 2, 2, 4, 5, 6, 7, 9};
-    cout << binarySearch1(res, 9) << endl;
+    vector<int> res = {1, 2, 2, 2, 3, 5, 6};
+    cout << binarySearch1(res, 2) << endl;
 }
