@@ -34,6 +34,7 @@
  * as the h-index.
  * 
  */
+
 class Solution {
 public:
     int hIndex(vector<int>& citations) {
