@@ -120,9 +120,8 @@ int lower_bound1(vector<int> &nums, int target)
 /**
  * lower_bound 查找 left < right 
  * 这里返回值需要注意的就是根据STL的标准写法，
- * 如果这个数组不在这个数组中，且大于数组的所有元素，返回的应该是最后的元素的下标，
- * 而某些时候，我们需要的返回-1，告诉我们元素不存在，
- * 这样返回值那一部分需要简单的修改一下才可以
+ * 如果这个目标数字不在这个数组中，且大于数组的所有元素，返回的应该是最后的元素的下标，
+ * 而某些时候，我们需要的返回-1，告诉我们元素不存在，只要在返回值那一部分需要简单的修改一下才可以
 */
 int lower_bound2(vector<int> &res, int k)
 {
@@ -176,17 +175,16 @@ int main()
     while (true)
     {
         cout << "input a number: " << endl;
-        cin >> k;
+        int k = 2;
         vector<int> res = {1, 2, 2, 2, 3, 5, 7};
         // cout << binarySearch3_(res, k) << endl;
         // vector<int>::iterator lowerLocation = lower_bound(res.begin(), res.end(), k);
-        vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), k);
-        // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), 1);
-        // cout << "the lower_bound self write is: " << lower_bound0(res, k) << " " << lower_bound1(res, k) << " "
-        //      << lower_bound2(res, k) << endl;
+        // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), k);
+        cout << "the lower_bound self write is: " << lower_bound0(res, k) << " " << lower_bound1(res, k) << " "
+             << lower_bound2(res, k) << endl;
         // cout << "the office lower_bound is: " << lowerLocation - res.begin() << endl;
         cout << "the upper_bound is by muself is:" << upper_bound0(res, k) << endl;
-        cout << "the office upper_bound is: " << upperLocation - res.begin() << endl;
+        // cout << "the office upper_bound is: " << upperLocation - res.begin() << endl;
 
         // cout << "the lower_bound_1 is:" << find(res, k) << endl;
     }
