@@ -75,7 +75,6 @@ int kthSmallest1(vector<vector<int>> & matrix, int k)
     return mypq.top();
 }
 
-
 /**
  * 方法 3，利用的是二分查找来找这个数字
  * 这题我们也可以用二分查找法来做，我们由于是有序矩阵，那么左上角的数字一定是最小的，
@@ -85,18 +84,43 @@ int kthSmallest1(vector<vector<int>> & matrix, int k)
  * 则 upper_bound 返回该行元素的个数，如果目标数比该行首元素小，则 upper_bound 返回0, 
  * 我们遍历完所有的行可以找出中间数是第几小的数，然后k比较，进行二分查找，left 和 right 最终会相等，
  * 并且会变成数组中第k小的数字。举个例子来说吧，比如数组为:
+ * [1 2
+ * 12 100]
+ * k = 3
+ * 那么刚开始 left = 1, right = 100, mid = 50, 遍历完 cnt = 3，此时 right 更新为 50
+ * 此时 left = 1, right = 50, mid = 25, 遍历完之后 cnt = 3, 此时 right 更新为 25
+ * 此时 left = 1, right = 25, mid = 13, 遍历完之后 cnt = 3, 此时 right 更新为 13
+ * 此时 left = 1, right = 13, mid = 7, 遍历完之后 cnt = 2, 此时 left 更新为8
+ * 此时 left = 8, right = 13, mid = 10, 遍历完之后 cnt = 2, 此时 left 更新为 11
+ * 此时 left = 11, right = 12, mid = 11, 遍历完之后 cnt = 2, 此时 left 更新为 12
+ * 循环结束，left 和 right 均为 12，任意返回一个即可
+ * 时间复杂度是O(nlgn * lgx)x是最大值和最小值的差值
 */
 
-int kthSmallest2(vector<int>&nums, int k)
+int kthSmallest2(vector<vector<int>>&nums, int k)
 {
-    
+
+    int left = nums[0][0], right = nums.back().back();
+    while(left < right)
+    {
+        int mid = left + (right - left)/2, cnt = 0;
+        for(int i=0;i<nums.size();i++)
+        {
+            cnt += upper_bound(nums[i].begin(), nums[i].end(), mid) - nums[i].begin(); // 位置索引
+        } 
+        if(cnt < k) left = mid+1;
+        else right = mid;  
+
+    }
+    return left;
 }
+
 int main()
 {
     vector<vector<int>> nums = {
         {1, 2},
-        {1, 3}};
-    cout << kthSmallest1(nums, 1) << endl;
+        {12, 100}};
+    cout << kthSmallest2(nums, 3) << endl;
 
     return 0;
 }
