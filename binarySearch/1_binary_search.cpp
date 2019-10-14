@@ -4,7 +4,8 @@
 using namespace std;
 
 /**
- * 二分查找：时间复杂度是O(lgn)，比O(n)要好，但是有多种情况需要考虑清楚：
+ * 二分查找：左闭右闭区间
+ * 时间复杂度是O(lgn)，比O(n)要好，但是有多种情况需要考虑清楚：
  * Although the basic idea of binary search is comparatively straightforward,
  * the details can be surprisingly tricky... 
  * 这句话可以这样理解：思路很简单，细节是魔鬼。
@@ -37,7 +38,8 @@ int binarySearch(vector<int> &res, int k)
 }
 
 /**
- * 方法 2，二分查找，边界我们取的是左闭右开区间，right取不到最后一个数组；
+ * 二分查找，左闭右开区间，
+ * right取不到最后一个数组；
  * 最后的right要取到mid，因为right本来是右开区间，循环结束的条件就是left==right，所以
  * 一旦找到这个数字，那么就right赋值为mid，和left相等，循环结束，返回left或者right都可以；
  * 如果return left，那么可能的范围是[0, 数组长度]，例如数组[1,2,2,3,4]，
@@ -71,26 +73,12 @@ int binarySearch1(vector<int> &res, int k)
 }
 
 /**
- * 用法 2，二分查找；用它来查找第一个大于等于某个数字的下标
- * 
+ * lower_bound 查找；left<=right 
+ * 找到大于等于这个数的最小下标(首个下标)，在STL中如果有函数lower_bound
+ * 如果要找的数字大数组中的所有数字，那么就返回最后一个元素的下标即可；
+ * 注意是 大于等于某个数字 的最小下标，lower_bound
 */
-int binarySearch2(vector<int> &res, int k)
-{
-    for (int i = 0; i < res.size(); i++)
-    {
-        if (res[i] >= k)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-/**
- * 方法 2，使用二分查找，时间复杂度是O(lgn)
- * 查找第一个大于等于k的数字的下标；
-*/
-int binarySearch3(vector<int> &res, int k)
+int lower_bound0(vector<int> &res, int k)
 {
     int left = 0, n = res.size() - 1, right = n;
     while (left <= right)
@@ -105,26 +93,101 @@ int binarySearch3(vector<int> &res, int k)
             left = mid + 1;
         }
     }
-    return left <= n ? left : -1;
+    return left; // 这个是标准的lower_bound输出，不存在的数且大于所有元素，返回最大下标，
+    // left 是左侧边界；
+    // return left <= n ? left : -1; // 不存在的数字返回-1；提醒找不到,下面这种写法也是可以的；
+    // return res[left] >= k ? left : -1;
 }
 
 /**
- * 用法 3，查找第一个大于某个数的下标；
+ * lower_bound 查找 left < right
 */
-// int binarySearch3(vector<int>&res, int k)
-// {
-//     int left = 0, n = res.size()-1, right = n;
-//     while(left<=right)
-//     {
-//         int mid = (left+right)/2;
-//         if(res[mid]>k)
-//         {
 
-//         }
-//     }
-// }
+int lower_bound1(vector<int> &nums, int target)
+{
+    int left = 0, right = nums.size();
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] < target)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return right; // 结束条件是left==right，所以left和right都可以
+}
+
+/**
+ * lower_bound 查找 left < right 
+ * 这里返回值需要注意的就是根据STL的标准写法，
+ * 如果这个数组不在这个数组中，且大于数组的所有元素，返回的应该是最后的元素的下标，
+ * 而某些时候，我们需要的返回-1，告诉我们元素不存在，
+ * 这样返回值那一部分需要简单的修改一下才可以
+*/
+int lower_bound2(vector<int> &res, int k)
+{
+    int left = 0, n = res.size(), right = n;
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        if (res[mid] < k)
+        {
+            left = mid + 1;
+        }
+        else
+        {
+            right = mid;
+        }
+    }
+    return left; // standord lower_bound 写法
+    // return res[left] >= k ? left : -1;
+    // return left < n ? left : -1;
+}
+
+/**
+ * 用法 3 upper_bound ,查找第一个大于某个数的下标；
+*/
+int upper_bound0(vector<int> &res, int k)
+{
+    int left = 0, n = res.size(), right = n;
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        /**
+         * 这个和lower_bound 的区别是upper_bound是小于等于号，
+         * 因为这里判断的是第一个大于这个数的位置下标
+         * */ 
+        if (res[mid] <= k) 
+        {
+            left = mid+1;
+        }
+        else
+        {
+            right = mid;
+        }
+    }
+    return left;
+    // return res[left] >= k ? left : -1;
+}
+
 int main()
 {
-    vector<int> res = {1, 2, 2, 2, 3, 5, 6};
-    cout << binarySearch1(res, 2) << endl;
+    int k;
+    while (true)
+    {
+        cout << "input a number: " << endl;
+        cin >> k;
+        vector<int> res = {1, 2, 2, 2, 3, 5, 7};
+        // cout << binarySearch3_(res, k) << endl;
+        // vector<int>::iterator lowerLocation = lower_bound(res.begin(), res.end(), k);
+        vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), k);
+        // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), 1);
+        // cout << "the lower_bound self write is: " << lower_bound0(res, k) << " " << lower_bound1(res, k) << " "
+        //      << lower_bound2(res, k) << endl;
+        // cout << "the office lower_bound is: " << lowerLocation - res.begin() << endl;
+        cout << "the upper_bound is by muself is:" << upper_bound0(res, k) << endl;
+        cout << "the office upper_bound is: " << upperLocation - res.begin() << endl;
+
+        // cout << "the lower_bound_1 is:" << find(res, k) << endl;
+    }
 }
