@@ -74,39 +74,23 @@ int kthSmallest1(vector<vector<int>> & matrix, int k)
     }
     return mypq.top();
 }
-/**
- * 方法 2，利用2个指针，遍历这个矩阵，其实是有规律的，
- * 就是右边的永远大于左边，下边大于上边
- * 
-*/
-
-// int kthSmallest2(vector<vector<int>>& matrix, int k)
-// {
-//     int rowIndex = 1, columnIndex = 1, count = 1, startX = 0, startY = 0;
-//     int rows = matrix.size(), columns = matrix[0].size();
-   
-//     while(columnIndex < columns && rowIndex < rows && k!=count)
-//     {
-//         if(matrix[startX][columnIndex] < matrix[rowIndex][startY])
-//         {
-//             startY+=1;
-//         }
-//         else if(matrix[startX][columnIndex] > matrix[rowIndex][startY])
-//         {
-//             startX+=1;
-//         }
-//         else
-//         {
-//             return -1;
-//         }
-//     }
-//     return -1;
-// }
 
 
 /**
  * 方法 3，利用的是二分查找来找这个数字
+ * 这题我们也可以用二分查找法来做，我们由于是有序矩阵，那么左上角的数字一定是最小的，
+ * 而右下角的数字一定是最大的，所以这个是我们搜索的范围，然后我们算出中间数字mid，
+ * 由于矩阵中不同行之间的元素并不是严格有序的，所以我们要在每一行都查找一下 mid，
+ * 我们使用 upper_bound，这个函数是查找第一个大于目标数的元素，如果目标数在比该行的尾元素大，
+ * 则 upper_bound 返回该行元素的个数，如果目标数比该行首元素小，则 upper_bound 返回0, 
+ * 我们遍历完所有的行可以找出中间数是第几小的数，然后k比较，进行二分查找，left 和 right 最终会相等，
+ * 并且会变成数组中第k小的数字。举个例子来说吧，比如数组为:
 */
+
+int kthSmallest2(vector<int>&nums, int k)
+{
+    
+}
 int main()
 {
     vector<vector<int>> nums = {
