@@ -1,10 +1,11 @@
 /*判断回文链表的题目
   这里的题目是一个类里面的一个方法：
   先求出链表的长度，得到链表的中心点，从中心点*/
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
+// #include <iostream>
+// #include <string>
+// #include <vector>
+// #include <queue>          // std::priority_queue
+// using namespace std;
 // struct ListNode
 // {
 // int val;
@@ -469,13 +470,13 @@ using namespace std;
 //     return 0;
 // }
 
-int main()
-{
-	cout << "the int min is: " << INT_MIN << endl;
-	cout << "the long min is: " << LONG_MIN << endl;
-	cout << "the int max is: " << INT_MAX << endl;
-	cout << INT_MAX + 3 << endl; // 这么写会溢出
-	cout << 3 + (INT_MAX - 3) / 2 << endl;
+// int main()
+// {
+// 	cout << "the int min is: " << INT_MIN << endl;
+// 	cout << "the long min is: " << LONG_MIN << endl;
+// 	cout << "the int max is: " << INT_MAX << endl;
+// 	cout << INT_MAX + 3 << endl; // 这么写会溢出
+// 	cout << 3 + (INT_MAX - 3) / 2 << endl;
 	// vector<vector<int>> res = {
 	// 	{1, 1, 0},
 	// 	{1, 0, 1},
@@ -525,4 +526,35 @@ int main()
 	// {
 	// 	cout << i << endl;
 	// }
+// }
+
+
+/**
+ * 优先队列 部分学习
+ * 普通的队列是先进先出，元素在队列尾部追加，在头部删除，
+ * 优先队列的特点就是最大的元素总是位于队首的位置，所以出队的时候，是输出当前队列的最大元素，类似给队列中的元素
+ * 进行了从大到小的排序过程；
+*/
+#include<iostream>
+#include<string>
+#include<queue>
+using namespace std;
+int main ()
+{
+  priority_queue<int> mypq;
+
+  mypq.emplace(3);
+  mypq.emplace(4);
+  mypq.emplace(2);
+  mypq.emplace(1);
+
+  cout << "mypq contains:";
+  while (!mypq.empty())
+  {
+     cout << ' ' << mypq.top();
+     mypq.pop(); // 删除顶部元素；
+  }
+  cout << '\n';
+
+  return 0;
 }
