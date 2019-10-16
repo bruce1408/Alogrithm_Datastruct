@@ -60,7 +60,8 @@ int findPeakElement1(vector<int>& nums)
 }
 
 /**
- * 方法 3，使用二分查找来做，判断mid 和 mid+1 之间的大小，如果mid < mid+1,那么left=mid+1，缩小范围，
+ * 方法 3，使用二分查找来做，
+ * 判断 mid 和 mid+1 之间的大小，如果mid < mid+1,那么left=mid+1，缩小范围，
  * 否则，right = mid，最后返回left即可；
 */
 int findPeakElement2(vector<int>& nums)
@@ -80,8 +81,6 @@ int findPeakElement2(vector<int>& nums)
     }
     return right;
 }
-
-
 
 
 int main()

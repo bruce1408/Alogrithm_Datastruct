@@ -21,6 +21,9 @@ using namespace std;
  * 找到一个数组的第k个最大的数字
 **/ 
 
+/**
+ * 方法 1，利用最大堆来做
+*/
 int findKthLargest(vector<int>& nums, int k) {
     int len = nums.size();
     priority_queue<int>mypq;
