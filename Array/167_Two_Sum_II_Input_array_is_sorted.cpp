@@ -58,15 +58,40 @@ vector<int> twoSum2(vector<int> &nums, int target)
 }
 
 /**
- * 方法 2，有序数组，利用查找的思路来做也可以
+ * 方法 3，有序数组，利用查找的思路来做也可以，利用二分查找的思路来做
 */
+vector<int>twoSum3(vector<int> &nums, int target)
+{
+	
+	for(int i=0;i<nums.size();i++)
+	{
+		int t = target - nums[i], left = i+1, right = nums.size();
+		while(left<right)
+		{
+			int mid = left + (right - left)/2;
+			if(nums[mid]<t)
+			{
+				left = mid+1;
+			}
+			else if(nums[mid]>t)
+			{
+				right = mid;
+			}
+			else
+			{
+				return {i+1, mid+1};
+			}
+		}
+	}
+	return {};
+}
 
 int main()
 {
 	vector<int> nums = {2, 7, 11, 15};
 	vector<int> res_inde;
 	int t = 9;
-	res_inde = twoSum2(nums, t);
+	res_inde = twoSum3(nums, t);
 	for (auto i : res_inde)
 		cout << i << " ";
 
