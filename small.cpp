@@ -563,28 +563,36 @@
 /**
  * set 集合的学习
 */
+// #include <iostream>
+// #include <set>
+// using namespace std;
 
-#include <iostream>
-#include <set>
+// int main ()
+// {
+//   set<int> myset;
+//   set<int>::iterator it;
+
+//   // insert some values:
+//   for (int i=1; i<10; i++) myset.insert(i*10);  // 10 20 30 40 50 60 70 80 90
+//   it = myset.begin();
+//   ++it;                                         // "it" points now to 20
+//   myset.erase (it);
+//   cout<<"erase 40: "<<myset.erase (0)<<endl; // 如果有这个元素，删除成功返回1，否则返回0
+//   it = myset.find (60);
+//   myset.erase (it, myset.end()); // 删除某个元素后面所有的数字
+//   cout << "myset contains:";
+//   for (it=myset.begin(); it!=myset.end(); ++it)
+//     cout << ' ' << *it;
+//   cout << '\n';
+
+//   return 0;
+// }
+
+#include<iostream>
+#include<vector>
 using namespace std;
 
-int main ()
+int main()
 {
-  set<int> myset;
-  set<int>::iterator it;
-
-  // insert some values:
-  for (int i=1; i<10; i++) myset.insert(i*10);  // 10 20 30 40 50 60 70 80 90
-  it = myset.begin();
-  ++it;                                         // "it" points now to 20
-  myset.erase (it);
-  cout<<"erase 40: "<<myset.erase (0)<<endl; // 如果有这个元素，删除成功返回1，否则返回0
-  it = myset.find (60);
-  myset.erase (it, myset.end()); // 删除某个元素后面所有的数字
-  cout << "myset contains:";
-  for (it=myset.begin(); it!=myset.end(); ++it)
-    cout << ' ' << *it;
-  cout << '\n';
-
-  return 0;
+	vector<vector<int>>res = {{1,2,3,4},{2,3,4,5}};
 }
