@@ -535,25 +535,55 @@
  * 优先队列的特点就是最大的元素总是位于队首的位置，所以出队的时候，是输出当前队列的最大元素，类似给队列中的元素
  * 进行了从大到小的排序过程；
 */
-#include<iostream>
-#include<string>
-#include<queue>
+// #include<iostream>
+// #include<string>
+// #include<queue>
+// using namespace std;
+// int main ()
+// {
+//   priority_queue<int> mypq;
+
+//   mypq.emplace(3);
+//   mypq.emplace(4);
+//   mypq.emplace(2);
+//   mypq.emplace(1);
+
+//   cout << "mypq contains:";
+//   while (!mypq.empty())
+//   {
+//      cout << ' ' << mypq.top();
+//      mypq.pop(); // 删除顶部元素；
+//   }
+//   cout << '\n';
+
+//   return 0;
+// }
+
+
+/**
+ * set 集合的学习
+*/
+
+#include <iostream>
+#include <set>
 using namespace std;
+
 int main ()
 {
-  priority_queue<int> mypq;
+  set<int> myset;
+  set<int>::iterator it;
 
-  mypq.emplace(3);
-  mypq.emplace(4);
-  mypq.emplace(2);
-  mypq.emplace(1);
-
-  cout << "mypq contains:";
-  while (!mypq.empty())
-  {
-     cout << ' ' << mypq.top();
-     mypq.pop(); // 删除顶部元素；
-  }
+  // insert some values:
+  for (int i=1; i<10; i++) myset.insert(i*10);  // 10 20 30 40 50 60 70 80 90
+  it = myset.begin();
+  ++it;                                         // "it" points now to 20
+  myset.erase (it);
+  cout<<"erase 40: "<<myset.erase (0)<<endl; // 如果有这个元素，删除成功返回1，否则返回0
+  it = myset.find (60);
+  myset.erase (it, myset.end()); // 删除某个元素后面所有的数字
+  cout << "myset contains:";
+  for (it=myset.begin(); it!=myset.end(); ++it)
+    cout << ' ' << *it;
   cout << '\n';
 
   return 0;

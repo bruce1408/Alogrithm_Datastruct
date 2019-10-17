@@ -65,11 +65,30 @@ int binarySearch1(vector<int> &res, int k)
         }
         else
         {
-            right = mid; // 收紧右侧边界来确定条件是否可以终止；
+            return mid; // 收紧右侧边界来确定条件是否可以终止；
         }
     }
-    // return left; // 如果查到了，返回下标；否则返回的是整个数组的长度，解释见开头
-    return res[left] == k ? left : -1;
+    /**
+     * 1.return left；
+     * 这个就是找到了，返回下标；找不到，返回数组长度
+     * */
+
+    /**
+     * 2.return res[left]==k ? left : -1;
+     * 这种返回方式是如果当前下标指向的数字是目标值，返回下标值
+     * 否则返回的是-1；
+     * 这种方式最好不要写，会有错误，因为left有可能是数组长度n，这个
+     * 时候数组的下标会越界
+     * */ 
+
+    /**
+     * 3.直接在while中满足条件就进行return mid;
+    */
+    ////以下是错误的示范,有数组越界的可能
+    //// cout<<"the left is: "<<left<<endl;
+    //// cout<<"the res[left] is: "<<res[left]<<endl;
+    //// return res[left] == k ? left : -1;
+    return -1;
 }
 
 /**
@@ -96,7 +115,6 @@ int lower_bound0(vector<int> &res, int k)
     return left; // 这个是标准的lower_bound输出，不存在的数且大于所有元素，返回最大下标，
     // left 是左侧边界；
     // return left <= n ? left : -1; // 不存在的数字返回-1；提醒找不到,下面这种写法也是可以的；
-    // return res[left] >= k ? left : -1;
 }
 
 /**
@@ -140,7 +158,7 @@ int lower_bound2(vector<int> &res, int k)
         }
     }
     return left; // standord lower_bound 写法
-    // return res[left] >= k ? left : -1;
+    //// return res[left] >= k ? left : -1; 会越界，不能这么写！！
     // return left < n ? left : -1;
 }
 
@@ -167,7 +185,7 @@ int upper_bound0(vector<int> &res, int k)
         }
     }
     return left;
-    // return res[left] >= k ? left : -1;
+    //// return res[left] >= k ? left : -1;
 }
 
 int main()
@@ -176,18 +194,17 @@ int main()
     while (true)
     {
         cout << "input a number: " << endl;
-        cin >> k;
+        int k = 9;
         vector<int> res = {1, 2, 2, 2, 3, 5, 7};
-        // cout << binarySearch3_(res, k) << endl;
+        cout << binarySearch1(res, k) << endl;
         // vector<int>::iterator lowerLocation = lower_bound(res.begin(), res.end(), k);
-        vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), k);
+        // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), k);
         // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), 1);
         // cout << "the lower_bound self write is: " << lower_bound0(res, k) << " " << lower_bound1(res, k) << " "
         //      << lower_bound2(res, k) << endl;
         // cout << "the office lower_bound is: " << lowerLocation - res.begin() << endl;
-        cout << "the upper_bound is by muself is:" << upper_bound0(res, k) << endl;
-        cout << "the office upper_bound is: " << upperLocation - res.begin() << endl;
-
+        // cout << "the upper_bound is by muself is:" << upper_bound0(res, k) << endl;
+        // cout << "the office upper_bound is: " << upperLocation - res.begin() << endl;
         // cout << "the lower_bound_1 is:" << find(res, k) << endl;
     }
 }
