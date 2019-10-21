@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include<climits>
 using namespace std;
 
 /**
@@ -43,7 +44,8 @@ int minimumTotal(vector<vector<int>> &triangle)
 }
 
 /**
- * 方法 2，
+ * 方法 2，每次取相邻的数字然后比较大小，相加即可
+ * 但是这个解法是错的，有点问题；利用的是动态规划解法
 */
 int minimumTotal1(vector<vector<int>> &triangle)
 {
@@ -69,6 +71,8 @@ int minimumTotal1(vector<vector<int>> &triangle)
     }
     return sumCount;
 }
+
+
 int main()
 {
     vector<vector<int>> res = {
