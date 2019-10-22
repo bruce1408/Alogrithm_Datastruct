@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include<climits>
 using namespace std;
 
 /**
@@ -45,9 +46,14 @@ int minimumTotal(vector<vector<int>> &triangle)
 }
 
 /**
+<<<<<<< HEAD
  * 方法 2，找到上面一层的最小数，记录这个数的位置，因为从下面一行开始
  * 要在上面一层的邻近位置找，但是这个算法其实不是这样的，他其实是全局最小
  * 应该是用动态规划的算法，所以方法 1，方法 2，都不对；
+=======
+ * 方法 2，每次取相邻的数字然后比较大小，相加即可
+ * 但是这个解法是错的，有点问题；利用的是动态规划解法
+>>>>>>> a080dc5e6fa2ad3c29453b05f06fce651913273e
 */
 int minimumTotal1(vector<vector<int>> &triangle)
 {
@@ -74,6 +80,10 @@ int minimumTotal1(vector<vector<int>> &triangle)
     return sumCount;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a080dc5e6fa2ad3c29453b05f06fce651913273e
 int main()
 {
     vector<vector<int>> res = {
