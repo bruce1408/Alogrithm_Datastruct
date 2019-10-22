@@ -94,7 +94,7 @@ int maxSubArray3(vector<int> &nums)
 
 int main()
 {
-    vector<int> nums = {-1};
-    cout << maxSubArray3(nums) << endl;
+    vector<int> nums = {-2,1,-3,4,-1,2,1,-5,4};
+    cout << maxSubArray2(nums) << endl;
     return 0;
 }

@@ -17,6 +17,8 @@ using namespace std;
  * ]
  * The minimum path sum from top to bottom is 11
  * (i.e., 2 + 3 + 5 + 1 = 11).
+ * 
+ * 应该使用的是动态规划的方法
 */
 
 /**
@@ -43,7 +45,9 @@ int minimumTotal(vector<vector<int>> &triangle)
 }
 
 /**
- * 方法 2，
+ * 方法 2，找到上面一层的最小数，记录这个数的位置，因为从下面一行开始
+ * 要在上面一层的邻近位置找，但是这个算法其实不是这样的，他其实是全局最小
+ * 应该是用动态规划的算法，所以方法 1，方法 2，都不对；
 */
 int minimumTotal1(vector<vector<int>> &triangle)
 {
@@ -69,6 +73,7 @@ int minimumTotal1(vector<vector<int>> &triangle)
     }
     return sumCount;
 }
+
 int main()
 {
     vector<vector<int>> res = {
