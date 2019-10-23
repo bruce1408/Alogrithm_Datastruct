@@ -8,42 +8,42 @@
 // template <class T>
 // T abs(T x)
 // {
-	// return (x>0?x:-x);
+// 	return (x>0?x:-x);
 // }
 // int main()
 // {
-	// cout<<abs(-9)<<endl;
-	// return 0;
+// 	cout<<abs(-9)<<endl;
+// 	cout<<abs(-9.3)<<endl;
+// 	return 0;
 // }
  
 
 // 例子2
-#include<iostream>
-#include<string>
-using namespace std;
+// #include<iostream>
+// #include<string>
+// using namespace std;
 
-template<class T>
-T add(const T &t1, const T &t2)
-{
-	return t1+t2;
-}
+// template<class T>
+// T add(const T &t1, const T &t2)
+// {
+// 	return t1+t2;
+// }
 
 
-int main()
-{
-	int a = 1,b = 2;
-	string s1("hello,"),s2("world");
-	cout<<add(a,b)<<endl;
-	cout<<add(2.1,2.8)<<endl;
-	cout<<add(s1,s2)<<endl;
-	return 0;
-}
+// int main()
+// {
+// 	int a = 1,b = 2;
+// 	string s1("hello,"),s2("world");
+// 	cout<<add(a,b)<<endl;
+// 	cout<<add(2.1,2.8)<<endl;
+// 	cout<<add(s1,s2)<<endl;
+// 	return 0;
+// }
 
 
 
 /*函数模板分：隐式实例化、显示实例化！*/
 /*例题一：*///隐式实例化.隐式实例化是在函数调用的时候才能决定他的类型参数
-
 
 // #include<iostream>
 // using namespace std;
@@ -129,95 +129,95 @@ int main()
 
 
 /*类模板分：*/
-#include<iostream>
-// #include "Stack.h"
-using namespace std;
+// #include<iostream>
+// // #include "Stack.h"
+// using namespace std;
 
 
 
-template<class T,int num>
-class Stack
-{
-	private:
-	T sz[num];
-	int point;
-	public:
-	Stack();
-	bool isFull();
-	bool isEmpty();
-	bool push(const T&);
-	bool pop(T&);
-};
+// template<class T,int num>
+// class Stack
+// {
+// 	private:
+// 	T sz[num];
+// 	int point;
+// 	public:
+// 	Stack();
+// 	bool isFull();
+// 	bool isEmpty();
+// 	bool push(const T&);
+// 	bool pop(T&);
+// };
 
-template<class T,int num>
-Stack<T,num>::Stack()
-{
-	point = 0;
-}
+// template<class T,int num>
+// Stack<T,num>::Stack()
+// {
+// 	point = 0;
+// }
 
-template<class T,int num>
-bool Stack<T,num>::isEmpty()
-{
-	return point == 0;
-}
+// template<class T,int num>
+// bool Stack<T,num>::isEmpty()
+// {
+// 	return point == 0;
+// }
 
-template<class T,int num>
-bool Stack<T,num>::isFull()
-{
-	return point == num;
-}
+// template<class T,int num>
+// bool Stack<T,num>::isFull()
+// {
+// 	return point == num;
+// }
 
-template<class T,int num>
-bool Stack<T,num>::push(const T &obt)
-{
-	if(isFull())
-		return false;
-	else
-	{
-		sz[point]=obt;
-		point++;
-		return true;
+// template<class T,int num>
+// bool Stack<T,num>::push(const T &obt)
+// {
+// 	if(isFull())
+// 		return false;
+// 	else
+// 	{
+// 		sz[point]=obt;
+// 		point++;
+// 		return true;
 		
-	}
-}
+// 	}
+// }
 
-template<class T,int num>
-bool Stack<T,num>::pop(T & obt)
-{
-	if(isEmpty())
-		return false;
-	else
-	{
-		point--;
-		obt=sz[point];
-		return true;
-	}
-}
-
-
+// template<class T,int num>
+// bool Stack<T,num>::pop(T & obt)
+// {
+// 	if(isEmpty())
+// 		return false;
+// 	else
+// 	{
+// 		point--;
+// 		obt=sz[point];
+// 		return true;
+// 	}
+// }
 
 
 
-int main()
-{
-	Stack<int,10> st;
-	cout<<"开始时st是否为空？ "<<st.isEmpty()<<endl;
-	st.push(5);
-	cout<<"此时的st是否是空？"<<st.isEmpty()<<endl;
-	for(int i=1;i<10;i++)
-	{
-		st.push(i);
-	}
+
+
+// int main()
+// {
+// 	Stack<int,10> st;
+// 	cout<<"开始时st是否为空？ "<<st.isEmpty()<<endl;
+// 	st.push(5);
+// 	cout<<"此时的st是否是空？"<<st.isEmpty()<<endl;
+// 	for(int i=1;i<10;i++)
+// 	{
+// 		st.push(i);
+// 	}
 	
-	cout<<"st是否已经满了？"<<st.isFull()<<endl;
-	int rec = 0;
-	while(st.pop(rec))
-		cout<<rec<<" ";
-	cout<<endl;
-	return 0;
+// 	cout<<"st是否已经满了？"<<st.isFull()<<endl;
+// 	int rec = 0;
+// 	while(st.pop(rec))
+// 		cout<<rec<<" ";
+// 	cout<<endl;
+// 	return 0;
 	
 	
-}
+// }
 
 /*类模板：显式特化，例题一：*/
 
