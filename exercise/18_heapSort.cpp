@@ -33,13 +33,13 @@ void swim(vector<int>& res, int k)
  * 因为某个节点比它的子节点还要小，通过和子节点中较大的那个来交换，然后恢复堆；
  * 这一步做完之后，我们还要继续比较子节点交换之后是不是不满足条件；
 */
-void sink(vector<int>&res, int k)
+void sink(vector<int>&res, int k, int length)
 {
-    int N = res.size();
-    while(2*k < N)
+    
+    while(2*k < length)
     {
         int j = 2*k;
-        if(j+1<N && res[j]<res[j+1]) j++;
+        if(j+1<length && res[j]<res[j+1]) j++;
         if(res[k]>res[j]) break;
         swap(res[j], res[k]);
         k = j;
@@ -71,85 +71,31 @@ void sinkMin(vector<int>&res, int k)
     }
 }
 
-void exah(vector<int>&res, int a, int b)
-{
-    int temp = res[a];
-    res[a] = res[b];
-    res[b] = temp;
-}
-
 int main()
 {
     vector<int>res = {0,50,10,90,30,70,40,80,60,20};
-    for(int i=1;i<res.size();i++)
+    int length = res.size();
+    for(int i=(length)>>1;i>=1;i--)
     {
-        sink(res, i);
+        sink(res, i, length-1);
     }
     for(auto i:res)
     {
         cout<<i<<" ";
     }
     cout<<endl;
-    int N = res.size();
-    while(res.size()>1)
+    while(length>1)
     {
         
-        swap(res[1], res[res.size()-1]);
-        cout<<"=======the min num is=======:"<<res[res.size()-1]<<endl;
-        res.pop_back();
-        sink(res, 1);
+        swap(res[1], res[length-1]);
+        cout<<"=======the min num is=======:"<<res[length-1]<<endl;
+        length--;
+        sink(res, 1, length);
+    }
+    //打印出来这个数组
+    for(auto i:res)
+    {
+        cout<<i<<" ";
     }
 }
-
-
-// #include<iostream>
-// #include<vector>
-// using namespace std;
-
-// /**
-//  * maxHeap
-// */
-// template<class type>
-// void heapAdjust(vector<type>& vec, int index, int length)
-// {
-//     int i = index;
-//     int j = 2*i;
-//     for(; j<=length; j*=2)
-//     {
-//         if(j+1<=length && vec[j]<vec[j+1]) j++;
-//         if(vec[i]>vec[j]) break;
-//         swap(vec[i], vec[j]);
-//         i = j;
-//     }
-// }
-
-// template<class type>
-// void heapSort(vector<type>&vec)
-// {
-//     int length = vec.size();
-//     for(int i=(length-1)>>1;i>=1;i--)
-//     {
-//         heapAdjust(vec, i, length-1);
-//     }
-    
-//     for(int i=length-1;i>1;i--)
-//     {
-//         type temp = vec[1];
-//         vec[1] = vec[i];
-//         vec[i] = temp;
-//         heapAdjust(vec, 1, i-1);
-//     }
-// }
-
-// int main()
-// {
-//     vector<int>res = {0,50,10,90,30,70,40,80,60,20};
-//     heapSort(res);
-//     for(auto i:res)
-//     {
-//         cout<<i<<" ";
-//     }
-//     cout<<endl;
-// }
-
 
