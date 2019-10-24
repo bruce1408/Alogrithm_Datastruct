@@ -5,10 +5,6 @@
 #include <set>
 using namespace std;
 
-/**
- * 
-*/
-
 vector<int> getRow(int rowIndex)
 {
     vector<int> res(rowIndex + 1, 1);
