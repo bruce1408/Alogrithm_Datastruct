@@ -45,68 +45,118 @@
 //     }
 // }
 
-// /**
-//  * 方法 2，构建一个最小堆的数组
-// */
-// void swimMin(vector<int>& res, int k)
-// {
-//     while(k>1 && res[k/2]>res[k])
-//     {
-//         swap(res[k/2], res[k]);
-//         k = k/2;
-//     }
-// }
-
-// void sinkMin(vector<int>&res, int k)
-// {
-//     int N = res.size();
-//     while(2*k < N)
-//     {
-//         int j = 2*k;
-//         if(j+1<N && res[j]>res[j+1]) j++;
-//         if(res[k]<=res[j]) break;
-//         swap(res[j], res[k]);
-//         k = j;
-//     }
-// }
-
-//  void heapSort(vector<int>&res)
-//  {
-
-//     int length = res.size();
-//     for(int i=(length)>>1;i>=1;i--)
-//     {
-//         sink(res, i, length-1);
-//     }
-//     while(length>1)
-//     {
-//         swap(res[1], res[length-1]);
-//         // cout<<"=======the min num is=======:"<<res[length-1]<<endl;
-//         length--;
-//         sink(res, 1, length);
-//     }
-//  }
-
-// int main()
-// {
-//     vector<int>res = {0,50,10,90,30,70,40,80,60,20};
-//     heapSort(res);
-//     //打印出来这个数组
-//     for(auto i:res)
-//     {
-//         cout<<i<<" ";
-//     }
-// }
-
 
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
+
+class HeapSort
+{
+    public:
+    //构建堆
+    void make_heap(vector<int>&res);
+    // 删除最大元素
+    int pop_heap(vector<int>&res);
+    // 插入新的元素
+    void push_heap(vector<int>&res, int num);
+    // 堆排序
+    void sort_heap(vector<int>&res);
+    // 下沉的堆调整
+    void heap_adujest(vector<int>&res, int i, int length);
+    // 堆的上浮
+    void swim_adjuest(vector<int>&res, int i);
+};
+
+void HeapSort::heap_adujest(vector<int>&res, int i, int length)
+{
+    while(2*i<length)
+    {
+        int index = 2*i;
+        if(index+1<length && res[index]<res[index+1])
+        {
+            index++;
+        }
+        if(res[i]>res[index]) break;
+        swap(res[i], res[index]);
+        i = index;
+    }
+}
+
+
+void HeapSort::swim_adjuest(vector<int>&res, int k)
+{
+    while(k>1 && res[k/2]<res[k])
+    {
+        swap(res[k/2], res[k]);
+        k = k/2;
+    }
+}
+
+void HeapSort::make_heap(vector<int>&res)
+{
+    int length = res.size();
+    for(int i = (length-1)>>1;i>=1;i--)
+    {
+        heap_adujest(res, i, length);
+    }
+}
+
+int HeapSort::pop_heap(vector<int>&res)
+{
+    int length = res.size();
+    swap(res[1], res[length-1]);
+    int maxNum = res[length-1];
+    res.pop_back();
+    heap_adujest(res, 1, res.size()-1);
+    return maxNum;
+}
+
+void HeapSort::push_heap(vector<int>&res, int num)
+{
+    res.push_back(num);
+    int newlength = res.size();
+    swim_adjuest(res, newlength-1);
+}
+
+void print(vector<int>&res)
+{
+    for(auto x:res)
+    {
+        cout<<x<<" ";
+    }
+    cout<<endl;
+}
+
+void HeapSort::sort_heap(vector<int>&res)
+{
+    int length = res.size();
+    for(int i=length-1;i>=1;i--)
+    {
+        swap(res[1], res[i]);
+        heap_adujest(res, 1, i);
+    }
+}
+
 
 int main()
 {
+    vector<int>res = {0,50,10,90,30,70,40,80,60,20};
+
+    // 手动实现的优先队列算法
+    HeapSort heap;
+    heap.make_heap(res);
+    print(res);
+    cout<<"max num is: "<<heap.pop_heap(res)<<endl;
+    print(res);
+    heap.push_heap(res, 109);
+    print(res);
+    // heap.sort_heap(res);
+    // print(res);
+
+
     vector<int> res ={50,10,90,30,70,40,80,60,20};
-    // make_heap(res.begin(), res.end(), less<int>());  // 最大堆
+    // make_heap(res.begin(), res.end(), less<int>());  // 最大堆，默认的是最大堆
     make_heap(res.begin(), res.end(), greater<int>());  // 最小堆
     for(auto x:res) 
     {cout<<x<<" ";}

@@ -5,9 +5,7 @@ using namespace std;
 /**
  * 方法 1，构建最大堆，利用数组来存放堆,
  * 堆的最主要的问题就是
-<<<<<<< HEAD
  * --插入元素 --删除最大元素(记住是删除最大的元素，不是任意元素)
-=======
  * --插入元素 --删除最大元素
  * 下面主要介绍两个方法，swim 和 sink 上浮和下沉，
  * 插入和删除的方法主要建立在上面两个方法基础之上，插入是要把插入的元素
@@ -17,12 +15,8 @@ using namespace std;
  * 
  * 优先队列是基于二叉堆实现的，主要是插入和删除，插入是先插到最后，
  * 然后上浮到正确位置；删除是调换位置后再删除，然后下沉到正确位置
->>>>>>> e1949cd39246ff9fd25d3a86201a2e7409c24d78
  */
-// vector<int>buildHeap(vector<int>res)
-// {
 
-// }
 
 /**
  * swim 上浮的方法，最大堆的构建方式；
@@ -47,7 +41,6 @@ void swim(vector<int>& res, int k)
 */
 void sink(vector<int>&res, int k, int length)
 {
-    
     while(2*k < length)
     {
         int j = 2*k;
