@@ -141,24 +141,28 @@ void HeapSort::sort_heap(vector<int>&res)
 
 int main()
 {
-    vector<int>res = {0,50,10,90,30,70,40,80,60,20};
+    // vector<int>res = {0,50,10,90,30,70,40,80,60,20};
 
-    // 手动实现的优先队列算法
-    HeapSort heap;
-    heap.make_heap(res);
-    print(res);
-    cout<<"max num is: "<<heap.pop_heap(res)<<endl;
-    print(res);
-    heap.push_heap(res, 109);
-    print(res);
+    // // 手动实现的优先队列算法
+    // HeapSort heap;
+    // heap.make_heap(res);
+    // print(res);
+    // cout<<"max num is: "<<heap.pop_heap(res)<<endl;
+    // print(res);
+    // heap.push_heap(res, 109);
+    // print(res);
     // heap.sort_heap(res);
     // print(res);
 
 
     vector<int> res ={50,10,90,30,70,40,80,60,20};
-    // make_heap(res.begin(), res.end(), less<int>());  // 最大堆，默认的是最大堆
-    make_heap(res.begin(), res.end(), greater<int>());  // 最小堆
-    for(auto x:res) 
-    {cout<<x<<" ";}
+    make_heap(res.begin(), res.end(), less<int>());  // 最大堆，默认的是最大堆
+    // make_heap(res.begin(), res.end(), greater<int>());  // 最小堆
+    print(res);
+    res.push_back(100);
+    push_heap(res.begin(), res.end());
+    print(res);
+    pop_heap(res.begin(), res.end());
+    res.pop_back();
 }
 
