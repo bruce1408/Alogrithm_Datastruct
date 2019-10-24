@@ -5,7 +5,7 @@ using namespace std;
 /**
  * 方法 1，构建最大堆，利用数组来存放堆,
  * 堆的最主要的问题就是
- * --插入元素 --删除最大元素
+ * --插入元素 --删除最大元素(记住是删除最大的元素，不是任意元素)
  */
 // vector<int>buildHeap(vector<int>res)
 // {
@@ -71,28 +71,27 @@ void sinkMin(vector<int>&res, int k)
     }
 }
 
-int main()
-{
-    vector<int>res = {0,50,10,90,30,70,40,80,60,20};
+void heapSort(vector<int>&res)
+ {
+
     int length = res.size();
     for(int i=(length)>>1;i>=1;i--)
     {
         sink(res, i, length-1);
     }
-    for(auto i:res)
-    {
-        cout<<i<<" ";
-    }
-    cout<<endl;
     while(length>1)
     {
-        
         swap(res[1], res[length-1]);
-        cout<<"=======the min num is=======:"<<res[length-1]<<endl;
+        // cout<<"=======the min num is=======:"<<res[length-1]<<endl;
         length--;
         sink(res, 1, length);
     }
-    //打印出来这个数组
+ }
+
+int main()
+{
+    vector<int>res = {0,50,10,90,30,70,40,80,60,20};
+    heapSort(res);
     for(auto i:res)
     {
         cout<<i<<" ";
