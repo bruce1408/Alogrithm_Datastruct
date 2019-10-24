@@ -49,6 +49,7 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<queue>
 using namespace std;
 
 class HeapSort
@@ -82,7 +83,6 @@ void HeapSort::heap_adujest(vector<int>&res, int i, int length)
         i = index;
     }
 }
-
 
 void HeapSort::swim_adjuest(vector<int>&res, int k)
 {
@@ -118,8 +118,8 @@ void HeapSort::push_heap(vector<int>&res, int num)
     int newlength = res.size();
     swim_adjuest(res, newlength-1);
 }
-
-void print(vector<int>&res)
+template <class T>
+void print(vector<T>&res)
 {
     for(auto x:res)
     {
@@ -155,14 +155,21 @@ int main()
     // print(res);
 
 
-    vector<int> res ={50,10,90,30,70,40,80,60,20};
-    make_heap(res.begin(), res.end(), less<int>());  // 最大堆，默认的是最大堆
-    // make_heap(res.begin(), res.end(), greater<int>());  // 最小堆
-    print(res);
-    res.push_back(100);
-    push_heap(res.begin(), res.end());
-    print(res);
-    pop_heap(res.begin(), res.end());
-    res.pop_back();
+    // vector<int> res ={50,10,90,30,70,40,80,60,20};
+    // make_heap(res.begin(), res.end(), less<int>());  // 最大堆，默认的是最大堆
+    // // make_heap(res.begin(), res.end(), greater<int>());  // 最小堆
+    // print(res);
+    // // 插入元素，先在数组中插入，然后在利用push_heap在堆中插入即可，表示插入的新的元素重新构成堆
+    // res.push_back(100);
+    // push_heap(res.begin(), res.end());
+    // print(res);
+    // // 删除最大元素，先从堆中删除，然后从容器中删除
+    // pop_heap(res.begin(), res.end()); // 函数只是把第一个元素移到最后，然后在进行堆的调整，此时容器最后一个元素是最大值，删除后依然保持堆结构
+
+    vector<int>num = {21,22,12,3,24,54,56};
+    priority_queue<int, vector<int>, less<int>>values(num.begin(), num.end());　// 大顶堆的优先队列
+    // priority_queue<int, vector<int>, greater<int>>numbers(num.begin(), num.end());
+    // cout<<numbers.top()<<endl;
+    cout<<values.top()<<endl;
 }
 

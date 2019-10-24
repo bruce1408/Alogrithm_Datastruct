@@ -3,19 +3,19 @@
   模板运算类型不是实际的数据类型，而是参数化的类型，称为类属类型。*/
 
 //例子1
-// #include<iostream>
-// using namespace std;
-// template <class T>
-// T abs(T x)
-// {
-// 	return (x>0?x:-x);
-// }
-// int main()
-// {
-// 	cout<<abs(-9)<<endl;
-// 	cout<<abs(-9.3)<<endl;
-// 	return 0;
-// }
+#include<iostream>
+using namespace std;
+template <class T>
+T abs(T x)
+{
+	return (x>0?x:-x);
+}
+int main()
+{
+	cout<<abs(-9)<<endl;
+	cout<<abs(-9.3)<<endl;
+	return 0;
+}
  
 
 // 例子2
