@@ -26,21 +26,18 @@ using namespace std;
 */
 vector<int> intersection1(vector<int> &nums1, vector<int> &nums2)
 {
-
-    set<int> res1(nums1.begin(), nums1.end());
-    set<int> res2(nums2.begin(), nums2.end());
-    vector<int> res;
-    for (set<int>::iterator it = res1.begin(); it != res1.end(); it++)
+    set<int> res;
+    for (int i=0;i<nums1.size();i++)
     {
-        for (set<int>::iterator it2 = res2.begin(); it2 != res2.end(); it2++)
+        for (int j=0;j<nums2.size();j++)
         {
-            if (*it == *it2)
+            if (nums1[i]==nums2[j])
             {
-                res.push_back(*it);
+                res.insert(nums1[i]);
             }
         }
     }
-    return res;
+    return vector<int>(res.begin(), res.end());
 }
 
 /**
@@ -48,7 +45,6 @@ vector<int> intersection1(vector<int> &nums1, vector<int> &nums2)
 */
 vector<int> intersection2(vector<int> &nums1, vector<int> &nums2)
 {
-
     set<int> res1(nums1.begin(), nums1.end());
     set<int> res2(nums2.begin(), nums2.end());
     vector<int> res;
@@ -64,6 +60,7 @@ vector<int> intersection2(vector<int> &nums1, vector<int> &nums2)
 
 /**
  * 方法 3， 利用二分查找的思路来做；最后把结果放进set集合中，返回vector
+ * 就是把一个数组通过set集合处理，然后第二个数组排序，遍历第一个数组，在第二个数组中进行二分查找；
  * 时间复杂度粗略的算是O(nlogn)
 */
 vector<int> intersection3(vector<int> &nums1, vector<int> &nums2)
@@ -94,7 +91,8 @@ vector<int> intersection3(vector<int> &nums1, vector<int> &nums2)
 }
 
 /**
- * 方法 3_1, 改进版本的二分查找；
+ * 方法 3_1, 改进版本的二分查找；和上面的二分查找的算法相比，速度更快，原因是在相等的时候直接return
+ * 一个布尔类型的值；
 */
 bool binarySearch(vector<int>&nums, int target)
 {
@@ -160,7 +158,7 @@ vector<int> intersection5(vector<int> &nums1, vector<int> &nums2)
     vector<int>res;
     for(auto i: nums2)
     {
-        if(res1.erase(i))
+        if(res1.erase(i)) // 存在的话返回1，否则返回0；
         {
             res.push_back(i);
         }
@@ -170,13 +168,16 @@ vector<int> intersection5(vector<int> &nums1, vector<int> &nums2)
 
 
 /**
- * 方法 6，使用unordered_set来，最后补一个set 和 unordered_set
- * 之间的各种操作的时间开销的例子，set 红黑树实现，unordered_set
+ * 方法 6，使用unordered_set来，最后补一个set 和 unordered_set的知识点；
+ * 它们之间的各种操作的时间开销的例子，set 红黑树实现，unordered_set
  * 是hash实现;在讨论里面，unordered_set的时间开销好像更少！
+ * 思路和上面的都一样，利用一个数组放到哈希set中，然后第二个数组遍历查找，
+ * 找到之后开始把第一个数组元素删除即可；
+ * 这个是最好的方法！
 */
 vector<int> intersection6(vector<int> &nums1, vector<int> &nums2)
 {
-    unordered_set<int>res1(nums2.begin(), nums1.end());
+    unordered_set<int>res1(nums1.begin(), nums1.end());
     vector<int>res;
     for(auto i: nums2)
     {
@@ -206,7 +207,7 @@ int main()
 {
     vector<int> nums1 = {1, 2, 2, 1};
     vector<int> nums2 = {2, 2};
-    for (auto i : intersection7(nums1, nums2))
+    for (auto i : intersection6(nums1, nums2))
         cout << i << " ";
     return 0;
 }
