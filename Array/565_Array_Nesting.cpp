@@ -22,7 +22,7 @@ using namespace std;
  * A[0] = 5, A[1] = 4, A[2] = 0, A[3] = 3, A[4] = 1, A[5] = 6, A[6] = 2.
  * One of the longest S[K]:
  * S[0] = {A[0], A[5], A[6], A[2]} = {5, 6, 2, 0}
- * 
+ * *重做一遍；
 */
 
 
@@ -67,6 +67,7 @@ int arrayNesting1(vector<int>&nums)
  * 方法 2， 和方法 1相比，主要在helper处进行了代码简化，方法 1是
  * 循环计算每个元素和位置然后给如果哈希表没有出现，就装进去，但是方法 2思路是下次出现重复数字必定是
  * 新的数组中的头部位置，所以只要记录的位置i和开始位置不等即可，然后返回计数的次数cnt即可；
+ * 另外在arrayNesting函数中，辅助数组中出现这个数字那么就不判断，否则进行判断，也节省了大量的时间；
  */
 int helper(vector<int>& nums, int start, vector<bool>& visited)  
 {
@@ -86,20 +87,22 @@ int arrayNesting2(vector<int>& nums)
     vector<bool> visited(n, false);
     for (int i = 0; i < nums.size(); ++i) 
     {
-        if (visited[nums[i]]) continue;
+        if (visited[nums[i]]) continue; // 这个数字没有出现时候是false，进行判断，否则，不用判断了；这里认为之前出现过得不用判断
+        // 这个是怎么证明呢？
         res = max(res, helper(nums, i, visited));
     }
     return res;
 }
 
 /**
- * 方法 3，
+ * 方法 3，对方法 2进行优化，思路都是一样的；
 */
 int arrayNesting3(vector<int>& nums) 
 {
     int n = nums.size(), res = INT32_MIN;
     vector<bool> visited(n, false);
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) 
+    {
         if (visited[nums[i]]) continue;
         int cnt = 0, j = i;
         while(cnt == 0 || j != i) {
@@ -112,9 +115,34 @@ int arrayNesting3(vector<int>& nums)
     return res;
 }
 
+/**
+ * 方法 4,利用不需要新建一个辅助数组，核心的思想就是如果某个数出现在正确的下标索引位置上，那么
+ * 它一定不能组成嵌套数组；
+ * 比如说：{ 5,4,0,3,1,6,2 }；
+ * A[0] = 5, A[1] = 4, A[2] = 0, A[3] = 3, A[4] = 1, A[5] = 6, A[6] = 2；
+ * S[0] = {A[0], A[5], A[6], A[2]} = {5, 6, 2, 0}，那么A[0] = 5;在第5个位置上的元素就是5；出现
+ * 了相应位置上的元素相同的情况，类似这种情况就构不成嵌套数组；
+ * 方法 4 非常好理解
+ * 
+*/
+int arrayNesting4(vector<int>&nums)
+{
+    int res = 0;
+    for(int i=0;i<nums.size();i++)
+    {
+        int cnt = 1;
+        while(nums[i]!=i) // 遍历每个元素；
+        {
+            swap(nums[i], nums[nums[i]]);
+            cnt+=1;
+        }
+        res = max(res, cnt);
+    }
+    return res;
+}
 
 int main()
 {
-    vector<int>res = {1,2,0};
-    cout<<arrayNesting1(res)<<endl;
+    vector<int>res = {5,4,0,3,1,6,2};
+    cout<<arrayNesting4(res)<<endl;
 }
