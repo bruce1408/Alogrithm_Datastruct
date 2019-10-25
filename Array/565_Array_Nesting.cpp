@@ -38,22 +38,15 @@ int recurise(vector<int>&num, int k)
 {
     vector<int>result;
     unordered_set<int>res;
+    int tempK = k;
     for(int i=0;i<num.size();i++)
     {
         int index = i;
-        int tempK = k;
-        while(index>=0)
-        {
-            tempK = num[tempK];
-            index--;   
-        }
+        tempK = num[tempK];
+       
         if(res.count(tempK)==0)
         {
             res.insert(tempK);
-        }
-        else
-        {
-            return res.size();
         }
     }
     return res.size();
@@ -63,28 +56,25 @@ int arrayNesting1(vector<int>&nums)
 {
     set<int>res;
     int result = INT32_MIN;
-    for(int i=0;i<nums.size();i++)
+    for(int i=0;i<nums.size();i++)  // 和方法 2相比，这里少了一个判断的数组；所以时间复杂度是O(n^2);
     {
-        int comp = recurise(nums, i);
-        if(result<comp)
-        {
-            result = comp;
-        }
+        result = max(result, recurise(nums, i));
     }
     return result;
 }
 
 /**
- * method 2
+ * 方法 2， 和方法 1相比，主要在helper处进行了代码简化，方法 1是
+ * 循环计算每个元素和位置然后给如果哈希表没有出现，就装进去，但是方法 2思路是下次出现重复数字必定是
+ * 新的数组中的头部位置，所以只要记录的位置i和开始位置不等即可，然后返回计数的次数cnt即可；
  */
-
-
-int helper(vector<int>& nums, int start, vector<bool>& visited) {
+int helper(vector<int>& nums, int start, vector<bool>& visited)  
+{
     int i = start, cnt = 0; // 记录数组中存放了多少个元素；
     while (cnt == 0 || i != start) // 是否次数是0，表示刚开始计数，或者是
     {
         visited[i] = true;
-        i = nums[i];  
+        i = nums[i];
         ++cnt;
     }
     return cnt;
@@ -126,5 +116,5 @@ int arrayNesting3(vector<int>& nums)
 int main()
 {
     vector<int>res = {1,2,0};
-    cout<<arrayNesting3(res)<<endl;
+    cout<<arrayNesting1(res)<<endl;
 }
