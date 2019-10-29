@@ -22,7 +22,20 @@ using namespace std;
 
 int maxDistToClosest(vector<int>& seats) 
 {
-    
+    int left = 0, right = 0, N = seats.size();
+    int maxDis = 0;
+    while(left<N)
+    {
+        if(seats[left]==1)
+        {
+            right = left;
+            while(right<N)
+            {
+                
+            }
+        }
+    }
+    return 0;
 
 }
 
