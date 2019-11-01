@@ -20,25 +20,11 @@ using namespace std;
  * Thus, the maximum distance to the closest person is 2.
  */
 
+/**
+ * 方法 1，
+*/
 int maxDistToClosest(vector<int> &seats)
 {
-<<<<<<< HEAD
-    int left = 0, right = 0, N = seats.size();
-    int maxDis = 0;
-    while(left<N)
-    {
-        if(seats[left]==1)
-        {
-            right = left;
-            while(right<N)
-            {
-                
-            }
-        }
-    }
-    return 0;
-
-=======
     int N = seats.size();
     int left = 0;
     int maxDis = 0;
@@ -69,25 +55,48 @@ int maxDistToClosest(vector<int> &seats)
         }
     }
     return maxDis;
->>>>>>> 81fbf5a756763ee99ac74fe1acf627699582ab2d
 }
 
-int maxDistToClosest2(vector<int> res)
+
+/**
+ * 方法 2，利用辅助数组来存1的出现的位置
+*/
+int maxDistToClosest2(vector<int> &seats)
 {
-    int maxDis = 0;
-    int start = 0;
-    for (int i = 0; i < res.size(); i++)
+    int N = seats.size();
+    vector<int>res;
+    int num = 0;
+    for(int i=0;i<N;i++)
     {
-        if (res[i] == 1)
+        if(seats[i]==1)
         {
-            maxDis = max(i - start, maxDis);
-            start = i;
+            res.push_back(i);       
         }
     }
-    return (maxDis - 1) / 2 + 1;
+
+    for(int i=0;i<res.size();i++)
+    {
+        if(i==0)
+        {
+            num = max(num, res[i]);
+        }
+        else
+        {
+            num = max(num, (res[i]-res[i-1])/2);
+        }        
+    }
+
+    if(!res.empty())  // 遍历到最后的可能靠墙的位置
+    {
+        num = max(num, N-res.back()-1);
+    }
+    return num;
 }
 
-int maxDistToClosest3(vector<int> res)
+/**
+ * 方法 3，利用的是0来计数而不是1来计数；
+*/
+int maxDistToClosest3(vector<int>&res)
 {
     int maxDis = 0;
     int count = 0,index= 0, N = res.size();
@@ -96,21 +105,24 @@ int maxDistToClosest3(vector<int> res)
         if (res[i] == 0)
         {
             count++;
-            index = i;
         }
         else
         {
-            maxDis = max(count, maxDis);
-            count = 0;
-            
+            if(maxDis < count)
+            {
+                maxDis = count;
+                index = i;
+            }
+            count = 0;            
         }
+        cout<<index<<endl;
     }
-    cout<<"the max index is: "<<index<<endl;
-    return index==N-1? max(maxDis, count) : max(maxDis, count)/2+1;
+    cout<<"the max dis is: "<<maxDis<<endl;
+    return index>maxDis? maxDis/2+1 : maxDis;
 }
 
 int main()
 {
-    vector<int> res = {1, 0, 0, 1};
+    vector<int> res = {1, 0, 0, 0};
     cout << maxDistToClosest3(res) << endl;
 }
