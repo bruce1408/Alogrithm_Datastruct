@@ -26,6 +26,7 @@ using namespace std;
 /**
  * 方法 1，我的思路就是统计相邻1之间的0的个数，然后找到其中最大的，
  * 找到之后这个(最大个数)/2即可；下面的写法出错了；
+ * 方法 1，
 */
 int maxDistToClosest(vector<int> &seats)
 {
@@ -67,21 +68,46 @@ int maxDistToClosest(vector<int> &seats)
  * 如果靠墙的情况，就是[1,0,0,0]
 */
 int maxDistToClosest2(vector<int> res)
+
+/**
+ * 方法 2，利用辅助数组来存1的出现的位置
+*/
+int maxDistToClosest2(vector<int> &seats)
 {
-    int maxDis = 0;
-    int start = 0;
-    for (int i = 0; i < res.size(); i++)
+    int N = seats.size();
+    vector<int>res;
+    int num = 0;
+    for(int i=0;i<N;i++)
     {
-        if (res[i] == 1)
+        if(seats[i]==1)
         {
-            maxDis = max(i - start, maxDis);
-            start = i;
+            res.push_back(i);       
         }
     }
-    return (maxDis - 1) / 2 + 1;
+
+    for(int i=0;i<res.size();i++)
+    {
+        if(i==0)
+        {
+            num = max(num, res[i]);
+        }
+        else
+        {
+            num = max(num, (res[i]-res[i-1])/2);
+        }        
+    }
+
+    if(!res.empty())  // 遍历到最后的可能靠墙的位置
+    {
+        num = max(num, N-res.back()-1);
+    }
+    return num;
 }
 
-int maxDistToClosest3(vector<int> res)
+/**
+ * 方法 3，利用的是0来计数而不是1来计数；
+*/
+int maxDistToClosest3(vector<int>&res)
 {
     int maxDis = 0;
     int count = 0,index= 0, N = res.size();
@@ -90,21 +116,56 @@ int maxDistToClosest3(vector<int> res)
         if (res[i] == 0)
         {
             count++;
-            index = i;
         }
         else
         {
-            maxDis = max(count, maxDis);
-            count = 0;
-            
+            if(maxDis <= count)
+            {
+                maxDis = count;
+                index = i;
+            }
+            count = 0;            
         }
+        cout<<index<<endl;
     }
-    cout<<"the max index is: "<<index<<endl;
-    return index==N-1? max(maxDis, count) : max(maxDis, count)/2+1;
+    maxDis = max(count, maxDis);
+    cout<<"the max dis is: "<<maxDis<<endl;
+    if(index > maxDis)
+    {
+        if(maxDis%2==0)return maxDis/2;
+        else return maxDis/2+1;
+    }
+    else
+    {
+        return maxDis;
+    }
+    return maxDis;
 }
 
+/**
+ * 方法 4，利用连续出现的0的个数，方法3思路相同；主要在处理墙角的情况
+ * 有些不同
+*/
+int maxDistToClosest4(vector<int>&res)
+{
+    int N = res.size(), start = 0, num = 0;
+    for(int i=0;i<N;i++)
+    {
+        if(res[i]!=1) continue;
+        if(start==0) num = max(num, i-start);
+        else
+        {
+            num = max((i-start+1)/2, num); 
+        }
+        start = i+1;
+    }
+    num = max(num, N-start);
+    return num; 
+}
 int main()
 {
     vector<int> res = {1, 0, 0, 1};
     cout << maxDistToClosest(res) << endl;
+    vector<int> res = {0,0,0,1,0,0,1};
+    cout << maxDistToClosest4(res) << endl;
 }
