@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <typeinfo>
 #include <vector>
+#include <regex>
 using namespace std;
 
 // class Solution
@@ -30,8 +31,8 @@ using namespace std;
 // 	}
 // };
 
-int main()
-{
+// int main()
+// {
 
 	// int a = 10;
 	// cout<<typeid(a).name()<<endl;
@@ -89,15 +90,26 @@ int main()
 	// 	}
 	// }
 
-	for (int i = 5; i > 0;)
-	{
-		cout << "before" << i << endl;  //运算符的优先级
-		if (--i < 5)
-		{
-			cout << "after" << i << endl;
-			// break;
-		}
-	}
-	return 0;
+	// for (int i = 5; i > 0;)
+	// {
+	// 	cout << "before" << i << endl;  //运算符的优先级
+	// 	if (--i < 5)
+	// 	{
+	// 		cout << "after" << i << endl;
+	// 		// break;
+	// 	}
+	// }
+	// return 0;
 	
+// }
+
+int main()
+{
+	string pattern = {"\\d{4}-\\d{2}-\\d{2}"};
+	regex re(pattern);
+	string a  = "2019-02-10";
+	int year = 0;
+	year = stoi(a.substr(0, 4));
+	cout<<year+2<<endl;
+
 }
