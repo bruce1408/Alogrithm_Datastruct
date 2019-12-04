@@ -8,12 +8,14 @@ using namespace std;
  * The input is given as three integers representing the day, 
  * month and year respectively.Return the answer as one of the following values
  *  {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}.
+ * Given a string date representing a Gregorian calendar date formatted as YYYY-MM-DD, return the day number of the year.
  * 
  * Example 1:
- * Input: day = 31, month = 8, year = 2019
- * Output: "Saturday"
+ * Input: date = "2019-01-09"
+ * Output: 9
  * 
- * 给一个日期计算这个日期下是星期几
+ * Explanation: Given date is the 9th day of the year in 2019.
+ * 给一个日期计算这个日期下是这一年的第几日
 */
 
 /**
@@ -32,26 +34,26 @@ int isLeap(int year)
     }
     else return 0;
 }
-string dayOfTheWeek(int day, int month, int year)
+int dayOfYear(string date)
 {
-    vector<string>da = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
-     "Friday", "Saturday"};
+    // vector<string>da = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
+    //  "Friday", "Saturday"};
 
+    int year = stoi(date.substr(0, 4));
+    int month = stoi(date.substr(5, 7));
+    int day = stoi(date.substr(8, 10));
     vector<int>monthDay = {31,28+isLeap(year),31,30,31,30,31,31,30,31,30,31};
     int sum=0;
-    for(int i=1970;i<year;i++)
+    for(int i=0;i<month-1;i++)
     {
-        sum+=isLeap(i)+365;
-    }
-    for(int i=1;i<month;i++)
-    {
-        sum+=monthDay[i-1];
+        sum+=monthDay[i];
     }
     sum+=day;
-    return da[(sum+4-1)%7];
+    return sum;
 }
 
 int main()
 {
-    cout<<dayOfTheWeek(31, 8, 2019)<<endl;
+    string date = "2019-01-09";
+    cout<<dayOfYear(date)<<endl;
 }
