@@ -18,9 +18,14 @@ using namespace std;
  * If Alex sits in the second open seat (seats[2]), then the closest person has distance 2.
  * If Alex sits in any other open seat, the closest person has distance 1.
  * Thus, the maximum distance to the closest person is 2.
+ * 
+ * 给定一个数组，然后1表示当前的索引有人已经坐了，0表示没有人坐，现在就是要找到一个0的空位置，可以让
+ * 其他人坐到这个位置，而且这个位置必须和周围的人离得越远越好才可以
  */
 
 /**
+ * 方法 1，我的思路就是统计相邻1之间的0的个数，然后找到其中最大的，
+ * 找到之后这个(最大个数)/2即可；下面的写法出错了；
  * 方法 1，
 */
 int maxDistToClosest(vector<int> &seats)
@@ -34,7 +39,7 @@ int maxDistToClosest(vector<int> &seats)
         int tempMax = 1;
         if (seats[i] == 1)
         {
-            for (int j = i; j < N;)
+            for (int j = i+1; j < N;)
             {
                 if (seats[j] != 1)
                 {
@@ -48,6 +53,7 @@ int maxDistToClosest(vector<int> &seats)
                     break;
                 }
             }
+            i++;
         }
         else
         {
@@ -57,6 +63,11 @@ int maxDistToClosest(vector<int> &seats)
     return maxDis;
 }
 
+/**
+ * 方法 2，以及方法 3都是直接求解的是连续0出现的最大次数，只用一次for循环即可，但是没有考虑到
+ * 如果靠墙的情况，就是[1,0,0,0]
+*/
+int maxDistToClosest2(vector<int> res)
 
 /**
  * 方法 2，利用辅助数组来存1的出现的位置
@@ -153,6 +164,8 @@ int maxDistToClosest4(vector<int>&res)
 }
 int main()
 {
+    vector<int> res = {1, 0, 0, 1};
+    cout << maxDistToClosest(res) << endl;
     vector<int> res = {0,0,0,1,0,0,1};
     cout << maxDistToClosest4(res) << endl;
 }
