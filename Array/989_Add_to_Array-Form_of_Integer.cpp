@@ -62,10 +62,10 @@ vector<int> addToArrayForm2(vector<int> &A, int K)
         temp.push_back(K % 10);
         K = K / 10;
     }
-    for (auto i : temp)
-    {
-        cout << i << endl;
-    }
+    // for (auto i : temp)
+    // {
+    //     cout << i << endl;
+    // }
     int digit = 0;
     for (int i = n - 1; i >= 0; i--)
     {
@@ -85,7 +85,6 @@ vector<int> addToArrayForm2(vector<int> &A, int K)
             num = num % 10;
             A[1] = num;
         }
-
         else if (num >= 10 && i > 0)
         {
             A[i] = num % 10;
@@ -126,10 +125,84 @@ vector<int> addToArrayForm3(vector<int> &A, int K)
     return A;
 }
 
+/**
+ * 方法 4， 优化后的方法
+*/
+vector<int> addToArrayForm4(vector<int> &A, int K)
+{
+    vector<int> temp;
+    vector<int> res;
+    int n = A.size();
+    while (K)
+    {
+        temp.push_back(K % 10);
+        K = K / 10;
+    }
+    int digit = 0, num = 0;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        if (n - i - 1 >= temp.size())
+        {
+            num = A[i] + digit;
+        }
+        else
+        {
+            num = A[i] + temp[n - i - 1] + digit;
+        }
+        if (n - i - 1 >= temp.size()) // temp没有数了
+        {
+            if (num >= 10 && i == 0)
+            {
+                A[i] = num % 10;
+                digit = num / 10;
+                A.insert(A.begin(), 1, digit);
+            }
+            else if (num >= 10 && i > 0)
+            {
+                A[i] = num % 10;
+                digit = num / 10;
+                num = num / 10;
+            }
+            else if (num < 10)
+            {
+                A[i] = num;
+                digit = 0;
+            }
+        }
+        else if (i == 0)
+        {
+            if (num >= 10)
+            {
+                A[i] = num % 10;
+                A.insert(A.begin(), 1, num / 10);
+            }
+            else
+            {
+                A[i] = num;
+                digit = 0;
+            }
+        }
+        else
+        {
+            if (num >= 10)
+            {
+                A[i] = num % 10;
+                digit = num / 10;
+            }
+            else
+            {
+                A[i] = num;
+                digit = 0;
+            }
+        }
+    }
+    return A;
+}
+
 int main()
 {
     vector<int> res = {6};
-    for (auto i : addToArrayForm3(res, 809))
+    for (auto i : addToArrayForm4(res, 809))
     {
         cout << i << " ";
     }
