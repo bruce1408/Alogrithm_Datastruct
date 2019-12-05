@@ -250,13 +250,10 @@ vector<int> addToArrayForm4(vector<int> &A, int K)
 
 int main()
 {
-<<<<<<< HEAD
     vector<int> res = {6};
     for (auto i : addToArrayForm4(res, 809))
-=======
     vector<int> res = {2,1,5};
     for (auto i : addToArrayForm3(res, 806))
->>>>>>> 45dc9e418d48ee1bdac7c82e8d7dca3c072c12de
     {
         cout << i << " ";
     }
