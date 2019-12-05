@@ -112,24 +112,73 @@ vector<int> addToArrayForm2(vector<int> &A, int K)
 */
 vector<int> addToArrayForm3(vector<int> &A, int K)
 {
-    for (int i = A.size() - 1; i >= 0 && K > 0; i--)
+    vector<int>temp;
+    int digit = 0, n = A.size(), bitK = 0;
+    while (K)
     {
-        A[i] += K;
-        K = A[i] / 10;
-        A[i] = A[i] % 10;
-    }
-    while (K > 0)
-    {
-        A.insert(A.begin(), K % 10);
+        temp.push_back(K % 10);
         K = K / 10;
+    }
+    int m = temp.size();
+    int i=n-1, num = 0;
+    for(;i>=0;i--)  // 以A为基准，这种情况是A的元素多于temp的数组
+    {
+        if(n-i-1<m) // temp 没有越界
+        {
+            num = A[i]+temp[n-i-1]+digit;
+            if(num>=10)
+            {
+                A[i] = num%10;
+                digit = num/10;
+            }
+            else
+            {
+                A[i] = num;
+                digit = 0;
+            }
+        }
+        else // temp 越界后的情况
+        {
+            num = A[i]+digit;
+            if(num>=10)
+            {
+                A[i] = num%10;
+                digit = num/10;
+            }
+            else
+            {
+                A[i] = num;
+                digit = 0;
+            }
+        }
+        bitK++;
+    }
+    while(bitK<m)  //这种情况是A的元素少于temp的数组
+    {
+        num  = temp[bitK]+digit;
+        if(num>=10)
+        {
+            A.insert(A.begin(), num%10);
+            digit = num/10;
+        }
+        else
+        {
+            A.insert(A.begin(), num);
+            digit = 0;
+        }
+        bitK++;
+    }
+    if(digit==1)
+    {
+        A.insert(A.begin(), digit);
     }
     return A;
 }
 
 int main()
 {
-    vector<int> res = {6};
-    for (auto i : addToArrayForm3(res, 809))
+    vector<int> res = {2,1,5};
+    for (auto i : addToArrayForm3(res, 806))
     {
         cout << i << " ";
     }
