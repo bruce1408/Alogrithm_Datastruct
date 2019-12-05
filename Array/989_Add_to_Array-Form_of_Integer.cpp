@@ -111,7 +111,7 @@ vector<int> addToArrayForm2(vector<int> &A, int K)
 */
 vector<int> addToArrayForm3(vector<int> &A, int K)
 {
-    vector<int>temp;
+    vector<int> temp;
     int digit = 0, n = A.size(), bitK = 0;
     while (K)
     {
@@ -119,16 +119,16 @@ vector<int> addToArrayForm3(vector<int> &A, int K)
         K = K / 10;
     }
     int m = temp.size();
-    int i=n-1, num = 0;
-    for(;i>=0;i--)  // 以A为基准，这种情况是A的元素多于temp的数组
+    int i = n - 1, num = 0;
+    for (; i >= 0; i--) // 以A为基准，这种情况是A的元素多于temp的数组
     {
-        if(n-i-1<m) // temp 没有越界
+        if (n - i - 1 < m) // temp 没有越界
         {
-            num = A[i]+temp[n-i-1]+digit;
-            if(num>=10)
+            num = A[i] + temp[n - i - 1] + digit;
+            if (num >= 10)
             {
-                A[i] = num%10;
-                digit = num/10;
+                A[i] = num % 10;
+                digit = num / 10;
             }
             else
             {
@@ -138,11 +138,11 @@ vector<int> addToArrayForm3(vector<int> &A, int K)
         }
         else // temp 越界后的情况
         {
-            num = A[i]+digit;
-            if(num>=10)
+            num = A[i] + digit;
+            if (num >= 10)
             {
-                A[i] = num%10;
-                digit = num/10;
+                A[i] = num % 10;
+                digit = num / 10;
             }
             else
             {
@@ -152,13 +152,13 @@ vector<int> addToArrayForm3(vector<int> &A, int K)
         }
         bitK++;
     }
-    while(bitK<m)  //这种情况是A的元素少于temp的数组
+    while (bitK < m) //这种情况是A的元素少于temp的数组
     {
-        num  = temp[bitK]+digit;
-        if(num>=10)
+        num = temp[bitK] + digit;
+        if (num >= 10)
         {
-            A.insert(A.begin(), num%10);
-            digit = num/10;
+            A.insert(A.begin(), num % 10);
+            digit = num / 10;
         }
         else
         {
@@ -167,7 +167,7 @@ vector<int> addToArrayForm3(vector<int> &A, int K)
         }
         bitK++;
     }
-    if(digit==1)
+    if (digit == 1)
     {
         A.insert(A.begin(), digit);
     }
@@ -175,85 +175,34 @@ vector<int> addToArrayForm3(vector<int> &A, int K)
 }
 
 /**
- * 方法 4， 优化后的方法
+ * 方法 4
 */
-vector<int> addToArrayForm4(vector<int> &A, int K)
+vector<int> addToArrayForm4(vector<int> &a, int k)
 {
-    vector<int> temp;
-    vector<int> res;
-    int n = A.size();
-    while (K)
+    vector<int> answer;
+    int carry = 0;
+    while (!a.empty() || k != 0)
     {
-        temp.push_back(K % 10);
-        K = K / 10;
+        int lastDigit_1 = a.empty() ? 0 : a.back();
+        int lastDigit_2 = k % 10;
+        int sum = lastDigit_1 + lastDigit_2 + carry;
+        answer.push_back(sum % 10);
+        carry = sum / 10;
+        if (!a.empty())
+            a.pop_back();
+        k = k / 10;
     }
-    int digit = 0, num = 0;
-    for (int i = n - 1; i >= 0; i--)
-    {
-        if (n - i - 1 >= temp.size())
-        {
-            num = A[i] + digit;
-        }
-        else
-        {
-            num = A[i] + temp[n - i - 1] + digit;
-        }
-        if (n - i - 1 >= temp.size()) // temp没有数了
-        {
-            if (num >= 10 && i == 0)
-            {
-                A[i] = num % 10;
-                digit = num / 10;
-                A.insert(A.begin(), 1, digit);
-            }
-            else if (num >= 10 && i > 0)
-            {
-                A[i] = num % 10;
-                digit = num / 10;
-                num = num / 10;
-            }
-            else if (num < 10)
-            {
-                A[i] = num;
-                digit = 0;
-            }
-        }
-        else if (i == 0)
-        {
-            if (num >= 10)
-            {
-                A[i] = num % 10;
-                A.insert(A.begin(), 1, num / 10);
-            }
-            else
-            {
-                A[i] = num;
-                digit = 0;
-            }
-        }
-        else
-        {
-            if (num >= 10)
-            {
-                A[i] = num % 10;
-                digit = num / 10;
-            }
-            else
-            {
-                A[i] = num;
-                digit = 0;
-            }
-        }
-    }
-    return A;
+
+    if (carry != 0)
+        answer.push_back(carry);
+    reverse(answer.begin(), answer.end());
+    return answer;
 }
 
 int main()
 {
     vector<int> res = {6};
-    for (auto i : addToArrayForm4(res, 809))
-    vector<int> res = {2,1,5};
-    for (auto i : addToArrayForm3(res, 806))
+    for (auto i : addToArrayForm4(res, 806))
     {
         cout << i << " ";
     }
