@@ -161,12 +161,14 @@ vector<int> addToArrayForm3(vector<int> &a, int k)
  * K/=10; 
 */
 vector<int>addToArrayForm4(vector<int>& A, int K){
-    for(int i=A.size()-1; i>=0 && K>0; i--)
+    // 和方法 2的思路类似，但是写法更加简洁，以A为基准，A的长度小于K的长度的情况
+    for(int i=A.size()-1; i>=0 && K>0; i--) 
     {
         A[i] = A[i]+K;
         K = A[i]/10;
         A[i]%=10;
     }
+    // K的长度大于A的长度
     while(K>0)
     {
         A.insert(A.begin(), K%10);
