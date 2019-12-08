@@ -107,7 +107,7 @@ vector<int> addToArrayForm2(vector<int> &A, int K)
     return A;
 }
 /**
- * 方法 3，不用新的数组，直接在原来的数组上进行操作，最优方法
+ * 方法 3，不用新的数组，直接在原来的A数组进行操作,
 */
 vector<int> addToArrayForm3(vector<int> &A, int K)
 {
@@ -176,6 +176,7 @@ vector<int> addToArrayForm3(vector<int> &A, int K)
 
 /**
  * 方法 4
+ * 需要新开辟的数组answer，
 */
 vector<int> addToArrayForm4(vector<int> &a, int k)
 {
@@ -192,13 +193,33 @@ vector<int> addToArrayForm4(vector<int> &a, int k)
             a.pop_back();
         k = k / 10;
     }
-
     if (carry != 0)
         answer.push_back(carry);
     reverse(answer.begin(), answer.end());
     return answer;
 }
 
+/**
+ * 方法 5，很好的方法；
+ * 不需要对K进行逐位处理，而是把K和A的每一位都加起来，加起来之后K = A[i]/10;
+ * 然后当前的A[i]是把A[i]%10；
+ * for循环结束之后，K如果还大于0的话，说明需要在A[i]的头部插入K%10;
+ * K/=10; 
+*/
+vector<int>addToArrayForm5(vector<int>& A, int K){
+    for(int i=A.size()-1; i>=0 && K>0; i--)
+    {
+        A[i] = A[i]+K;
+        K = A[i]/10;
+        A[i]%=10;
+    }
+    while(K>0)
+    {
+        A.insert(A.begin(), K%10);
+        K = K/10;
+    }
+    return A;
+}
 int main()
 {
     vector<int> res = {6};
