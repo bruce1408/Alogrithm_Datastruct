@@ -48,16 +48,6 @@ vector<int> addToArrayForm(vector<int> &A, int K)
     }
     return res;
 }
-<<<<<<< HEAD
-/**
- * 方法 3，开辟一个新的数组，然后进行把K逐位放到新的数组temp中，
- * 再把A和这个temp逐位相加，设置一个digit来保存进位；
-*/
-vector<int> addToArrayForm3(vector<int> &A, int K)
-{
-    vector<int>temp;
-=======
-
 
 /**
 * 方法 2，把K进行逐位拆分，存到数组temp中，不过注意存到temp的顺序和K相反， 
@@ -71,7 +61,6 @@ vector<int> addToArrayForm3(vector<int> &A, int K)
 vector<int> addToArrayForm2(vector<int> &A, int K)
 {
     vector<int> temp;
->>>>>>> 249da8aa35410b61979ae1af5aaa5d16d1993051
     int digit = 0, n = A.size(), bitK = 0;
     while (K)
     {
