@@ -41,7 +41,7 @@ int numPairsDivisibleBy60(vector<int> &time)
  * 方法 2，优化两层for循环，降低时间复杂度；
  * 
 */
-int numPairsDivisibleBy601(vector<int> &time)
+int numPairsDivisibleBy60_1(vector<int> &time)
 {
     int len = time.size(), count = 0;
     for(int i=0;i<len;i++)

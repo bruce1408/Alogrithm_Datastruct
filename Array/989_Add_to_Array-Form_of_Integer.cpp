@@ -131,6 +131,9 @@ vector<int> addToArrayForm2(vector<int> &A, int K)
  * answer里面，然后再把a和k分别移动一位，a是去掉最后一位，k是/10即可
  * 最后还是判断进位如果有值，则放进answer，这个answer的值的顺序是反着的
  * 调换answer的顺序即可；
+ * 这个题目提供了一个很好的思路，就是两种都是数组长度不同的情况下少用一次
+ * 循环
+ * 
 */
 vector<int> addToArrayForm3(vector<int> &a, int k)
 {
@@ -143,9 +146,9 @@ vector<int> addToArrayForm3(vector<int> &a, int k)
         int sum = lastDigit_1 + lastDigit_2 + carry;
         answer.push_back(sum % 10);
         carry = sum / 10;
-        if (!a.empty())
+        if (!a.empty())  // a去除最后一位
             a.pop_back();
-        k = k / 10;
+        k = k / 10;  // 同时k左移一位
     }
     if (carry != 0)
         answer.push_back(carry);
@@ -159,7 +162,7 @@ vector<int> addToArrayForm3(vector<int> &a, int k)
  * 然后当前的A[i]是把A[i]%10；
  * for循环结束之后，K如果还大于0的话，说明需要在A[i]的头部插入K%10;
  * K/=10; 
-*/
+ */
 vector<int>addToArrayForm4(vector<int>& A, int K){
     // 和方法 2的思路类似，但是写法更加简洁，以A为基准，A的长度小于K的长度的情况
     for(int i=A.size()-1; i>=0 && K>0; i--) 
@@ -179,8 +182,8 @@ vector<int>addToArrayForm4(vector<int>& A, int K){
 
 int main()
 {
-    vector<int> res = {6};
-    for (auto i : addToArrayForm2(res, 806))
+    vector<int> res = {9};
+    for (auto i : addToArrayForm4(res, 23))
     {
         cout << i << " ";
     }
