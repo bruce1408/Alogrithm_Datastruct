@@ -49,7 +49,6 @@ vector<int> addToArrayForm(vector<int> &A, int K)
     return res;
 }
 
-
 /**
 * 方法 2，把K进行逐位拆分，存到数组temp中，不过注意存到temp的顺序和K相反， 
 * 然后A和temp逐位想加，设置一个进位的标志digit，如果大于等于10，那么就进位
