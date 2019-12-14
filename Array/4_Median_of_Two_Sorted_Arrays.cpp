@@ -2,8 +2,24 @@
 #include<vector>
 using namespace std;
 
-
-// 第一种方法：直接合并然后讨论。但是时间复杂度是O(n+m)
+/**
+ * There are two sorted arrays nums1 and nums2 of size m and n respectively.
+ * Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+ * You may assume nums1 and nums2 cannot be both empty.
+ * Example 1:
+ * 
+ * nums1 = [1, 3]
+ * nums2 = [2]
+ * The median is 2.0
+ * 
+ * Example 2:
+ * nums1 = [1, 2]
+ * nums2 = [3, 4]
+ * The median is (2 + 3)/2 = 2.5
+*/
+/**
+ * 第一种方法：直接合并然后讨论。但是时间复杂度是O(n+m)
+ * */ 
 double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2)
 {
     int len1 = nums1.size();
@@ -46,7 +62,9 @@ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2)
 }
 
 
-// 第二种方法，利用的是二分查找，这样你的时间复杂度才可能是O(log(n+m))
+/**
+ * 第二种方法，利用的是二分查找，这样你的时间复杂度才可能是O(log(n+m))
+ * */ 
 double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2)
 {
     int len1 = nums1.size();
@@ -106,6 +124,8 @@ double findMedianSortArrys3(vector<int> &num1, vector<int>& num2)
         else low = partitionx + 1;
     }
 }
+
+
 
 int main()
 {
