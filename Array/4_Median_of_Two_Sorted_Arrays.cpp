@@ -103,7 +103,9 @@ double findMedianSortedArrays2(vector<int> &nums1, vector<int> &nums2)
     return 0;
 }
 
-// 有点问题
+/**
+ * 有点问题
+ * */ 
 double findMedianSortArrys3(vector<int> &num1, vector<int> &num2)
 {
     int len1 = num1.size();
