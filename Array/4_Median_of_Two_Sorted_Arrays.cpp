@@ -174,15 +174,16 @@ double findMedianSortedArrays4(vector<int> &nums1, vector<int> &nums2)
 }
 
 /**
- * 方法 5，逐个对比两个数组，
+ * 方法 5，逐个对比两个数组，首先判断两个数组的长度，如果是偶数，则把两个数组中间的数除以2，如果是奇数，则返回中间的那个数。
+ * 例如两个数组的总长度是6，那么中间的数是2和3的两数之和/2，那么只需要找到 2 和 3 这个数即可。如果是奇数的话直接返回那个中位数
 */
 double findMedianSortedArrays5(vector<int> &nums1, vector<int> &nums2)
 {
     int len1 = nums1.size(), len2 = nums2.size(), totallength = len1 + len2;
     int point1 = 0, point2 = 0, compare_times = totallength / 2 + 1, medianum = 0, beforemedia = 0;
-    while (compare_times > 0)
+    while (compare_times > 0)  // 比较次数为compare_times，两个数组之和/2+1即可;
     {
-        if (point1 < len1 && point2 < len2)  // 1和2数组都在范围内
+        if (point1 < len1 && point2 < len2)  // 1和2数组都在范围内长度范围内
         {
             if (nums1[point1] < nums2[point2])
             {
@@ -199,7 +200,7 @@ double findMedianSortedArrays5(vector<int> &nums1, vector<int> &nums2)
                 point2++;
             }
         }
-        else if (point1 < len1)
+        else if (point1 < len1)  // 如果数组2遍历结束，数组1没有遍历结束的话，那么继续判断数组1
         {
             int temp = medianum;
             beforemedia = temp;
@@ -213,14 +214,14 @@ double findMedianSortedArrays5(vector<int> &nums1, vector<int> &nums2)
             medianum = nums2[point2];
             point2++;
         }
-        compare_times--;
+        compare_times--;  
     }
     cout << "the medianum is: " << medianum << endl;
-    if (totallength % 2)
+    if (totallength % 2) // 如果是奇数的话，那么返回的是中位数
     {
         return medianum;
     }
-    else
+    else  // 如果是偶数的话，是中间两个数的平均数
     {
         return (beforemedia + medianum) / 2.0;
     }
