@@ -3,7 +3,9 @@
 using namespace std;
 
 
-// 第一种方法：直接合并然后讨论。但是时间复杂度是O(n+m)
+/**
+ * 方法 1, 直接合并然后讨论。但是时间复杂度是O(n+m)
+ * */
 double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2)
 {
     int len1 = nums1.size();
@@ -46,39 +48,42 @@ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2)
 }
 
 
-// 第二种方法，利用的是二分查找，这样你的时间复杂度才可能是O(log(n+m))
+/**
+ * 方法 2，利用的是二分查找，这样你的时间复杂度才可能是O(log(min(n,m)))
+ * ubuntu 里面的INT_MAX 要改成 INT64_MIN 才可以
+ * */ 
 double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2)
 {
-    int len1 = nums1.size();
-    int len2 = nums2.size();
-    if(len1>len2) return findMedianSortedArrays(nums2, nums1);
-    int cut1 = 0; 
-    int cut2 = 0;
+    int len1 = nums1.size(), len2 = nums2.size(), k = (len1 + len2 + 1) / 2;
+    if(len1>len2) return findMedianSortedArrays2(nums2, nums1);
     int cutL = 0, cutR = len1;
-    int len = len1 + len2;
-    while(cut1<=len1)
+    int m1 = 0, m2 = 0;
+    while(cutL < cutR)
     {
-        cut1 = (cutR - cutL)/2 + cutL;
-        cut2 = len / 2 - cut1;
-        double L1 = (cut1==0)?INT_MIN:nums1[cut1-1];
-        double L2 = (cut1==0)?INT_MIN:nums2[cut2-1];
-        double R1 = (cut1==len1)?INT_MAX:nums1[cut1];
-        double R2 = (cut2==len2)?INT_MAX:nums2[cut2];
-        // 关键步骤
-        if(L1>R2) {cutR = cut1 - 1;} // 如果是不满足，那么左切口向左移动一位
-        else if(L2>R1) //  第二个数组的左边大于右边的话，那么肯定是第一个切口要向右边移动；
+        m1 = (cutL + cutR)/2;
+        m2 = k-m1;
+        if (nums1[m1]<nums2[m2-1])
         {
-            cutL = cut1 + 1;
+            cutL = m1+1;
         }
-        else // 满足条件L1<R2,L2<R1
+        else
         {
-            return (len/2==0)?(max(L1,L2) + min(R1,R2)) / 2 : min(R1,R2);
+            cutR = m1;
         }
     }
-    return 0;
+    
+    const int c1 = max(m1 <= 0 ? INT64_MIN : nums1[m1 - 1], m2 <= 0 ? INT64_MIN : nums2[m2 - 1]);
+    if ((len1 + len2) % 2 == 1)
+        return c1;    
+        
+    const int c2 = min(m1 >= len1 ? INT64_MAX : nums1[m1], m2 >= len2 ? INT64_MAX : nums2[m2]);
+    cout<<c1<<" and "<<c2<<endl;
+    return (c1 + c2) / 2.0;
 }
 
-// 有点问题
+/**
+ * 有点问题
+ * */ 
 double findMedianSortArrys3(vector<int> &num1, vector<int>& num2)
 {
     int len1 = num1.size();
@@ -88,29 +93,70 @@ double findMedianSortArrys3(vector<int> &num1, vector<int>& num2)
     int high = len1;
     while(low<=high)
     {
-        int partitionx = (low+high)/2;
-        int partitiony = (len1 + len2 +1)/2 - partitionx;
+        int partitionX = (low+high)/2;
+        int partitionY = (len1 + len2 +1)/2 - partitionX;
         
-        int maxLeftx = (partitionx == 0)? INT_MIN:num1[partitionx-1];
-        int minrightx = (partitionx == len1)?INT_MAX:num1[partitionx];
+        int maxLeftx = (partitionX == 0)? INT64_MIN:num1[partitionX-1];
+        int minrightx = (partitionX == len1)?INT64_MAX:num1[partitionX];
 
-        int maxLefty = (partitiony == 0)? INT_MIN:num1[partitiony-1];
-        int minrighty = (partitiony == len2)?INT_MAX:num1[partitiony];
+        int maxLefty = (partitionY == 0)? INT64_MIN:num1[partitionY-1];
+        int minrighty = (partitionY == len2)?INT64_MAX:num1[partitionY];
 
         if(maxLeftx <= minrighty && maxLefty <= minrightx)
         {
             if((len1 + len2)%2==0) return (max(maxLeftx, maxLefty) + max(minrightx, minrighty))/2;
             else return max(maxLeftx, maxLefty);
         }
-        else if (maxLeftx > minrighty) high = partitionx - 1;
-        else low = partitionx + 1;
+        else if (maxLeftx > minrighty) high = partitionX - 1;
+        else low = partitionX + 1;
     }
 }
 
+/**
+ * 方法 4，把 nums1 和 nums2 都放到同一个temp的临时数组中，然后判断新数组元素个数是不是偶数
+ * 如果是偶数的话，那么就除以2，否则奇数直接计算即可
+*/
+double findMedianSortedArrays4(vector<int>& nums1, vector<int>& nums2) {
+    vector<int>temp;
+    while(!nums1.empty() && !nums2.empty())
+    {
+        if(nums1.back()> nums2.back())
+        {
+            temp.push_back(nums1.back());
+            nums1.pop_back();
+        }
+        else
+        {
+            temp.push_back(nums2.back());
+            nums2.pop_back();
+        }
+    }
+    while(!nums1.empty())
+    {
+        temp.push_back(nums1.back());
+        nums1.pop_back();
+    }
+    while(!nums2.empty())
+    {
+        temp.push_back(nums2.back());
+        nums2.pop_back();
+    }
+    int n = temp.size();
+    if(n%2==0)
+    {
+        return (temp[n/2] + temp[n/2-1])/2.0;
+    }
+    else
+    {
+        return temp[n/2];
+    }
+}
+
+
 int main()
 {
-    vector<int> a = {1, 2};
-    vector<int> b = {3, 4};
-    cout<<findMedianSortedArrays3(a, b)<<endl;
+    vector<int> a = {1, 3, 5, 9};
+    vector<int> b = {2, 4, 6, 8, 10, 12, 14, 16};
+    cout<<findMedianSortedArrays2(a, b)<<endl;
     return 0;
 }
