@@ -12,7 +12,6 @@ using namespace std;
  * target = 9,
  * Because nums[0] + nums[1] = 2 + 7 = 9,
  * return [0, 1]
- * 
  * 和 49题目很接近
 */
 
@@ -36,7 +35,8 @@ vector<int> twoSum1(vector<int> &nums, int target)
 }
 
 /**
- * 方法 2，利用的就是集合来做，重点思路就是查找unordered_set；利用unordered_set 来做一个查找；
+ * 方法 2，利用的就是集合来做，重点思路就是查找unordered_set；
+ * 利用unordered_set 来做一个查找；
  * 建立一个hash_set,然后每个元素存储的是它的位置下表，遍历数组，对每一个元素看是否存在 target-nums[i] ;
  * 如果存在的话，那么就返回当前的元素位置下标和target-nums[i]的元素下标；
  * 这里的前提条件是数组中的所有元素都是唯一不重复的才行；
@@ -154,7 +154,7 @@ int main()
 	vector<int> nums = {3, 2, 4};
 	int t = 6;
 	// int t = -19;
-	for (auto i : twoSum3(nums, t))
+	for (auto i : twoSum5(nums, t))
 		cout << i << " ";
 	cout << endl;
 	return 0;

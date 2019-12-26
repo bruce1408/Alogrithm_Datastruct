@@ -73,6 +73,7 @@ double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2)
     }
     
     const int c1 = max(m1 <= 0 ? INT64_MIN : nums1[m1 - 1], m2 <= 0 ? INT64_MIN : nums2[m2 - 1]);
+
     if ((len1 + len2) % 2 == 1)
         return c1;    
         
