@@ -147,15 +147,12 @@ double findMedianSortedArrays22(vector<int>& nums1, vector<int>& nums2)
 
 double findMedianSortedArrays3(vector<int> &num1, vector<int>& num2)
 {
-    int len1 = num1.size();
-    int len2 = num2.size();
+    int len1 = num1.size(), len2 = num2.size();
+    int low = 0, high = len1;
     if(len1 > len2) return findMedianSortedArrays3(num2, num1);
-    int low = 0;
-    int high = len1;
     while(low<=high)
     {
-        int partitionX = (high+low)/2;
-        int partitionY = (len1 + len2 +1)/2 - partitionX;
+        int i = (high+low)/2, j = (len1 + len2 +1)/2 - i;
         
         // int maxleftx = (partitionX == 0)? INT64_MIN:num1[partitionX-1];
         // int minrightx = (partitionX == len1)? INT64_MAX:num1[partitionX];
@@ -171,52 +168,51 @@ double findMedianSortedArrays3(vector<int> &num1, vector<int>& num2)
         //     return (len1 + len2)%2? min(minrightx, minrighty):(max(maxleftx, maxlefty) + min(minrightx, minrighty))/2.0;
         // }
 
-        if(partitionX && num1[partitionX-1] > num2[partitionY])
+        if(i && num1[i-1] > num2[j])
         {
-            high = partitionX-1;
+            high = i-1;
         }
-        else if(partitionX < len1 && num2[partitionY-1]>num1[partitionX])
+        else if(i < len1 && num2[j-1]>num1[i])
         {
-            low = partitionX + 1;
+            low = i + 1;
         }
         else
         {
-            int maxleft = (partitionX==0)? num2[partitionY-1]: (partitionY==0?num1[partitionX-1]:max(num1[partitionX-1], num2[partitionY-1]));
+            int maxleft = !i ? num2[j-1]: (!j?num1[i-1]: max(num1[i-1], num2[j-1]));
             if((len1 + len2)%2)
             {
                 return maxleft;
             }
-            int minright = (partitionX==len1)? num2[partitionY]:(partitionY==len2?num1[partitionX]:min(num1[partitionX],num2[partitionY]));
+            int minright = i==len1 ? num2[j]:(j==len2?num1[i]:min(num1[i],num2[j]));
             return (minright + maxleft )*0.5;
         }
-        
-    return 0.0;
-    }
-}
-
-
-double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-    int m = nums1.size(), n = nums2.size(), l = 0, r = m;
-    if (m > n) {
-        return findMedianSortedArrays(nums2, nums1);
-    }
-    while (l <= r) {
-        int i = (l + r) / 2, j = (m + n + 1) / 2 - i;
-        if (i && nums1[i - 1] > nums2[j]) {
-            r = i - 1;
-        } else if (i < m && nums2[j - 1] > nums1[i]) {
-            l = i + 1;
-        } else {
-            int lmax = !i ? nums2[j - 1] : (!j ? nums1[i - 1] : max(nums1[i - 1], nums2[j - 1]));
-            if ((m + n) % 2) {
-                return lmax;
-            }
-            int rmin = i == m ? nums2[j] : (j == n ? nums1[i] : min(nums1[i], nums2[j]));
-            return 0.5 * (lmax + rmin);
-        }
     }
     return 0.0;
 }
+
+
+// double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+//     int m = nums1.size(), n = nums2.size(), l = 0, r = m;
+//     if (m > n) {
+//         return findMedianSortedArrays(nums2, nums1);
+//     }
+//     while (l <= r) {
+//         int i = (l + r) / 2, j = (m + n + 1) / 2 - i;
+//         if (i && nums1[i - 1] > nums2[j]) {
+//             r = i - 1;
+//         } else if (i < m && nums2[j - 1] > nums1[i]) {
+//             l = i + 1;
+//         } else {
+//             int lmax = !i ? nums2[j - 1] : (!j ? nums1[i - 1] : max(nums1[i - 1], nums2[j - 1]));
+//             if ((m + n) % 2) {
+//                 return lmax;
+//             }
+//             int rmin = i == m ? nums2[j] : (j == n ? nums1[i] : min(nums1[i], nums2[j]));
+//             return 0.5 * (lmax + rmin);
+//         }
+//     }
+//     return 0.0;
+// }
 
 double findMedianSortedArrays33(vector<int>& nums1, vector<int>& nums2) {
     int N1 = nums1.size();
