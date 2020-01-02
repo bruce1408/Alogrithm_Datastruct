@@ -52,8 +52,12 @@ int oddCells(int n, int m, vector<vector<int>>& indices)
 }
 
 
+/**
+ * 方法 2, 奇数偶数判断我们使用位运算来做也是可以的
+ * 
+*/
 int main()
 {
-    vector<vector<int>>indices = {{0,1},{1,1}};
+    vector<vector<int>>indices = {{0, 1}, {1, 1}};
     cout<<oddCells(2, 3, indices)<<endl;
 }
