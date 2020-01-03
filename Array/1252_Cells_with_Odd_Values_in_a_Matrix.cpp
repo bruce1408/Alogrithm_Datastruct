@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 /**
@@ -21,27 +21,27 @@ using namespace std;
  * 总体来说是brute force
  * 时间复杂度O(n * m)
 */
-int oddCells(int n, int m, vector<vector<int>>& indices)
+int oddCells(int n, int m, vector<vector<int>> &indices)
 {
-    vector<vector<int>>res(n,vector<int>(m, 0));
+    vector<vector<int>> res(n, vector<int>(m, 0));
     int countNum = 0;
     int rows = indices.size();
-    for(int index=0; index<rows; index++)
+    for (int index = 0; index < rows; index++)
     {
-        for(int i=0; i<m; i++)
+        for (int i = 0; i < m; i++)
         {
             res[indices[index][0]][i]++;
         }
-        for(int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
             res[j][indices[index][1]]++;
         }
     }
-    for(int i=0;i<n;i++)
+    for (int i = 0; i < n; i++)
     {
-        for(int j=0;j<m;j++)
+        for (int j = 0; j < m; j++)
         {
-            if(res[i][j]%2!=0)
+            if (res[i][j] % 2 != 0)
             {
                 countNum += 1;
             }
@@ -50,24 +50,33 @@ int oddCells(int n, int m, vector<vector<int>>& indices)
     return countNum;
 }
 
-
 /**
  * 方法 2, 奇数偶数判断我们使用位运算来做也是可以的
  * 
 */
-int oddCells1(int n, int m, vector<vector<int>>& indices)
+int oddCells1(int n, int m, vector<vector<int>> &indices)
 {
-    vector<int>row(n);
-    vector<int>column(m);
-    for(auto element: indices)
+    vector<int> row(n);
+    vector<int> column(m);
+    int countNum = 0;
+    for (auto element : indices)
     {
-        row[element[0]]^=1;
-        column[element[1]]^=1;
+        row[element[0]] ^= 1;
+        column[element[1]] ^= 1;
     }
-
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            countNum += row[i] ^ column[j];
+        }
+    }
+    return countNum;
 }
+
 int main()
 {
-    vector<vector<int>>indices = {{0, 1}, {1, 1}};
-    cout<<oddCells(2, 3, indices)<<endl;
+    vector<vector<int>> indices = {{0, 1}, {1, 1}};
+    cout << oddCells(2, 3, indices) << endl;
+    cout << oddCells1(2, 3, indices) << endl;
 }
