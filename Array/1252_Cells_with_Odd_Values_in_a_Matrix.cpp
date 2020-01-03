@@ -37,7 +37,6 @@ int oddCells(int n, int m, vector<vector<int>>& indices)
             res[j][indices[index][1]]++;
         }
     }
-
     for(int i=0;i<n;i++)
     {
         for(int j=0;j<m;j++)
@@ -56,6 +55,17 @@ int oddCells(int n, int m, vector<vector<int>>& indices)
  * 方法 2, 奇数偶数判断我们使用位运算来做也是可以的
  * 
 */
+int oddCells1(int n, int m, vector<vector<int>>& indices)
+{
+    vector<int>row(n);
+    vector<int>column(m);
+    for(auto element: indices)
+    {
+        row[element[0]]^=1;
+        column[element[1]]^=1;
+    }
+
+}
 int main()
 {
     vector<vector<int>>indices = {{0, 1}, {1, 1}};
