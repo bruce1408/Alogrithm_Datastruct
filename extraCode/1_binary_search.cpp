@@ -27,7 +27,6 @@ int binaryS(vector<int>&res, int k)
         }
     }
     return 0;
-    
 }
 
 /**

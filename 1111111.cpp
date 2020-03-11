@@ -31,12 +31,6 @@ TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder)
 }
 
 
-
-
-
-
-
-
 int main()
 {
 	vector<int> inorder = {1,3,4,5,6};

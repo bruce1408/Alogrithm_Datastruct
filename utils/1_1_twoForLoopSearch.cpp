@@ -47,6 +47,29 @@ vector<int> searchAxis1(vector<vector<int>> &res, int target)
             }
         }
     }
+    return result;
+}
+
+/**
+ * 方法 3,还是两层for循环,如果找到这个数字了，那么就就让遍历的坐标
+ * 直接等于最大值，不再进行循环
+*/
+vector<int> searchAxis2(vector<vector<int>> &res)
+{
+    int i = 0, j = 0, tempi = 0, tempj = 0;
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            int temp = res[i][j];
+            if (res[i][j] == 4)
+            {
+                tempi = i, tempj = j;
+                i = 3, j = 3;
+            }
+        }
+    }
+    return {};
 }
 
 int main()
