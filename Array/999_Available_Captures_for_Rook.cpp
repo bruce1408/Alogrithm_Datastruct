@@ -105,6 +105,41 @@ int numRookCaptures(vector<vector<char>> &board)
 //     numRookCaptures(res);
 // }
 
+class Solution {
+public:
+    int numRookCaptures(vector<vector<char>>& board) {
+        int res = 0;
+        //four directions
+        for(int i = 0; i < board.size(); ++i)
+            for(int j = 0; j < board[0].size(); ++j)
+                if(board[i][j] == 'R')
+                {
+                    for(int dir = 1; dir <= 4; ++dir)
+                    {
+                        dfs(board,i,j,res,dir);
+                    }
+                }
+        return res;
+    }
+    
+    void dfs(vector<vector<char>>& board, int i, int j, int& res, int dir){
+        if(i < 0||i >= board.size()||j < 0||j >= board[0].size()||board[i][j]=='B') 
+        {
+            return ;
+        }
+        if(board[i][j] == 'p') 
+        {
+            res++;
+        }
+        else 
+        {
+            dfs(board,i + ((dir % 2) ? dir - 2 : 0),j + (!(dir % 2) ? dir - 3 : 0), res, dir);
+        }
+    }
+};
+
+
+
 int main()
 {
     vector<vector<int>> res =
