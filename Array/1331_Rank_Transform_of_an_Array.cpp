@@ -5,7 +5,15 @@
 using namespace std;
 
 /**
+ * Given an array of integers arr, replace each element with its rank.
+ * The rank represents how large the element is. 
+ * The rank has the following rules:
+ * Rank is an integer starting from 1.
+ * The larger the element, the larger the rank. 
+ * If two elements are equal, their rank must be the same.
+ * Rank should be as small as possible.
  * 
+ * 给定一个数组，然后对齐进行返回一个数组，该数组是排序之后的数组
 */
 vector<int> arrayRankTransform(vector<int> &arr)
 {
@@ -27,6 +35,9 @@ vector<int> arrayRankTransform(vector<int> &arr)
     }
     return result;
 }
+struct Data{
+    int val, idx;
+};
 
 int main()
 {
@@ -35,4 +46,5 @@ int main()
     {
         cout << i << endl;
     }
+    vector<Data>v;
 }
