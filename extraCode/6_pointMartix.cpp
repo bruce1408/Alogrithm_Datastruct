@@ -1,6 +1,7 @@
 /**
  * 指针数组，存的都是指针。
- * 而指向数组的指针是另外一回事，第一个例子是指针数组
+ * 而指向数组的指针是另外一回事
+ * 第一个例子是指针数组
  * 第二个例子是指针指向一个数组。
  * */
 #include<iostream>
@@ -14,7 +15,7 @@ int main()
 	int lin3[] = {0,0,1};
 	
 	
-	int *pline[] = {lin1,lin2,lin3};
+	int *pline[] = {lin1, lin2, lin3};
 	
 	for(int i=0;i<3;i++){
 		for(int j=0;j<3;j++)
