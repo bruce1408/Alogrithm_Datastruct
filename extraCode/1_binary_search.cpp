@@ -5,7 +5,7 @@ using namespace std;
 
 bool myfunction(int a, int b)
 {
-    return a%10>b%10;
+    return a % 10 > b % 10;
 }
 int binaryS(vector<int>&res, int k)
 {
