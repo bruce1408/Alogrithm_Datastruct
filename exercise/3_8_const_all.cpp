@@ -22,13 +22,10 @@ void A::print(){
 	cout<<a<<":"<<b<<endl;
 }
 
-
 int main()
 {
 	A a1(100),a2(20);
 	a1.print();
 	a2.print();
 	return 0;
-	
-	
 }
