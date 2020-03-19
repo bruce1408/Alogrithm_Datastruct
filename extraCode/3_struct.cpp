@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <vector>
 using namespace std;
 /**
  * 结构体和联合体的用法：
@@ -58,6 +59,32 @@ using namespace std;
 // 	cout<<&com2.price<<endl;//地址都是一样的
 // 	return 0;
 // }
+
+//结构体元素进行排序
+struct Data
+{
+    int val, idx;
+};
+
+int main()
+{
+    vector<int> res = {4, 3, 1, 2};
+    vector<Data> temp;
+    for (int i = 0; i < res.size(); i++)
+    {
+        temp.push_back({res[i], i});
+    }
+
+    sort(temp.begin(), temp.end(), [](Data &a, Data &b) {
+        return a.val < b.val;
+    });
+
+    for (auto i : temp)
+    {
+        cout << i.val << " ";
+        cout << i.idx << endl;
+    }
+}
 
 /*联合体的例子*/
 // union info

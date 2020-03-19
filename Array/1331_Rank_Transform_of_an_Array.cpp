@@ -13,7 +13,17 @@ using namespace std;
  * If two elements are equal, their rank must be the same.
  * Rank should be as small as possible.
  * 
- * 给定一个数组，然后对齐进行返回一个数组，该数组是排序之后的数组
+ * 给定一个数组，然后对齐进行返回一个数组，该数组是排序之后的数组的原来的位置
+ * 例如 
+ * arr = [40,10,20,30]
+ * Output: [4,1,2,3]
+*/
+
+/**
+ * 方法 1，利用的是哈希map来做一个位置和元素的对应,先排序，然后遍历原来的数组，看
+ * 原来的数组在排序之后的数组的什么位置，输出即可
+ * 时间复杂度是O(n)
+ * 空间复杂度是O(n)
 */
 vector<int> arrayRankTransform(vector<int> &arr)
 {
@@ -35,16 +45,38 @@ vector<int> arrayRankTransform(vector<int> &arr)
     }
     return result;
 }
-struct Data{
+/**
+ * 方法 2，自己定义一个结构体
+*/
+struct Data
+{
     int val, idx;
 };
+
+vector<int> arrayRankTransform1(vector<int> &arr)
+{
+    vector<Data> temp;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        temp.push_back({arr[i], i});
+    }
+    sort(temp.begin(), temp.end(), [](Data &a, Data &b) {
+        return a.val < b.val;
+    });
+    for (int i = 0; i < temp.size(); i++)
+    {
+        cout << temp[i].val << " ";
+        cout << temp[i].idx << endl;
+    }
+    return {};
+}
 
 int main()
 {
     vector<int> res = {37, 12, 28, 9, 100, 56, 80, 5, 12};
-    for (auto i : arrayRankTransform(res))
+    for (auto i : arrayRankTransform1(res))
     {
-        cout << i << endl;
+        cout << i << " ";
     }
-    vector<Data>v;
+    vector<Data> v;
 }
