@@ -83,18 +83,14 @@ vector<int> arrayRankTransform1(vector<int> &arr)
     return result;
 }
 /**
- * 方法 3
+ * 方法 3，使用了stl里面的函数来做，先对数组排序，然后去重
+ * 然后从原来的数组中遍历，在新的去重数组中找到这个数字的位置+1即可
 */
 vector<int> arrayRankTransform2(vector<int> &arr)
 {
     vector<int> sets(arr.begin(), arr.end());
     sort(sets.begin(), sets.end()); // 排序 然后 去重
-
     sets.erase(unique(sets.begin(), sets.end()), sets.end());
-    for (auto i : sets)
-    {
-        cout << i << endl;
-    }
     vector<int> res;
     res.reserve(arr.size());
     for (int a : arr)
