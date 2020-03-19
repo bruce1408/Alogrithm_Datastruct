@@ -19,6 +19,10 @@ using namespace std;
 
 bool cmp(const pair<int, int> &a, const pair<int, int> &b)
 {
+    if (a.first == b.first)
+    {
+        return a.second < b.second;
+    }
     return a.first < b.first;
 }
 
@@ -44,6 +48,11 @@ vector<int> kWeakestRows(vector<vector<int>> &mat, int k)
         res.push_back(pair<int, int>(oneNum[i], i));
     }
     sort(res.begin(), res.end(), cmp);
+    for (auto i : oneNum)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
 
     for (int i = 0; i < k; i++)
     {
