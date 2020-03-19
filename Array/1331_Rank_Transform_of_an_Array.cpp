@@ -86,7 +86,13 @@ vector<int> arrayRankTransform2(vector<int> &arr)
 {
     vector<int> sets(arr.begin(), arr.end());
     sort(sets.begin(), sets.end());
+
+    unique(sets.begin(), sets.end());
     sets.erase(unique(sets.begin(), sets.end()), sets.end());
+    for (auto i : sets)
+    {
+        cout << i << endl;
+    }
     vector<int> res;
     res.reserve(arr.size());
     for (int a : arr)
@@ -98,7 +104,7 @@ vector<int> arrayRankTransform2(vector<int> &arr)
 int main()
 {
     vector<int> res = {37, 12, 28, 9, 100, 56, 80, 5, 12};
-    for (auto i : arrayRankTransform1(res))
+    for (auto i : arrayRankTransform2(res))
     {
         cout << i << " ";
     }
