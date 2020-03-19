@@ -46,7 +46,10 @@ vector<int> arrayRankTransform(vector<int> &arr)
     return result;
 }
 /**
- * 方法 2，自己定义一个结构体,然后对这个
+ * 方法 2，自己定义一个结构体数字和索引,然后对这个结构体这个结构体排序
+ * 排序之后再从1开始，设置一个计数rank=1，遍历结构体，如果当前的数字和前面的val的值相同
+ * 那么就把result数组的[结构体当前位置] = rank，rank+=1
+ * 否则 把当前的rank直接给result，rank不会自增1
 */
 struct Data
 {
@@ -64,11 +67,11 @@ vector<int> arrayRankTransform1(vector<int> &arr)
     sort(temp.begin(), temp.end(), [](Data &a, Data &b) {
         return a.val < b.val;
     });
-    for (int i = 0; i < temp.size(); i++)
-    {
-        cout << temp[i].val << " ";
-        cout << temp[i].idx << endl;
-    }
+    // for (int i = 0; i < temp.size(); i++)
+    // {
+    //     cout << temp[i].val << " ";
+    //     cout << temp[i].idx << endl;
+    // }
     if (!temp.empty())
         result[temp[0].idx] = 1;
     for (int i = 1, rank = 1; i < arr.size(); i++)
@@ -85,9 +88,8 @@ vector<int> arrayRankTransform1(vector<int> &arr)
 vector<int> arrayRankTransform2(vector<int> &arr)
 {
     vector<int> sets(arr.begin(), arr.end());
-    sort(sets.begin(), sets.end());
+    sort(sets.begin(), sets.end()); // 排序 然后 去重
 
-    unique(sets.begin(), sets.end());
     sets.erase(unique(sets.begin(), sets.end()), sets.end());
     for (auto i : sets)
     {
@@ -101,6 +103,7 @@ vector<int> arrayRankTransform2(vector<int> &arr)
     }
     return res;
 }
+
 int main()
 {
     vector<int> res = {37, 12, 28, 9, 100, 56, 80, 5, 12};
