@@ -70,7 +70,9 @@ vector<int> arrayRankTransform1(vector<int> &arr)
     }
     return {};
 }
-
+/**
+ * 方法 3
+*/
 int main()
 {
     vector<int> res = {37, 12, 28, 9, 100, 56, 80, 5, 12};

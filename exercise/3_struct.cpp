@@ -204,7 +204,6 @@ void createBiTree(BiTree &T)
 struct Student
 {
 	int a;
-	
 }stu1;
 
 //3
@@ -212,7 +211,6 @@ typedef struct Student2
 {
 	int b;
 }stu2,stu3,*stu4;
-
 
 void creatStudent(stu4 &T)
 {
@@ -227,9 +225,6 @@ void creatStudent(stu4 &T)
 	}
 	cout<<"t.b = "<<T->b<<endl;
 }
-
-
-
 
 int main()
 {
