@@ -46,7 +46,7 @@ vector<int> arrayRankTransform(vector<int> &arr)
     return result;
 }
 /**
- * 方法 2，自己定义一个结构体
+ * 方法 2，自己定义一个结构体,然后对这个
 */
 struct Data
 {
@@ -56,6 +56,7 @@ struct Data
 vector<int> arrayRankTransform1(vector<int> &arr)
 {
     vector<Data> temp;
+    vector<int> result(arr.size(), 0);
     for (int i = 0; i < arr.size(); i++)
     {
         temp.push_back({arr[i], i});
@@ -68,11 +69,32 @@ vector<int> arrayRankTransform1(vector<int> &arr)
         cout << temp[i].val << " ";
         cout << temp[i].idx << endl;
     }
-    return {};
+    if (!temp.empty())
+        result[temp[0].idx] = 1;
+    for (int i = 1, rank = 1; i < arr.size(); i++)
+    {
+        if (temp[i].val != temp[i - 1].val)
+            rank++;
+        result[temp[i].idx] = rank;
+    }
+    return result;
 }
 /**
  * 方法 3
 */
+vector<int> arrayRankTransform2(vector<int> &arr)
+{
+    vector<int> sets(arr.begin(), arr.end());
+    sort(sets.begin(), sets.end());
+    sets.erase(unique(sets.begin(), sets.end()), sets.end());
+    vector<int> res;
+    res.reserve(arr.size());
+    for (int a : arr)
+    {
+        res.push_back(lower_bound(sets.begin(), sets.end(), a) - sets.begin() + 1);
+    }
+    return res;
+}
 int main()
 {
     vector<int> res = {37, 12, 28, 9, 100, 56, 80, 5, 12};
