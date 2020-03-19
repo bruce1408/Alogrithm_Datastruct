@@ -228,11 +228,11 @@ void creatStudent(stu4 &T)
 
 int main()
 {
-	// stu1.a = 10;
-	// cout<<stu1.a<<endl;
-	// stu2 ns;
-	// ns.b = 9;
-	// cout<<ns.b<<endl;
+	stu1.a = 10;
+	cout<<stu1.a<<endl;
+	stu2 ns;
+	ns.b = 9;
+	cout<<ns.b<<endl;
 	int num  = 12;
 	stu2 s2; 
 	s2.b = 14;
