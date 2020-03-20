@@ -42,18 +42,18 @@ vector<int> kWeakestRows(vector<vector<int>> &mat, int k)
         }
         oneNum.push_back(count);
     }
-    
+
     vector<pair<int, int>> res;
     for (int i = 0; i < oneNum.size(); i++)
     {
         res.push_back(pair<int, int>(oneNum[i], i));
     }
     sort(res.begin(), res.end(), cmp);
-    for (auto i : res)
-    {
-        cout << i.first << " " << i.second << endl;
-    }
-    cout << endl;
+    // for (auto i : res)
+    // {
+    //     cout << i.first << " " << i.second << endl;
+    // }
+    // cout << endl;
 
     for (int i = 0; i < k; i++)
     {

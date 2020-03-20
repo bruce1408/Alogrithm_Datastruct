@@ -60,7 +60,7 @@ using namespace std;
 // }
 
 /**
- * 对结构体进行排序
+ * 对结构体进行排序和结构体的数字数值如何存放
 */
 struct Data
 {

@@ -20,8 +20,10 @@ using namespace std;
 */
 
 /**
- * 方法 1，利用的是哈希map来做一个位置和元素的对应,先排序，然后遍历原来的数组，看
- * 原来的数组在排序之后的数组的什么位置，输出即可
+ * 方法 1，利用的是哈希map来做一个位置和元素的对应,先排序，
+ * 重复数字过滤掉
+ * 然后遍历原来的数组，看 * 原来的数组在排序之后的数组的什么位置，
+ * 输出即可
  * 时间复杂度是O(n)
  * 空间复杂度是O(n)
 */
@@ -55,7 +57,6 @@ struct Data
 {
     int val, idx;
 };
-
 vector<int> arrayRankTransform1(vector<int> &arr)
 {
     vector<Data> temp;
@@ -83,13 +84,15 @@ vector<int> arrayRankTransform1(vector<int> &arr)
     return result;
 }
 /**
- * 方法 3，使用了stl里面的函数来做，先对数组排序，然后去重
+ * 方法 3，使用了stl里面的函数lower_bound来做，先对数组排序，然后去重
+ * 不需要记录原来的数组所在的位置
  * 然后从原来的数组中遍历，在新的去重数组中找到这个数字的位置+1即可
 */
 vector<int> arrayRankTransform2(vector<int> &arr)
 {
     vector<int> sets(arr.begin(), arr.end());
     sort(sets.begin(), sets.end()); // 排序 然后 去重
+    // 真正的来删除元素中重复的选项使用erase
     sets.erase(unique(sets.begin(), sets.end()), sets.end());
     vector<int> res;
     res.reserve(arr.size());
@@ -102,8 +105,8 @@ vector<int> arrayRankTransform2(vector<int> &arr)
 
 int main()
 {
-    vector<int> res = {37, 12, 28, 9, 100, 56, 80, 5, 12};
-    for (auto i : arrayRankTransform2(res))
+    vector<int> res = {2, 4, 1, 3};
+    for (auto i : arrayRankTransform(res))
     {
         cout << i << " ";
     }
