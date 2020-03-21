@@ -36,6 +36,7 @@ using namespace std;
  * 方法 1，如果一个数字全是偶数或者全是奇数，那么代价为0，
  * 如果有偶数也有奇数，我们只要统计偶数的个数和奇数的个数，最后
  * 返回这两个数的最小数即可
+ * 时间复杂度是O(n)
 */
 int minCostToMoveChips(vector<int> &chips)
 {
