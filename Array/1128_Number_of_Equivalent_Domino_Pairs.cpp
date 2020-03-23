@@ -27,7 +27,7 @@ int numEquivDominoPairs(vector<vector<int>> &dominoes)
 }
 
 /**
- * 方法 2 使用hash_map的思路来解决
+ * 方法 2 使用hash_map的思路来解决,不会超时
 */
 int numEquivDominoPairs1(vector<vector<int>> &dominoes)
 {
