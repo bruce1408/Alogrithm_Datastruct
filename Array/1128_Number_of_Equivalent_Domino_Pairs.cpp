@@ -88,6 +88,7 @@ int numEquivDominoPairs1_1(vector<vector<int>> &dominoes)
     for (unordered_map<int, int>::iterator iter = temp.begin(); iter != temp.end(); iter++)
     {
         maxNum += (iter->second - 1) * (iter->second) / 2;
+        cout << iter->second << endl;
     }
     return maxNum;
 }
@@ -135,7 +136,7 @@ int main()
         {2, 1},
         {3, 4},
         {5, 6}};
-    cout << numEquivDominoPairs1_1(res) << endl;
+    cout << numEquivDominoPairs1(res) << endl;
     // cout << numEquivDominoPairs2(res) << endl;
     // cout << reverseNum(12) << endl;
 }
