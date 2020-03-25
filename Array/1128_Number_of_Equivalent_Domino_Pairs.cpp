@@ -75,8 +75,22 @@ int numEquivDominoPairs1(vector<vector<int>> &dominoes)
 }
 
 /**
- * 方法2的改进版本：不再使用双层for循环了
+ * 方法2的改进版本：不再使用双层for循环了,但是前提是每个子数组只有两个元素，元素是固定的，如果不是，那么第一种方法可以；
 */
+int numEquivDominoPairs1_1(vector<vector<int>> &dominoes)
+{
+    unordered_map<int, int> temp;
+    for (int i = 0; i < dominoes.size(); i++)
+    {
+        temp[min(dominoes[i][0], dominoes[i][1]) * 10 + max(dominoes[i][0], dominoes[i][1])] += 1;
+    }
+    int maxNum = 0;
+    for (unordered_map<int, int>::iterator iter = temp.begin(); iter != temp.end(); iter++)
+    {
+        maxNum += (iter->second - 1) * (iter->second) / 2;
+    }
+    return maxNum;
+}
 
 /**
  * 方法3， 只用一层for循环即可，整体思路还是二维数组变成一维数组，但是有技巧，我们不再把每个数组的元素相加变成一个整数了
@@ -89,7 +103,8 @@ int numEquivDominoPairs2(vector<vector<int>> &dominoes)
     map<pair<int, int>, int> temp;
     for (auto &i : dominoes)
     {
-        if (i[0] > i[1]) swap(i[0], i[1]);
+        if (i[0] > i[1])
+            swap(i[0], i[1]);
         temp[make_pair(i[0], i[1])] += 1;
     }
     for (auto p = temp.begin(); p != temp.end(); p++)
@@ -120,7 +135,7 @@ int main()
         {2, 1},
         {3, 4},
         {5, 6}};
-    cout << numEquivDominoPairs5(res) << endl;
+    cout << numEquivDominoPairs1_1(res) << endl;
     // cout << numEquivDominoPairs2(res) << endl;
     // cout << reverseNum(12) << endl;
 }
