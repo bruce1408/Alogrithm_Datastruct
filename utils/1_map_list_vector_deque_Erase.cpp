@@ -23,7 +23,6 @@ int main()
     {
         tempList.push_back(i);
     }
-
     list<int>::iterator iter;
     iter = tempList.begin();
     // cout << iter << endl;
