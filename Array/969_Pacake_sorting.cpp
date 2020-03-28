@@ -10,37 +10,68 @@ using namespace std;
  * 然后把这个数字和前面的翻转，然后再把第一个数字和最后一个数字
  * 翻转，这样，最大的数字就放到了最后一位；然后开始继续找下一个
  * 第二大的数字即可
+ * 方法1 并不能解决这个题目，只是翻转排序的思路，写的逻辑不是很好
+ * 从1_1开始参考
 */
 vector<int> pancakeSort1(vector<int> &A)
 {
     vector<int> res;
-    int n = A.size(), beginIndex = 0;
+    int n = A.size(), beginIndex;
     for (beginIndex = n; beginIndex > 0; beginIndex--)
     {
         vector<int>::iterator iter = max_element(A.begin(), A.begin() + beginIndex);
         int position = iter - A.begin(); // 最大值的位置
-        res.push_back(position);
-        reverse(A.begin(), A.begin() + position);
-        reverse(A.begin(), A.begin() + beginIndex);
-        // if (position != beginIndex - 1)
-        // {
-        //     if (position != 0)
-        //     {
-        //         for (int i = 0; i <= (position) / 2; i++)
-        //         {
-        //             swap(A[i], A[position - i]);
-        //         }
-        //         swap(A[0], A[beginIndex - 1]);
-        //     }
-        //     else
-        //     {
-        //         for (int j = 0; j < beginIndex / 2; j++)
-        //         {
-        //             cout << beginIndex << " " << j << endl;
-        //             swap(A[j], A[beginIndex - j - 1]);
-        //         }
-        //     }
-        // }
+        cout << beginIndex << " " << position << endl;
+        if (position != beginIndex - 1)
+        {
+            if (position != 0)
+            {
+                for (int i = 0; i <= (position) / 2; i++)
+                {
+                    swap(A[i], A[position - i]);
+                }
+                swap(A[0], A[beginIndex - 1]);
+            }
+            else
+            {
+                for (int j = 0; j < beginIndex / 2; j++)
+                {
+                    cout << beginIndex << " " << j << endl;
+                    swap(A[j], A[beginIndex - j - 1]);
+                }
+            }
+        }
+        res.push_back(position + 1);
+        for (auto i : A)
+        {
+            cout << i << " ";
+        }
+        cout << endl;
+        res.push_back(beginIndex);
+    }
+    return A;
+    // return res;
+}
+
+/**
+ * 方法1_1, 思路一样，就是利用stl来做，写法更加简单
+*/
+vector<int> pancakeSort1_1(vector<int> &A)
+{
+    vector<int> res;
+    int n = A.size(), beginIndex;
+    for (beginIndex = n; beginIndex > 0; beginIndex--)
+    {
+        vector<int>::iterator iter = max_element(A.begin(), A.begin() + beginIndex);
+        int position = iter - A.begin(); // 最大值的位置，从0开始计数
+        cout << beginIndex << " " << position << endl;
+        if (position != beginIndex - 1)
+        {
+            reverse(A.begin(), A.begin() + position + 1);
+            reverse(A.begin(), A.begin() + beginIndex);
+        }
+        res.push_back(position + 1);
+        cout << endl;
         res.push_back(beginIndex);
     }
     return A;
@@ -78,7 +109,7 @@ vector<int> pancakeSort2(vector<int> &A)
 }
 
 /**
- * 方法3
+ * 方法3，思路都和上面一样；写法更加简单
 */
 vector<int> pancakeSort3(vector<int> &A)
 {
@@ -90,8 +121,13 @@ vector<int> pancakeSort3(vector<int> &A)
         {
         };
         reverse(A.begin(), A.begin() + i + 1);
+        cout << endl;
         res.push_back(i + 1);
         reverse(A.begin(), A.begin() + x);
+        for (auto i : A)
+        {
+            cout << i << " ";
+        }
         res.push_back(x);
     }
     return res;
@@ -99,7 +135,7 @@ vector<int> pancakeSort3(vector<int> &A)
 
 int main()
 {
-    vector<int> res = {3, 2, 1, 4};
+    vector<int> res = {3, 2, 4, 1};
     cout << endl;
     for (auto i : pancakeSort1(res))
     {
