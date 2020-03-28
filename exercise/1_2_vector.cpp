@@ -40,7 +40,9 @@ using namespace std;
 */
 int main()
 {
-    vector<int> res = {1, 2, 3, 4, 5};
+    vector<int> res = {1, 2, 3, 4, 5, 2, 4};
+    auto iter = max_element(res.begin(), res.end());
+    cout << iter - res.begin() << endl;
     reverse(res.begin(), res.begin() + 4);
     for (auto i : res)
     {
