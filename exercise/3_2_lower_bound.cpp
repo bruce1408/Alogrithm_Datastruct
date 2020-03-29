@@ -16,6 +16,7 @@ int cmd(int a, int b)
 {
     return a > b;
 }
+
 int main()
 {
     int num[6] = {1, 2, 4, 7, 15, 34};
@@ -29,7 +30,9 @@ int main()
     int pos4 = upper_bound(num, num + 6, 7, greater<int>()) - num; //返回数组中第一个小于被查数的值
     cout << pos3 << " " << num[pos3] << endl;
     cout << pos4 << " " << num[pos4] << endl;
-
     vector<int> res = {2, 3, 1, 4, 5};
     cout << lower_bound(res.begin(), res.end(), 3) - res.begin() << endl;
+
+    int m(res.size() >> 1), q(m >> 1);
+    cout << "m is：" << m << ", q is: " << q << endl;
 }
