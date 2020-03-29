@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 using namespace std;
 
 /**
@@ -43,24 +44,87 @@ int numPairsDivisibleBy60(vector<int> &time)
 */
 int numPairsDivisibleBy60_1(vector<int> &time)
 {
-    int len = time.size(), count = 0;
-    for(int i=0;i<len;i++)
+    int sumNum = 0;
+    unordered_map<int, int> temp;
+    for (int i = 0; i < time.size(); i++)
     {
-        if(time[i]==60) count++;
-        else if(time[i]> 60)
+        time[i] = time[i] % 60;
+        temp[time[i]]++;
+    }
+    for (auto iter = temp.begin(); iter != temp.end();)
+    {
+        cout << iter->first << " : " << iter->second << endl;
+        auto anotherNum = temp.find(60 - iter->first);
+        if (anotherNum != temp.end())
         {
-            if(time[i]%60==0) count++;
+            if (iter->first == 60 - iter->first)
+            {
+                sumNum += (iter->second * (iter->second - 1) / 2);
+            }
             else
             {
-                /* code */
+                sumNum += iter->second * anotherNum->second;
             }
-            
+            iter = temp.erase(anotherNum);
+        }
+        else
+        {
+            iter++;
         }
     }
-
+    return sumNum;
 }
+
+/**
+ * 方法 3，利用的是hashmap来做的,思路和方法 2相同，但是方法2在题目上面编译不通过，不知道
+ * 为什么，方法3就是更加简单，不再考虑遍历所有的数，而是考虑几个特殊情况，如果0~30之间的
+ * 特殊几个边界条件即可；
+*/
+int numPairsDivisibleBy60_2(vector<int> &time)
+{
+    int sumNum = 0;
+    unordered_map<int, int> temp;
+    for (int i = 0; i < time.size(); i++)
+    {
+        time[i] = time[i] % 60;
+        temp[time[i]]++;
+    }
+    for (auto iter = temp.begin(); iter != temp.end(); iter++)
+    {
+        cout << iter->first << " : " << iter->second << endl;
+        if (iter->first == 0 || iter->first == 30)
+        {
+            sumNum += temp[iter->first] * (temp[iter->first] - 1) / 2;
+        }
+        else if (temp.find(60 - iter->first) != temp.end() && iter->first < 30)
+        {
+            sumNum += iter->second * temp[60 - iter->first];
+        }
+    }
+    return sumNum;
+}
+
+/**
+ * 方法 4，思路基本一样但是写法更加简单；
+*/
+int numPairsDivisibleBy60_3(vector<int> &time)
+{
+    int count = 0, r;
+    int l = time.size();
+    vector<int> m(60, 0);
+
+    for (int i = 0; i < l; i++)
+    {
+        r = time[i] % 60;
+        int temp =(60-r)%60;
+        count += m[(60 - r) % 60];
+        m[r]++;
+    }
+    return count;
+}
+
 int main()
 {
     vector<int> res = {30, 20, 150, 100, 40};
-    cout << numPairsDivisibleBy60(res) << endl;
+    cout << numPairsDivisibleBy60_3(res) << endl;
 }

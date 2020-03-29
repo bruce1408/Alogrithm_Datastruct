@@ -51,7 +51,8 @@ vector<int> twoSum2(vector<int> &nums, int target)
 	for (int i = 0; i < nums.size(); i++)
 	{
 		int anotherNum = target - nums[i];
-		if (res.find(anotherNum) != res.end() && res[anotherNum] != i) // 且坐标不能是当前坐标，排出3，6-3的情况；
+		// 且坐标不能是当前坐标，排出3，6-3的情况；
+		if (res.find(anotherNum) != res.end() && res[anotherNum] != i) 
 		{
 			cout << res[nums[i]] << endl;
 			return {i, res[target - nums[i]]};
