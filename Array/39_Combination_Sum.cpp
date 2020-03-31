@@ -7,7 +7,6 @@ using namespace std;
 vector<vector<int>> combinationSum(vector<int> &candidates, int target)
 {
     vector<vector<int>> res;
-    // set<vector<int>>tempRes;
     for (int i = 0; i < candidates.size(); i++)
     {
         vector<int> temp;
@@ -54,8 +53,8 @@ vector<vector<int>> combinationSum(vector<int> &candidates, int target)
 
 int main()
 {
-    vector<int> res = {1, 2};
-    int a = 4;
+    vector<int> res = {1, 3, 5};
+    int a = 8;
     for (auto i : combinationSum(res, a))
     {
         for (auto j : i)
