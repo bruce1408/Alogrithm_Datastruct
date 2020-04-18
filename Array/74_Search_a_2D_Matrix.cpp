@@ -22,6 +22,10 @@ using namespace std;
  * 
  * 给定一个二维数组，和一个目标数，然后查找这个数字是否在这个数组里面，返回true 或者 false
 */
+/**
+ * 方法 1，使用两层for循环来做，注意这里两层for循环是变体，
+ * 增加了因为找到条件之后就终止
+*/
 bool searchMatrix(vector<vector<int>> &matrix, int target)
 {
     int m = matrix.size();
@@ -45,7 +49,13 @@ bool searchMatrix(vector<vector<int>> &matrix, int target)
     return flag;
 }
 
-
+/**
+ * 方法 2，可以使用二分查找的思路来做，二分查找用来查找二维数组的情况
+ */
+bool searchMatrix(vector<vector<int>> &matrix, int target)
+{
+    
+}
 int main()
 {
     vector<vector<int>> res = {

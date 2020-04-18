@@ -39,7 +39,7 @@ int binarySearch(vector<int> &res, int k)
 
 /**
  * 二分查找，左闭右开区间，
- * right取不到最后一个数组；
+ * right取不到数组的最后一个元素；
  * 最后的right要取到mid，因为right本来是右开区间，循环结束的条件就是left==right，所以
  * 一旦找到这个数字，那么就right赋值为mid，和left相等，循环结束，返回left或者right都可以；
  * 如果return left，那么可能的范围是[0, 数组长度]，例如数组[1,2,2,3,4]，
@@ -79,7 +79,7 @@ int binarySearch1(vector<int> &res, int k)
      * 否则返回的是-1；
      * 这种方式最好不要写，会有错误，因为left有可能是数组长度n，这个
      * 时候数组的下标会越界
-     * */ 
+     * */
 
     /**
      * 3.直接在while中满足条件就进行return mid;
@@ -120,7 +120,6 @@ int lower_bound0(vector<int> &res, int k)
 /**
  * lower_bound 查找 left < right
 */
-
 int lower_bound1(vector<int> &nums, int target)
 {
     int left = 0, right = nums.size();
@@ -174,10 +173,10 @@ int upper_bound0(vector<int> &res, int k)
         /**
          * 这个和lower_bound 的区别是upper_bound是小于等于号，
          * 因为这里判断的是第一个大于这个数的位置下标
-         * */ 
-        if (res[mid] <= k) 
+         * */
+        if (res[mid] <= k)
         {
-            left = mid+1;
+            left = mid + 1;
         }
         else
         {
@@ -190,13 +189,14 @@ int upper_bound0(vector<int> &res, int k)
 
 int main()
 {
-    int k;
+    // int k;
     while (true)
     {
         cout << "input a number: " << endl;
-        int k = 9;
+        int k = 3;
         vector<int> res = {1, 2, 2, 2, 3, 5, 7};
-        cout << binarySearch1(res, k) << endl;
+        cout << binarySearch(res, k) << endl;
+        break;
         // vector<int>::iterator lowerLocation = lower_bound(res.begin(), res.end(), k);
         // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), k);
         // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), 1);
