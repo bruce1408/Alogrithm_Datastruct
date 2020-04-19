@@ -103,9 +103,9 @@ int minimumTotal2(vector<vector<int>> &triangle)
 }
 
 /**
- * 方法 4
+ * 方法 4，改变triangle数组，生成了一个新的数组，当前行开头和结尾的数字是上一层的开头数字相加或者是结尾的数字相加，其他位置的数字
+ * 按照上一层的最小值来相加，最后返回的是最后一行的最小的数字
 */
-
 int minimumTotal4(vector<vector<int>> &triangle)
 {
     for (int i = 1; i < triangle.size(); ++i)
@@ -126,22 +126,57 @@ int minimumTotal4(vector<vector<int>> &triangle)
             }
         }
     }
-    for (auto i : triangle)
-    {
-        for (auto j : i)
-        {
-            cout << j << " ";
-        }
-        cout << endl;
-    }
     return *min_element(triangle.back().begin(), triangle.back().end());
 }
 
+/**
+ * 方法 5，使用动态规划的方法来做；把最后一行的数组单独提出来，
+ * 然后再把倒数第二行长度求出来，最后一行的数组就用倒数第二行的长度遍历
+ * j 从0开始，找到当前的j和下一个j，比较这两个的大小，然后取最小的那个，加上上一行的相邻值即可
+ * 这种方法复制了三角形最后一行，作为用来更新的一位数组。然后逐个遍历这个DP数组，对于每个数字，
+ * 和它之后的元素比较选择较小的再加上面一行相邻位置的元素做为新的元素，然后一层一层的向上扫描，
+ * 整个过程和冒泡排序的原理差不多，最后最小的元素都冒到前面，第一个元素即为所求
+*/
+int minimumTotal5(vector<vector<int>> &triangle)
+{
+    vector<int> dp(triangle.back());
+    for (int i = (int)triangle.size() - 2; i >= 0; --i)
+    {
+        for (int j = 0; j <= i; ++j)
+        {
+            dp[j] = min(dp[j], dp[j + 1]) + triangle[i][j];
+        }
+    }
+    return dp[0];
+}
+
+/**
+ * 方法 6，自底向上逐步求解
+*/
+int minimumTotal6(vector<vector<int>> &A)
+{
+    const int n = A.size();
+    vector<vector<int>> dp(n, vector<int>(0));
+    //最后一行把值复制
+    for (int i = 0; i < A[n - 1].size(); i++)
+    {
+        dp[n - 1].push_back(A[n - 1][i]);
+    }
+
+    for (int l = n - 2; l >= 0; l--)
+    {
+        for (int i = 0; i < A[l].size(); i++)
+        {
+            dp[l].push_back(min(dp[l + 1][i], dp[l + 1][i + 1]) + A[l][i]);
+        }
+    }
+    return dp[0][0];
+}
 int main()
 {
     vector<vector<int>> res = {
         {-1},
         {2, 3},
         {1, -1, -3}};
-    cout << minimumTotal4(res) << endl;
+    cout << minimumTotal6(res) << endl;
 }
