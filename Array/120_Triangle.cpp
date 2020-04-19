@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include<climits>
+#include <climits>
 using namespace std;
 
 /**
@@ -46,13 +46,38 @@ int minimumTotal(vector<vector<int>> &triangle)
 }
 
 /**
- * 方法 2，找到上面一层的最小数，记录这个数的位置，因为从下面一行开始
- * 要在上面一层的邻近位置找，但是这个算法其实不是这样的，他其实是全局最小
- * 应该是用动态规划的算法，所以方法 1，方法 2，都不对；
- * 方法 2，每次取相邻的数字然后比较大小，相加即可
- * 但是这个解法是错的，有点问题；利用的是动态规划解法
+ * 方法 2，纠正上面的算法，不是每一行的最小值，而是相邻的值且最小所以修改一下
 */
 int minimumTotal1(vector<vector<int>> &triangle)
+{
+    if (triangle.size() == 0)
+        return 0;
+    int sumPath = triangle[0][0];
+    int index = 0, j = 0;
+    for (int i = 1; i < triangle.size(); i++)
+    {
+        index = j;
+        if (triangle[i][index] < triangle[i][index + 1])
+        {
+            sumPath += triangle[i][index];
+            j = index;
+        }
+        else
+        {
+            sumPath += triangle[i][index + 1];
+            j = index + 1;
+        }
+    }
+    return sumPath;
+}
+/**
+ * 方法 3，找到上面一层的最小数，记录这个数的位置，因为从下面一行开始
+ * 要在上面一层的邻近位置找，但是这个算法其实不是这样的，他其实是全局最小
+ * 应该是用动态规划的算法，所以方法 1，方法 2，都不对；
+ * 方法 3，每次取相邻的数字然后比较大小，相加即可
+ * 但是这个解法是错的，有点问题；利用的是动态规划解法
+*/
+int minimumTotal2(vector<vector<int>> &triangle)
 {
     if (triangle.size() == 0)
         return 0;
@@ -77,11 +102,46 @@ int minimumTotal1(vector<vector<int>> &triangle)
     return sumCount;
 }
 
+/**
+ * 方法 4
+*/
+
+int minimumTotal4(vector<vector<int>> &triangle)
+{
+    for (int i = 1; i < triangle.size(); ++i)
+    {
+        for (int j = 0; j < triangle[i].size(); ++j)
+        {
+            if (j == 0)
+            {
+                triangle[i][j] += triangle[i - 1][j];
+            }
+            else if (j == triangle[i].size() - 1)
+            {
+                triangle[i][j] += triangle[i - 1][j - 1];
+            }
+            else
+            {
+                triangle[i][j] += min(triangle[i - 1][j - 1], triangle[i - 1][j]);
+            }
+        }
+    }
+    for (auto i : triangle)
+    {
+        for (auto j : i)
+        {
+            cout << j << " ";
+        }
+        cout << endl;
+    }
+    return *min_element(triangle.back().begin(), triangle.back().end());
+}
+
 int main()
 {
     vector<vector<int>> res = {
         {-1},
         {2, 3},
         {1, -1, -3}};
-    cout << minimumTotal1(res) << endl;
+    cout << minimumTotal4(res) << endl;
 }
