@@ -70,8 +70,10 @@ vector<int> numSmallerByFrequency(vector<string> &queries, vector<string> &words
 }
 
 /**
- * 方法 2，
- * 
+ * 方法 2，写一个求字符串中较小字符重复个数的函数，然后因为题目告诉，每个字符串数组的长度是1 ~ 10之间，所以可以设置长度
+ * 为10 的记录数组来记录，然后记录频率的数组freq的小标是重复个数，下标对应的数字表示出现了几次这样的重复个数，也就是重复数字的频率
+ * 比如，‘aaa’， ‘ababab’ ，freq[3] = 2, 因为字符串重复a3次，有两个字符串都是a的重复。所以freq[3] = 2
+ * 然后开始遍历新的quires数组，数组的每个字符的重复数字对应的就是freq的下标，
 */
 int frequency(string s)
 {
@@ -100,6 +102,7 @@ vector<int> numSmallerByFrequency1(vector<string> &queries, vector<string> &word
         freq[num - 1]++;
     }
 
+    // 这里就是num是真实的字符重复字母的个数，它对应freq就是下标就是比原来小的数；
     for (auto q : queries)
     {
         int num = frequency(q);
