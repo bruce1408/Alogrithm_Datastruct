@@ -5,9 +5,27 @@
 #include<algorithm>
 using namespace std;
 
-/*
-    列举一个数组的全排列的所有情况
+/**
+ * Given a collection of distinct integers, return all possible permutations.
+ * 
+ * Example:
+ * Input: [1,2,3]
+ * Output:
+ * [
+ *   [1,2,3],
+ *   [1,3,2],
+ *   [2,1,3],
+ *   [2,3,1],
+ *   [3,1,2],
+ *   [3,2,1]
+ * ]
+ * 
+ * 返回一个数组的全排列即可
 */
+
+/**
+ * 方法 1，
+ * */
 // vector<int> iterfun(vector<int> res, int len)
 // {
 //     if(len==2) 
@@ -46,7 +64,9 @@ using namespace std;
 // }
 
 
-
+/**
+ * 方法 2，
+*/
 vector<vector<int>> permute1(vector<int>& nums) 
 {
     vector<vector<int>> ans;
@@ -74,7 +94,9 @@ vector<vector<int>> permute1(vector<int>& nums)
 }
 
 
-// 100% 的写法,思路比较自然
+/**
+ * 方法 3，时间复杂度O(n)
+ * */ 
 void helper(vector<int> nums,int begin, vector<vector<int>>& result)
 {
     if(begin>=nums.size())
@@ -89,6 +111,7 @@ void helper(vector<int> nums,int begin, vector<vector<int>>& result)
         swap(nums[begin],nums[i]);
     }
 }
+
 vector<vector<int>>permute(vector<int>nums)
 {
     vector<vector<int>> result;
@@ -96,10 +119,17 @@ vector<vector<int>>permute(vector<int>nums)
     return result; 
 }
 
+/**
+ * 方法 4,
+ * */
+vector<vector<int>> permute4(vector<int>& nums) {
+    
+
+}
 
 int main()
 {
-    vector<int> nums = {1, 1, 2};
+    vector<int> nums = {1, 2, 3};
     for(auto i:permute(nums))
     {
         for(auto j: i)
