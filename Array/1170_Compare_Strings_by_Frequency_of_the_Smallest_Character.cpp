@@ -19,36 +19,105 @@ using namespace std;
  * 
  * 给定两个字符数组，从第一个数组中遍历，然后找到小于第二个数组中重复的长度；
 */
-vector<int> numSmallerByFrequency(vector<string> &queries, vector<string> &words)
+
+/**
+ * 方法 1，每个字符返回的是这个最小字母的重复数字，比如zaaaz，返回的是3，不是a重复次数最多，而是a比z小，所以返回的是a的字符重复长度，
+ * 然后在第二个字符数组中找到比他大的个数，放入结果数组
+*/
+vector<int> numRepeat(vector<string> &words)
 {
-    int len1 = queries.size(), len2 = words.size();
-    vector<int> res;
+    vector<int> wordNum;
     for (auto word : words)
     {
-        int repeatNum = 1;
-        char before = word[0];
-        for (int i = 1; i < word.size(); i++)
+        int repeatNum = 0, maxNum = 1;
+        char before = 'z';
+        for (int i = 0; i < word.size(); i++)
         {
-            if (before == word[i])
+            if (word[i] < before)
+            {
+                before = word[i];
+                repeatNum = 1;
+            }
+            else if (before == word[i])
             {
                 repeatNum += 1;
             }
-
-            before = word[i];
         }
-        res.push_back(repeatNum);
+        wordNum.push_back(repeatNum);
     }
-    for (auto i : res)
+    return wordNum;
+}
+
+vector<int> numSmallerByFrequency(vector<string> &queries, vector<string> &words)
+{
+    int len1 = queries.size(), len2 = words.size();
+    vector<int> lenNum;
+    vector<int> quNum = numRepeat(queries);
+    vector<int> wordNum = numRepeat(words);
+    for (int i = 0; i < len1; i++)
     {
-        cout << i << " ";
+        int repNum = 0;
+        for (int j = 0; j < len2; j++)
+        {
+            if (quNum[i] < wordNum[j])
+            {
+                repNum += 1;
+            }
+        }
+        lenNum.push_back(repNum);
+    }
+    return lenNum;
+}
+
+/**
+ * 方法 2，
+ * 
+*/
+int frequency(string s)
+{
+    int count = 0;
+    char small = 'z';
+    for (auto i : s)
+    {
+        if (i < small)
+        {
+            small = i;
+            count = 1;
+        }
+        else if (i == small)
+            count++;
+    }
+    return count;
+}
+
+vector<int> numSmallerByFrequency1(vector<string> &queries, vector<string> &words)
+{
+    vector<int> freq(10, 0);
+    vector<int> res;
+    for (auto w : words)
+    {
+        int num = frequency(w);
+        freq[num - 1]++;
     }
 
-    return {};
+    for (auto q : queries)
+    {
+        int num = frequency(q);
+        int sum = 0;
+        for (int i = num; i < 10; i++)
+            sum += freq[i];
+        res.push_back(sum);
+    }
+    return res;
 }
 
 int main()
 {
-    vector<string> queries = {"bbb", "cc"};
-    vector<string> words = {"a", "aa", "aaa", "aaaa"};
-    numSmallerByFrequency(queries, words);
+    vector<string> queries = {"bba", "abaaaaaa", "aaaaaa", "bbabbabaab", "aba", "aa", "baab", "bbbbbb", "aab", "bbabbaabb"};
+    vector<string> words = {"aaabbb", "aab", "babbab", "babbbb", "b", "bbbbbbbbab", "a", "bbbbbbbbbb", "baaabbaab", "aa"};
+    for (auto i : numSmallerByFrequency(queries, words))
+    {
+        cout << i << " ";
+    }
+    cout << endl;
 }
