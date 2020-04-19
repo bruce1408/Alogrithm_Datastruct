@@ -151,7 +151,7 @@ int minimumTotal5(vector<vector<int>> &triangle)
 }
 
 /**
- * 方法 6，自底向上逐步求解
+ * 方法 6，自底向上逐步求解，比上面的好理解，建议掌握！
 */
 int minimumTotal6(vector<vector<int>> &A)
 {
@@ -163,6 +163,7 @@ int minimumTotal6(vector<vector<int>> &A)
         dp[n - 1].push_back(A[n - 1][i]);
     }
 
+    //倒数第二行开始计算，从下一行加起来，一直到最开始的第1行，自底向上
     for (int l = n - 2; l >= 0; l--)
     {
         for (int i = 0; i < A[l].size(); i++)
