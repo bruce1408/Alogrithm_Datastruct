@@ -23,7 +23,12 @@ using namespace std;
 vector<int> luckyNumbers(vector<vector<int>> &matrix)
 {
     int maxRow = 0, rowIndex = 0, colIndex = 0;
-    
+    for(int i=0;i<matrix.size();i++)
+    {
+        
+    }
+
+
 }
 
 int main()
