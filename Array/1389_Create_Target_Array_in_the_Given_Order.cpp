@@ -29,10 +29,12 @@ vector<int> createTargetArray(vector<int> &nums, vector<int> &index)
 }
 
 /**
- * 方法 2
+ * 方法 2,前半部分是记录数组中的大小位置，如果前面的数字大于等于后面的数字的话，那么就当前位置的值+1即可
+ * 如果这个数值
 */
 vector<int> createTargetArray1(vector<int> &nums, vector<int> &index)
 {
+    vector<int> res(nums.size());
     for (int i = 0; i < index.size(); ++i)
     {
         for (int j = 0; j < i; ++j)
@@ -44,7 +46,6 @@ vector<int> createTargetArray1(vector<int> &nums, vector<int> &index)
         }
     }
 
-    vector<int> res(nums.size());
     for (int i = 0; i < index.size(); ++i)
     {
         res[index[i]] = nums[i];
