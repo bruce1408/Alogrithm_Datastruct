@@ -97,9 +97,37 @@ int findTheDistanceValue3(vector<int> &arr1, vector<int> &arr2, int d)
     return ans;
 }
 
+/**
+ * 方法 4，使用两个排序的数组，两个指针来做即可
+*/
+int findTheDistanceValue4(vector<int> &arr1, vector<int> &arr2, int d)
+{
+    sort(arr1.begin(), arr1.end());
+    sort(arr2.begin(), arr2.end());
+    int i = 0, j = 0, m = arr1.size(), n = arr2.size(), sum = 0;
+    while (i < m && j < n)
+    {
+        int left = arr2[j] - d, right = arr2[j] + d, cur = arr1[i];
+        if (cur < left)
+        {
+            sum++;
+            i++;
+        }
+        else if (left <= cur && cur <= right)
+        {
+            i++;
+        }
+        else
+        {
+            j++;
+        }
+    }
+    sum += (m-i);
+    return sum;
+}
 int main()
 {
     vector<int> arr1 = {4, 5, 8};
     vector<int> arr2 = {10, 9, 1, 8};
-    cout << findTheDistanceValue3(arr1, arr2, 2) << endl;
+    cout << findTheDistanceValue4(arr1, arr2, 2) << endl;
 }
