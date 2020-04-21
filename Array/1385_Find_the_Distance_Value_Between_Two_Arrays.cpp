@@ -78,6 +78,7 @@ int findTheDistanceValue2(vector<int> &arr1, vector<int> &arr2, int d)
 /**
  * 方法 3，使用二分搜索来做,这种思路很惊奇，是利用规律来查找第二个数组中第一个大于或者是等于这个 a-d的迭代器
  * 或者是第一个大于这个a+d的迭代器，如果两个相同，那么就加1；
+ * 时间复杂度是O(n)
 */
 int findTheDistanceValue3(vector<int> &arr1, vector<int> &arr2, int d)
 {
