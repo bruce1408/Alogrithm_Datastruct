@@ -20,7 +20,7 @@ using namespace std;
 */
 
 /**
- * 方法 1，利用暴力解法来做；时间复杂度较高，应该是O(n!)
+ * 方法 1，利用暴力解法来做；时间复杂度较高，应该是O(n!), 最好参看方法 3的写法。
  * */
 int minSubArrayLen1(int s, vector<int> &nums)
 {
@@ -70,17 +70,17 @@ int minSubArrayLen2(int s, vector<int> &nums)
 */
 int minSubArrayLen3(int s, vector<int> &nums)
 {
-    int res = INT_MAX, left = 0, sum = 0;
-    for (int i = 0; i < nums.size(); ++i)
+    int distance = INT_MAX, left = 0, sum = 0;
+    for (int right = 0; right < nums.size(); ++right)
     {
-        sum += nums[i];
-        while (left <= i && sum >= s)
+        sum += nums[right];
+        while (left <= right && sum >= s)
         {
-            res = min(res, i - left + 1);
+            distance = min(distance, right - left + 1);
             sum -= nums[left++];
         }
     }
-    return res == INT_MAX ? 0 : res;
+    return distance == INT_MAX ? 0 : distance;
 }
 int main()
 {
