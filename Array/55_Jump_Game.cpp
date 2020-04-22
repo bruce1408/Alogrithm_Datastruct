@@ -3,6 +3,14 @@
 using namespace std;
 
 /**
+ * Example 1:
+ * Input: [2,3,1,1,4]
+ * Output: true
+ * Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+ * 初始从0开始，然后能够到达最后一个位置返回true，否则返回的是false
+*/
+
+/**
  * 方法 1，贪婪算法 Greedy Algorithm，
  * 因为这里并不是很关心每一个位置上的剩余步数，而只希望知道能否到达末尾，
  * 也就是说我们只对最远能到达的位置感兴趣，所以维护一个变量 reach，
