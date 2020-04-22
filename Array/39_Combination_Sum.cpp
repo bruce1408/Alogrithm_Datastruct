@@ -4,6 +4,13 @@
 #include <cmath>
 using namespace std;
 
+/**
+ * 组合之和，给定一个输入的数组，然后给定目标值是7，求出这个数组可以组合成和为7的所有数组。
+*/
+
+/**
+ * 方法 1，方法错误，没有考虑组合，而是利用规律来做，漏掉了几种情况。
+*/
 vector<vector<int>> combinationSum(vector<int> &candidates, int target)
 {
     vector<vector<int>> res;
@@ -51,6 +58,14 @@ vector<vector<int>> combinationSum(vector<int> &candidates, int target)
     return vector<vector<int>>(tempRes.begin(), tempRes.end());
 }
 
+
+/**
+ * 方法 2，
+*/
+vector<vector<int>> combinationSum(vector<int> &candidates, int target)
+{
+    
+}
 int main()
 {
     vector<int> res = {1, 3, 5};
