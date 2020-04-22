@@ -62,10 +62,18 @@ vector<vector<int>> combinationSum(vector<int> &candidates, int target)
 /**
  * 方法 2，
 */
-vector<vector<int>> combinationSum(vector<int> &candidates, int target)
+void helper(vector<int>&candidates, int target, int start, vector<int>&out, vector<vector<int>>&res)
 {
     
 }
+vector<vector<int>> combinationSum(vector<int> &candidates, int target)
+{
+    vector<int>out;
+    vector<vector<int>>res;
+    helper(candidates, target, 0, out, res);
+    return res;
+}
+
 int main()
 {
     vector<int> res = {1, 3, 5};
