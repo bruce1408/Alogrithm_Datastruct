@@ -34,6 +34,6 @@ bool canJump(vector<int> &nums)
 
 int main()
 {
-    vector<int> res = {2, 0};
-    cout << canJump(res) << endl;
+    vector<int> res = {2, 3, 1, 1, 4};
+    cout << canJump2(res) << endl;
 }
