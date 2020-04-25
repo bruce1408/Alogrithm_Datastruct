@@ -67,11 +67,7 @@ int maxDistToClosest(vector<int> &seats)
  * 方法 2，以及方法 3都是直接求解的是连续0出现的最大次数，只用一次for循环即可，但是没有考虑到
  * 如果靠墙的情况，就是[1,0,0,0]
 */
-int maxDistToClosest2(vector<int> res)
 
-/**
- * 方法 2，利用辅助数组来存1的出现的位置
-*/
 int maxDistToClosest2(vector<int> &seats)
 {
     int N = seats.size();
@@ -162,6 +158,7 @@ int maxDistToClosest4(vector<int>&res)
     num = max(num, N-start);
     return num; 
 }
+
 int main()
 {
     vector<int> res = {1, 0, 0, 1};
