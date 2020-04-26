@@ -3,32 +3,31 @@
 #include<string>
 using namespace std;
 
-
 struct linkList
 {
-	char name[20];
+	// char name[20];
+	string name;
 	int age;
 	linkList *next;
-
 };
 
 /*例题一：链表的创建*/
-// int main()
-// {
-	// linkList c = {"guest",15,NULL};
-	// linkList b = {"herry",10,&c};
-	// linkList a = {"bruce",5,&b};
-	// linkList *head =&a;
-	// linkList *p = head;
-	// while(p)
-	// {
-		// cout<<p->name<<"->"<<p->age<<"->";
-		// p = p->next;
-	// }
-	// cout<<"end"<<endl;
-	// return 0;
+int main()
+{
+	linkList c = {"guest",15,NULL};
+	linkList b = {"herry",10,&c};
+	linkList a = {"bruce",5,&b};
+	linkList *head =&a;
+	linkList *p = head;
+	while(p)
+	{
+		cout<<p->name<<"->"<<p->age<<"->";
+		p = p->next;
+	}
+	cout<<"end"<<endl;
+	return 0;
 			
-// }
+}
 
 /*例题二：链表的遍历和查找*/
 // int main()
@@ -133,39 +132,35 @@ struct linkList
 
 /*例题五：删除做法，书上的做法，用两个节点，一个之前一个，一个之后一个节点
   有点是删除谁就找谁，而一个节点的缺点是删除谁就要找到他的前一个节点。*/
-int main()
-{
-	linkList d = {"Xname",19,NULL};
-	linkList c = {"guest",15,&d};
-	linkList b = {"herry",10,&c};
-	linkList a = {"bruce",5,&b};
-	linkList *head =&a;
-	linkList *p = head;
-	linkList *before = NULL;
+// int main()
+// {
+// 	linkList d = {"Xname",19,NULL};
+// 	linkList c = {"guest",15,&d};
+// 	linkList b = {"herry",10,&c};
+// 	linkList a = {"bruce",5,&b};
+// 	linkList *head =&a;
+// 	linkList *p = head;
+// 	linkList *before = NULL;
 	
-
+// 	while(p)
+// 	{
+// 		if(strcmp("herry",p->name)==0)// 寻找删除节点，在herry后面的节点删除
+// 		{
+// 			before->next = p->next;
+// 		}
+// 		before = p;
+// 		p = p->next;
+// 	}
 	
-	while(p)
-	{
-		if(strcmp("herry",p->name)==0)// 寻找删除节点，在herry后面的节点删除
-		{
-			before->next = p->next;
-		}
-		before = p;
-		p = p->next;
-	}
-	
-	p = head;
-	while(p)
-	{
-		cout<<p->name<<"->";
-		p = p->next;
-	}
-	cout<<"end"<<endl;
-	return 0;		
-}
-
-
+// 	p = head;
+// 	while(p)
+// 	{
+// 		cout<<p->name<<"->";
+// 		p = p->next;
+// 	}
+// 	cout<<"end"<<endl;
+// 	return 0;		
+// }
 
 /*例题六：头部插入,头部插入的问题之一就是要判断头结点，给一个指针，如果
   该节点指针依旧是NULL的话，那么就应该是头结点插入，*/
@@ -212,21 +207,4 @@ int main()
 	// }
 	// cout<<"end"<<endl;
 	// return 0;
-			
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
