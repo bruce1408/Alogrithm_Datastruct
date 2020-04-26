@@ -1,11 +1,15 @@
-/*已经排好序的链表去重
-  就两句话，如果比较当前节点和下一节点的数值相同的话，
-  那么，让下下节点指向当前节点，
-  否则，继续向后移动节点，继续判断当前节点和下一节点不为空；*/
 #include<iostream>
 #include<vector>
 using namespace std;
 
+/**
+ * Given a sorted linked list, delete all duplicates such that each element appear only once.
+ * Example 1:
+ * Input: 1->1->2
+ * Output: 1->2
+ * 
+ * 已经排好序的链表去重，就两句话，如果比较当前节点和下一节点的数值相同的话，
+ * 那么，让下下节点指向当前节点，否则，继续向后移动节点，继续判断当前节点和下一节点不为空；*/
 
 struct ListNode
 {
@@ -14,33 +18,31 @@ struct ListNode
     ListNode(int x):val(x),next(NULL){}
 }; 
 
+/**
+ * 方法 1，
+*/
 void print_list(struct ListNode *head);
-//method 1
-class Solution
+
+ListNode *deleteDuplicates1(ListNode *head)
 {
-	public:
-	ListNode *deleteDuplicates(ListNode *head)
+	ListNode *p = head;
+	while(p&&p->next)
 	{
-		ListNode *p = head;
-		while(p&&p->next)
+		if(p->next->val == p->val)
 		{
-			if(p->next->val == p->val)
-			{
-				p->next = p->next->next;
-			}
-			else
-			{
-				p = p->next;
-			}
+			p->next = p->next->next;
 		}
-		return head;
+		else
+		{
+			p = p->next;
+		}
 	}
-	
-};
+	return head;
+}
 
 
 // 方法二；
-ListNode* delete_deplicateNode(ListNode*head)
+ListNode* deleteDuplicates2(ListNode*head)
 {
 	if (!head || !head->next) return head;
 	
@@ -57,11 +59,8 @@ ListNode* delete_deplicateNode(ListNode*head)
 	return head;
 }
 
-
-
 int main()
 {
-	
 	ListNode *e = new ListNode(3);
 	ListNode *d = new ListNode(3);
 	ListNode *c = new ListNode(2);
@@ -73,17 +72,11 @@ int main()
 	c->next = d;
 	d->next = e;
 	ListNode *before = head;
-	
 	print_list(head);
-	
-	Solution s;
-	print_list(s.deleteDuplicates(before));
-
-	
+	print_list(deleteDuplicates1(before));
 	return 0;
 	
 }
-
 
 
 void print_list(struct ListNode *head)
