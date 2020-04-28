@@ -1,64 +1,50 @@
-/* --------------- description -----------------
-	删除一个单链表的某个结点
-	1->2->3->4 变成 1->2->4
-*/
 #include<iostream>
 #include<cstring>
 using namespace std;
-struct linkList
+
+/**
+ * 删除一个单链表的某个结点
+ * 1->2->3->4 变成 1->2->4
+ * 
+ * Input: head = [4,5,1,9], node = 5
+ * Output: [4,1,9]
+*/
+struct ListNode
 {
-	int num;
-	linkList *next;
+	int val;
+	ListNode *next;
+	ListNode (int x): val(x), next(NULL){}
 };
-int main()
+
+
+/**
+ * 方法 1,
+*/
+void deleteNode1(ListNode *node, int node)
 {
-	int i;
-	linkList d = {4,NULL};
-	linkList c = {3,&d};
-	linkList b = {2,&c};
-	linkList a = {1,&b};
-	linkList *head = &a;
-	linkList *p = head;
-	linkList *before = NULL;
-	cout<<"在1,2,3,4中请输入你要删除的数字："<<endl;
-	cin>>i;
-	/*查找位置部分*/
-	while(p)
+	ListNode *head = new ListNode(-1);
+	head ->next = node;
+	ListNode *cur = head;
+	while(cur->next)
 	{
-		if(p->num == i)
-			break;
-		before = p;
-		p = p->next;
-		
-			
+		if()
 	}
-	if(before == NULL)//如果是删除第一个节点的话
-		head = p->next;
-	else
-	{
-		before->next = p->next;
-	}
-	p = head;
-	while(p)
-	{
-		cout<<p->num<<"->";
-		p = p->next;
-	}
-	cout<<"end"<<endl;
-	return 0;
+
 }
 
-// 这个题目的意思是没有给你头结点，直接是给你要删除的节点让你删改节点
-class Solution
+int main()
 {
-	pubic:
-	void deleteNode(ListNode *node)
-	{
-		//先把后一个值覆盖到当前节点
-		node->val = node->next->val;
-		//现在两个节点值完全一样，删除后面的几点
-		ListNode*tmp =node->next;
-		node->next = node->next->next;
-		delete node->next;
-	}
-};
+    // 链表 1生成过程
+    ListNode *c1 = new ListNode(4);
+    ListNode *b1 = new ListNode(3);
+    ListNode *a1 = new ListNode(1);
+    ListNode *head1 = a1;
+    a1->next = b1;
+    b1->next = c1;
+
+    print_list(head1);
+	int node = 3;
+    deleteNode1(head1, node);
+    print_list(head1);
+    return 0;
+}

@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 /**
@@ -13,48 +13,71 @@ using namespace std;
 
 struct ListNode
 {
-    int val;
-    ListNode *next;
-    ListNode(int x):val(x),next(NULL){}
-}; 
+	int val;
+	ListNode *next;
+	ListNode(int x) : val(x), next(NULL) {}
+};
 
 /**
  * 方法 1，
 */
-void print_list(struct ListNode *head);
+void print_list(struct ListNode *head); // 链表打印
 
-ListNode *deleteDuplicates1(ListNode *head)
+ListNode *deleteDuplicates1(ListNode *head) // 这里有个细节，就是cur 在 cur->next的前面写，否则很有可能应为cur->next 指针是野指针
 {
-	ListNode *p = head;
-	while(p&&p->next)
+	ListNode *cur = head, *after = head;
+	while (cur && cur->next)
 	{
-		if(p->next->val == p->val)
+		after = cur->next;
+		if (cur->val == after->val)
 		{
-			p->next = p->next->next;
+			cur->next = after->next;
 		}
 		else
 		{
-			p = p->next;
+			cur = cur->next;
 		}
 	}
 	return head;
 }
 
+/**
+ * 方法 2；比较方法 1的是删除部分更加科学合理，设置临时链表temp来保存要删除的这个链表，
+ * 最后使用delete来删除即可
+ */
 
-// 方法二；
-ListNode* deleteDuplicates2(ListNode*head)
+ListNode *deleteDuplicates2(ListNode *head)
 {
-	if (!head || !head->next) return head;
-	
+	if (!head || !head->next)
+		return head;
 	ListNode *start = head;
-	while (start && start->next) 
+	while (start && start->next)
 	{
-		if (start->val == start->next->val) 
+		if (start->val == start->next->val)
 		{
 			ListNode *tmp = start->next;
 			start->next = start->next->next;
 			delete tmp;
-		} else start = start->next;
+		}
+		else
+			start = start->next;
+	}
+	return head;
+}
+
+ListNode *deleteDuplicates(ListNode *head)
+{
+	ListNode *curr = head;
+	while (curr && curr->next)
+	{
+		if (curr->val == curr->next->val)
+		{
+			curr->next = curr->next->next;
+		}
+		else
+		{
+			curr = curr->next;
+		}
 	}
 	return head;
 }
@@ -73,18 +96,16 @@ int main()
 	d->next = e;
 	ListNode *before = head;
 	print_list(head);
-	print_list(deleteDuplicates1(before));
+	print_list(deleteDuplicates3(before));
 	return 0;
-	
 }
-
 
 void print_list(struct ListNode *head)
 {
-	while(head)
+	while (head)
 	{
-		cout<<head->val<<"->";
+		cout << head->val << "->";
 		head = head->next;
 	}
-	cout<<"end"<<endl;
+	cout << "end" << endl;
 }
