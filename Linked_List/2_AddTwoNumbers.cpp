@@ -22,50 +22,76 @@ struct ListNode
 void print_list(struct ListNode *head);
 
 /**
- * 方法 1，逐位相加即可
+ * 方法 1，创建一个新的链表，然后逐位相加即可，这里要注意进位，是否进位，怎么进位，进位是否传递等方法
 */
-ListNode *addTwoNumbers5(ListNode *l1, ListNode *l2)
+ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 {
+	int carry = 0;
 	ListNode *p1 = l1, *p2 = l2;
-	ListNode *head = p1, *current1 = p1, *current2 = p2;
-	int preNum = 0;
-	int sumBit = 0;
-	while (p1 and p2)
+	ListNode *head = new ListNode(0);
+	ListNode *cur = head;
+	bool carryFlag = false;
+	while (p1 && p2)
 	{
-		current1 = p1;
-		current2 = p2;
-		int sum = p1->val + p2->val + sumBit;
-		if (sum >= 10)
+		int tempSum = p1->val + p2->val + carry;
+		if (tempSum >= 10)
 		{
-			sumBit = sum / 10;
-			sum = sum % 10;
+			carry = tempSum / 10;
+			carryFlag = true;
 		}
-		preNum = p1->val;
-		p1->val = sum;
+		else
+		{
+			carryFlag = false;
+			carry = 0;
+		}
+		ListNode *temp = new ListNode(tempSum % 10);
+		head->next = temp;
+		head = temp;
 		p1 = p1->next;
 		p2 = p2->next;
 	}
-	if (p2)
+	while (p1)
 	{
-		current1->next = p2;
-		p2->val += sumBit;
-	}
-	else if (p1)
-	{
-		p1->val += sumBit;
-	}
-	else if (sumBit != 0 && p1 == nullptr && p2 == nullptr)
-	{
-
-		if (preNum + current2->val >= 10)
+		int p1Sum = p1->val + carry;
+		p1->val = p1Sum % 10;
+		if (p1Sum >= 10)
 		{
-			ListNode *rear = new ListNode(sumBit);
-			current1->next = rear;
+			carry = p1Sum / 10;
+			carryFlag = true;
 		}
+		else
+		{
+			carry = 0;
+			carryFlag = false;
+		}
+		head->next = p1;
+		head = p1;
+		p1 = p1->next;
 	}
-	return head;
+	while (p2)
+	{
+		int p2Sum = p2->val + carry;
+		p2->val = p2Sum % 10;
+		if (p2Sum >= 10)
+		{
+			carry = p2Sum / 10;
+			carryFlag = true;
+		}
+		else
+		{
+			carry = 0;
+			carryFlag = false;
+		}
+		head->next = p2;
+		head = p2;
+		p2 = p2->next;
+	}
+	if (carryFlag)
+	{
+		head->next = new ListNode(carry);
+	}
+	return cur->next;
 }
-
 
 void print_list(struct ListNode *head)
 {
@@ -77,11 +103,10 @@ void print_list(struct ListNode *head)
 	cout << "end" << endl;
 }
 
-/*leetcode标准参考答案*/
 /**
- * 方法 2
+ * 方法 2，
 */
-ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2)
 {
 	int carry = 0;
 	ListNode *res = new ListNode(0);
@@ -118,7 +143,7 @@ ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
 /**
  * 方法 3，
 */
-ListNode *addTwoNum(ListNode *l1, ListNode *l2)
+ListNode *addTwoNum3(ListNode *l1, ListNode *l2)
 {
 	ListNode *result = new ListNode(0);
 	ListNode *res = result;
@@ -151,16 +176,18 @@ ListNode *addTwoNum(ListNode *l1, ListNode *l2)
 
 int main()
 {
+	// 链表 1生成过程
 	// ListNode *c1 = new ListNode(3);
-	// ListNode *b1 = new ListNode(4);
-	ListNode *a1 = new ListNode(0);
+	// ListNode *b1 = new ListNode(8);
+	ListNode *a1 = new ListNode(1);
 	ListNode *head1 = a1;
 	// a1->next = b1;
 	// b1->next = c1;
-
+	
+	// 链表 2生成过程
 	// ListNode *c2 = new ListNode(4);
-	ListNode *b2 = new ListNode(3);
-	ListNode *a2 = new ListNode(7);
+	ListNode *b2 = new ListNode(8);
+	ListNode *a2 = new ListNode(9);
 	ListNode *head2 = a2;
 	a2->next = b2;
 	// b2->next = c2;
@@ -172,7 +199,7 @@ int main()
 	// Solution s;
 	// before = s.addTwoNumbers(head1,head2);
 	// before = addTwoNum(head1,head2);
-	before = addTwoNumbers5(head1, head2);
+	before = addTwoNumbers2(head1, head2);
 	print_list(before);
 	return 0;
 }
