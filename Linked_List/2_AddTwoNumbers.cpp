@@ -23,27 +23,30 @@ void print_list(struct ListNode *head);
 
 /**
  * 方法 1，创建一个新的链表，然后逐位相加即可，这里要注意进位，是否进位，怎么进位，进位是否传递等方法
+ * 和方法 2相比，多了进位判断，就是下文注释掉的if-else语句，可以直接用carry = sumValue / 10;来代替
+ * 这样写法就很简单。时间复杂度是O(n)，空间是O(max(m,n))；
 */
 ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 {
 	int carry = 0;
 	ListNode *p1 = l1, *p2 = l2;
-	ListNode *head = new ListNode(0);
+	ListNode *head = new ListNode(0); // 开始建立一个头结点，最后返回这个头结点的下一个链表作为开头；
 	ListNode *cur = head;
 	bool carryFlag = false;
 	while (p1 && p2)
 	{
 		int tempSum = p1->val + p2->val + carry;
-		if (tempSum >= 10)
-		{
-			carry = tempSum / 10;
-			carryFlag = true;
-		}
-		else
-		{
-			carryFlag = false;
-			carry = 0;
-		}
+		// if (tempSum >= 10)
+		// {
+		// 	carry = tempSum / 10;
+		// 	carryFlag = true;
+		// }
+		// else
+		// {
+		// 	carryFlag = false;
+		// 	carry = 0;
+		// }
+		carry = tempSum / 10;
 		ListNode *temp = new ListNode(tempSum % 10);
 		head->next = temp;
 		head = temp;
@@ -54,16 +57,17 @@ ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 	{
 		int p1Sum = p1->val + carry;
 		p1->val = p1Sum % 10;
-		if (p1Sum >= 10)
-		{
-			carry = p1Sum / 10;
-			carryFlag = true;
-		}
-		else
-		{
-			carry = 0;
-			carryFlag = false;
-		}
+		// if (p1Sum >= 10)
+		// {
+		// 	carry = p1Sum / 10;
+		// 	carryFlag = true;
+		// }
+		// else
+		// {
+		// 	carry = 0;
+		// 	carryFlag = false;
+		// }
+		carry = p1Sum / 10;
 		head->next = p1;
 		head = p1;
 		p1 = p1->next;
@@ -72,21 +76,22 @@ ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 	{
 		int p2Sum = p2->val + carry;
 		p2->val = p2Sum % 10;
-		if (p2Sum >= 10)
-		{
-			carry = p2Sum / 10;
-			carryFlag = true;
-		}
-		else
-		{
-			carry = 0;
-			carryFlag = false;
-		}
+		// if (p2Sum >= 10)
+		// {
+		// 	carry = p2Sum / 10;
+		// 	carryFlag = true;
+		// }
+		// else
+		// {
+		// 	carry = 0;
+		// 	carryFlag = false;
+		// }
+		carry = p2Sum / 10;
 		head->next = p2;
 		head = p2;
 		p2 = p2->next;
 	}
-	if (carryFlag)
+	if (carry)
 	{
 		head->next = new ListNode(carry);
 	}
@@ -104,7 +109,7 @@ void print_list(struct ListNode *head)
 }
 
 /**
- * 方法 2，
+ * 方法 2，思路和方法 1 一样，但是写法更加简单，不用考虑进位传递问题，省略掉了if-else
 */
 ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2)
 {
@@ -119,6 +124,7 @@ ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2)
 		l2 = l2->next;
 		res = res->next;
 	}
+
 	while (l1)
 	{
 		res->next = new ListNode((l1->val + carry) % 10);
@@ -126,6 +132,7 @@ ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2)
 		l1 = l1->next;
 		res = res->next;
 	}
+
 	while (l2)
 	{
 		res->next = new ListNode((l2->val + carry) % 10);
@@ -183,7 +190,7 @@ int main()
 	ListNode *head1 = a1;
 	// a1->next = b1;
 	// b1->next = c1;
-	
+
 	// 链表 2生成过程
 	// ListNode *c2 = new ListNode(4);
 	ListNode *b2 = new ListNode(8);
@@ -199,7 +206,7 @@ int main()
 	// Solution s;
 	// before = s.addTwoNumbers(head1,head2);
 	// before = addTwoNum(head1,head2);
-	before = addTwoNumbers2(head1, head2);
+	before = addTwoNumbers1(head1, head2);
 	print_list(before);
 	return 0;
 }
