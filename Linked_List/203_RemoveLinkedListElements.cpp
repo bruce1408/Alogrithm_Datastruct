@@ -1,12 +1,20 @@
-/*删除一个符合条件的节点。
-  有很多思路，我是用的是两个指针来做，这样效率很高！*/
 #include<iostream>
 using namespace std;
+/**
+ * Remove all elements from a linked list of integers that have value val.
+ * Example:
+ * Input:  1->2->6->3->4->5->6, val = 6
+ * Output: 1->2->3->4->5
+ * 删除一个符合条件的节点。
+ * 有很多思路，我是用的是两个指针来做，这样效率很高！
+ */
 
-struct linkList
+struct ListNode
 {
 	int val;
-	linkList *next;
+	ListNode *next;
+	ListNode (int x): val(x), next(NULL){}
+	
 };
 void printf_list(struct linkList *u);
 int main()
@@ -41,8 +49,6 @@ int main()
 	p = head;
 	printf_list(p);
 	return 0;
-	
-
 }
 
 void printf_list(struct linkList *u)//输出链表的函数
@@ -52,10 +58,8 @@ void printf_list(struct linkList *u)//输出链表的函数
 		cout<<u->val<<"->";
 		u = u->next;
 	}
-	cout<<"end"<<endl;
-	
+	cout<<"end"<<endl;	
 }
-
 
 // 方法二；增设头结点
 class Solution{
