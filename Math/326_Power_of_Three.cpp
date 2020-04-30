@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 /**
@@ -24,7 +25,7 @@ bool isPowerOfThree1(int n)
 */
 bool isPowerOfThree2(int n)
 {
-    int cnt = 0, remain = 0;
+    int remain = 0;
     while (n != 1)
     {
         remain = n % 3;
@@ -36,8 +37,32 @@ bool isPowerOfThree2(int n)
 }
 
 /**
- * 方法 3，不使用循环能不能判断出来。
+ * 方法 3，不使用循环能不能判断出来。因为int整型的最大范围是2^31，所以3的最大的次方是19，3^19 = 1162261467，只要输入的数字能够被这个
+ * 数字整除即可
 */
+bool isPowerOfThree3(int n)
+{
+    return (n > 0 && 1162261467 % n == 0);
+}
+
+/**
+ * 方法 4，利用对数的换底公式来做，高中学过的换底公式为logab = logcb / logca，
+ * 那么如果n是3的倍数，则log3n一定是整数，我们利用换底公式可以写为log3n = log10n / log103，
+ * 注意这里一定要用10为底数，不能用自然数或者2为底数，否则当n=243时会出错，原因请看这个帖子。
+ * 现在问题就变成了判断log10n / log103是否为整数，在c++中判断数字a是否为整数，我们可以用 a - int(a) == 0 来判断
+*/
+
+bool isPowerOfThree4(int n)
+{
+    if (n > 0 && int(log10(n) / log10(3)) - log10(n) / log10(3) == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 int main()
 {
     int a, count = 9;
@@ -45,7 +70,7 @@ int main()
     while (count)
     {
         cin >> a;
-        cout << "the a is:" << a << " !the res is: " << isPowerOfThree1(a) << endl;
+        cout << "the a is:" << a << " !the res is: " << isPowerOfThree4(a) << endl;
         count--;
     }
 }
