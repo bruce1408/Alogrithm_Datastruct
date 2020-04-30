@@ -49,6 +49,14 @@ int maxCount(int m, int n, vector<vector<int>> &ops)
 /**
  * 方法 2，优化方法 1，
 */
+int maxCount(int m, int n, vector<vector<int>> &ops)
+{
+    int minValue = 0;
+    for(auto i:ops)
+    {
+        for(auto j:)
+    }
+}
 int main()
 {
     vector<vector<int>> res = {
