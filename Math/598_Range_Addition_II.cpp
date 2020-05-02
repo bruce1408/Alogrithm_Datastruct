@@ -46,23 +46,6 @@ int maxCount(int m, int n, vector<vector<int>> &ops)
     return count;
 }
 
-/**
- * 方法 2，优化方法 1，但是这种方法其实不对，就是以为是每一行的所有数字相乘，然后
- * 比较每行数字最小的返回即可，但是实际上不是这样的。是每行的，每列的最小值
-*/
-int maxCount1(int m, int n, vector<vector<int>> &ops)
-{
-    int minValue = INT_MAX, sumValue = 1;
-    for (auto i : ops)
-    {
-        for (auto j : i)
-        {
-            sumValue = sumValue * j;
-        }
-        minValue = min(minValue, sumValue);
-    }
-    return minValue;
-}
 
 /**
  * 方法 2，每次用 ops 中的值来更新m和n，取其中较小值，这样遍历完成后，m和n就是最大数矩阵的边界了
