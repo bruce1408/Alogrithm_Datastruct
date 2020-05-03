@@ -1,20 +1,19 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+using namespace std;
 // #include <conio.h>
 
 /**
 * cstdio是将stdio.h的内容用C++头文件的形式表示出来。
 *stdio.h是C标准函数库中的头文件，即：standard buffered input&output。
-*提供基本的文字的输入输出流操作（包括屏幕和文件等）。                                                                   
+*提供基本的文字的输入输出流操作（包括屏幕和文件等）。
 */
 
 /**
 *conio是Console Input/Output（控制台输入输出）的简写，其中定义了通过控制台进行数据输入和数据输出的函数，
-*主要是一些用户通过按键盘产生的对应操作，比如getch()()函数等等。                                                       
+*主要是一些用户通过按键盘产生的对应操作，比如getch()()函数等等。
 */
-
-using namespace std;
 
 struct node
 {
@@ -39,7 +38,6 @@ node *creat()
             node *s = new node;
             s->data = x;
             cout << "Input data : " << x << endl;
-
             p->next = s;
             p = s;
         }
@@ -53,7 +51,6 @@ node *creat()
     head = head->next;
     p->next = NULL;
     //cout << "\nFirst data of single linker is " << head->data << endl;
-
     return head;
 }
 
@@ -89,7 +86,6 @@ node *insert(node *head, int num)
 {
     node *p0, *p1, *p2;
     p1 = head;
-
     p2 = new node;
     p0 = new node;  // 插入节点
     p0->data = num; // 插入数据

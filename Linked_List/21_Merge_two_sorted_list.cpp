@@ -53,7 +53,7 @@ ListNode *mergeTwoLists1(ListNode *l1, ListNode *l2)
 
 /**
  * 方法 2，不用递归，依次比较两个链表的大小，注意这里的头结点有两种写法，一种是指针
- * 还有一种是非指针的写法，方法 2是用非指针的写法。
+ * 还有一种是非头指针的写法，方法 2是用非头指针的写法。
  */
 ListNode *mergeTwoLists2(ListNode *l1, ListNode *l2)
 {
