@@ -36,18 +36,18 @@ int getSum2(int a, int b)
     bool carry = false;
     for (int i = 0; i < 32; i++)
     {
-        int lastDig = (a & 1) ^ (b & 1);
-        if (carry)
+        int lastDig = (a & 1) ^ (b & 1); // 异或的情况
+        if (carry) // 没有进位的情况
         {
-            if (lastDig)
+            if (lastDig) // 如果最后一位的数字是0，1组合，那么就没有进位，同时把lastDig设置为0
                 lastDig = 0;
-            else
+            else // 否则，lastDig 设置为1，然后可能有进位的情况，需要判断一下
             {
                 lastDig = 1;
-                carry = ((a & 1) && (b & 1));
+                carry = ((a & 1) && (b & 1)); // 判断是不是有进位
             }
         }
-        else
+        else // 判断是不是有进位
         {
             if ((a & 1) && (b & 1))
                 carry = true;
@@ -73,5 +73,5 @@ int getSum3(int a, int b)
 
 int main()
 {
-    cout << getSum3(2, 4) << endl;
+    cout << getSum2(2, 4) << endl;
 }
