@@ -43,7 +43,7 @@ bool isPalindrome1(ListNode *head)
     return true;
 }
 /**
- * 算法二：回文链表，找到中间链表然后反转。
+ * 算法二：回文链表，找到中间节点的链表然后反转，比价复杂。
  */
 ListNode *ReverseList2(ListNode *head)
 {
@@ -91,19 +91,34 @@ bool isPalindrome2(ListNode *head)
     return true;
 }
 
+/**
+ * 查找链表的中间节点，慢指针走1步，快指针走2步；
+*/
+ListNode *middleList(ListNode *head)
+{
+    ListNode *fast = head;
+    ListNode *slow = head;
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+
 int main()
 {
     ListNode *head = new ListNode(1);
     ListNode *node2 = new ListNode(2);
-    ListNode *node3 = new ListNode(3);
-    ListNode *node4 = new ListNode(4);
+    ListNode *node3 = new ListNode(5);
+    // ListNode *node4 = new ListNode(4);
     ListNode *node5 = new ListNode(3);
     ListNode *node6 = new ListNode(2);
     ListNode *node7 = new ListNode(1);
     head->next = node2;
     node2->next = node3;
-    node3->next = node4;
-    node4->next = node5;
+    // node3->next = node4;
+    node3->next = node5;
     node5->next = node6;
     node6->next = node7;
 
@@ -112,6 +127,7 @@ int main()
         cout << "是回文串" << endl;
     else
         cout << "不是回文串" << endl;
+    cout << middleList(head)->val << endl;
     return 0;
 }
 
