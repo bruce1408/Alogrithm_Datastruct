@@ -61,18 +61,13 @@ ListNode *getIntersectionNode2(ListNode *headA, ListNode *headB)
 	if (lena < lenb)
 	{
 		for (int i = 0; i < lenb - lena; i++)
-		{
 			b = b->next;
-		}
 	}
 	else
 	{
 		for (int i = 0; i < lena - lenb; i++)
-		{
 			a = a->next;
-		}
 	}
-
 	while (a && b && a != b)
 	{
 		a = a->next;

@@ -141,7 +141,7 @@ double myPow5(double x, int n)
     return res * res * x;
 }
 /**
- * 方法 6，迭代法
+ * 方法 6，迭代法,推荐算法！
 */
 double myPow6(double x, int n)
 {
