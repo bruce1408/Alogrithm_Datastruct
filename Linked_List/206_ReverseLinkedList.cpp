@@ -1,9 +1,10 @@
-/*链表的反转算法：
-  核心的思想是一个工作指针p、一个rear指针初始值设为NULL、
-  还有一个从后往前指的指针before。*/
 #include<iostream>
 #include<vector>
 using namespace std;
+/**
+ * 链表的反转算法：
+ * 核心的思想是一个工作指针p、一个rear指针初始值设为NULL,还有一个从后往前指的指针before。
+*/
 struct ListNode
 {
 	int val;
@@ -11,31 +12,30 @@ struct ListNode
 	ListNode (int x):val(x),next(NULL){}
 };
 void print_list(ListNode *head);
-// 链表反转算法：不带头结点的写法,需要三个指针，一个当前cur，一个rear，一个pre。
-// 重点掌握
-class Solution
+
+/**
+ * 方法 1，不带头结点，直接反转链表，链表反转算法：不带头结点的写法,需要三个指针，一个当前cur，一个rear，一个pre。
+*/
+ListNode* reverseList1(ListNode* pHead)
 {
-	public:
-	ListNode* ReverseList(ListNode* pHead)
+	if (pHead == NULL || pHead->next == NULL) return pHead;
+	ListNode* rear = NULL;
+	ListNode* cur = pHead;
+	ListNode* pre = pHead;
+	while(cur)
 	{
-		if (pHead == NULL || pHead->next == NULL) return pHead;
-		ListNode* rear = NULL;
-		ListNode* cur = pHead;
-		ListNode* pre = pHead;
-		while(cur)
-		{
-			pre = cur; 
-			cur = cur->next;//工作指针		
-			pre->next = rear;     
-			rear = pre;	
-		}
-    return rear;
-	}		
-};
+		pre = cur; 
+		cur = cur->next;//工作指针		
+		pre->next = rear;     
+		rear = pre;	
+	}
+	return rear;
+}	
 
-
-// 带头结点的写法,temp指针来保存cur 的下一个地址即可 
-ListNode*reverseList1(ListNode*head)
+/**
+ * 方法 2，带头结点的写法,temp指针来保存cur 的下一个地址即可 
+*/ 
+ListNode*reverseList2(ListNode*head)
 {
 	ListNode *cur = head;
 	ListNode dummy(-1);
@@ -50,8 +50,10 @@ ListNode*reverseList1(ListNode*head)
 	return dummy.next;
 }
 
-// 不带头结点理解起来比价麻烦
-ListNode *reverseList2(ListNode*head)
+/**
+ * 方法 3，不带头结点理解起来比价麻烦
+*/ 
+ListNode *reverseList3(ListNode*head)
 {
 	if(head==nullptr||head->next==nullptr) return head;
 	ListNode *cur = head;
@@ -65,6 +67,24 @@ ListNode *reverseList2(ListNode*head)
 		rear = pre;
 	}
 	return rear;
+}
+
+/**
+ * 带头结点的方法
+*/
+ListNode*reverseList4(ListNode*head)
+{
+	ListNode * p = head;
+	ListNode *dummy = NULL;
+	dummy->next = head;
+	while(p->next)
+	{
+		ListNode *tmp = p->next;
+		p->next = tmp->next;
+		tmp->next = dummy->next;
+		dummy->next = tmp;
+	}
+	return dummy->next;
 }
 
 int main()
@@ -82,8 +102,7 @@ int main()
     a4->next = a5;  
 	
 	print_list(a1);
-	// Solution s;
-	// print_list(s.ReverseList(a1));
+	// print_list(ReverseList(a1));
 	print_list(reverseList1(a1));
 	delete a1;
 	delete a2;
@@ -94,7 +113,7 @@ int main()
 }
 
 //打印部分：	
-void print_list(struct ListNode *head)
+void print_list(ListNode *head)
 {
 	while(head)
 	{
@@ -104,24 +123,6 @@ void print_list(struct ListNode *head)
 	cout<<"end"<<endl;
 }
 
-// 带头结点
-class Solution1
-{
-	ListNode*reverseList(ListNode*head)
-	{
-		ListNode * p = head;
-		ListNode *dummy = NULL;
-		dummy->next = head;
-		while(p->next)
-		{
-			ListNode *tmp = p->next;
-			p->next = tmp->next;
-			tmp->next = dummy->next;
-			dummy->next = tmp;
-		}
-		return dummy->next;
-	}
-};
 
 
 
