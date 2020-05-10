@@ -17,7 +17,9 @@ struct ListNode
 	ListNode(int x) : val(x), next(NULL) {}
 };
 
-// 正确的版本；
+/**
+ * 方法 1，使用两层while循环判断。
+ */
 ListNode *deleteDuplicates(ListNode *head)
 {
 	if (!head || !head->next)
@@ -48,36 +50,43 @@ void print_list(struct ListNode *head)
 	cout << "end" << endl;
 }
 
-// 自己写错的版本。里面还应该嵌套一个while循环
-ListNode *deleteDuplicate(ListNode *head)
+/**
+ * 方法 2，使用的是逻辑算法，两层while循环，如果找到相同的节点，
+ * 那么进入第二层while循环，判断到底是有多少个相同的节点，然后开始把这些节点删除即可。但是发现超时了！=_=
+ */
+ListNode *deleteDuplicates2(ListNode *head)
 {
+	ListNode *cur = head, *pre = head;
 	ListNode *dummy = new ListNode(-1);
-	ListNode *pre = head, *cur = head;
+	ListNode *before = dummy;
 	dummy->next = head;
-	while (pre->next)
+	while (cur && cur->next)
 	{
-		if (cur->next->val == pre->val) // 这个错犯了好几次
+		pre = cur->next;
+		if (cur->val == pre->val)
 		{
-			cout << "next one is: " << cur->next->val << endl;
-			cur = cur->next;
-		}
-		if (pre != cur)
-		{
-			dummy->next = cur->next;
+			ListNode *tmp = pre;
+			while (tmp)
+			{
+				if (cur->val == tmp->val)
+				{
+					tmp = tmp->next;
+				}
+				else
+				{
+					before->next = tmp;
+					cur = tmp;
+					break;
+				}
+			}
 		}
 		else
-			pre = pre->next;
+		{
+			before = cur;
+			cur = cur->next;
+		}
 	}
-	dummy->next = pre;
 	return dummy->next;
-}
-
-ListNode* deleteDuplicates2(ListNode* head)
-{
-	ListNode *cur = head;
-	ListNode * dummy = new ListNode(-1);
-	dummy->next = head;
-	
 }
 
 int main()
@@ -105,6 +114,6 @@ int main()
 	// 	p = p->next;
 	// }
 	// cout<<endl;
-	print_list(deleteDuplicates(head));
+	print_list(deleteDuplicates2(head));
 	return 0;
 }
