@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 /**
  * 链表的反转算法：
@@ -9,60 +9,24 @@ struct ListNode
 {
 	int val;
 	ListNode *next;
-	ListNode (int x):val(x),next(NULL){}
+	ListNode(int x) : val(x), next(NULL) {}
 };
-void print_list(ListNode *head);
 
+void print_list(ListNode *head);
 /**
  * 方法 1，不带头结点，直接反转链表，链表反转算法：不带头结点的写法,需要三个指针，一个当前cur，一个rear，一个pre。
 */
-ListNode* reverseList1(ListNode* pHead)
+ListNode *reverseList1(ListNode *pHead)
 {
-	if (pHead == NULL || pHead->next == NULL) return pHead;
-	ListNode* rear = NULL;
-	ListNode* cur = pHead;
-	ListNode* pre = pHead;
-	while(cur)
-	{
-		pre = cur; 
-		cur = cur->next;//工作指针		
-		pre->next = rear;     
-		rear = pre;	
-	}
-	return rear;
-}	
-
-/**
- * 方法 2，带头结点的写法,temp指针来保存cur 的下一个地址即可 
-*/ 
-ListNode*reverseList2(ListNode*head)
-{
-	ListNode *cur = head;
-	ListNode dummy(-1);
-	dummy.next = head;
-	while(cur->next)
-	{
-		ListNode *temp = cur->next;
-		cur->next = temp->next;
-		temp->next = dummy.next;
-		dummy.next = temp;
-	}
-	return dummy.next;
-}
-
-/**
- * 方法 3，不带头结点理解起来比价麻烦
-*/ 
-ListNode *reverseList3(ListNode*head)
-{
-	if(head==nullptr||head->next==nullptr) return head;
-	ListNode *cur = head;
-	ListNode *pre = head;
-	ListNode *rear = nullptr;
-	while(cur)
+	if (pHead == NULL || pHead->next == NULL)
+		return pHead;
+	ListNode *rear = NULL;
+	ListNode *cur = pHead;
+	ListNode *pre = pHead;
+	while (cur)
 	{
 		pre = cur;
-		cur = cur->next;
+		cur = cur->next; //工作指针
 		pre->next = rear;
 		rear = pre;
 	}
@@ -70,14 +34,14 @@ ListNode *reverseList3(ListNode*head)
 }
 
 /**
- * 带头结点的方法
+ * 方法 2，带头结点的写法,temp指针来保存cur 的下一个地址即可 
 */
-ListNode*reverseList4(ListNode*head)
+ListNode *reverseList2(ListNode *head)
 {
-	ListNode * p = head;
-	ListNode *dummy = NULL;
+	ListNode *p = head;
+	ListNode *dummy = new ListNode(-1);
 	dummy->next = head;
-	while(p->next)
+	while (p->next)
 	{
 		ListNode *tmp = p->next;
 		p->next = tmp->next;
@@ -90,48 +54,35 @@ ListNode*reverseList4(ListNode*head)
 int main()
 {
 	//自己造一个回文链表
-	
-	ListNode *a1 = new ListNode(1);   
-    ListNode *a2 = new ListNode(2);   
-    ListNode *a3 = new ListNode(3);   
-    ListNode *a4 = new ListNode(4);   
-    ListNode *a5 = new ListNode(5);
-    a1->next = a2;   
-    a2->next = a3;   
-    a3->next = a4;   
-    a4->next = a5;  
-	
+
+	ListNode *a1 = new ListNode(1);
+	ListNode *a2 = new ListNode(2);
+	ListNode *a3 = new ListNode(3);
+	ListNode *a4 = new ListNode(4);
+	ListNode *a5 = new ListNode(5);
+	a1->next = a2;
+	a2->next = a3;
+	a3->next = a4;
+	a4->next = a5;
+
 	print_list(a1);
 	// print_list(ReverseList(a1));
-	print_list(reverseList1(a1));
+	print_list(reverseList2(a1));
 	delete a1;
 	delete a2;
 	delete a3;
 	delete a4;
 	delete a5;
-	return 0;	
+	return 0;
 }
 
-//打印部分：	
+//打印部分：
 void print_list(ListNode *head)
 {
-	while(head)
+	while (head)
 	{
-		cout<<head->val<<"->";
+		cout << head->val << "->";
 		head = head->next;
 	}
-	cout<<"end"<<endl;
+	cout << "end" << endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
