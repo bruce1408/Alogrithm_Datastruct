@@ -43,7 +43,7 @@ ListNode *deleteDuplicates(ListNode *head)
 
 /**
  * 方法 2，使用的是逻辑算法，两层while循环，如果找到相同的节点，
- * 那么进入第二层while循环，判断到底是有多少个相同的节点，然后开始把这些节点删除即可。但是发现超时了！=_=
+ * 那么进入第二层while循环，判断到底是有多少个相同的节点，然后开始把这些节点删除即可。但是发现没有考虑到[1, 1]
  */
 ListNode *deleteDuplicates2(ListNode *head)
 {
@@ -70,6 +70,8 @@ ListNode *deleteDuplicates2(ListNode *head)
 					break;
 				}
 			}
+			dummy->next = tmp;
+			pre = pre->next;
 		}
 		else
 		{
@@ -84,11 +86,11 @@ int main()
 {
 	ListNode *head = new ListNode(1);
 	ListNode *node2 = new ListNode(1);
-	ListNode *node3 = new ListNode(4);
-	ListNode *node4 = new ListNode(4);
-	ListNode *node5 = new ListNode(5);
-	ListNode *node6 = new ListNode(6);
-	ListNode *node7 = new ListNode(7);
+	ListNode *node3 = new ListNode(1);
+	ListNode *node4 = new ListNode(1);
+	ListNode *node5 = new ListNode(1);
+	ListNode *node6 = new ListNode(1);
+	ListNode *node7 = new ListNode(1);
 
 	head->next = node2;
 	node2->next = node3;
