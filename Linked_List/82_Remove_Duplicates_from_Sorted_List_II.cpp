@@ -56,7 +56,7 @@ ListNode *deleteDuplicates2(ListNode *head)
 		pre = cur->next;
 		if (cur->val == pre->val)
 		{
-			ListNode *tmp = pre->next;
+			ListNode *tmp = pre;
 			while (tmp)
 			{
 				if (cur->val == tmp->val)
@@ -70,8 +70,7 @@ ListNode *deleteDuplicates2(ListNode *head)
 					break;
 				}
 			}
-			dummy->next = tmp;
-			pre = pre->next;
+			cur = tmp;
 		}
 		else
 		{
@@ -79,18 +78,18 @@ ListNode *deleteDuplicates2(ListNode *head)
 			cur = cur->next;
 		}
 	}
-	return dummy->next;
+	return cur ? dummy->next : NULL;
 }
 
 int main()
 {
 	ListNode *head = new ListNode(1);
-	ListNode *node2 = new ListNode(1);
-	ListNode *node3 = new ListNode(1);
-	ListNode *node4 = new ListNode(1);
-	ListNode *node5 = new ListNode(1);
-	ListNode *node6 = new ListNode(1);
-	ListNode *node7 = new ListNode(1);
+	ListNode *node2 = new ListNode(2);
+	ListNode *node3 = new ListNode(2);
+	ListNode *node4 = new ListNode(2);
+	ListNode *node5 = new ListNode(2);
+	ListNode *node6 = new ListNode(2);
+	ListNode *node7 = new ListNode(2);
 
 	head->next = node2;
 	node2->next = node3;
