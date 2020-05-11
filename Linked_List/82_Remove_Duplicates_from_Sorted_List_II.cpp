@@ -19,7 +19,7 @@ struct ListNode
 void print_list(struct ListNode *head);
 
 /**
- * 方法 1，使用两层while循环判断。
+ * 方法 1，使用两层while循环判断
  */
 ListNode *deleteDuplicates(ListNode *head)
 {
