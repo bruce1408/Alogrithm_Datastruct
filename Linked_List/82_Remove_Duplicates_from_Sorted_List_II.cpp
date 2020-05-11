@@ -19,7 +19,10 @@ struct ListNode
 void print_list(struct ListNode *head);
 
 /**
- * 方法 1，使用两层while循环判断
+ * 方法 1，使用两层while循环判断,教科书解法，找一个步长是1的节点之间的关系即可，用before和cur两个节点，因为可能开头的元素就是要删除的元素，
+ * 所以设置头结点，每次遍历before这个节点，before后面的设置cur节点，让子节点cur开始走，如果cur到while循环结束，它的前一个节点还是before
+ * 那就相当于before子链cur没有重复数字，接着遍历，否则，有重复数字，before->next = cur->next;这一句兼职是关键啊！太牛逼了，我写的太冗长了
+ * 没有考虑有这么简洁的写法。方法2是自己写的，我再默写一遍表达对作者的崇拜吧。
  */
 ListNode *deleteDuplicates(ListNode *head)
 {
@@ -40,10 +43,37 @@ ListNode *deleteDuplicates(ListNode *head)
 	}
 	return start->next;
 }
+/**
+ * 方法 1，表达崇拜。默写一遍
+*/
+ListNode *deleteDuplicates1(ListNode *head)
+{
+	if (!head || !head->next)
+		return head;
+	ListNode *dummy = new ListNode(-1), *before = dummy;
+	while (before->next)
+	{
+		ListNode *cur = before->next;
+		while (cur->next && cur->next->val == cur->val)
+		{
+			cur = cur->next;
+		}
+		if (cur != before->next)
+			before->next = cur->next;
+		else
+		{
+			before = before->next; // 说明没有相同的子链表，继续向下走；
+		}
+	}
+	return dummy->next;
+}
 
 /**
  * 方法 2，使用的是逻辑算法，两层while循环，如果找到相同的节点，
- * 那么进入第二层while循环，判断到底是有多少个相同的节点，然后开始把这些节点删除即可。但是发现没有考虑到[1, 1]
+ * 那么进入第二层while循环，判断到底是有多少个相同的节点，然后开始把这些节点删除即可。
+ * 边界条件需要考虑多种情况，比较麻烦，需要一一举例测试一下
+ * 比如：
+ * [1,1,2], [1,2,2,3], [1,2,2], [1,1,2,2,3,3]
  */
 ListNode *deleteDuplicates2(ListNode *head)
 {
@@ -67,10 +97,11 @@ ListNode *deleteDuplicates2(ListNode *head)
 				{
 					before->next = tmp;
 					cur = tmp;
-					break;
+					// break;
 				}
 			}
-			cur = tmp;
+			cur = before;
+			before->next = tmp;
 		}
 		else
 		{
@@ -78,18 +109,34 @@ ListNode *deleteDuplicates2(ListNode *head)
 			cur = cur->next;
 		}
 	}
-	return cur ? dummy->next : NULL;
+	if (cur)
+	{
+		return dummy->next;
+	}
+	else
+	{
+		return before == dummy ? NULL : before;
+	}
+}
+
+/**
+ * 方法 3，使用递归来做。教科书解法，这个就更仙儿了，思路挺好的，但是不容易想到递归的结束条件
+*/
+ListNode *deleteDuplicates3(ListNode *head)
+{
+	if(!head || !head->next) return head;
+	
 }
 
 int main()
 {
 	ListNode *head = new ListNode(1);
-	ListNode *node2 = new ListNode(2);
-	ListNode *node3 = new ListNode(2);
-	ListNode *node4 = new ListNode(2);
-	ListNode *node5 = new ListNode(2);
-	ListNode *node6 = new ListNode(2);
-	ListNode *node7 = new ListNode(2);
+	ListNode *node2 = new ListNode(1);
+	ListNode *node3 = new ListNode(1);
+	ListNode *node4 = new ListNode(3);
+	ListNode *node5 = new ListNode(3);
+	ListNode *node6 = new ListNode(3);
+	ListNode *node7 = new ListNode(3);
 
 	head->next = node2;
 	node2->next = node3;
@@ -98,7 +145,7 @@ int main()
 	node5->next = node6;
 	node6->next = node7;
 	print_list(head);
-	print_list(deleteDuplicates2(head));
+	print_list(deleteDuplicates1(head));
 	return 0;
 }
 
