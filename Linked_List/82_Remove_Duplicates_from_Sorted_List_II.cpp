@@ -120,12 +120,24 @@ ListNode *deleteDuplicates2(ListNode *head)
 }
 
 /**
- * 方法 3，使用递归来做。教科书解法，这个就更仙儿了，思路挺好的，但是不容易想到递归的结束条件
+ * 方法 3，使用递归来做。教科书解法，这个就更仙儿了，思路挺好的，但是不容易想到递归的结束条件，还有递归设计。
+ * 思路是开头有重复的话那么直接把开头重复的全部删除，然后返回一个开头不是重复的节点，再来判断后面的链表是否重复，
+ * 总之有点像是切三段，掐头去尾来做。
 */
 ListNode *deleteDuplicates3(ListNode *head)
 {
-	if(!head || !head->next) return head;
-	
+	if (!head || !head->next)
+		return head;
+	if (head->next && head->next->val == head->val)
+	{
+		while (head->next && head->val == head->next->val) // 开头重复
+		{
+			head = head->next;
+		}
+		return deleteDuplicates3(head->next); // 中间重复
+	}
+	head->next = deleteDuplicates3(head->next); // 尾部重复
+	return head;
 }
 
 int main()
@@ -145,7 +157,7 @@ int main()
 	node5->next = node6;
 	node6->next = node7;
 	print_list(head);
-	print_list(deleteDuplicates1(head));
+	print_list(deleteDuplicates3(head));
 	return 0;
 }
 
