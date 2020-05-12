@@ -17,7 +17,6 @@ struct ListNode
 	ListNode(int x):val(x),next(NULL) {}
 };
 
-// 翻转 k 个节点的链表。分两步，第一步，找翻转区间，第二步，在区间内翻转链表
 void print_list(struct ListNode *head)
 {
 	while(head)
@@ -28,7 +27,9 @@ void print_list(struct ListNode *head)
 	cout<<"end"<<endl;
 }
 
-// 移动节点函数
+/** 
+ * 方法 1，翻转 k 个节点的链表。分两步，第一步，找翻转区间，第二步，在区间内翻转链表
+ */ 
 ListNode *reverseOneGroup(ListNode *pre, ListNode *last)
 {
     ListNode * start = pre->next;
@@ -65,26 +66,9 @@ ListNode* reverseKGroup(ListNode* head, int k)
     return dummy->next;
 }
 
-
-
-int main()
-{
-	ListNode head(1);
-	ListNode a(2);
-	ListNode b(3);
-	ListNode c(4);
-	ListNode d(5);
-    head.next = &a;
-    a.next = &b;
-    b.next = &c;
-    c.next = &d;
-    ListNode * res = reverseKGroup(&head, 3);
-    print_list(res);
-    return 0;
-	
-}
-
-// 方法二：利用一个函数。计算总长度，然后每次在k长度内进行翻转
+/**
+ * 方法 2，用一个函数。计算总长度，然后每次在k长度内进行翻转
+*/ 
 ListNode *reverseKGroup1(ListNode *head, int k)
 {
     ListNode *dummy = new ListNode(-1), *pre = dummy;
@@ -106,5 +90,19 @@ ListNode *reverseKGroup1(ListNode *head, int k)
         num -= k;
     }
     return dummy->next;
-    
+}
+int main()
+{
+	ListNode head(1);
+	ListNode a(2);
+	ListNode b(3);
+	ListNode c(4);
+	ListNode d(5);
+    head.next = &a;
+    a.next = &b;
+    b.next = &c;
+    c.next = &d;
+    ListNode * res = reverseKGroup(&head, 3);
+    print_list(res);
+    return 0;
 }
