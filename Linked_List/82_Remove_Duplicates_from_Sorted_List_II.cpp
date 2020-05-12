@@ -90,14 +90,12 @@ ListNode *deleteDuplicates2(ListNode *head)
 			while (tmp)
 			{
 				if (cur->val == tmp->val)
-				{
 					tmp = tmp->next;
-				}
 				else
 				{
 					before->next = tmp;
 					cur = tmp;
-					// break;
+					break;
 				}
 			}
 			cur = before;
@@ -110,13 +108,9 @@ ListNode *deleteDuplicates2(ListNode *head)
 		}
 	}
 	if (cur)
-	{
 		return dummy->next;
-	}
 	else
-	{
 		return before == dummy ? NULL : before;
-	}
 }
 
 /**
@@ -157,7 +151,7 @@ int main()
 	node5->next = node6;
 	node6->next = node7;
 	print_list(head);
-	print_list(deleteDuplicates3(head));
+	print_list(deleteDuplicates6(head));
 	return 0;
 }
 
