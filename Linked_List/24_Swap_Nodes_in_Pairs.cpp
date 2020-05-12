@@ -2,8 +2,13 @@
 #include<stack>
 #include<vector>
 using namespace std;
-
-
+/**
+ * 给一个链表，然后交换相邻的两个节点，返回的是它的头结点
+ * 
+ * Example:
+ * Given 1->2->3->4, 
+ * you should return the list as 2->1->4->3.
+*/
 struct ListNode
 {
 	int val;
@@ -11,34 +16,35 @@ struct ListNode
 	ListNode(int x):val(x),next(NULL) {}
 };
 
-
-class Solution 
+/**
+ * 方法 1，因为头结点会替换，所以使用新的头结点来做。
+*/
+ListNode* swapPairs1(ListNode* head)
 {
-	public:
-    ListNode* swapPairs(ListNode* head) 
-	{
-        ListNode *dummy = new ListNode(-1), *pre = dummy;
-        dummy->next = head;
-        while (pre->next && pre->next->next) 
-		{
-            ListNode *t = pre->next->next;
-            pre->next->next = t->next;
-            t->next = pre->next;
-            pre->next = t;
-            pre = t->next;
-        }
-        return dummy->next;
+    ListNode *dummy = new ListNode(-1);
+    dummy->next = head;
+    ListNode *cur = dummy;
+    while(cur->next && cur->next->next)
+    {
+        ListNode *pre = cur->next->next;
+        cur->next->next = pre->next;
+        pre->next = cur->next;
+        cur->next = pre;
+        cur = pre->next;
     }
-};
-
-
+    return dummy->next;
+}
 
 int main()
 {
-	vector<int>res;
-	res.push_back(10);
-	res.push_back(2);
-	cout<<res.back();
+	ListNode *head = new ListNode(1);
+    ListNode *a = new ListNode(2);
+    ListNode *b = new ListNode(3);
+    ListNode *c = new ListNode(4);
+    head->next = a;
+    a->next = b;
+    b->next = c;
+    swapPairs1(head);
 	return 0;
 	
 }

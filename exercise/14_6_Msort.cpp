@@ -13,7 +13,6 @@ void swap(sqlist *l, int i, int j);
 /**
  * 归并排序算法
  */
-
 void MergeSort(sqlist *l);
 void Msort(int old_arr[], int modi_arr[], int s, int t);
 void Merge(int res_arr2[], int modi_arr[], int i, int m, int n);
