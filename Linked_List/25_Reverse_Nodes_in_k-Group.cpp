@@ -76,8 +76,12 @@ ListNode *reverseKGroup1(ListNode *head, int k)
     dummy->next = head;
     ListNode *cur = pre->next;
     int num = 0;
-    while (cur && cur->next)
-        ++num;
+    while (cur)
+    {
+        cur = cur->next;
+        num += 1;
+    }
+    cout << num << endl;
     while (num >= k)
     {
         cur = pre->next;
@@ -88,39 +92,12 @@ ListNode *reverseKGroup1(ListNode *head, int k)
             t->next = pre->next;
             pre->next = t;
         }
-        pre = cur;
+        pre = cur; // 最关键的一步，头结点dummy=pre;然后移动pre来代替头结点即可；
         num -= k;
     }
     return dummy->next;
 }
-/**
- * 方法 3，使用cur
-*/
-ListNode *reverseKGroup3(ListNode *head, int k)
-{
-    ListNode *dummy = new ListNode(-1);
-    dummy->next = head;
-    ListNode *cur = head;
-    int count = 1;
-    while (cur)
-    {
-        ListNode *tmp = cur;
-        ListNode *pre = tmp, *rear = NULL, *before = tmp;
-        while (tmp && count <= k)
-        {
-            before = tmp;
-            tmp = tmp->next;
-            before->next = rear;
-            rear = before;
-            count += 1;
-            pre = pre->next;
-        }
-        rear->next = pre;
-        count = 1;
-        cur = pre;
-    }
-    return dummy->next;
-}
+
 int main()
 {
     ListNode head(1);
@@ -132,7 +109,7 @@ int main()
     a.next = &b;
     b.next = &c;
     c.next = &d;
-    ListNode *res = reverseKGroup3(&head, 3);
+    ListNode *res = reverseKGroup1(&head, 3);
     print_list(res);
     return 0;
 }
