@@ -26,7 +26,9 @@ void print_list(struct ListNode *head)
     }
     cout << "end" << endl;
 }
-
+/**
+ * 方法一；递归且用归并排序
+ */ 
 ListNode *merge(ListNode *l1, ListNode *l2)
 {
     if (!l1)
@@ -44,7 +46,7 @@ ListNode *merge(ListNode *l1, ListNode *l2)
         return l2;
     }
 }
-// 方法一；递归且用归并排序
+
 ListNode *sortList(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
@@ -62,7 +64,9 @@ ListNode *sortList(ListNode *head)
     return merge(sortList(head), sortList(slow));
 }
 
-// 方法二： 不用递归，归并排序
+/**
+ * 方法二： 不用递归，归并排序
+ */ 
 ListNode *merge2(ListNode *l1, ListNode *l2)
 {
     if (!l1)

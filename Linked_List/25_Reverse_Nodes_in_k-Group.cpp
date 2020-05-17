@@ -17,7 +17,7 @@ struct ListNode
     ListNode(int x) : val(x), next(NULL) {}
 };
 
-void print_list(struct ListNode *head)
+void print_list(ListNode *head)
 {
     while (head)
     {
@@ -69,6 +69,7 @@ ListNode *reverseKGroup(ListNode *head, int k)
 
 /**
  * 方法 2，用一个函数。计算总长度，然后每次在k长度内进行翻转
+ * 推荐此算法来解题
 */
 ListNode *reverseKGroup1(ListNode *head, int k)
 {
@@ -100,16 +101,16 @@ ListNode *reverseKGroup1(ListNode *head, int k)
 
 int main()
 {
-    ListNode head(1);
-    ListNode a(2);
-    ListNode b(3);
-    ListNode c(4);
-    ListNode d(5);
-    head.next = &a;
-    a.next = &b;
-    b.next = &c;
-    c.next = &d;
-    ListNode *res = reverseKGroup1(&head, 3);
+    ListNode *head = new ListNode(1);
+    ListNode *a = new ListNode(2);
+    ListNode *b = new ListNode(3);
+    ListNode *c = new ListNode(4);
+    ListNode *d = new ListNode(5);
+    head->next = a;
+    a->next = b;
+    b->next = c;
+    c->next = d;
+    ListNode *res = reverseKGroup1(head, 3);
     print_list(res);
     return 0;
 }

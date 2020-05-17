@@ -14,7 +14,7 @@ using namespace std;
  * ]
  * Output: 1->1->2->3->4->4->5->6
  * 
- * 把k个链表合并成一个链表即可；
+ * 把k个有序链表合并成一个链表即可；
 */
 struct ListNode
 {
@@ -79,6 +79,7 @@ ListNode *mergeKLists(vector<ListNode *> &lists)
  * 方法 2，使用最小堆来解决问题，首先把k个链表的首元素都加入最小堆中，它们会自动排好序。然后每次取出最小的那个元素加入最终结果的链表中，
  * 然后把取出元素的下一个元素再加入堆中，下次仍从堆中取出最小的元素做相同的操作，
  * 以此类推，直到堆中没有元素了，此时k个链表也合并为了一个链表，返回首节点即可。
+ * 最小堆参考堆相关知识
  * 
 */
 ListNode* mergeKLists(vector<ListNode*>& lists) 

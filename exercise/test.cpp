@@ -50,7 +50,7 @@ int main()
     // }
     vector<int> num = {2, -4, 3, 5, -3};
     // cout<<maxsequence3(num, 4)<<endl;
-    // sort(num.begin(), num.end(), greater<int>());
+    // sort(num.begin(), num.end(), greater<int>()); //从大到小
     sort(num.begin(), num.end(), cmp);
 
     copy(num.begin(), num.end(), ostream_iterator<int>(cout, " "));

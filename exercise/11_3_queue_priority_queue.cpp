@@ -35,7 +35,8 @@ void coutBigNum()
 }
 
 /**
- * 例子 2，优先队列输出从小到大的顺序，使用greater<int>来说明
+ * 例子 2，优先队列输出从小到大的顺序，使用greater<int>来说明,
+ * 或者自己定义一个排序方案，cmp，return x < y,大的在前，返回逆序排列，和sort的自定义排序正好相反
 */
 struct cmp
 {
