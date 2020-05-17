@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 struct sqlist
@@ -108,18 +109,39 @@ void Qsort1(sqlist *l, int low, int high);
 // 	l->r[j] = temp;
 // }
 
-void merge(vector<int> &nums, int length, int left, int middle, int right)
+void merge(vector<int> &a, vector<int> &tmp, int begin, int mid, int end)
 {
+	int ator = begin;
+	int btor = mid + 1;
+	int ctor = begin;
 
+	// 合并到临时空间
+	while (ator <= mid && btor <= end)
+	{
+		tmp[ctor++] = a[ator] < a[btor] ? a[ator++] : a[btor++];
+	}
+	while (ator <= mid)
+	{
+		tmp[ctor++] = a[ator++];
+	}
+	while (btor <= end)
+	{
+		tmp[ctor++] = a[btor++];
+	}
+	// 保存合并后的内容
+	for (int i = begin; i <= end; i++)
+	{
+		a[i] = tmp[i];
+	}
 }
-void mergeSort(vector<int> &nums, int length, int left, int right)
+void mergeSort(vector<int> &a, vector<int> &tmp, int left, int right)
 {
 	if (left + 1 < right)
 	{
 		int middle = (left + right) / 2;
-		mergeSort(nums, length, left, middle);
-		mergeSort(nums, length, middle + 1, right);
-		merge(num, left, length, middle, right);
+		mergeSort(a, tmp, left, middle);
+		mergeSort(a, tmp, middle + 1, right);
+		merge(a, tmp, left, middle, right);
 	}
 	else
 	{
@@ -130,9 +152,12 @@ void mergeSort(vector<int> &nums, int length, int left, int right)
 int main()
 {
 	vector<int> res = {5, 4, 6, 7, 1, 2, 9};
-	mergeSort(res, 0, 7);
+	vector<int> tmp;
+	mergeSort(res, tmp, 0, 7);
 	for (auto i : res)
 	{
-		cout << i < " ";
+		cout << i << " ";
 	}
 }
+
+void mergesort(vector<int> &nums, int left, int right, vector<int> temp)
