@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include<cmath>
 using namespace std;
 
 /**
@@ -28,7 +29,7 @@ void print_list(struct ListNode *head)
 }
 /**
  * 方法一；递归且用归并排序
- */ 
+ */
 ListNode *merge(ListNode *l1, ListNode *l2)
 {
     if (!l1)
@@ -66,7 +67,7 @@ ListNode *sortList(ListNode *head)
 
 /**
  * 方法二： 不用递归，归并排序
- */ 
+ */
 ListNode *merge2(ListNode *l1, ListNode *l2)
 {
     if (!l1)
@@ -144,4 +145,5 @@ int main()
     ListNode a1(-1, &b1);
     ListNode *head = &a1;
     print_list(sortList3(head));
+    cout << ceil(3.14) << endl;
 }
