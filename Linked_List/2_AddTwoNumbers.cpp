@@ -36,16 +36,6 @@ ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 	while (p1 && p2)
 	{
 		int tempSum = p1->val + p2->val + carry;
-		// if (tempSum >= 10)
-		// {
-		// 	carry = tempSum / 10;
-		// 	carryFlag = true;
-		// }
-		// else
-		// {
-		// 	carryFlag = false;
-		// 	carry = 0;
-		// }
 		carry = tempSum / 10;
 		ListNode *temp = new ListNode(tempSum % 10);
 		head->next = temp;
@@ -57,16 +47,7 @@ ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 	{
 		int p1Sum = p1->val + carry;
 		p1->val = p1Sum % 10;
-		// if (p1Sum >= 10)
-		// {
-		// 	carry = p1Sum / 10;
-		// 	carryFlag = true;
-		// }
-		// else
-		// {
-		// 	carry = 0;
-		// 	carryFlag = false;
-		// }
+		
 		carry = p1Sum / 10;
 		head->next = p1;
 		head = p1;
@@ -76,16 +57,6 @@ ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 	{
 		int p2Sum = p2->val + carry;
 		p2->val = p2Sum % 10;
-		// if (p2Sum >= 10)
-		// {
-		// 	carry = p2Sum / 10;
-		// 	carryFlag = true;
-		// }
-		// else
-		// {
-		// 	carry = 0;
-		// 	carryFlag = false;
-		// }
 		carry = p2Sum / 10;
 		head->next = p2;
 		head = p2;
@@ -156,8 +127,6 @@ ListNode *addTwoNum3(ListNode *l1, ListNode *l2)
 	ListNode *res = result;
 	if (l1 == nullptr && l2 == nullptr)
 		return nullptr;
-	// if(l1==nullptr && l2!=nullptr) return l2;
-	// else return l1;
 	int carray = 0;
 	while (l1 && l2)
 	{

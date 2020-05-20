@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 /**
  * Given two sorted integer arrays nums1 and nums2, 
@@ -20,89 +20,75 @@ using namespace std;
  * 是有序的；
 */
 
-
-void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
+/**
+ * 方法 1，按照要求，
+*/
+void merge1(vector<int> &nums1, int m, vector<int> &nums2, int n)
 {
-    int numsIndex1 = 0, numsIndex2 = 0, len = nums1.size();
-    int rearNum = m;
-    while(numsIndex1<m)
-    {
-        if(nums1[numsIndex1] < nums2[numsIndex2])
-        {
-            numsIndex1++;
-        }
-        else
-        {
-            int temp = nums2[numsIndex2];
-            int moveIndex = numsIndex1;
-            while(moveIndex < rearNum)
-            {
-                nums1[rearNum] = nums1[rearNum-1];
-                rearNum--;
-            }
-
-        }
-        
-    }
-
-}
-// 一般情况，直接比较大小，赋值即可、
-vector<int> mergeSortedArray(vector<int> &a, vector<int>&b)
-{
-    vector<int> res;
-    int i=0, j=0;
-    while(i<a.size()&& j<b.size())
-    {
-        if(a[i]<b[j])
-        {
-            res.push_back(a[i]);
-            i++;
-        }
-        else
-        {
-            res.push_back(b[j]);
-            j++;
-        }
-    }
-    while(i<a.size())
-    {
-        res.push_back(a[i]);
-        i++;
-    }
-    while(j<b.size())
-    {
-        res.push_back(b[j]);
-        j++;
-    }
-    return res;
+    int i=0,j=0,k=0;
+    
 }
 
-// 方法二：按照题目要求的来做
-void merge(vector<int>& nums1, int m, vector<int>& nums2, int n)
+
+// 方法 2：按照题目要求的来做
+void merge(vector<int> &nums1, int m, vector<int> &nums2, int n)
 {
-    int i = m-1;
-    int j = n-1;
-    int k = m+n-1;
-    while(i>=0 && j>=0)
+    int i = m - 1;
+    int j = n - 1;
+    int k = m + n - 1;
+    while (i >= 0 && j >= 0)
     {
-        nums1[k--] = nums1[i]>nums2[j]?nums1[i--]:nums2[j--];
+        nums1[k--] = nums1[i] > nums2[j] ? nums1[i--] : nums2[j--];
     }
-    while(j>=0)
+    while (j >= 0)
     {
         nums1[k--] = nums2[j--];
     }
 }
 
+/**
+ * 方法 3，使用归并的思路来做即可
+*/
+void merge3(vector<int> &nums1, int m, vector<int> &nums2, int n)
+{
+    vector<int> res(m + n);
+    int i = 0, k = 0, j = 0;
+    while (i < m && j < n)
+    {
+        if (nums1[i] < nums2[j])
+        {
+            res[k++] = nums1[i++];
+        }
+        else
+        {
+            res[k++] = nums2[j++];
+        }
+    }
+    while (j < n)
+    {
+        res[k++] = nums2[j++];
+    }
+    while (i < m)
+    {
+        res[k++] = nums1[i++];
+    }
+    if(m>n)
+    {
+        for(int i=0;i<m;i++)
+        {
+            nums1[i] = res[i];
+        }
+    }
+}
 
 int main()
 {
-    vector<int> a = {1,2,3,4,6,7};
-    vector<int> b = {4,5,5,6,7,8,9};
-    vector<int>c = mergeSortedArray(a, b);
-    for(auto i:c)
+    vector<int> a = {1, 2, 3, 0, 0, 0};
+    vector<int> b = {4, 5, 5};
+    for (auto i : c)
     {
-        cout<<i<<" ";
+        cout << i << " ";
     }
-    cout<<endl;
-    return 0;   
+    cout << endl;
+    return 0;
 }
