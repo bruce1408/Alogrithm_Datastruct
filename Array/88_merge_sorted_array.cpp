@@ -21,17 +21,26 @@ using namespace std;
 */
 
 /**
- * 方法 1，按照要求，
+ * 方法 1，和 方法 2的思路完全是一样的。
 */
 void merge1(vector<int> &nums1, int m, vector<int> &nums2, int n)
 {
-    int i=0,j=0,k=0;
-    
+    int len1 = nums1.size(), i = len1 - n - 1, j = n - 1, k = len1 - 1;
+    while (j >= 0 && i >= 0)
+    {
+        if (nums1[i] > nums2[j])
+            nums1[k--] = nums1[i--];
+        else
+            nums1[k--] = nums2[j--];
+    }
+    while (j >= 0)
+    {
+        nums1[k--] = nums2[j--];
+    }
 }
 
-
-// 方法 2：按照题目要求的来做
-void merge(vector<int> &nums1, int m, vector<int> &nums2, int n)
+// 方法 2
+void merge2(vector<int> &nums1, int m, vector<int> &nums2, int n)
 {
     int i = m - 1;
     int j = n - 1;
@@ -46,46 +55,12 @@ void merge(vector<int> &nums1, int m, vector<int> &nums2, int n)
     }
 }
 
-/**
- * 方法 3，使用归并的思路来做即可
-*/
-void merge3(vector<int> &nums1, int m, vector<int> &nums2, int n)
-{
-    vector<int> res(m + n);
-    int i = 0, k = 0, j = 0;
-    while (i < m && j < n)
-    {
-        if (nums1[i] < nums2[j])
-        {
-            res[k++] = nums1[i++];
-        }
-        else
-        {
-            res[k++] = nums2[j++];
-        }
-    }
-    while (j < n)
-    {
-        res[k++] = nums2[j++];
-    }
-    while (i < m)
-    {
-        res[k++] = nums1[i++];
-    }
-    if(m>n)
-    {
-        for(int i=0;i<m;i++)
-        {
-            nums1[i] = res[i];
-        }
-    }
-}
-
 int main()
 {
-    vector<int> a = {1, 2, 3, 0, 0, 0};
-    vector<int> b = {4, 5, 5};
-    for (auto i : c)
+    vector<int> a = {0};
+    vector<int> b = {1};
+    merge1(a, 0, b, 1);
+    for (auto i : a)
     {
         cout << i << " ";
     }

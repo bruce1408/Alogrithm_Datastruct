@@ -109,13 +109,9 @@ ListNode *mergeTwoLists3(ListNode *l1, ListNode *l2)
         cur = temp;
     }
     if (p1)
-    {
         cur->next = p1;
-    }
     if (p2)
-    {
         cur->next = p2;
-    }
     return head->next;
 }
 
