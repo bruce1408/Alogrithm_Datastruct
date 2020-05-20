@@ -137,9 +137,7 @@ string addBinary1(string a, string b)
     string ans;
     while (i >= 0 || j >= 0)
     {
-        int s = (i >= 0 ? a[i--] - '0' : 0) +
-                (j >= 0 ? b[j--] - '0' : 0) +
-                carry;
+        int s = (i >= 0 ? a[i--] - '0' : 0) + (j >= 0 ? b[j--] - '0' : 0) + carry;
         carry = s >> 1;
         ans += '0' + (s & 1);
     }
@@ -150,10 +148,11 @@ string addBinary1(string a, string b)
 
 int main()
 {
-    string a = "100";
-    string b = "110010";
+    string a = "11111";
+    string b = "1101111";
     for (auto i : addBinary1(a, b))
     {
         cout << i << " ";
     }
+    cout << endl;
 }
