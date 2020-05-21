@@ -93,7 +93,7 @@ void swap(sqlist *l, int i, int j)
 /**
  * 方法 2，归并排序算法，简单思路明了
 */
-void MergeArray(vector<int> &array, int start, int end, int mid, vector<int> temp)
+void MergeArray(vector<int> &array, int start, int mid, int end, vector<int> temp)
 {
 	int i = start, j = mid + 1, k = 0;
 	while (i <= mid && j <= end)
@@ -128,7 +128,7 @@ void MergeSort1(vector<int> &array, int start, int end, vector<int> temp)
 		int mid = (start + end) / 2;
 		MergeSort1(array, start, mid, temp);
 		MergeSort1(array, mid + 1, end, temp);
-		MergeArray(array, start, end, mid, temp);
+		MergeArray(array, start, mid, end, temp);
 	}
 }
 
