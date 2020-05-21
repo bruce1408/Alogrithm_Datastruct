@@ -5,6 +5,17 @@
 #include <functional>
 #include <queue>
 using namespace std;
+/**
+ * top 访问队头元素
+ * empty 队列是否为空
+ * size 返回队列内元素个数
+ * push 插入元素到队尾 (并排序)
+ * emplace 原地构造一个元素并插入队列
+ * pop 弹出队头元素
+ * swap 交换内容
+ * 
+ * 定义：priority_queue<Type, Container, Functional>
+*/
 
 // void showq(queue<int> gq)
 // {
@@ -40,7 +51,7 @@ using namespace std;
  * 例子 2，优先队列输出从小到大的顺序，使用greater<int>来说明,
  * 或者自己定义一个排序方案，cmp，return x < y,大的在前，返回逆序排列，和sort的自定义排序正好相反
 */
-// struct cmp
+// struct cmp // 重写仿生函数
 // {
 // 	bool operator()(int x, int y)
 // 	{
@@ -73,7 +84,7 @@ using namespace std;
 // 	Node(int a = 0, int b = 0) : x(a), y(b) {}
 // };
 
-// struct cmp1
+// struct cmp1 // 重写仿生函数
 // {
 // 	bool operator()(Node a, Node b)
 // 	{
@@ -225,85 +236,4 @@ using namespace std;
 // 	}
 // 	puts("");
 // 	return 0;
-// }
-/*
-运行结果 ：
-采用默认优先关系:
-(priority_queue<int>que;)
-Queue 0:
-83 72 56 47 36 22 14 10  7  3
-  
-采用结构体自定义优先级方式一:
-(priority_queue<int,vector<int>,cmp>que;)
-Queue 1:
- 7 10 14 22 36 47 56 72 83 91
-Queue 2:
-83 72 56 47 36 22 14 10  7  3
-  
-采用头文件"functional"内定义优先级:
-(priority_queue<int,vector<int>,greater<int>/less<int> >que;)
-Queue 3:
- 7 10 14 22 36 47 56 72 83 91
-Queue 4:
-83 72 56 47 36 22 14 10  7  3
-  
-采用结构体自定义优先级方式二:
-(priority_queue<number>que)
-Queue 5:
- 7 10 14 22 36 47 56 72 83 91
-Queue 6:
-83 72 56 47 36 22 14 10  7  3
-*/
-
-/**
- * 双端队列，两端元素都可以进行添加和删除，不像vector一样
- * 会把所有的对象保存在一个连续的内存块中，而是多个连续内存块映射
- * deque的内存区块不再被使用时，会被释放
- * 最好采用deque的情形如下：
- * 
- * 1、需要在两端插入和删除元素。
- * 2、无需引用容器内的元素。
- * 3、要求容器释放不再使用的元素。
-*/
-// int main()
-// {
-//     deque<int> mydeque;
-//     // 1 2 3 4 5
-//     for (int i = 1; i < 6; i++)
-//         mydeque.push_back(i);
-//     deque<int>::iterator it = mydeque.begin();
-//     ++it;
-//     // 1 10 2 3 4 5
-//     it = mydeque.insert(it, 10);
-//     // "it" now points to the newly inserted 10
-//     // 1 20 20 10 2 3 4 5
-//     mydeque.insert(it, 2, 20);
-//     // "it" no longer valid!
-//     it = mydeque.begin() + 2;
-//     vector<int> myvector(2, 30);
-//     cout << myvector.size() << endl;
-//     mydeque.insert(it, myvector.begin(), myvector.end());
-//     cout << "mydeque contains:";
-//     for (it = mydeque.begin(); it != mydeque.end(); ++it)
-//         cout << ' ' << *it;
-//     cout << '\n';
-//     return 0;
-// }
-
-// #include <iostream>
-// #include <deque>
-// using namespace std;
-// int main()
-// {
-//     deque<int> a;
-//     for (int i = 0; i < 5; i++)
-//         a.push_back(i);
-//     deque<int>::iterator it;
-//     it = a.begin();
-//     for (; it != a.end(); it++)
-//     {
-//         cout << *it << endl;
-//         a.erase(it);
-//     }
-//     return 0;
 // }

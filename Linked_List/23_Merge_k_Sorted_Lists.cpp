@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 
 /**
@@ -64,7 +65,7 @@ ListNode *mergeKLists(vector<ListNode *> &lists)
     while (n > 1)
     {
         int k = (n + 1) / 2; // 参考归并排序的方法。
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n && i + k < n; i++)
         {
             lists[i] = mergeListNode(lists[i], lists[i + k]);
         }
@@ -80,29 +81,29 @@ ListNode *mergeKLists(vector<ListNode *> &lists)
  * 最小堆参考堆相关知识
  * 
 */
-ListNode* mergeKLists2(vector<ListNode*>& lists) 
+ListNode *mergeKLists2(vector<ListNode *> &lists)
 {
-    auto cmp = [](ListNode*& a, ListNode*& b) {
-            return a->val > b->val;
+    auto cmp = [](ListNode *&a, ListNode *&b) {
+        return a->val > b->val;
     };
-    int n = lists.size();
-    priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> q(cmp);
-    for(auto node:lists)
+    priority_queue<ListNode *, vector<ListNode *>, decltype(cmp)> q(cmp); // 构成一个链表的最小堆
+    for (auto node : lists)
     {
-        if(node) q.push(node);
+        if (node)
+            q.push(node);
     }
     ListNode *dummy = new ListNode(-1), *cur = dummy;
-    while(!q.empty())
+    while (!q.empty())
     {
         auto t = q.top();
         q.pop();
         cur->next = t;
         cur = cur->next;
-        if(cur->next) q.push(cur->next);
+        if (cur->next)
+            q.push(cur->next);
     }
     return dummy->next;
 }
-
 
 int main()
 {
@@ -110,17 +111,24 @@ int main()
     ListNode *a1 = new ListNode(2);
     ListNode *b1 = new ListNode(4);
     ListNode *c1 = new ListNode(6);
-
+    head1->next = a1;
+    a1->next = b1;
+    b1->next = c1;
 
     ListNode *head2 = new ListNode(1);
     ListNode *a2 = new ListNode(3);
     ListNode *b2 = new ListNode(4);
-  
+    head2->next = a2;
+    a2->next = b2;
 
     ListNode *head3 = new ListNode(2);
     ListNode *a3 = new ListNode(6);
-    vector<ListNode*>res = {head1, head2, head3};
+    head3->next = a3;
+    vector<ListNode *> res = {head1, head2, head3};
     ListNode *cur = mergeKLists(res);
-
-
+    while (cur)
+    {
+        cout << cur->val << " ";
+        cur = cur->next;
+    }
 }
