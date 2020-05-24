@@ -80,6 +80,7 @@ vector<ListStack> infixTosuffix(string s)
         }
         else
         {
+            // 如果当前元素是 + 或者 - ，栈顶元素出栈知道遇到左括号，再把当前元素入栈
             if (s[i] == '-' | s[i] == '+')
             {
                 while (!symbol.empty() && (symbol.top() == '*' || symbol.top() == '/' || symbol.top() == '-' || symbol.top() == '+'))
@@ -98,6 +99,7 @@ vector<ListStack> infixTosuffix(string s)
             }
             else
             {
+                // 如果当前元素是 * 或者 /, 那么栈顶元素是 * 或者 / 出栈，+-不用出栈，再把当前元素入栈
                 while (!symbol.empty() && (symbol.top() == '*' || symbol.top() == '/'))
                 {
                     ListStack a;
@@ -193,7 +195,7 @@ int calculate2(string s)
             }
             res += num * sign;
             --i;
-        } 
+        }
         else if (s[i] == '(')
         {
             st.push(res);
