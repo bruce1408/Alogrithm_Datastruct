@@ -112,6 +112,7 @@ vector<ListStack> infixTosuffix(string s)
         }
         num = 0;
     }
+    // 最后把符号放入res里面
     while (!symbol.empty())
     {
         ListStack a;
@@ -170,6 +171,12 @@ int calculate(string s)
 
 /**
  * 方法 2，这道题目，没有乘除操作，所有比较简单的使用加减即可。
+ * 每次判断符号和是否是数字，如果遇到括号，那么就把之前相加的结果入栈，符号入栈，res重新置0；
+ * 遇到右括号，栈顶符号*res，res+=栈顶元素，我们需要一个栈来辅助计算，用个变量sign来表示当前的符号，
+ * 我们遍历给定的字符串s，如果遇到了数字，由于可能是个多位数，所以我们要用while循环把之后的数字都读进来，
+ * 然后用sign*num来更新结果res；如果遇到了加号，则sign赋为1，如果遇到了符号，则赋为-1；如果遇到了左括号，
+ * 则把当前结果res和符号sign压入栈，res重置为0，sign重置为1；如果遇到了右括号，结果res乘以栈顶的符号，
+ * 栈顶元素出栈，结果res加上栈顶的数字，栈顶元素出栈。
 */
 int calculate2(string s)
 {
@@ -186,11 +193,13 @@ int calculate2(string s)
             }
             res += num * sign;
             --i;
-        }
+        } 
         else if (s[i] == '(')
         {
             st.push(res);
             st.push(sign);
+            res = 0;
+            sign = 1;
         }
         else if (s[i] == ')')
         {
@@ -213,6 +222,6 @@ int calculate2(string s)
 
 int main()
 {
-    string s = "-1 + 2 + 3-4";
+    string s = "-1+3+(2-3)+4";
     calculate2(s);
 }
