@@ -15,6 +15,7 @@ using namespace std;
 int trap(vector<int> &height)
 {
     int sumWater = 0;
+    
 }
 
 int main()
