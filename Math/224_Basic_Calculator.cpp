@@ -15,6 +15,18 @@ using namespace std;
 
 /**
  * 方法 1，使用栈的经典应用，计算表达式的思路来解这道题目。具体思路可以参看中缀表达式，后缀表达式；
+ * 有几个问题
+ * 第一，就是出现最大的数怎么办，越界的情况如何讨论
+ * 第二，输入的是字符串，怎么转成后缀表达式那种的数据结构，例如 9 + ( 3 - 1 ) * 3 + 10 / 2 转成 9 3 1 - 3 * 10 + 10 2 / +
+ * 第三，
+ * 这种算法自己构造了一个新的数据结构，ListStack 类型，保存两个元素，一个是整型val，一个是操作符， 然后保存到vector，
+ * 如果当前字符是数字的话，那么val保存数字，操作符没有，用‘.’来表示，如果是操作符'+'，那么数字就用INT_MAX来保存。
+ * 比如 9., 3., 1. 表示数字，操作符是., *号操作符，整型是INT_MAX。
+ * 最后转化为一个后缀表达式，然后再利用栈操作，后缀表达式，只要是数字，就入栈，然后遇到操作符，就把栈的两个元素出栈进行运算，结果入栈，
+ * 继续进行即可。
+ * 
+ * 这里有个问题就是可以运算最大数范围内的值，如果是最大数，那么就是识别成了运算符。所以，涉及到最大数不能运算。
+ * 
 */
 struct ListStack
 {
@@ -29,18 +41,17 @@ vector<ListStack> infixTosuffix(string s)
     stack<char> symbol;
     vector<int> tempNum;
     int num = 0, n = s.size();
-    int i=0;
+    int i = 0;
     for (i = 0; i < n; i++)
     {
         if (s[i] >= '0' && s[i] <= '9')
         {
             int cur = i;
-            char temp = s[i];
             while (cur < n && '0' <= s[cur])
             {
                 num = num * 10 + (s[cur++] - '0');
             }
-            if (cur - i != 1 && cur >=1)
+            if (cur - i != 1 && cur >= 1)
                 i = cur - 1;
             ListStack a;
             a.val = num;
@@ -81,6 +92,10 @@ vector<ListStack> infixTosuffix(string s)
                 }
                 symbol.push(s[i]);
             }
+            else if (s[i] == ' ')
+            {
+                continue;
+            }
             else
             {
                 while (!symbol.empty() && (symbol.top() == '*' || symbol.top() == '/'))
@@ -105,12 +120,6 @@ vector<ListStack> infixTosuffix(string s)
         symbol.pop();
         res.push_back(a);
     }
-
-    // for (int i = 0; i < res.size(); i++)
-    // {
-    //     cout << res[i].val << " " << res[i].sym << endl;
-    // }
-
     return res;
 }
 int calculate(string s)
@@ -127,11 +136,17 @@ int calculate(string s)
         }
         else
         {
-            int y = numStack.top();
-            numStack.pop();
-            int x = numStack.top();
-            numStack.pop();
-            // cout << x << " " << y << endl;
+            int x = 0, y = 0;
+            if (!numStack.empty())
+            {
+                y = numStack.top();
+                numStack.pop();
+            }
+            if (!numStack.empty())
+            {
+                x = numStack.top();
+                numStack.pop();
+            }
             switch (temp[i].sym)
             {
             case '+':
@@ -149,26 +164,55 @@ int calculate(string s)
             }
             numStack.push(sumNum);
         }
-        // stack<int> tempNum(numStack);
-        // while (!tempNum.empty())
-        // {
-        //     cout << tempNum.top() << endl;
-        //     tempNum.pop();
-        // }
     }
     return numStack.top();
-    // return 0;
+}
+
+/**
+ * 方法 2，这道题目，没有乘除操作，所有比较简单的使用加减即可。
+*/
+int calculate2(string s)
+{
+    int res = 0, sign = 1, n = s.size();
+    stack<int> st;
+    for (int i = 0; i < n; i++)
+    {
+        if (s[i] >= '0')
+        {
+            int num = 0;
+            while (s[i] >= '0' && i < n)
+            {
+                num = num * 10 + (s[i++] - '0');
+            }
+            res += num * sign;
+            --i;
+        }
+        else if (s[i] == '(')
+        {
+            st.push(res);
+            st.push(sign);
+        }
+        else if (s[i] == ')')
+        {
+            res *= st.top();
+            st.pop();
+            res += st.top();
+            st.pop();
+        }
+        else if (s[i] == '-')
+        {
+            sign = -1;
+        }
+        else if (s[i] == '+')
+        {
+            sign = 1;
+        }
+    }
+    return res;
 }
 
 int main()
 {
-    string s = "9+(3-1)*3+10/2";
-    // string s = "1+2*3+(4*5+6)*7";
-    int a = 1;
-    while (a)
-    {
-        a--;
-        // cin >> s;
-        cout << calculate(s) << endl;
-    }
+    string s = "-1 + 2 + 3-4";
+    calculate2(s);
 }
