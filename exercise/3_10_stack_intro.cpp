@@ -21,126 +21,98 @@ q.empty()              //检查队列是否为空，如果为空返回true，否
 // using namespace std;
 // int main()
 // {
-	// stack<int> s;
-	// int num = 0;
-	// cout<<"-------------test for satck-----------"<<endl;
-	// cout<<"input a num:"<<endl;
-	// while(cin>>num)
-	// {
-		// s.push(num);
-	
-	// }
-	
-	// cout<<"the size of stack is:"<<s.size()<<endl;
-	// while(!s.empty())
-	// {
-		// cout<<s.top()<<" ";
-		// s.pop();
-	// }
-	// cout<<"the now size of stack is:"<<s.size()<<endl;
-	// return 0;
+// stack<int> s;
+// int num = 0;
+// cout<<"-------------test for satck-----------"<<endl;
+// cout<<"input a num:"<<endl;
+// while(cin>>num)
+// {
+// s.push(num);
+
 // }
 
+// cout<<"the size of stack is:"<<s.size()<<endl;
+// while(!s.empty())
+// {
+// cout<<s.top()<<" ";
+// s.pop();
+// }
+// cout<<"the now size of stack is:"<<s.size()<<endl;
+// return 0;
+// }
 
-#include<iostream>
-#include<queue>
-#include<stack>
-#include<vector>
+#include <iostream>
+#include <queue>
+#include <stack>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
 
-int main()
-{
-	// queue<int> q;
-	// int num = 0;
-	// cout<<"-------------test for queue-----------"<<endl;
-	// cout<<"input a num:"<<endl;
-	// while(cin>>num)
-	// {
-		// q.push(num);
-	
-	// }
-	
-	// cout<<"the size of queue is:"<<q.size()<<endl;
-	// cout<<"the front of queue is:"<<q.front()<<endl;
-	// cout<<"the back of queue is:"<<q.back()<<endl;
-	// while(!q.empty())
-	// {
-		// cout<<q.front()<<" ";
-		// q.pop();
-	// }
-	// cout<<"the now size of queue is:"<<q.size()<<endl;
-	
-	stack<int>m;
-	m.push(1);
-	m.push(1);
-	m.push(1);
-	
-	// for(int i=0;i<3;i++)
-	// {
-		// cout<<m.top()<<endl;
-		// m.pop();
-	// }
-	
-
-	vector<vector<int>> res = {{1,3},{4},{2,4}};
-	// vector<vector<int>> res = {1,2,3,4,5};
-	
-	// cout<<res.size()<<endl;
-	
-	// for(int i=0;i<res.size();i++)
-	// {	
-		// int size_ = res[i].size();
-		// for(int j=0;j<size_;j++)
-		// {
-			// cout<<res[i][j]<<",";
-		// }
-		// cout<<" ";
-	// }
-	vector<int> oneh = {3,5};
-	
-	res.insert(res.begin(),oneh);
-	reverse(res.begin(),res.end());
-	
-	for(int i=0;i<res.size();i++)
-	{	
-		int size_ = res[i].size();
-		for(int j=0;j<size_;j++)
-		{
-			cout<<res[i][j]<<",";
-		}
-		cout<<" ";
-	}
-	return 0;
+/**
+ * 使用中缀表达式转换为后缀表达式
+*/
+int prio(char op)
+{ //给运算符优先级排序
+	int priority;
+	if (op == '*' || op == '/')
+		priority = 2;
+	if (op == '+' || op == '-')
+		priority = 1;
+	if (op == '(')
+		priority = 0;
+	return priority;
 }
 
+bool Trans(string &str, string &str1)
+{
+	stack<char> s; //定义一个char类型的栈s
+	int i;
+	for (i = 0; i < str.size(); i++)
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+		{ //如果是数字，直接入栈
+			str1 += str[i];
+		}
+		else
+		{				   //否则不是数字
+			if (s.empty()) //栈空则入站
+				s.push(str[i]);
+			else if (str[i] == '(') //左括号入栈
+				s.push(str[i]);
+			else if (str[i] == ')')
+			{ //如果是右括号，只要栈顶不是左括号，就弹出并输出
+				while (s.top() != '(')
+				{
+					str1 += s.top();
+					s.pop();
+				}
+				s.pop(); //弹出左括号，但不输出
+			}
+			else
+			{
+				while (prio(str[i]) <= prio(s.top()))
+				{ //栈顶优先级大于等于当前运算符，则输出
+					str1 += s.top();
+					s.pop();
+					if (s.empty()) //栈为空，停止
+						break;
+				}
+				s.push(str[i]); //把当前运算符入栈
+			}
+		}
+	}
+	while (!s.empty())
+	{ //最后，如果栈不空，则弹出所有元素并输出
+		str1 += s.top();
+		s.pop();
+	}
+	return true;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int main()
+{
+	string a = "1+2*3+(5-4)*4", b;
+	Trans(a, b);
+	cout << b << endl;
+}

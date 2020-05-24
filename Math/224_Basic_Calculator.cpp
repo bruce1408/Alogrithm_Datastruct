@@ -224,6 +224,9 @@ int calculate2(string s)
 
 int main()
 {
-    string s = "-1+3+(2-3)+4";
+    string s = "1+2*3+(2-3)+4";
+    string infix = s, perfix;
+    Trans(infix, perfix);
+    cout << perfix << endl;
     calculate2(s);
 }
