@@ -28,7 +28,8 @@ vector<ListStack> infixTosuffix(string s)
     vector<ListStack> res;
     stack<char> symbol;
     vector<int> tempNum;
-    int num = 0, n = s.size(), i = 0;
+    int num = 0, n = s.size();
+    int i=0;
     for (i = 0; i < n; i++)
     {
         if (s[i] >= '0' && s[i] <= '9')
@@ -39,8 +40,8 @@ vector<ListStack> infixTosuffix(string s)
             {
                 num = num * 10 + (s[cur++] - '0');
             }
-            if (cur - i != 1)
-                i = cur;
+            if (cur - i != 1 && cur >=1)
+                i = cur - 1;
             ListStack a;
             a.val = num;
             a.sym = '.';
@@ -82,7 +83,7 @@ vector<ListStack> infixTosuffix(string s)
             }
             else
             {
-                while (symbol.empty() && (symbol.top() == '*' || symbol.top() == '/'))
+                while (!symbol.empty() && (symbol.top() == '*' || symbol.top() == '/'))
                 {
                     ListStack a;
                     a.val = INT_MAX;
@@ -105,10 +106,10 @@ vector<ListStack> infixTosuffix(string s)
         res.push_back(a);
     }
 
-    for (int i = 0; i < res.size(); i++)
-    {
-        cout << res[i].val << " " << res[i].sym << endl;
-    }
+    // for (int i = 0; i < res.size(); i++)
+    // {
+    //     cout << res[i].val << " " << res[i].sym << endl;
+    // }
 
     return res;
 }
@@ -130,26 +131,33 @@ int calculate(string s)
             numStack.pop();
             int x = numStack.top();
             numStack.pop();
+            // cout << x << " " << y << endl;
             switch (temp[i].sym)
             {
             case '+':
-                sumNum = sumNum + x + y;
+                sumNum = x + y;
                 break;
             case '-':
-                sumNum = sumNum + x - y;
+                sumNum = x - y;
                 break;
             case '*':
-                sumNum = sumNum + x * y;
+                sumNum = x * y;
                 break;
             case '/':
-                sumNum = sumNum + x / y;
+                sumNum = x / y;
                 break;
             }
             numStack.push(sumNum);
         }
+        // stack<int> tempNum(numStack);
+        // while (!tempNum.empty())
+        // {
+        //     cout << tempNum.top() << endl;
+        //     tempNum.pop();
+        // }
     }
-    cout << numStack.top() << endl;
-    return 0;
+    return numStack.top();
+    // return 0;
 }
 
 int main()
