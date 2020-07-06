@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 /**
  * Given two sorted integer arrays nums1 and nums2, 
@@ -20,89 +20,50 @@ using namespace std;
  * 是有序的；
 */
 
-
-void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) 
+/**
+ * 方法 1，和 方法 2的思路完全是一样的。
+*/
+void merge1(vector<int> &nums1, int m, vector<int> &nums2, int n)
 {
-    int numsIndex1 = 0, numsIndex2 = 0, len = nums1.size();
-    int rearNum = m;
-    while(numsIndex1<m)
+    int len1 = nums1.size(), i = len1 - n - 1, j = n - 1, k = len1 - 1;
+    while (j >= 0 && i >= 0)
     {
-        if(nums1[numsIndex1] < nums2[numsIndex2])
-        {
-            numsIndex1++;
-        }
+        if (nums1[i] > nums2[j])
+            nums1[k--] = nums1[i--];
         else
-        {
-            int temp = nums2[numsIndex2];
-            int moveIndex = numsIndex1;
-            while(moveIndex < rearNum)
-            {
-                nums1[rearNum] = nums1[rearNum-1];
-                rearNum--;
-            }
-
-        }
-        
+            nums1[k--] = nums2[j--];
     }
-
-}
-// 一般情况，直接比较大小，赋值即可、
-vector<int> mergeSortedArray(vector<int> &a, vector<int>&b)
-{
-    vector<int> res;
-    int i=0, j=0;
-    while(i<a.size()&& j<b.size())
-    {
-        if(a[i]<b[j])
-        {
-            res.push_back(a[i]);
-            i++;
-        }
-        else
-        {
-            res.push_back(b[j]);
-            j++;
-        }
-    }
-    while(i<a.size())
-    {
-        res.push_back(a[i]);
-        i++;
-    }
-    while(j<b.size())
-    {
-        res.push_back(b[j]);
-        j++;
-    }
-    return res;
-}
-
-// 方法二：按照题目要求的来做
-void merge(vector<int>& nums1, int m, vector<int>& nums2, int n)
-{
-    int i = m-1;
-    int j = n-1;
-    int k = m+n-1;
-    while(i>=0 && j>=0)
-    {
-        nums1[k--] = nums1[i]>nums2[j]?nums1[i--]:nums2[j--];
-    }
-    while(j>=0)
+    while (j >= 0)
     {
         nums1[k--] = nums2[j--];
     }
 }
 
+// 方法 2
+void merge2(vector<int> &nums1, int m, vector<int> &nums2, int n)
+{
+    int i = m - 1;
+    int j = n - 1;
+    int k = m + n - 1;
+    while (i >= 0 && j >= 0)
+    {
+        nums1[k--] = nums1[i] > nums2[j] ? nums1[i--] : nums2[j--];
+    }
+    while (j >= 0)
+    {
+        nums1[k--] = nums2[j--];
+    }
+}
 
 int main()
 {
-    vector<int> a = {1,2,3,4,6,7};
-    vector<int> b = {4,5,5,6,7,8,9};
-    vector<int>c = mergeSortedArray(a, b);
-    for(auto i:c)
+    vector<int> a = {0};
+    vector<int> b = {1};
+    merge1(a, 0, b, 1);
+    for (auto i : a)
     {
-        cout<<i<<" ";
+        cout << i << " ";
     }
-    cout<<endl;
-    return 0;   
+    cout << endl;
+    return 0;
 }
