@@ -54,7 +54,8 @@ bool isNumber(string s){
  * 首字符必须是数字或者是+/-符号,然后中间数字的话,e的前面的数字不能是+-符号,且之前没有出现e,
  * 如果当前符号是正负号,那么他前面的数字只能是e符号,
  * 如果当前的符号是逗号,那么他之前不能有逗号和e符号出现,否则返回false
- * 
+ * 参考链接
+ * https://leetcode.com/problems/valid-number/discuss/714425/C%2B%2B-Finite-State-Automata-(FSA)-with-Diagram
  * 最后判断最后一位,最后是数字返回true,最后是小数点的话,那么前面不能有小数点,e符号,且前面数字存在
 */
 
@@ -100,9 +101,50 @@ bool isNumber1(string s)
     else return false;
 }
 
+/**
+ * 方法 2,优化方法 1代码
+ * 按照数字,小数点,e,符号,其他情况分类讨论
+ * 
+ * numAfterE表示e后面是否有数字
+ * 如果当前位置是空格而后面一位不为空格，但是之前有数字，小数点，自然底数或者符号出现时返回false。
+ * 前位置是符号,那么之前以为必须是e或者是空格;
+ * 如果当前位置是数字,那么数字对应的flag标记为true,且numafterE标记为true;
+ * 如果当前位置是小数点,那么之前出现小数点或者是e,,返回false,否则标记dot为true;
+ * 如果当前位置是自然底数e,那么他之前如果没有出现数字,或者已经出现了e,返回false,否则标记为true,numAfterE标记为false
+ * 其他如好直接返回false
+ * 最后返回num && numAfterE的结果即可
+*/
+bool isNumber2(string s) {
+    bool num = false, numAfterE = true, dot = false, exp = false, sign = false;
+    int n = s.size();
+    for (int i = 0; i < n; ++i) {
+        if (s[i] == ' ') {
+            if (i < n - 1 && s[i + 1] != ' ' && (num || dot || exp || sign)) return false;
+        } 
+        else if (s[i] == '+' || s[i] == '-') {
+            if (i > 0 && s[i - 1] != 'e' && s[i - 1] != ' ') return false;
+            sign = true;
+        } 
+        else if (s[i] >= '0' && s[i] <= '9') {
+            num = true;
+            numAfterE = true;
+        } 
+        else if (s[i] == '.') {
+            if (dot || exp) return false;
+            dot = true;
+        } 
+        else if (s[i] == 'e') {
+            if (exp || !num) return false;
+            exp = true;
+            numAfterE = false;
+        } 
+        else return false;
+    }
+    return num && numAfterE;
+}
 
 int main()
 {
     string s = "-0.98";
-    cout<<isNumber1(s)<<endl;
+    cout<<isNumber2(s)<<endl;
 }
