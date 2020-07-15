@@ -3,7 +3,7 @@
 #include<string>
 using namespace std;
 
-// 字符转数字 利用流 方法简单
+// 字符转数字 利用流方法简单
 int strTonum(string a)
 {
     int res;
@@ -25,7 +25,7 @@ int strTonum2(string str)
     {
         sign = (str[i++]=='+') ? 1:-1;
     }
-
+    
     while(str[i]>='0'&&str[i]<='9'&&i<n)
     {
         // 考虑溢出问题。如果是这个数大于21xxxxxx467，那么就是取最大的那个越界边界。
