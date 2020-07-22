@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -41,53 +42,66 @@ bool isNumber(string s)
             return false;
     }
     return state == 3 || state == 7 || state == 4 || state == 8;
-#include<iostream>
-#include<string>
-#include<algorithm>
+}
+
+#include <iostream>
+#include <string>
+#include <algorithm>
 using namespace std;
 
 /**
  * 方法 1,使用有限状态机,把所有情况分成几个状态,然后每个状态的操作用数字取值来表示,如果不满足这个取值那么返回的是-1,
  * 最后只要有-1就表示状态是错的,否则,其他状态都可以构成数字.
 */
-bool isNumber(string s){
+bool isNumber0(string s)
+{
     //removing leading and trailing whitespaces
-    int i=0;
-    while(s[i]==' ') i++;
-    if(i==s.size()) return false;
+    int i = 0;
+    while (s[i] == ' ')
+        i++;
+    if (i == s.size())
+        return false;
     s = s.substr(i);
-    reverse(s.begin(),s.end());
-    i=0;
-    while(s[i]==' ') i++;
-    if(i==s.size()) return false;
+    reverse(s.begin(), s.end());
+    i = 0;
+    while (s[i] == ' ')
+        i++;
+    if (i == s.size())
+        return false;
     s = s.substr(i);
-    reverse(s.begin(),s.end());
-    
+    reverse(s.begin(), s.end());
+
     //begin FSA with state = 0, and stops if reached dead state = -1
     //  0 -> +/- , 1->digit , 2-> . , 3-> e
     vector<vector<int>> FSA = {
-        {2,3,1,-1}, // 0
-        {-1,4,-1,-1},  // 1
-        {-1,3,1,-1},  // 2
-        {-1,3,7,5},  // 3
-        {-1,4,-1,5},  // 4
-        {6,8,-1,-1},  // 5
-        {-1,8,-1,-1},  // 6
-        {-1,4,-1,5},  // 7
-        {-1,8,-1,-1}};  //8
+        {2, 3, 1, -1},    // 0
+        {-1, 4, -1, -1},  // 1
+        {-1, 3, 1, -1},   // 2
+        {-1, 3, 7, 5},    // 3
+        {-1, 4, -1, 5},   // 4
+        {6, 8, -1, -1},   // 5
+        {-1, 8, -1, -1},  // 6
+        {-1, 4, -1, 5},   // 7
+        {-1, 8, -1, -1}}; //8
     int state = 0;
-    for(int i=0;i<s.size();i++){
-        if(s[i]=='+' || s[i]=='-') state = FSA[state][0];
-        else if(s[i]>='0' && s[i]<='9') state = FSA[state][1];
-        else if(s[i]=='.') state = FSA[state][2];
-        else if(s[i]=='e') state = FSA[state][3];
-        else return false;
-        
-        if(state == -1) return false;
-    }
-    return state==3 || state==7 || state==4 || state==8;    
-}
+    for (int i = 0; i < s.size(); i++)
+    {
+        if (s[i] == '+' || s[i] == '-')
+            state = FSA[state][0];
+        else if (s[i] >= '0' && s[i] <= '9')
+            state = FSA[state][1];
+        else if (s[i] == '.')
+            state = FSA[state][2];
+        else if (s[i] == 'e')
+            state = FSA[state][3];
+        else
+            return false;
 
+        if (state == -1)
+            return false;
+    }
+    return state == 3 || state == 7 || state == 4 || state == 8;
+}
 
 /**
  * 方法 2,使用条件语句,也是最一般的写法
@@ -109,38 +123,54 @@ bool isNumber1(string s)
     bool dotExisted = false;
     bool digitExisited = false;
     // Delete spaces in the front and end of string
-    while (s[left] == ' ') ++left;
-    while (s[right] == ' ') --right;
+    while (s[left] == ' ')
+        ++left;
+    while (s[right] == ' ')
+        --right;
     // If only have one char and not digit, return false
-    if (left >= right && (s[left] < '0' || s[left] > '9')) return false;
+    if (left >= right && (s[left] < '0' || s[left] > '9'))
+        return false;
     //Process the first char
-    if (s[left] == '.') dotExisted = true;
-    else if (s[left] >= '0' && s[left] <= '9') digitExisited = true;
-    else if (s[left] != '+' && s[left] != '-') return false;
+    if (s[left] == '.')
+        dotExisted = true;
+    else if (s[left] >= '0' && s[left] <= '9')
+        digitExisited = true;
+    else if (s[left] != '+' && s[left] != '-')
+        return false;
     // Process the middle chars
     for (int i = left + 1; i <= right - 1; ++i)
     {
-        if (s[i] >= '0' && s[i] <= '9') digitExisited = true;
+        if (s[i] >= '0' && s[i] <= '9')
+            digitExisited = true;
         else if (s[i] == 'e' || s[i] == 'E')
         { // e/E cannot follow +/-, must follow a digit
-            if (!eExisted && s[i - 1] != '+' && s[i - 1] != '-' && digitExisited) eExisted = true;
-            else return false;
-        } 
-        else if (s[i] == '+' || s[i] == '-') 
+            if (!eExisted && s[i - 1] != '+' && s[i - 1] != '-' && digitExisited)
+                eExisted = true;
+            else
+                return false;
+        }
+        else if (s[i] == '+' || s[i] == '-')
         { // +/- can only follow e/E
-            if (s[i - 1] != 'e' && s[i - 1] != 'E') return false;                
-        } 
-        else if (s[i] == '.') 
+            if (s[i - 1] != 'e' && s[i - 1] != 'E')
+                return false;
+        }
+        else if (s[i] == '.')
         { // dot can only occur once and cannot occur after e/E
-            if (!dotExisted && !eExisted) dotExisted = true;
-            else return false;
-        } 
-        else return false;
+            if (!dotExisted && !eExisted)
+                dotExisted = true;
+            else
+                return false;
+        }
+        else
+            return false;
     }
     // Process the last char, it can only be digit or dot, when is dot, there should be no dot and e/E before and must follow a digit
-    if (s[right] >= '0' && s[right] <= '9') return true;
-    else if (s[right] == '.' && !dotExisted && !eExisted && digitExisited) return true;
-    else return false;
+    if (s[right] >= '0' && s[right] <= '9')
+        return true;
+    else if (s[right] == '.' && !dotExisted && !eExisted && digitExisited)
+        return true;
+    else
+        return false;
 }
 
 /**
@@ -156,38 +186,51 @@ bool isNumber1(string s)
  * 其他如好直接返回false
  * 最后返回num && numAfterE的结果即可
 */
-bool isNumber2(string s) {
+bool isNumber2(string s)
+{
     bool num = false, numAfterE = true, dot = false, exp = false, sign = false;
     int n = s.size();
-    for (int i = 0; i < n; ++i) {
-        if (s[i] == ' ') {
-            if (i < n - 1 && s[i + 1] != ' ' && (num || dot || exp || sign)) return false;
-        } 
-        else if (s[i] == '+' || s[i] == '-') {
-            if (i > 0 && s[i - 1] != 'e' && s[i - 1] != ' ') return false;
+    for (int i = 0; i < n; ++i)
+    {
+        if (s[i] == ' ')
+        {
+            if (i < n - 1 && s[i + 1] != ' ' && (num || dot || exp || sign))
+                return false;
+        }
+        else if (s[i] == '+' || s[i] == '-')
+        {
+            if (i > 0 && s[i - 1] != 'e' && s[i - 1] != ' ')
+                return false;
             sign = true;
-        } 
-        else if (s[i] >= '0' && s[i] <= '9') {
+        }
+        else if (s[i] >= '0' && s[i] <= '9')
+        {
             num = true;
             numAfterE = true;
-        } 
-        else if (s[i] == '.') {
-            if (dot || exp) return false;
+        }
+        else if (s[i] == '.')
+        {
+            if (dot || exp)
+                return false;
             dot = true;
-        } 
-        else if (s[i] == 'e') {
-            if (exp || !num) return false;
+        }
+        else if (s[i] == 'e')
+        {
+            if (exp || !num)
+                return false;
             exp = true;
             numAfterE = false;
-        } 
-        else return false;
+        }
+        else
+            return false;
     }
     return num && numAfterE;
 }
 
+int main()
 {
     string a = "abde";
     cout << isNumber(a) << endl;
     string s = "-0.98";
-    cout<<isNumber2(s)<<endl;
+    cout << isNumber2(s) << endl;
 }
