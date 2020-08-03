@@ -43,9 +43,16 @@ int main()
     vector<int> res = {1, 2, 3, 4, 5, 2, 4};
     auto iter = max_element(res.begin(), res.end());
     cout << iter - res.begin() << endl;
-    reverse(res.begin(), res.begin() + 4);
+    // reverse(res.begin(), res.begin() + 4);
     for (auto i : res)
     {
         cout << i << " ";
     }
+    cout << "hu is: " << endl;
+    vector<int> hu(res.begin() + 2, res.end());
+    for (auto i : hu)
+    {
+        cout << i << endl;
+    }
+    cout << res.back() << endl;
 }
