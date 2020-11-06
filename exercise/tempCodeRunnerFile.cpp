@@ -1,4 +1,1 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-using namespace std;
+// 初始化全是0，这里的是byte，1个整数是4byte，10个就需要40，这里的0是每个byte是赋值为0，或者其他值。
