@@ -2,6 +2,7 @@
 #include<string>
 using namespace std;
 
+//替换字符串
 int main()
 {
     string s = "you want some", t="you", p="i", r;
