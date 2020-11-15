@@ -67,7 +67,7 @@ int main()
         int len = s1.size();
         for(int i=0;i<len;i++)
         {
-            int times = len-i, maxtimes = 0;;
+            int times = len-i;
             if(len%(i+1) != 0) continue;
             string temp="";
             int j=0;
@@ -75,6 +75,7 @@ int main()
             {
                 temp+=s1[j];                
             }
+            // temp = s1.substr(0, i);
             string res="";
             for(int t=0;t<len/(i+1);t++)
             {
@@ -83,8 +84,36 @@ int main()
             cout<<"class res: "<<res<<endl;
             if(res == s1 )
             {
-                maxtimes = len/(i+1);
-                cout<<"maxtimes: "<<maxtimes<<endl;
+                cout<<"maxtimes: "<<len/(i+1)<<endl;
+                break;
+            }
+        }
+    }
+}
+
+
+//更加简单的写法
+int main()
+{
+    string s1;
+    while(cin>>s1)
+    {
+        if(s1[0] == '.') break;
+        int len = s1.size();
+        for(int i=0;i<len;i++)
+        {
+            if(len%(i+1) != 0) continue;
+            string temp="";
+            temp = s1.substr(0, i);
+            string res="";
+            for(int t=0;t<len/(i+1);t++)
+            {
+                res+=temp;
+            }
+            cout<<"class res: "<<res<<endl;
+            if(res == s1 )
+            {
+                cout<<"maxtimes: "<<len/(i+1)<<endl;
                 break;
             }
         }
