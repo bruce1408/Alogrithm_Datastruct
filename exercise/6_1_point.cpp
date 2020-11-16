@@ -1,7 +1,7 @@
 #iclude < iostream>
 using namespace std;
 /**
- * 指针保存的就是变量的地址
+ * 指针保存的就是变量的地址;
 */
 int main()
 {
