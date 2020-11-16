@@ -14,7 +14,7 @@ using namespace std;
  * 输入样例：
  * 2 3
  * 输出样例：
- * 10
+ * 10 
 */
 
 // int res;
@@ -38,7 +38,31 @@ using namespace std;
 //     cout<<route(0, 0)<<endl;
 // }
 
+/**
+ * 方法二
+*/
+#include <iostream>
 
+using namespace std;
+
+int fc(int n, int m) // f(n,m)表示到达n,m点的方案数
+{
+    if(m == 0 || n == 0) return 1;//在左界或上界时 只能由一个方向接受所到来的点 所以方案数为1
+    return fc(n - 1, m) + fc(n, m - 1);// (n,m)点可由上边或者左边接收到 固加方案数即为到达上边点与左边点的和
+}
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+    cout << fc(n,m) << endl;//f(n,m)即是答案
+    return 0;
+}
+
+
+/**
+ * 方法三
+*/
 int n,m;
 int f[11][11];
 
@@ -54,4 +78,36 @@ int main()
         }
     }
     cout<<f[n][m];
+}
+
+//方法四
+#include <iostream>
+
+using namespace std;
+
+const int N = 10;
+int dp[N + 1][N + 1]; 
+
+int uniquePath(int n, int m)
+{
+    dp[0][0] = 1;
+
+    for(int i = 0; i <= n; i++)
+        for(int j = 0; j <= m; j++)
+        {
+            if(i) dp[i][j] += dp[i - 1][j];
+            if(j) dp[i][j] += dp[i][j - 1];
+        }
+
+    return dp[n][m];    
+
+}
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+
+    cout << uniquePath(n, m) << endl;
+    return 0;
 }
