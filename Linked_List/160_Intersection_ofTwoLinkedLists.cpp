@@ -118,12 +118,12 @@ ListNode *getIntersectionNode2_1(ListNode *headA, ListNode *headB)
  * 为什么一定会相等呢，因为两个指针走过的路程相同，是两个链表的长度之和，所以一定会相等。
  * 
  * 比如是
- * a = 4 1 8 4 5
+ * a = 4   1 8 4 5
  * b = 5 0 1 8 4 5
  * 如果a 和 b 都走完了，那么a 走 b的长度，b 走 a的长度
  * 如下：
- * a = 4 1 8 4 5 | 5 0 1 8 4 5
- * b = 5 0 1 8 4 5 | 4 1 8 4 5
+ * a = 4   1 8 4 5 | 5 0 1 8 4 5
+ * b = 5 0 1 8 4 5 | 4   1 8 4 5
  * 那么a b 走的路径长度之和一样。最后知道知道a b 链表相同的即可，记住不是val值相同。
  */
 ListNode *getIntersectionNode3(ListNode *headA, ListNode *headB)
