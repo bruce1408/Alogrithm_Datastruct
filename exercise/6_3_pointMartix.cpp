@@ -122,6 +122,72 @@
 
 
 
+/**
+ * 3-11
+ * a既是数据名，又是指向数组第一个元素的指针。sizeof(a)=20, 此时a的类型为int[5]数组。
+ * sizeof(*a)=4，因为有取值符*，表示把a当成一个指针(int*)，而a指向数组的首地址，
+ * 即a=&(a[0])，即sizeof(*a)=sizeof(*&(a[0]))=sizeof(a[0])=sizeof(int)=4。
+ * *(a+1)中把a当成一个指针，a+1=a+sizeof(int)，a+1指向a的下一个整形地址既&a[1]。
+ * 因此*(a+1)=*(&a[1])=a[1]=2。
+ * (&a+1)先取变量a的地址，并根据a的地址获得下一个与a同类型的相邻地址。根据前面所说的a的类型为int[5]数组。
+ * &a+1=&a+sizeof(5*int)，因此&a+1指向的地址为&a[5](数组a[5]的下一个地址)。
+ * (int*)(&a+1)把这个相邻地址显式类型转换为int类型的地址int*ptr=(int*)(&a+1);
+ * 所以ptr指向&a[5]，并且ptr是一个int类型的指针。
+ * ptr-1=ptr-sizeof(int)，故ptr-1指向&a[4]。因此，*(ptr-1)的值即为a[4]=5
+ * */
+
+void pointer_array_1()
+{
+	int a[5] = {1,2,3,4,5};
+	int *pt =(int*)(&a+1);
+	cout<<"*(a) : "<<*(a)<<endl;
+	cout<<"*(a+1) : "<<*(a+1)<<endl;
+	cout<<*(pt-1)<<endl;
+	cout<<"首元素指针大小： "<<sizeof(*a)<<endl;
+	cout<<"整个数组的大小： "<<sizeof(a)<<endl;
+	
+}
+
+/**
+ * 3-12 指针同时指向该字符数组，才会相同
+*/
+
+void pointer_array_2()
+{
+	char str1[] = "abc";
+	char str2[] = "abc";
+	const char str3[] = "abc";
+	const char str4[] = "abc";
+	const char* str5 = "abc";
+	const char* str6 = "abc";
+	
+	cout<<"str1 == str2 ?: "<<(str1==str2)<<endl;
+	cout<<"str3 == str4 ?: "<<(str3==str4)<<endl;
+	cout<<(str5==str6)<<endl;
+}
+
+
+
+int main()
+{
+	pointer_array_1();
+	pointer_array_2();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -161,7 +161,20 @@ int main()
 }
 
 
+//函数指针，指向函数的指针
+#include<iostream>
+using namespace std;
 
+int max(int x,int y)
+{
+	return x>y?x:y;
+}
+int main()
+{
+	int (*p)(int,int);
+	p = max;
+	cout<< "the max num is: "<<p(3, 2)<<endl;
+}
 
 
 
