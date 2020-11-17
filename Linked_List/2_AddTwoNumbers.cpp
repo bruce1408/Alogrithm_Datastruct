@@ -15,7 +15,7 @@ using namespace std;
 struct ListNode
 {
 	int val;
-	ListNode *next;
+	ListNode* next; // 定义一个指针是可以的
 	ListNode(int x) : val(x), next(NULL) {}
 };
 

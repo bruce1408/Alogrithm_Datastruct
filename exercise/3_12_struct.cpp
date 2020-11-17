@@ -7,64 +7,69 @@
 #include <string>
 #include <iomanip>
 #include <vector>
+#include<algorithm>
+
 using namespace std;
 
-//例子一
-// struct Student{
-// int num;
-// string name;
-// char sex;
-// int age;
+/**
+ * 例子一
+ **/
+struct Student{
+	int num;
+	string name;
+	char sex;
+	int age;
 
-// }stu2 = {1999,"hell",'m',80};// 两种初始化的方法。
-
-// int main()
-// {
-// Student stu = {1970,"bruce",'f',19};
-// cout<<stu.num<<endl;
-// cout<<stu.name<<endl;
-// cout<<stu.sex<<endl;
-// cout<<stu.age<<endl;
-
-// cout<<stu2.num<<endl;
-// cout<<stu2.name<<endl;
-// cout<<stu2.sex<<endl;
-// cout<<stu2.age<<endl;
-
-// return 0;
-
-// }
-
-//例子二
-// struct comst1
-// {
-// char brand[10];
-// float price;
-// };
-
-// union comst2
-// {
-// char brand[10];
-// float price;
-// };
+}stu2 = {1999,"hell",'m',80};// 两种初始化的方法。
 
 // int main()
 // {
-// comst1 com1;
-// comst2 com2;
-// cout<<&com1.brand<<endl;
-// cout<<&com1.price<<endl;
-// cout<<&com2.brand<<endl;//地址都一样
-// cout<<&com2.price<<endl;//地址都是一样的
-// return 0;
+// 	Student stu = {1970,"bruce",'f',19};
+// 	cout<<stu.num<<endl;
+// 	cout<<stu.name<<endl;
+// 	cout<<stu.sex<<endl;
+// 	cout<<stu.age<<endl;
+
+// 	cout<<stu2.num<<endl;
+// 	cout<<stu2.name<<endl;
+// 	cout<<stu2.sex<<endl;
+// 	cout<<stu2.age<<endl;
+// 	return 0;
 // }
 
 /**
- * 对结构体进行排序和结构体的数字数值如何存放
+ * 例子二
+ */
+struct comst1
+{
+	char brand[10];
+	float price;
+};
+
+union comst2
+{
+	char brand[10];
+	float price;
+};
+
+// int main()
+// {
+// 	comst1 com1;
+// 	comst2 com2;
+// 	cout<<com1.brand<<endl;
+// 	cout<<com1.price<<endl;
+// 	cout<<&com2.brand<<endl;//地址都一样
+// 	cout<<&com2.price<<endl;//地址都是一样的
+// 	return 0;
+// }
+
+/**
+ * 例子三、对结构体进行排序和结构体的数字数值如何存放，没有进行Data结构体初始化
 */
 struct Data
 {
 	int val, idx;
+	// Data(int _val, int _idx):val(_val), idx(_idx) {}; // 初始化结构体
 };
 
 int main()
@@ -76,7 +81,8 @@ int main()
 		result.push_back({temp[i], i});
 	}
 
-	sort(result.begin(), result.end(), [](Data &a, Data &b) {
+	sort(result.begin(), result.end(), [](Data &a, Data &b) 
+	{
 		return a.val < b.val;
 	});
 
