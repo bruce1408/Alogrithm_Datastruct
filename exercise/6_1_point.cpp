@@ -23,7 +23,9 @@ void pointer_level_2()
 {
 	int a = 1;
 	int b =10;
-	int *p = &a;
+	int *p = &a; // C语言写法
+	int &d = a; // C++语言写法，引用，d和a使用的一个地址，就是别名
+
 	int *&pa = p;
 	(*pa)++;
 	cout<<"a=:"<<a<<endl;
