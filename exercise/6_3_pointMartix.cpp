@@ -16,7 +16,8 @@ void pointer_array_1()
 	
 	int* pline[] = {lin1, lin2, lin3};  // 指针数组，保存的都是指针
 	
-	for(int i=0; i<3; i++){
+	for(int i=0; i<3; i++)
+    {
 		for(int j=0; j<3; j++)
 			cout<<pline[i][j]<<" ";
 		cout<<endl;

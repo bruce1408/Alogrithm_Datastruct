@@ -29,8 +29,7 @@ class Solution
 int main()
 {
 	
-	vector<int> a = {1,2,5};
-	vector<int> b = {2,3,4,5,6};
+	vector<int> a = {2,3,4,5,6};
 	int n = a.size();
 	int key = 2;
 	Solution ss;
