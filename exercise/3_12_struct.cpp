@@ -261,8 +261,9 @@ int main()
 	creatStudent(em);
 	cout << "em.b = " << em->b << endl;
 
-	ListNode *t = new ListNode(1);
+	ListNode *t = new ListNode(1); // 如果是指针的话那就用->来调用， 否则就是用.来调用
 	ListNode h = ListNode(2);
+	auto q = new ListNode(3); // 也可以用auto,自动判断类型
 	t->val = 12;
 	t->next = nullptr;
 	cout<<"t->val is: "<<t->val<<endl;
