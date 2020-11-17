@@ -86,9 +86,6 @@ void pointer_array_2()
 			cout<<*q1<<" ";
 		cout<<endl;
 	}
-	
-   
-   
    
     cout<<"\n====== 4、最常见的遍历方式[i][j]:======\n";
 	//q是数组,里面的元素是指针即，元素q[i]是指针。
@@ -106,8 +103,7 @@ void pointer_array_2()
     }
     cout<<"\n====== 第二种遍历方式：======\n";
 
-    // q[0]=m[0];			//记住第一行元素的首地址
-    *q=m[0];			//记住第一行元素的首地址
+    *q=m[0]; //记住第一行元素的首地址
     for(i=0;i<3;i++)
     {
         for(j=0;j<5;j++)
@@ -123,7 +119,6 @@ void pointer_array_2()
 
 
 /**
- * 3-11
  * a既是数据名，又是指向数组第一个元素的指针。sizeof(a)=20, 此时a的类型为int[5]数组。
  * sizeof(*a)=4，因为有取值符*，表示把a当成一个指针(int*)，而a指向数组的首地址，
  * 即a=&(a[0])，即sizeof(*a)=sizeof(*&(a[0]))=sizeof(a[0])=sizeof(int)=4。
@@ -145,13 +140,11 @@ void pointer_array_3()
 	cout<<*(pt-1)<<endl;
 	cout<<"首元素指针大小： "<<sizeof(*a)<<endl;
 	cout<<"整个数组的大小： "<<sizeof(a)<<endl;
-	
 }
 
 /**
- * 3-12 指针同时指向该字符数组，才会相同
+ * 指针同时指向该字符数组，才会相同
 */
-
 void pointer_array_4()
 {
 	char str1[] = "abc";
