@@ -16,7 +16,6 @@ void pointer_level_1()
 	a = nullptr;
 	delete b;
 	b = nullptr;
-
 }
 
 
