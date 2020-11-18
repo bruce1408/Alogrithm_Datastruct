@@ -4,7 +4,16 @@
 #include<set>
 using namespace std;
 
-// set 和multiset 可以自动对数组中的数进行排序，但是multiset是可以允许重复数字出现！
+/**
+ * set 和multiset 可以自动对数组中的数进行排序，但是multiset是可以允许重复数字出现！
+ * insert 插入
+ * iterator 迭代器
+ * empty 判断是否为空
+ * size 判断set中个数
+ * begin() 指向第一个元素的迭代器
+ * end() 指向末尾元素的下一个位置
+ * clear() 删除set中的所有元素
+ * */ 
 
 void exampleSet1()
 {
@@ -19,30 +28,15 @@ void exampleSet1()
     cout<<"set 中的第一个元素是 ："<<*s.begin()<<endl;
     cout<<"set 中的最后一个元素是:"<<*s.end()<<endl;
     set<int>::iterator it;
-    
     // 查找
-    if((it = s.find(2)) != s.end())
-    {
-        cout<<"已经找到： "<<*it<<endl;
-    }
-
+    if((it = s.find(2)) != s.end()) cout<<"已经找到： "<<*it<<endl;
     // 迭代器遍历
-    for(set<int>::iterator it = s.begin(); it!=s.end(); it++)
-    {
-        cout<<*it<<endl;
-    }
-
-    // 找到返回第一个大于等于value的定位器
+    for(set<int>::iterator it = s.begin(); it!=s.end(); it++) cout<<*it<<endl;
     cout<<"返回第一个大于等于value的值： "<<*s.lower_bound(1)<<endl;
-    
-    // 找到返回最后一个大于等于value的定位器
     cout<<"返回最后一个大于等于value的值： "<<*s.upper_bound(2)<<endl;
     // 清除集合
     s.clear();
-    if(s.empty())
-    {
-        cout<<"set 为空 ！！！"<<endl;
-    }
+    if(s.empty()) cout<<"set 为空 ！！！"<<endl;
     cout<<"set 的 size 值为 ："<<s.size()<<endl;
     cout<<"set 的 maxsize的值为 ："<<s.max_size()<<endl;    
 }
