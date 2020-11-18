@@ -16,6 +16,7 @@ struct ListNode
 	ListNode *next;
 	ListNode(int x) : val(x), next(NULL) {}
 };
+
 void print_list(struct ListNode *head);
 
 /**
@@ -134,6 +135,34 @@ ListNode *deleteDuplicates3(ListNode *head)
 	return head;
 }
 
+
+// 方法 4，自己做的，和方法2类似
+ListNode* deleteDuplication4(ListNode* head) {
+	ListNode * dummy = new ListNode (-1);
+	dummy->next = head;
+	ListNode * cur = head, *p = dummy;
+	while(cur && cur->next)
+	{
+		ListNode * after = cur->next;
+		if(after->val != cur->val)
+		{
+			p = cur;
+			cur = cur->next;
+		}
+		else
+		{
+			while(after && (cur->val == after->val))
+			{
+				cur = after;
+				after = after->next;
+			}
+			p->next = after;
+			cur = after;
+		}
+	}
+	return dummy->next;
+}
+
 int main()
 {
 	ListNode *head = new ListNode(1);
@@ -151,7 +180,7 @@ int main()
 	node5->next = node6;
 	node6->next = node7;
 	print_list(head);
-	print_list(deleteDuplicates6(head));
+	print_list(deleteDuplication4(head));
 	return 0;
 }
 

@@ -111,7 +111,7 @@ ListNode *getIntersectionNode2_1(ListNode *headA, ListNode *headB)
 }
 
 /**
- * 方法 3，是利用环的思想。
+ * 方法 3，是利用环的思想。最经典的方法
  * 题目中强调了链表中不存在环，但是我们可以用环的思想来做，
  * 我们让两条链表分别从各自的开头开始往后遍历，当其中一条遍历到末尾时，我们跳到另一个条链表的开头继续遍历。
  * 两个指针最终会相等，而且只有两种情况，一种情况是在交点处相遇，另一种情况是在各自的末尾的空节点处相等。
@@ -135,6 +135,12 @@ ListNode *getIntersectionNode3(ListNode *headA, ListNode *headB)
 	{
 		a = a ? a->next : headB;
 		b = b ? b->next : headA;
+
+		// 等价的写法
+		// if(a) a = a->next;
+		// else a = headB;
+		// if(b) b = b->next ;
+		// else b = headA;
 	}
 	return a;
 }
