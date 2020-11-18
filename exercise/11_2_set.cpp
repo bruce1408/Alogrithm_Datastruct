@@ -13,6 +13,7 @@ using namespace std;
  * begin() 指向第一个元素的迭代器
  * end() 指向末尾元素的下一个位置
  * clear() 删除set中的所有元素
+ * find() 返回给定值的定位器，没有找到返回end()
  * */ 
 
 void exampleSet1()
@@ -39,6 +40,16 @@ void exampleSet1()
     if(s.empty()) cout<<"set 为空 ！！！"<<endl;
     cout<<"set 的 size 值为 ："<<s.size()<<endl;
     cout<<"set 的 maxsize的值为 ："<<s.max_size()<<endl;    
+
+    // vector
+    vector<int> vec = {1,2,3,4,4,5,6};
+    set<int> s1(vec.begin(), vec.begin()+6); // 完整的就是end()
+    cout<<"set in vec："<<endl;
+    for(auto i=s1.begin(); i!=s1.end();i++)
+    {
+        cout<<*i<<" ";
+    }
+    cout<<endl;
 }
 
 struct People  
@@ -47,7 +58,7 @@ struct People
     int age;  
     bool operator <(const People p) const  //运算符重载   
     {  
-        return age<p.age;       //按照年龄由小到大进行排序   
+        return age<p.age; //按照年龄由小到大进行排序   
     }  
 };   
 
