@@ -14,6 +14,9 @@ using namespace std;
  * map内部自建一颗红黑树(一 种非严格意义上的平衡二叉树)，这颗树具有对数据自动排序的功能，所以在map内部所有的数据都是有序的，
  * 后边我们会见识到有序的好处。
  * 
+ * 
+ * map 内部结构是红黑树，因此所有的元素插入到map都是进行排好序的，而且搜索过程是二叉树搜索，unordered_map 也是 key-value的映射。 
+ * 
  * insert 插入对象 make_pair 和 pair两种，make_pair不需要写出类型，pair需要写出数据的类型
  * 比如：
  * m.insert(make_pair("Tom3", 100));
@@ -61,7 +64,7 @@ struct person
 */
 void mapexample1()
 {
-    cout<<"====== mapexample(): ======"<<endl;
+    cout<<"====== mapexample1(): ======"<<endl;
     map<person, int> m;
     person p1("Tom1", 20);
     person p2("Tom2", 22);
@@ -89,13 +92,11 @@ struct person1
 {
     string name;
     int age;
-
     person1(string name, int age)
     {
         this->name =  name;
         this->age = age;
     }
-
     bool operator== (const person1& p) const
     {
         return name==p.name && age==p.age;
@@ -149,8 +150,22 @@ void mapexample4()
         cout<<iter->first<<' '<<iter->second<<endl;  
 }
 
+void unordered_map_example()
+{
+    unordered_map<int, int> temp;
+    temp.insert(pair<int, int>(2, 3));
+    temp.insert(pair<int, int>(1, 2));
+    temp.insert(pair<int, int>(5, 4));
+    temp.insert(pair<int, int>(4, 5));
+    for(unordered_map<int, int>::iterator it=temp.begin();it!=temp.end();it++)
+    {
+        cout<<it->first<<" "<<it->second<<endl;
+    }
+}
+
 int main()
 {
+    // 有序映射
     mapexample1();
     mapexample2();
     mapexample3();
@@ -159,9 +174,7 @@ int main()
     //memset example
     char str[] = "almost every programmer should know memset!";
     memset (str,'-',6);
-    for(int i=0;i<20;i++) cout<<str[i];
-
-    vector<int> res = {9, 4};
-    // unordered_map<vector<int>, int> temp;
-    // temp.insert(make_pair<vector<int>, int> (res, 4));
+    cout<<str<<endl;
+    // 无序映射
+    unordered_map_example();
 }

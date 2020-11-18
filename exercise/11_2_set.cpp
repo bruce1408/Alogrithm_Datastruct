@@ -75,8 +75,29 @@ void exampleSet2()
     }   
 }  
 
+void exampleSet3()
+{
+    //multiset 迭代器
+    cout<<"正向迭代器"<<endl;
+    multiset<int> res = {1,4,2,3,3,5,6,7,8,2,9,1};
+    for(auto it = res.begin();it!=res.end();it++)
+    {
+        cout<<*it<<" ";
+    }
+    cout<<endl;
+    cout << "res.size() = " << res.size() << endl;
+
+    //multiset 逆向迭代器
+    cout<<"逆向迭代器"<<endl;
+    for(auto it = res.rbegin(); it != res.rend();it++)
+    {
+        cout<<*it<<" ";
+    }
+}
+
 int main()
 {
     exampleSet1();
     exampleSet2();
+    exampleSet3();
 }
