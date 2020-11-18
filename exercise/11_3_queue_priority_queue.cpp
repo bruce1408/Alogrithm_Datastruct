@@ -17,35 +17,35 @@ using namespace std;
  * 定义：priority_queue<Type, Container, Functional>
 */
 
-// void showq(queue<int> gq)
-// {
-// 	queue<int> g = gq;
-// 	while (!g.empty())
-// 	{
-// 		cout << g.front() << " ";
-// 		g.pop();
-// 	}
-// 	cout << '\n';
-// }
+void showq(queue<int> gq)
+{
+	queue<int> g = gq;
+	while (!g.empty())
+	{
+		cout << g.front() << " ";
+		g.pop();
+	}
+	cout << '\n';
+}
 
 /**
  * 例子 1，优先队列的用法，默认是输出大顶堆，也就是从大到小的顺序
  */
-// void coutBigNum()
-// {
-// 	priority_queue<int> p;
-// 	p.push(1);
-// 	p.push(2);
-// 	p.push(8);
-// 	p.push(5);
-// 	p.push(43);
-// 	for (int i = 0; i < 5; i++)
-// 	{
-// 		cout << p.top() << " ";
-// 		p.pop();
-// 	}
-// 	cout << endl;
-// }
+void coutBigNum()
+{
+	priority_queue<int> p;
+	p.push(1);
+	p.push(2);
+	p.push(8);
+	p.push(5);
+	p.push(43);
+	for (int i = 0; i < 5; i++)
+	{
+		cout << p.top() << " ";
+		p.pop();
+	}
+	cout << endl;
+}
 
 /**
  * 例子 2，优先队列输出从小到大的顺序，使用greater<int>来说明,
