@@ -6,18 +6,29 @@
 #include <queue>
 using namespace std;
 /**
+ * 队列学习queue函数：
  * top 访问队头元素
  * empty 队列是否为空
  * size 返回队列内元素个数
  * push 插入元素到队尾 (并排序)
  * emplace 原地构造一个元素并插入队列
- * pop 弹出队头元素
- * swap 交换内容
+ * pop 
+ * queue 和 stack 有一些成员函数相似，但在一些情况下，工作方式有些不同：
+ * front()：返回 queue 中第一个元素的引用。如果 queue 是常量，就返回一个常引用；如果 queue 为空，返回值是未定义的。
+ * back()：返回 queue 中最后一个元素的引用。如果 queue 是常量，就返回一个常引用；如果 queue 为空，返回值是未定义的。
+ * push(const T& obj)：在 queue 的尾部添加一个元素的副本。这是通过调用底层容器的成员函数 push_back() 来完成的。
+ * push(T&& obj)：以移动的方式在 queue 的尾部添加元素。这是通过调用底层容器的具有右值引用参数的成员函数 push_back() 来完成的。
+ * pop()：删除 queue 中的第一个元素，
+ * size()：返回 queue 中元素的个数。
+ * empty()：如果 queue 中没有元素的话，返回 true。
+ * emplace()：用传给 emplace() 的参数调用 T 的构造函数，在 queue 的尾部生成对象。
+ * swap(queue<T> &other_q)：将当前 queue 中的元素和参数 queue 中的元素交换。它们需要包含相同类型的元素。
+ * 也可以调用全局函数模板 swap() 来完成同样的操作。
  * 
  * 定义：priority_queue<Type, Container, Functional>
 */
 
-void showq(queue<int> gq)
+void print(queue<int> gq)
 {
 	queue<int> g = gq;
 	while (!g.empty())
@@ -26,6 +37,16 @@ void showq(queue<int> gq)
 		g.pop();
 	}
 	cout << '\n';
+}
+
+void print(priority_queue<int> q)
+{
+    while(!q.empty())
+    {
+        cout<<q.top()<<" ";
+        q.pop();
+    }
+    cout<<endl;
 }
 
 /**
@@ -39,6 +60,31 @@ void coutBigNum()
 	p.push(8);
 	p.push(5);
 	p.push(43);
+	print(p);
+	cout << endl;
+}
+
+/**
+ * 例子 2，优先队列输出从小到大的顺序，使用greater<int>来说明,
+ * 或者自己定义一个排序方案，cmp，return x < y,大的在前，返回逆序排列，和sort的自定义排序正好相反
+*/
+struct cmp // 重写仿生函数
+{
+	bool operator()(int x, int y)
+	{
+		return x < y;
+	}
+};
+
+void coutSmallNum()
+{
+	priority_queue<int, vector<int>, cmp> p;
+	p.push(1);
+	p.push(2);
+	p.push(8);
+	p.push(5);
+	p.push(43);
+	cout << "the greater is:" << endl;
 	for (int i = 0; i < 5; i++)
 	{
 		cout << p.top() << " ";
@@ -48,68 +94,40 @@ void coutBigNum()
 }
 
 /**
- * 例子 2，优先队列输出从小到大的顺序，使用greater<int>来说明,
- * 或者自己定义一个排序方案，cmp，return x < y,大的在前，返回逆序排列，和sort的自定义排序正好相反
-*/
-// struct cmp // 重写仿生函数
-// {
-// 	bool operator()(int x, int y)
-// 	{
-// 		return x < y;
-// 	}
-// };
-// void coutSmallNum()
-// {
-// 	priority_queue<int, vector<int>, cmp> p;
-// 	p.push(1);
-// 	p.push(2);
-// 	p.push(8);
-// 	p.push(5);
-// 	p.push(43);
-// 	cout << "the greater is:" << endl;
-// 	for (int i = 0; i < 5; i++)
-// 	{
-// 		cout << p.top() << " ";
-// 		p.pop();
-// 	}
-// 	cout << endl;
-// }
-
-/**
  * 例子 3，自定义优先级别
 */
-// struct Node
-// {
-// 	int x, y;
-// 	Node(int a = 0, int b = 0) : x(a), y(b) {}
-// };
+struct Node
+{
+	int x, y;
+	Node(int a = 0, int b = 0) : x(a), y(b) {}
+};
 
-// struct cmp1 // 重写仿生函数
-// {
-// 	bool operator()(Node a, Node b)
-// 	{
-// 		if (a.x == b.x)
-// 			return a.y > b.y;
-// 		return a.x > b.x;
-// 	}
-// };
+struct cmp1 // 重写仿生函数
+{
+	bool operator()(Node a, Node b)
+	{
+		if (a.x == b.x)
+			return a.y > b.y;
+		return a.x > b.x;
+	}
+};
 
-// int main()
-// {
-// 	priority_queue<Node, vector<Node>, cmp1> p;
+int main()
+{
+	priority_queue<Node, vector<Node>, cmp1> p;
 
-// 	for (int i = 0; i < 10; ++i)
-// 		p.push(Node(10 - i, i));
+	for (int i = 0; i < 10; ++i)
+		p.push(Node(10 - i, i*10));
 
-// 	while (!p.empty())
-// 	{
-// 		cout << p.top().x << ' ' << p.top().y << endl;
-// 		p.pop();
-// 	}
-// 	coutBigNum();
-// 	coutSmallNum();
-// 	return 0;
-// }
+	while (!p.empty())
+	{
+		cout << p.top().x << ' ' << p.top().y << endl;
+		p.pop();
+	}
+	coutBigNum();
+	coutSmallNum();
+	return 0;
+}
 
 /**
  * 优先队列基本使用
