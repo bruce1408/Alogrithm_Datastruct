@@ -75,7 +75,8 @@ void mapexample1()
     m.insert(make_pair(p5, 100));
     m.insert(make_pair(p1, 100));
     m.insert(make_pair(p2, 100));
-    //迭代方法1 map
+   
+    // 迭代方法1 map
     for (map<person, int>::iterator iter = m.begin(); iter != m.end(); iter++)
     {
         cout << iter->first.name << "\t" << iter->first.age << endl;

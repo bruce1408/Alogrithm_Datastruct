@@ -113,12 +113,9 @@ struct cmp1 // 重写仿生函数
 };
 
 
-
 /**
- * 优先队列基本使用
+ * 优先队列基本使用，定义结构，使用运算符重载,自定义优先级1
 */
-
-//定义结构，使用运算符重载,自定义优先级1
 struct cmp2
 {
 	bool operator()(int &a, int &b)
@@ -134,7 +131,10 @@ struct cmp3
 		return a < b; //最大值优先
 	}
 };
-//定义结构，使用运算符重载,自定义优先级2
+
+/**
+ * 定义结构，使用运算符重载,自定义优先级2
+ * */
 struct number1
 {
 	int x;
@@ -158,7 +158,7 @@ void priority_queue_example()
 	int a[] = {14, 10, 56, 7, 83, 22, 36, 91, 3, 47, 72, 0};
 	number1 num1[] = {14, 10, 56, 7, 83, 22, 36, 91, 3, 47, 72, 0};
 	number2 num2[] = {14, 10, 56, 7, 83, 22, 36, 91, 3, 47, 72, 0};
-	priority_queue<int> que; //采用默认优先级构造队列
+	priority_queue<int> que; //采用默认优先级构造队列,大顶堆
 
 	priority_queue<int, vector<int>, cmp2> que1; //最小值优先
 	priority_queue<int, vector<int>, cmp3> que2; //最大值优先
@@ -178,10 +178,9 @@ void priority_queue_example()
 		que3.push(a[i]);
 		que4.push(a[i]);
 	}
-	for (i = 0; num1[i].x; i++)
-		que5.push(num1[i]);
-	for (i = 0; num2[i].x; i++)
-		que6.push(num2[i]);
+
+	for (i = 0; num1[i].x; i++) que5.push(num1[i]);
+	for (i = 0; num2[i].x; i++) que6.push(num2[i]);
 
 	printf("采用默认优先关系:\n(priority_queue<int>que;)\n");
 	printf("Queue 0:\n");
@@ -224,7 +223,6 @@ void priority_queue_example()
 		que4.pop();
 	}
 	puts("");
-	puts("");
 	printf("采用结构体自定义优先级方式二:\n(priority_queue<number>que)\n");
 	printf("Queue 5:\n");
 	while (!que5.empty())
@@ -246,7 +244,6 @@ void priority_queue_example()
 int main()
 {
 	priority_queue<Node, vector<Node>, cmp1> p;
-
 	for (int i = 0; i < 10; ++i)
 		p.push(Node(10 - i, i*10));
 
