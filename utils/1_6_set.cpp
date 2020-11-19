@@ -35,7 +35,7 @@ void exampleSet1()
     // 迭代器遍历
     for(set<int>::iterator it = s.begin(); it!=s.end(); it++) cout<<*it<<endl;
     cout<<"返回第一个大于等于value的值： "<<*s.lower_bound(1)<<endl;
-    cout<<"返回最后一个大于等于value的值： "<<*s.upper_bound(2)<<endl;
+    cout<<"返回最后一个大于value的值： "<<*s.upper_bound(2)<<endl;
     // 清除集合
     s.clear();
     if(s.empty()) cout<<"set 为空 ！！！"<<endl;

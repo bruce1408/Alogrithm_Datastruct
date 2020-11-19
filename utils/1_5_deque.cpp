@@ -1,5 +1,6 @@
 #include <iostream>
 #include <deque>
+#include<vector>
 using namespace std;
 /**
  * 双端队列，两端元素都可以进行添加和删除，不像vector一样
@@ -11,7 +12,7 @@ using namespace std;
  * 2、无需引用容器内的元素。
  * 3、要求容器释放不再使用的元素。
 */
-int main()
+void dequeexample1()
 {
     deque<int> mydeque;
     for (int i = 1; i < 6; i++)
@@ -32,11 +33,11 @@ int main()
     for (it = mydeque.begin(); it != mydeque.end(); ++it)
         cout << ' ' << *it;
     cout << '\n';
-    return 0;
 }
 
 int main()
 {
+    dequeexample1();
     deque<int> a;
     for (int i = 0; i < 5; i++)
         a.push_back(i);
@@ -45,7 +46,6 @@ int main()
     for (; it != a.end(); it++)
     {
         cout << *it << endl;
-        a.erase(it);
     }
     return 0;
 }
