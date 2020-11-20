@@ -17,8 +17,6 @@ void swap(sqlist *l,int i,int j) //交换数组中的两个元素
 	l->r[j] = temp;
 }
 
-
-
 void SimpleSelectSort(sqlist *l)              // 简单选择排序(升序)代码：
 {
 	int i,j,min;
@@ -50,10 +48,7 @@ int main()
 	
 	l = r;
 	l->length = sizeof(l->r)/sizeof(l->r[0]);
-	
-	
 	cout<<"排序之前的结果："<<endl;
-	
 	print_array(l);
 	cout<<"简单选择排序算法的结果："<<endl;
 	SimpleSelectSort(l);

@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include "../utils/cout_vec.h"
 using namespace std;
 
 /**
@@ -31,9 +32,7 @@ vector<int>countSort(vector<int>&res)
 int main()
 {
     vector<int> res = {5,1,9,3,7,4,8,6,1};
-  
-    for(auto i:countSort(res))
-    {
-        cout<<i<<endl;
-    }
+    countSort(res);
+    print(res);
+    
 }

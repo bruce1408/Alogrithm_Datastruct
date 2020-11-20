@@ -1,4 +1,6 @@
-/* ---------------------------------------排序之冒泡排序算法----------------------------*/
+/**
+ * 排序之冒泡排序算法
+ * */
 #include<iostream>
 using namespace std;
 
@@ -28,7 +30,6 @@ void BubbleSort1(sqlist *l)              // 冒泡排序(升序)代码一：
 	}
 }
 
-
 void BubbleSort2(sqlist *l)              // 冒泡排序(升序)代码二 升级版：
 {
 	int i,j;
@@ -41,8 +42,6 @@ void BubbleSort2(sqlist *l)              // 冒泡排序(升序)代码二 升级
 		}
 	}
 }
-
-
 
 
 void BubbleSort3(sqlist *l)              // 冒泡排序(升序)代码三 升级版：
@@ -61,8 +60,6 @@ void BubbleSort3(sqlist *l)              // 冒泡排序(升序)代码三 升级
 	}
 }
 
-
-
 void BubbleSort(sqlist *l)              // 冒泡排序反序：
 {
 	int i,j;
@@ -76,7 +73,7 @@ void BubbleSort(sqlist *l)              // 冒泡排序反序：
 	}
 }
 
-print_array(sqlist *l)                 //打印显示代码
+void print_array(sqlist *l) //打印显示代码
 {
 	// n = l->length;
 	for (int i = 0;i<l->length;i++)

@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std;
 /**
- * 冒泡排序的核心思想是两两比较相邻的关键字，如果是反序的就交换，直到没有反序情况为止。
+ * 冒泡排序的核心思想是两两比较相邻的关键字，如果是反序的就交换，直到没有反序情况为止。s复杂度是O(n^2)
 */
 void print(vector<int>res)
 {
@@ -12,7 +12,6 @@ void print(vector<int>res)
     }
     cout<<endl;
 }
-
 
 /**
  * 严格来讲不是bubuleSort，因为并没有两两交换，只能看作是最简单的交换排序而已，这种算法的效率很低
