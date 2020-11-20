@@ -167,7 +167,7 @@ int main()
     // pop_heap(res.begin(), res.end()); // 函数只是把第一个元素移到最后，然后在进行堆的调整，此时容器最后一个元素是最大值，删除后依然保持堆结构
 
     vector<int>num = {21,22,12,3,24,54,56};
-    priority_queue<int, vector<int>, less<int>>values(num.begin(), num.end());　// 大顶堆的优先队列
+    priority_queue<int, vector<int>, less<int>>values(num.begin(), num.end()); // 大顶堆的优先队列
     // priority_queue<int, vector<int>, greater<int>>numbers(num.begin(), num.end());
     // cout<<numbers.top()<<endl;
     cout<<values.top()<<endl;

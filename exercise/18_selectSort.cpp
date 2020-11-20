@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include"../utils/cout_vec.h"
 using namespace std;
 
 /**
@@ -29,8 +30,7 @@ vector<int>selectSort(vector<int>&res)
 int main()
 {
     vector<int> res = {7,6,4,3,4,1};
-    for(auto i:selectSort(res))
-    {
-        cout<<i<<endl;
-    }
+    selectSort(res);
+    print(res);
+    
 }

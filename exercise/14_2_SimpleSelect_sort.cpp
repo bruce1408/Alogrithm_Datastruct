@@ -1,4 +1,5 @@
-/*----------------------------------------排序算法之简单选择排序------------------------------*/
+/** 排序算法之简单选择排序
+ **/
 
 #include<iostream>
 using namespace std;
@@ -34,18 +35,13 @@ void SimpleSelectSort(sqlist *l)              // 简单选择排序(升序)代�
 	}
 }
 
-
-
-
-print_array(sqlist *l)                 //打印显示代码
+void print_array(sqlist *l) //打印显示代码
 {
 	// n = l->length;
 	for (int i = 0;i<l->length;i++)
 		cout<<l->r[i]<<" ";
 	cout<<endl;
 }
-
-
 
 int main()
 {

@@ -4,7 +4,7 @@
 using namespace std;
 
 
-返回数组中值为value的元素下标
+// 返回数组中值为value的元素下标
 int findInArr(int *arr, int len, bool *diff, int value) {
 	for (int i = 0; i < len; ++i) {
 		if (diff[i] == true && arr[i] == value)
