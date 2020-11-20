@@ -77,26 +77,33 @@ vector<int>shellSort1(vector<int>&res)
     return res;
 }
 
+/**
+ * 方法 3，这个写法就是每次增量按照除以2的方式来进行计算，但是有可能会到最后没有降低时间复杂度。
+ * 比如数组： [2,1,5,3,7,6,9,8], 无论增量是4还是2，都没有改变这个数组的值； 
+ * 只有增量是1的时候最后才改变了这个数组， 这里一定要办证最后一轮的增量为1；
+ * */ 
 
 void shellSort2(vector<int>&A)
 {
     int n = A.size();
-
-    for(int gap = n / 2; gap > 0 ; gap = gap / 2)
+    for(int gap = n / 2; gap > 0; gap = gap / 2)
     {
-        for(int i = gap ; i < n ; i ++)
+        for(int i = gap; i < n; i ++)
         {
-            for(int j = i - gap ; j >= 0 && A[j] > A[j + gap] ; j -= gap)
-                swap(A[j],A[j + gap]);
+            for(int j = i - gap ; j >= 0 && A[j] > A[j + gap]; j -= gap)
+                swap(A[j], A[j + gap]);
         }
+        cout<<"在当前增量为： "<<gap<<"，增量结束一次之后的变化："<<endl;
+        print(A);
     }
 }
 
 int main()
 {
-    vector<int> res = {7,6,4,3,4,1};
+    // vector<int> res = {7,6,4,3,4,1};
+    vector<int> res = {2, 1, 5, 3, 7, 6, 9, 8};
     // shellSort1(res);
-    // shellSort2(res);
-    shellSort(res);
+    shellSort2(res);
+    // shellSort(res);
     print(res);
 }
