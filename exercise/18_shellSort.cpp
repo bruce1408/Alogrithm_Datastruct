@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include"../utils/cout_vec.h"
 using namespace std;
 
 /**
@@ -64,11 +65,24 @@ vector<int>shellSort1(vector<int>&res)
 }
 
 
+void shellSort2(vector<int>&A)
+{
+    int n = A.size();
+
+    for(int gap = n / 2; gap > 0 ; gap = gap / 2)
+    {
+        for(int i = gap ; i < n ; i ++)
+        {
+            for(int j = i - gap ; j >= 0 && A[j] > A[j + gap] ; j -= gap)
+                swap(A[j],A[j + gap]);
+        }
+    }
+}
+
 int main()
 {
     vector<int> res = {7,6,4,3,4,1};
-    for(auto i:shellSort1(res))
-    {
-        cout<<i<<endl;
-    }
+    // shellSort1(res);
+    shellSort2(res);
+    print(res);
 }
