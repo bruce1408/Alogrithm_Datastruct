@@ -6,7 +6,7 @@ using namespace std;
 /**
  * 选择排序是选择当前最小的数字。
  * 找出未排序数组的最小值的位置minNum，然后把minNum位置和未排序的起始
- * 位置相互交换即可
+ * 位置相互交换即可,时间复杂度是O(n^2);
  * 
 */
 vector<int>selectSort(vector<int>&res)
