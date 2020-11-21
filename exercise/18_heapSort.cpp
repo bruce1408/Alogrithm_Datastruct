@@ -1,6 +1,6 @@
-#include<iostream>
-#include<vector>
-#include"../utils/cout_vec.h"
+#include <iostream>
+#include <vector>
+#include "../utils/cout_vec.h"
 using namespace std;
 
 /**
@@ -26,12 +26,12 @@ using namespace std;
  * 我们需要交换它和它的父节点来修复堆，
  * 交换之后，这个节点可能比父节点还要大，为了满足条件，要遍历；
 */
-void swim(vector<int>& res, int k)
+void swim(vector<int> &res, int k)
 {
-    while(k>1 && res[k/2]<res[k])
+    while (k > 1 && res[k / 2] < res[k])
     {
-        swap(res[k/2], res[k]);
-        k = k/2;
+        swap(res[k / 2], res[k]);
+        k = k / 2;
     }
 }
 
@@ -41,13 +41,15 @@ void swim(vector<int>& res, int k)
  * 因为某个节点比它的子节点还要小，通过和子节点中较大的那个来交换，然后恢复堆；
  * 这一步做完之后，我们还要继续比较子节点交换之后是不是不满足条件；
 */
-void sink(vector<int>&res, int k, int length)
+void sink(vector<int> &res, int k, int length)
 {
-    while(2*k < length)
+    while (2 * k < length)
     {
-        int j = 2*k;
-        if(j+1<length && res[j]<res[j+1]) j++;
-        if(res[k]>res[j]) break;
+        int j = 2 * k;
+        if (j + 1 < length && res[j] < res[j + 1])
+            j++;
+        if (res[k] > res[j])
+            break;
         swap(res[j], res[k]);
         k = j;
     }
@@ -56,47 +58,48 @@ void sink(vector<int>&res, int k, int length)
 /**
  * 方法 2，构建一个最小堆的数组
 */
-void swimMin(vector<int>& res, int k)
+void swimMin(vector<int> &res, int k)
 {
-    while(k>1 && res[k/2]>res[k])
+    while (k > 1 && res[k / 2] > res[k])
     {
-        swap(res[k/2], res[k]);
-        k = k/2;
+        swap(res[k / 2], res[k]);
+        k = k / 2;
     }
 }
 
-void sinkMin(vector<int>&res, int k)
+void sinkMin(vector<int> &res, int k)
 {
     int N = res.size();
-    while(2*k < N)
+    while (2 * k < N)
     {
-        int j = 2*k;
-        if(j+1<N && res[j]>res[j+1]) j++;
-        if(res[k]<=res[j]) break;
+        int j = 2 * k;
+        if (j + 1 < N && res[j] > res[j + 1])
+            j++;
+        if (res[k] <= res[j])
+            break;
         swap(res[j], res[k]);
         k = j;
     }
 }
 
-void heapSort(vector<int>&res)
- {
+void heapSort(vector<int> &res)
+{
     int length = res.size();
-    for(int i=(length)>>1;i>=1;i--)
+    for (int i = (length) >> 1; i >= 1; i--)
     {
-        sink(res, i, length-1);
+        sink(res, i, length - 1);
     }
-    while(length>1)
+    while (length > 1)
     {
-        swap(res[1], res[length-1]);
+        swap(res[1], res[length - 1]);
         length--;
         sink(res, 1, length);
     }
- }
+}
 
 int main()
 {
-    vector<int>res = {0,50,10,90,30,70,40,80,60,20};
+    vector<int> res = {0, 50, 10, 90, 30, 70, 40, 80, 60, 20};
     heapSort(res);
     print(res);
 }
-
