@@ -86,7 +86,14 @@ vector<int>shellSort1(vector<int>&res)
 void shellSort2(vector<int>&A)
 {
     int n = A.size();
-    for(int gap = n / 2; gap > 0; gap = gap / 2)
+    vector<int>incr;
+    for(int i=1, temp = 1; i<n && temp < n; i++)
+    {
+        incr.push_back(temp);
+        temp = pow(2, i+1) - 1;
+    }
+    print(incr);
+    for(int gap = n / 2-1; gap > 0; gap = gap / 2)
     {
         for(int i = gap; i < n; i ++)
         {
@@ -102,8 +109,9 @@ int main()
 {
     // vector<int> res = {7,6,4,3,4,1};
     vector<int> res = {2, 1, 5, 3, 7, 6, 9, 8};
+    // shellSort(res);
     // shellSort1(res);
     shellSort2(res);
-    // shellSort(res);
+    
     print(res);
 }
