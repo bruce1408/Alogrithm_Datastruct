@@ -1,15 +1,6 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-
-int main()
-{
-    string s;
-    cin>>s;
-    for(auto i: s)
-    {
-        if(i==',')
-    }
 /**
  * 777 字符串乘方
  * 
@@ -28,131 +19,140 @@ int main()
  * aaaa
  * ababab
  * .
- * 
  * 输出样例：
  * 1
  * 4
  * 3
 */
 
-// int main()
-// {
-//     string s1;
-//     while(cin>>s1)
-//     {
-//         int flag = 0;
-//         if(s1[0] == '.') break;
-//         int len = s1.size();
-//         for(int i=1; i<len;i++)
-//         {
-//             flag=0;
-//             if(len%i !=0) continue;
-//             for(int j=0;j<len;j++)
-//             {
-//                 if(s1[j] != s1[j%i])
-//                 {
-//                     flag = 1;
-//                     break;
-//                 }
-//                 if(!flag) {
-//                     cout<<len/i<<endl;
-//                     break;
-//                 }
-//             }
-//         }
-//         if(flag) cout<<"-1"<<endl;
-//     }
-//     cout<<endl;
+void stringPow1()
+{
+    string s1;
+    while (cin >> s1)
+    {
+        int flag = 0;
+        if (s1[0] == '.')
+            break;
+        int len = s1.size();
+        for (int i = 1; i < len; i++)
+        {
+            flag = 0;
+            if (len % i != 0)
+                continue;
+            for (int j = 0; j < len; j++)
+            {
+                if (s1[j] != s1[j % i])
+                {
+                    flag = 1;
+                    break;
+                }
+                if (!flag)
+                {
+                    cout << len / i << endl;
+                    break;
+                }
+            }
+        }
+        if (flag)
+            cout << "-1" << endl;
+    }
+    cout << endl;
+}
 
-// }
-
-
-// int main()
-// {
-//     string s1;
-//     while(cin>>s1)
-//     {
-//         if(s1[0] == '.') break;
-//         int len = s1.size();
-//         for(int i=0;i<len;i++)
-//         {
-//             int times = len-i;
-//             if(len%(i+1) != 0) continue;
-//             string temp="";
-//             int j=0;
-//             for(j=0;j<=i;j++)
-//             {
-//                 temp+=s1[j];                
-//             }
-//             // temp = s1.substr(0, i);
-//             string res="";
-//             for(int t=0;t<len/(i+1);t++)
-//             {
-//                 res+=temp;
-//             }
-//             cout<<"class res: "<<res<<endl;
-//             if(res == s1 )
-//             {
-//                 cout<<"maxtimes: "<<len/(i+1)<<endl;
-//                 break;
-//             }
-//         }
-//     }
-// }
-
+void stringPow2()
+{
+    string s1;
+    while (cin >> s1)
+    {
+        if (s1[0] == '.')
+            break;
+        int len = s1.size();
+        for (int i = 0; i < len; i++)
+        {
+            int times = len - i;
+            if (len % (i + 1) != 0)
+                continue;
+            string temp = "";
+            int j = 0;
+            for (j = 0; j <= i; j++)
+            {
+                temp += s1[j];
+            }
+            // temp = s1.substr(0, i);
+            string res = "";
+            for (int t = 0; t < len / (i + 1); t++)
+            {
+                res += temp;
+            }
+            cout << "class res: " << res << endl;
+            if (res == s1)
+            {
+                cout << "maxtimes: " << len / (i + 1) << endl;
+                break;
+            }
+        }
+    }
+}
 
 //更加简单的写法
-// int main()
-// {
-//     string s1;
-//     while(cin>>s1)
-//     {
-//         if(s1[0] == '.') break;
-//         int len = s1.size();
-//         for(int i=0;i<len;i++)
-//         {
-//             if(len%(i+1) != 0) continue;
-//             string temp="";
-//             temp = s1.substr(0, i);
-//             string res="";
-//             for(int t=0;t<len/(i+1);t++)
-//             {
-//                 res+=temp;
-//             }
-//             cout<<"class res: "<<res<<endl;
-//             if(res == s1 )
-//             {
-//                 cout<<"maxtimes: "<<len/(i+1)<<endl;
-//                 break;
-//             }
-//         }
-//     }
-// }
-
+void stringPow3()
+{
+    string s1;
+    while (cin >> s1)
+    {
+        if (s1[0] == '.')
+            break;
+        int len = s1.size();
+        for (int i = 0; i < len; i++)
+        {
+            if (len % (i + 1) != 0)
+                continue;
+            string temp = "";
+            temp = s1.substr(0, i);
+            string res = "";
+            for (int t = 0; t < len / (i + 1); t++)
+            {
+                res += temp;
+            }
+            cout << "class res: " << res << endl;
+            if (res == s1)
+            {
+                cout << "maxtimes: " << len / (i + 1) << endl;
+                break;
+            }
+        }
+    }
+}
 
 // 官方写法
-int main()
+void stringPow4()
 {
+    cout << "请输入一个字符串: " << endl;
     string s;
-    while(cin>>s, s !=".")
+    while (cin >> s, s != ".")
     {
         int len = s.size();
-        for(int n=len;n>0;n--)
+        for (int n = len; n > 0; n--)
         {
-        
-            if(len%n==0)
+
+            if (len % n == 0)
             {
-                int m=len/n;
+                int m = len / n;
                 string str = s.substr(0, m);
                 string s1;
-                for(int i=0;i<n;i++) s1+=str;
-                if(s1 == s)
+                for (int i = 0; i < n; i++)
+                    s1 += str;
+                if (s1 == s)
                 {
-                    cout<<n<<endl;
+                    cout << n << endl;
                     break;
                 }
             }
         }
     }
-    return 0;
+}
+
+int main()
+{
+    stringPow4();
 }
