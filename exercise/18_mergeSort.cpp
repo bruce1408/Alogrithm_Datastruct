@@ -22,7 +22,7 @@ void merge(vector<int> &res, int left, int mid, int right)
         l[i] = res[left + i];
     for (int j = 0; j < n2; j++)
         r[j] = res[mid + j];
-    l[n1] = INT_MAX, r[n2] = INT_MAX; //最后取最大的数字判断
+    l[n1] = INT_MAX, r[n2] = INT_MAX; // 最后取最大的数字判断
     int i = 0, j = 0;
     for (int k = left; k < right; k++)
     {
@@ -141,8 +141,9 @@ void mergeSort4(vector<int> &A, int l, int r)
 int main()
 {
     vector<int> res = {7, 6, 4, 3, 4, 1};
+    int n = res.size();
     vector<int> temp(6);
     // mergeSort2(res, temp, 0, 6);
-    mergeSort4(res, 0, 6);
+    mergeSort4(res, 0, n);
     print(res);
 }

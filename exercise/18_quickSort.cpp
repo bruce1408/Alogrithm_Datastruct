@@ -1,12 +1,12 @@
 #include<iostream>
 #include<vector>
+#include"../utils/cout_vec.h"
 using namespace std;
 
 /**
  * 快速排序，找出pviot那个数字，然后开始递归，这个数字就是分割排序
  * 计算出来的。
 */
-
 int partition(vector<int>&res, int left, int right)
 {
     int temp = res[right];
@@ -35,7 +35,6 @@ vector<int>quickSort(vector<int>&res, int left, int right)
     return res;
 }
 
-
 int main()
 {
     vector<int> res = {5,1,9,3,7,4,8,6,1};
@@ -46,8 +45,8 @@ int main()
     // {
     //     cout<<i<<" ";
     // }
-    for(auto i:quickSort(res, 0, 8))
-    {
-        cout<<i<<endl;
-    }
+    quickSort(res, 0, 8);
+    print(res);
+
+    
 }
