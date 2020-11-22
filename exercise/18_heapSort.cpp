@@ -56,7 +56,7 @@ void sink(vector<int> &res, int k, int length)
 }
 
 /**
- * 方法 2，构建一个最小堆的数组
+ * 方法 1，构建一个最小堆的数组
 */
 void swimMin(vector<int> &res, int k)
 {
@@ -131,14 +131,49 @@ void heapSort2(vector<int> &res)
 }
 
 /**
- * 手写heapSort3
+ * 重新写堆排序heapSort3，首先就是构造最大堆矩阵；
+ * 遍历根节点，然后设置左叶子节点，判断左叶子节点是不是超过数组范围，要是没有超过，那么在左叶子和右叶子中选择一个最大的节点作为
+ * 可能要置换的节点，判断当前根节点是不是大于这个最大的叶子节点，如果大于的话，那么不用置换，退出当前循环，否则，根节点的值赋值为
+ * 当前的最大的叶子节点的值即可，叶子节点的值继续往下遍历，知道最后一层的叶子节点。
+ * 
+ * 当最大堆的结构完成之后，需要交换根节点和最后一个节点，然后交换之后根节点不满足最大堆的性质，重新进行排序构建最大堆，这个时候
+ * 放弃上次交换的根节点，最后得到一个有序的数组
 */
-void adjust1(vector<int> &res, int i, int len)
+// void adjust1(vector<int> &res, int i, int len)
+// {
+//     int temp = res[i], j = 2 * i + 1;
+//     while (j < len)
+//     {
+//         if (j + 1 < len && res[j] < res[j + 1])
+//             j++;
+//         if (temp >= res[j])
+//             break;
+//         res[(j - 1) / 2] = res[j];
+//         j = 2 * j + 1;
+//     }
+//     res[(j - 1) / 2] = temp;
+// }
+
+// void heapSort3(vector<int> &res)
+// {
+//     int n = res.size();
+//     for (int i = n / 2; i >= 0; i--)
+//     {
+//         adjust1(res, i, n);
+//     }
+//     print(res);
+//     for (int i = n - 1; i >= 0; i--)
+//     {
+//         swap(res[0], res[i]);
+//         adjust1(res, 0, i);
+//     }
+// }
+void adjuest1(vector<int> &res, int i, int n)
 {
     int temp = res[i], j = 2 * i + 1;
-    while (j < len)
+    while (j < n)
     {
-        if (j + 1 < len && res[j] < res[j + 1])
+        if (j + 1 < n && res[j] < res[j + 1])
             j++;
         if (temp >= res[j])
             break;
@@ -153,16 +188,15 @@ void heapSort3(vector<int> &res)
     int n = res.size();
     for (int i = n / 2; i >= 0; i--)
     {
-        adjust1(res, i, n);
+        adjuest1(res, i, n);
     }
     print(res);
     for (int i = n - 1; i >= 0; i--)
     {
         swap(res[0], res[i]);
-        adjust1(res, 0, i);
+        adjuest1(res, 0, i);
     }
 }
-
 int main()
 {
     vector<int> res = {100, 50, 10, 90, 30, 70, 40, 80, 60, 20};
