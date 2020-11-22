@@ -82,7 +82,7 @@ void sinkMin(vector<int> &res, int k)
     }
 }
 
-void heapSort(vector<int> &res)
+void heapSort1(vector<int> &res)
 {
     int length = res.size();
     for (int i = (length) >> 1; i >= 1; i--)
@@ -97,9 +97,77 @@ void heapSort(vector<int> &res)
     }
 }
 
+/**
+ * 方法 2，堆排序简单写法,
+ * 首先将前 n - 1 个节点为根节点的子树进行调整, 建立一个大顶堆, 将堆顶元素弹出, 并更新大顶堆
+*/
+void adjust(vector<int> &A, int root, int n)
+{
+    int temp = A[root], j = 2 * root + 1; // 左边的叶子节点
+    while (j < n)
+    {
+        if (j + 1 < n && A[j] < A[j + 1])
+            j++; // 左边的叶子节点 < 右边的叶子节点
+        if (temp >= A[j])
+            break;
+        A[(j - 1) / 2] = A[j];
+        j = 2 * j + 1;
+    }
+    A[(j - 1) / 2] = temp;
+}
+
+void heapSort2(vector<int> &res)
+{
+    int n = res.size();
+    for (int i = n / 2; i >= 0; i--)
+        adjust(res, i, n);
+    cout << "最大堆构造结果：" << endl;
+    print(res);
+    for (int i = n - 1; i >= 0; i--)
+    {
+        swap(res[0], res[i]);
+        adjust(res, 0, i);
+    }
+}
+
+/**
+ * 手写heapSort3
+*/
+void adjust1(vector<int> &res, int i, int len)
+{
+    int temp = res[i], j = 2 * i + 1;
+    while (j < len)
+    {
+        if (j + 1 < len && res[j] < res[j + 1])
+            j++;
+        if (temp >= res[j])
+            break;
+        res[(j - 1) / 2] = res[j];
+        j = 2 * j + 1;
+    }
+    res[(j - 1) / 2] = temp;
+}
+
+void heapSort3(vector<int> &res)
+{
+    int n = res.size();
+    for (int i = n / 2; i >= 0; i--)
+    {
+        adjust1(res, i, n);
+    }
+    print(res);
+    for (int i = n - 1; i >= 0; i--)
+    {
+        swap(res[0], res[i]);
+        adjust1(res, 0, i);
+    }
+}
+
 int main()
 {
-    vector<int> res = {0, 50, 10, 90, 30, 70, 40, 80, 60, 20};
-    heapSort(res);
+    vector<int> res = {100, 50, 10, 90, 30, 70, 40, 80, 60, 20};
+    // heapSort1(res);
+    // heapSort2(res);
+    heapSort3(res);
     print(res);
 }
