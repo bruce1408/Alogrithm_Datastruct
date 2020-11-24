@@ -8,11 +8,10 @@ using namespace std;
  * 之后再合并即可
 */
 
-/**
+/** 
  * 方法 1，归并，每次mergesort取得是区间长度的左和右，而不是数组的
  * 下标，这个是最大的不同
  * merge是合并两个已经排好序的数组
- * 
 */
 void merge(vector<int> &res, int left, int mid, int right)
 {
