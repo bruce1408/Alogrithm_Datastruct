@@ -36,58 +36,60 @@ vector<int> quickSort1(vector<int> &res, int left, int right)
 }
 
 /**
- * 快速排序二，简洁写法
+ * 快速排序二，推荐写法, 可作为模板
 */
-void quickSort2(vector<int> &A, int l, int r)
+void quickSort2(vector<int> &q, int l, int r)
 {
     if (l >= r)
         return;
-    int pivot = A[l];
-    int i = l - 1, j = r + 1;
-    while (i < j)
+    int x = q[(l + r) >> 1], i = l, j = r;
+    while (1)
     {
-        while (i < j && A[j] > pivot)
-            j--;
-        while (i < j && A[i] < pivot)
+        while (q[i] < x)
             i++;
-        if (i < j)
-            swap(A[i], A[j]);
+        while (q[j] > x)
+            j--;
+        if (i >= j)
+            break;
+        swap(q[i], q[j]);
+        i++;
+        j--;
     }
-    // swap(A[l], A[i]);
-    quickSort2(A, l, j);
-    quickSort2(A, j + 1, r);
+    quickSort2(q, l, j);
+    quickSort2(q, j + 1, r);
 }
 
 /**
- * 手写版本
+ * 快速排序三，推荐写法
 */
 void quickSort3(vector<int> &res, int l, int r)
 {
-    int pivot = res[l];
-    int i = l, j = r;
+    if (l >= r)
+        return;
+    int pivot = res[(l + r) >> 1];
+    int i = l - 1, j = r + 1;
     while (i < j)
     {
-        while (i < j && res[i] <= pivot)
+        do
+        {
             i++;
-        while (i < j && res[j] >= pivot)
+        } while (res[i] < pivot);
+        do
+        {
             j--;
+        } while (res[j] > pivot);
         if (i < j)
             swap(res[i], res[j]);
     }
-    quickSort2(res, l, i - 1);
-    quickSort2(res, i + 1, r);
+    cout << l << " : " << j << endl;
+    quickSort3(res, l, j);
+    quickSort3(res, j + 1, r);
 }
 
 int main()
 {
-    vector<int> res = {5, 1, 9, 3, 7, 4, 8, 6, 1};
-    // vector<int> temp(6);
-    // mergeSort2(res, temp, 0, 6);
-    // cout<<partition(res, 0, 8)<<endl;
-    // for(auto i:res)
-    // {
-    //     cout<<i<<" ";
-    // }
+    // vector<int> res = {5, 1, 9, 3, 7, 4, 8, 6, 1, 0, 8, 5};
+    vector<int> res = {49, 59, 88, 37, 98, 97, 68, 54, 31, 3};
     int n = res.size() - 1;
     quickSort2(res, 0, n);
     // quickSort3(res, 0, n);
