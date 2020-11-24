@@ -55,6 +55,7 @@ void quickSort2(vector<int> &q, int l, int r)
         i++;
         j--;
     }
+    cout << i << " " << j << endl;
     quickSort2(q, l, j); // 这个地方不能把j换成i
     quickSort2(q, j + 1, r);
 }
@@ -90,7 +91,7 @@ int main()
     // vector<int> res = {5, 1, 9, 3, 7, 4, 8, 6, 1, 0, 8, 5};
     vector<int> res = {49, 59, 88, 37, 98, 97, 68, 54, 31, 3};
     int n = res.size() - 1;
-    quickSort4(res, 0, n);
+    quickSort2(res, 0, n);
     // quickSort3(res, 0, n);
 
     print(res);
