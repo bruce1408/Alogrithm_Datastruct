@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * 方法 1；
+ * 方法 1,暴力搜索，超时了
 */
 vector<vector<int>> range_num1(vector<int> &res, vector<int> &temp)
 {
@@ -38,7 +38,7 @@ vector<vector<int>> range_num1(vector<int> &res, vector<int> &temp)
 }
 
 /**
- * 方法 2，使用
+ * 方法 2，使用STL二分搜索，边界条件较多。
 */
 vector<vector<int>> range_num2(vector<int> &res, vector<int> temp)
 {
@@ -69,7 +69,7 @@ vector<vector<int>> range_num2(vector<int> &res, vector<int> temp)
 }
 
 /**
- * 方法 3
+ * 方法 3，使用二分搜索，其实就是手写的low_bound 和 upper_bound的实现，参考yxc
 */
 void range_num3(vector<int> &res, vector<int> temp)
 {
@@ -91,7 +91,6 @@ void range_num3(vector<int> &res, vector<int> temp)
         else
         {
             cout << l << ' ';
-
             int l = 0, r = n - 1;
             while (l < r)
             {
@@ -101,7 +100,45 @@ void range_num3(vector<int> &res, vector<int> temp)
                 else
                     r = mid - 1;
             }
+            cout << l << endl;
+        }
+    }
+}
 
+/**
+ * 方法 4，使用自己写的模板来实现二分搜索
+*/
+void range_num4(vector<int> &res, vector<int> temp)
+{
+    int n = res.size(), m = temp.size();
+    for (int i = 0; i < m; i++)
+    {
+        int x = temp[i];
+        int l = 0, r = n - 1;
+        // low_bound 部分
+        while (l <= r)
+        {
+            int mid = (l + r) >> 1;
+            if (res[mid] >= x)
+                r = mid - 1;
+            else
+                l = mid + 1;
+        }
+        if (res[l] != x)
+            cout << "-1 -1" << endl;
+        else
+        {
+            // upper_bound 部分
+            cout << l << ' ';
+            int l = 0, r = n;
+            while (l < r)
+            {
+                int mid = (l + r) >> 1;
+                if (res[mid] <= x)
+                    l = mid + 1;
+                else
+                    r = mid;
+            }
             cout << l << endl;
         }
     }
