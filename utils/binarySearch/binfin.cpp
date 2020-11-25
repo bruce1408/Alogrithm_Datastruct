@@ -35,19 +35,6 @@ int binarySearch(vector<int> &res, int k)
     return -1;
 }
 
-
-int binaryFind(vector<int>res, int k)
-{
-    int l = 0, r = res.size()-1;
-    while(l<=r)
-    {
-        int mid = (l+r)>>1;
-        if(res[mid] > k) r = mid-1;
-        else if(res[mid]<k) l = mid+1;
-        else return mid;
-    }
-    return -1;
-}
 /**
  * 二分查找，左闭右开区间，
  * right取不到数组的最后一个元素；
@@ -201,49 +188,6 @@ int upper_bound0(vector<int> &res, int k)
 int main()
 {
     int k = 3;
-    while (k)
-    {
-
-        // cout << "input a number: " << endl;
-        // vector<int> res = {1, 2, 2, 2, 3, 5, 7};
-        // cout << binarySearch(res, k) << endl;
-        // break;
-        // vector<int>::iterator lowerLocation = lower_bound(res.begin(), res.end(), k);
-        // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), k, greater<int>());
-        // vector<int>::iterator upperLocation = upper_bound(res.begin(), res.end(), 1);
-        // cout << "the lower_bound self write is: " << lower_bound0(res, k) << " " << lower_bound1(res, k) << " "
-        //      << lower_bound2(res, k) << endl;
-        // cout << "the office lower_bound is: " << lowerLocation - res.begin() << endl;
-        // cout << "the upper_bound is by muself is:" << upper_bound0(res, k) << endl;
-        // cout << "the office upper_bound is: " << upperLocation - res.begin() << endl;
-        // cout << "the lower_bound_1 is:" << find(res, k) << endl;
-
-        /**
-         * lower_bound 和 upper_bound 的用法介绍。
-         * 如果原数组是从小到大排序的，
-         * 那么lower_bound是返回第一个大于或者等于目标数的位置
-         * upper_bound是返回第一个大于目标数的位置
-         * 
-         * 如果原数组是从大到小排序的，
-         * 那么lower_bound是返回第一个小于或者等于目标数的位置
-         * upper_bound是返回第一个小于目标数的位置
-        */
-        // 逆序排列
-        // vector<int> res1 = {4, 3, 2, -1, -2, -3};
-        // vector<int>::iterator lowerLocation = lower_bound(res1.begin(), res1.end(), k, greater<int>());
-        // vector<int>::iterator upperLocation = upper_bound(res1.begin(), res1.end(), k, greater<int>());
-        // cout << k << endl;
-        // cout << "the office lower_bound is: " << lowerLocation - res1.begin() << endl;
-        // cout << "the office upper_bound is: " << upperLocation - res1.begin() << endl;
-
-        // 升序排列
-        vector<int> res2 = {-3, -2, -1, 2, 3, 4};
-        vector<int>::iterator lowerLocation = lower_bound(res2.begin(), res2.end(), k);
-        vector<int>::iterator upperLocation = upper_bound(res2.begin(), res2.end(), k);
-        cout << k << endl;
-        cout << "the office lower_bound is: " << lowerLocation - res2.begin() << endl;
-        cout << "the office upper_bound is: " << upperLocation - res2.begin() << endl;
-
-        k--;
-    }
+    vector<int> res = {1, 2, 2, 2, 3, 5, 7};
+    cout << binarySearch1(res, k) << endl;
 }
