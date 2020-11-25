@@ -90,6 +90,7 @@ int binarySearch1(vector<int> &res, int k)
 }
 
 /**
+ * low_bound 写法 1，
  * lower_bound 查找；left<=right 
  * 找到大于等于这个数的最小下标(首个下标)，在STL中如果有函数lower_bound
  * 如果要找的数字大数组中的所有数字，那么就返回最后一个元素的下标即可；
@@ -116,6 +117,7 @@ int lower_bound0(vector<int> &res, int k)
 }
 
 /**
+ * low_bound 写法 2，
  * lower_bound 查找 left < right
 */
 int lower_bound1(vector<int> &nums, int target)
