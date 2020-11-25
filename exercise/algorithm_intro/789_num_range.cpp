@@ -4,9 +4,9 @@
 using namespace std;
 
 /**
- * 方法 3，使用归并排序，思路同方法 2；
+ * 方法 1；
 */
-vector<vector<int>> range_num(vector<int> &res, vector<int> &temp)
+vector<vector<int>> range_num1(vector<int> &res, vector<int> &temp)
 {
     vector<vector<int>> output;
     int n = res.size(), m = temp.size();
@@ -40,7 +40,7 @@ vector<vector<int>> range_num(vector<int> &res, vector<int> &temp)
 /**
  * 方法 2，使用
 */
-vector<vector<int>> range_num1(vector<int> &res, vector<int> temp)
+vector<vector<int>> range_num2(vector<int> &res, vector<int> temp)
 {
     int n = res.size();
     vector<vector<int>> results;
@@ -68,20 +68,59 @@ vector<vector<int>> range_num1(vector<int> &res, vector<int> temp)
     return results;
 }
 
+/**
+ * 方法 3
+*/
+void range_num3(vector<int> &res, vector<int> temp)
+{
+    int n = res.size(), m = temp.size();
+    for (int i = 0; i < m; i++)
+    {
+        int x = temp[i];
+        int l = 0, r = n - 1;
+        while (l < r)
+        {
+            int mid = (l + r) >> 1;
+            if (res[mid] >= x)
+                r = mid;
+            else
+                l = mid + 1;
+        }
+        if (res[l] != x)
+            cout << "-1 -1" << endl;
+        else
+        {
+            cout << l << ' ';
+
+            int l = 0, r = n - 1;
+            while (l < r)
+            {
+                int mid = (l + r + 1) >> 1;
+                if (res[mid] <= x)
+                    l = mid;
+                else
+                    r = mid - 1;
+            }
+
+            cout << l << endl;
+        }
+    }
+}
+
 int main()
 {
-    int n, m;
     vector<int> res = {1, 3, 3, 4, 6, 6};
-    vector<int> temp = {2, 8, 3};
+    vector<int> temp = {3, 8, 4};
 
-    for (auto &i : range_num1(res, temp))
-    {
-        for (auto j : i)
-        {
-            cout << j << " ";
-        }
-        cout << endl;
-    }
-    cout << lower_bound(res.begin(), res.end(), 6) - res.begin() << endl;
-    cout << upper_bound(res.begin(), res.end(), 6) - res.begin() << endl;
+    // for (auto &i : range_num1(res, temp))
+    // {
+    //     for (auto j : i)
+    //     {
+    //         cout << j << " ";
+    //     }
+    //     cout << endl;
+    // }
+    range_num3(res, temp);
+    // cout << lower_bound(res.begin(), res.end(), 6) - res.begin() << endl;
+    // cout << upper_bound(res.begin(), res.end(), 6) - res.begin() << endl;
 }

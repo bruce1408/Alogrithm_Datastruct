@@ -4,7 +4,8 @@
 using namespace std;
 
 /**
- * 二分查找：左闭右闭区间
+ * 二分查找写法 1
+ * 二分查找：左闭右闭区间，推荐模板
  * 时间复杂度是O(lgn)，比O(n)要好，但是有多种情况需要考虑清楚：
  * Although the basic idea of binary search is comparatively straightforward, the details can be surprisingly tricky... 
  * 这句话可以这样理解：思路很简单，细节是魔鬼。
@@ -35,20 +36,8 @@ int binarySearch(vector<int> &res, int k)
     return -1;
 }
 
-
-int binaryFind(vector<int>res, int k)
-{
-    int l = 0, r = res.size()-1;
-    while(l<=r)
-    {
-        int mid = (l+r)>>1;
-        if(res[mid] > k) r = mid-1;
-        else if(res[mid]<k) l = mid+1;
-        else return mid;
-    }
-    return -1;
-}
 /**
+ * 二分查找写法 2
  * 二分查找，左闭右开区间，
  * right取不到数组的最后一个元素；
  * 最后的right要取到mid，因为right本来是右开区间，循环结束的条件就是left==right，所以
@@ -103,6 +92,7 @@ int binarySearch1(vector<int> &res, int k)
 }
 
 /**
+ * low_bound 写法 1
  * lower_bound 查找；left<=right 
  * 找到大于等于这个数的最小下标(首个下标)，在STL中如果有函数lower_bound
  * 如果要找的数字大数组中的所有数字，那么就返回最后一个元素的下标即可；
@@ -110,7 +100,7 @@ int binarySearch1(vector<int> &res, int k)
 */
 int lower_bound0(vector<int> &res, int k)
 {
-    int left = 0, n = res.size() - 1, right = n;
+    int left = 0, right = res.size() -1 ;
     while (left <= right)
     {
         int mid = (left + right) / 2;
@@ -129,6 +119,7 @@ int lower_bound0(vector<int> &res, int k)
 }
 
 /**
+ * low_bound 写法 2
  * lower_bound 查找 left < right
 */
 int lower_bound1(vector<int> &nums, int target)
@@ -146,9 +137,10 @@ int lower_bound1(vector<int> &nums, int target)
 }
 
 /**
+ * low_bound 写法 3
  * lower_bound 查找 left < right 
  * 这里返回值需要注意的就是根据STL的标准写法，
- * 如果这个数组不在这个数组中，且大于数组的所有元素，返回的应该是最后的元素的下标，
+ * 如果这个数字不在这个数组中，且大于数组的所有元素，返回的应该是最后的元素的下标，
  * 而某些时候，我们需要的返回-1，告诉我们元素不存在，
  * 这样返回值那一部分需要简单的修改一下才可以
 */
@@ -174,6 +166,8 @@ int lower_bound2(vector<int> &res, int k)
 
 /**
  * 用法 3 upper_bound ,查找第一个大于某个数的下标；
+ * 这个和lower_bound 的区别是upper_bound是小于等于号，
+ * 因为这里判断的是第一个大于这个数的位置下标
 */
 int upper_bound0(vector<int> &res, int k)
 {
@@ -181,10 +175,6 @@ int upper_bound0(vector<int> &res, int k)
     while (left < right)
     {
         int mid = left + (right - left) / 2;
-        /**
-         * 这个和lower_bound 的区别是upper_bound是小于等于号，
-         * 因为这里判断的是第一个大于这个数的位置下标
-         * */
         if (res[mid] <= k)
         {
             left = mid + 1;
@@ -195,7 +185,7 @@ int upper_bound0(vector<int> &res, int k)
         }
     }
     return left;
-    //// return res[left] >= k ? left : -1;
+    // return res[left] >= k ? left : -1;
 }
 
 int main()

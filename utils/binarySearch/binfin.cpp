@@ -92,13 +92,12 @@ int binarySearch1(vector<int> &res, int k)
 /**
  * low_bound 写法 1，
  * lower_bound 查找；left<=right 
- * 找到大于等于这个数的最小下标(首个下标)，在STL中如果有函数lower_bound
- * 如果要找的数字大数组中的所有数字，那么就返回最后一个元素的下标即可；
- * 注意是 大于等于某个数字 的最小下标，lower_bound
+ * 找到大于等于这个数的最小下标(首个下标) 如果要找的数字大数组中的所有数字，
+ * 那么就返回最后一个元素的下标即可；注意是 大于等于某个数字 的最小下标，lower_bound
 */
 int lower_bound0(vector<int> &res, int k)
 {
-    int left = 0, n = res.size() - 1, right = n;
+    int left = 0, right = res.size() - 1;
     while (left <= right)
     {
         int mid = (left + right) / 2;
@@ -163,6 +162,8 @@ int lower_bound2(vector<int> &res, int k)
 
 /**
  * 用法 3 upper_bound ,查找第一个大于某个数的下标；
+ * 这个和lower_bound 的区别是upper_bound是小于等于号，
+ * 因为这里判断的是第一个大于这个数的位置下标
 */
 int upper_bound0(vector<int> &res, int k)
 {
@@ -170,21 +171,12 @@ int upper_bound0(vector<int> &res, int k)
     while (left < right)
     {
         int mid = left + (right - left) / 2;
-        /**
-         * 这个和lower_bound 的区别是upper_bound是小于等于号，
-         * 因为这里判断的是第一个大于这个数的位置下标
-         * */
         if (res[mid] <= k)
-        {
             left = mid + 1;
-        }
         else
-        {
             right = mid;
-        }
     }
     return left;
-    //// return res[left] >= k ? left : -1;
 }
 
 int main()
@@ -192,4 +184,6 @@ int main()
     int k = 3;
     vector<int> res = {1, 2, 2, 2, 3, 5, 7};
     cout << binarySearch1(res, k) << endl;
+    cout << upper_bound0(res, 3) << endl;
+    cout << lower_bound0(res, 4) << endl;
 }
