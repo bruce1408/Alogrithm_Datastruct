@@ -81,24 +81,24 @@ void MergeSort2(vector<int> &Array, int front, int end)
 }
 
 /**
- * 方法 3，这个是很多教材上的写法，异曲同工，但是个人感觉没有方法1更好理解。
+ * 方法 3，和方法 5 异曲同工，这个是很多教材上的写法
 */
 void merge3(vector<int> &res, vector<int> &temp, int left, int mid, int right)
 {
-    for (int i = left; i < right; i++)
+    for (int i = left; i <= right; i++)
         temp[i] = res[i];
-    int s1 = left, s2 = mid + 1, t = left;
-    while (s1 <= mid && s2 < right)
+    int i = left, j = mid + 1, t = left;
+    while (i <= mid && j <= right)
     {
-        if (temp[s1] <= temp[s2])
-            res[t++] = temp[s1++];
+        if (temp[i] <= temp[j])
+            res[t++] = temp[i++];
         else
-            res[t++] = temp[s2++];
+            res[t++] = temp[j++];
     }
-    while (s1 < mid)
-        res[t++] = temp[s1++];
-    while (s2 < right)
-        res[t++] = temp[s2++];
+    while (i <= mid)
+        res[t++] = temp[i++];
+    while (j <= right)
+        res[t++] = temp[j++];
 }
 
 void mergeSort3(vector<int> &res, vector<int> &temp, int left, int right)
@@ -112,15 +112,19 @@ void mergeSort3(vector<int> &res, vector<int> &temp, int left, int right)
 }
 
 /**
- *  方法 4, 使用归并排序进行，写法更加简洁
+ *  方法 4, 和方法 5也是一样，使用归并排序进行；
 */
 void mergeSort4(vector<int> &A, int l, int r)
 {
+    // 递归终止情况
     if (l == r)
         return;
+    // 划分成子问题
     int mid = (l + r) >> 1;
+    // 递归处理子问题
     mergeSort4(A, l, mid);
     mergeSort4(A, mid + 1, r);
+    // 合并子问题
     int temp[r - l + 1], k = 0, i, j;
     for (i = l, j = mid + 1; i <= mid && j <= r; k++)
     {
@@ -137,12 +141,49 @@ void mergeSort4(vector<int> &A, int l, int r)
         A[i] = temp[k];
 }
 
+/**
+ * 方法 5， 归并排序更加简单，首先分成两部分
+ * 1、首先是确定分界点mid=l+r>>1
+ * 2、然后进行递归排序左右区间
+ * 3、接着把2个有序的序列进行合并，使用双指针，注意边界问题，都是闭区间，同时需要设置一个临时数组temp
+ * 4、最后把结果复制到原数组中去即可
+*/
+void mergeSort5(vector<int> &res, vector<int> &temp, int l, int r)
+{
+    // 递归终止条件
+    if (l >= r)
+        return;
+    // 确定分界点
+    int mid = (l + r) >> 1;
+    // 划分成子问题
+    mergeSort5(res, temp, l, mid);
+    mergeSort5(res, temp, mid + 1, r);
+    // 合并子问题区间
+    int i = l, j = mid + 1, k = 0;
+    while (i <= mid && j <= r)
+    {
+        if (res[i] < res[j])
+            temp[k++] = res[i++];
+        else
+            temp[k++] = res[j++];
+    }
+    while (i <= mid)
+        temp[k++] = res[i++];
+    while (j <= r)
+        temp[k++] = res[j++];
+    for (int i = l, j = 0; i <= r; i++, j++)
+    {
+        res[i] = temp[j];
+    }
+}
+
 int main()
 {
     vector<int> res = {7, 6, 4, 3, 4, 1};
     int n = res.size();
     vector<int> temp(6);
     // mergeSort2(res, temp, 0, 6);
-    mergeSort4(res, 0, n);
+    // mergeSort5(res, temp, 0, n - 1);
+    mergeSort3(res, temp, 0, n - 1);
     print(res);
 }
