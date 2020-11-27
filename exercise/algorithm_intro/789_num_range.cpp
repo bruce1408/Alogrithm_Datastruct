@@ -78,6 +78,7 @@ void range_num3(vector<int> &res, vector<int> temp)
     {
         int x = temp[i];
         int l = 0, r = n - 1;
+        // lower_bound
         while (l < r)
         {
             int mid = (l + r) >> 1;
@@ -92,6 +93,7 @@ void range_num3(vector<int> &res, vector<int> temp)
         {
             cout << l << ' ';
             int l = 0, r = n - 1;
+            // upper_bound
             while (l < r)
             {
                 int mid = (l + r + 1) >> 1;
@@ -157,7 +159,9 @@ int main()
     //     }
     //     cout << endl;
     // }
-    range_num3(res, temp);
+    // range_num3(res, temp);
+    range_num4(res, temp);
+
     // cout << lower_bound(res.begin(), res.end(), 6) - res.begin() << endl;
     // cout << upper_bound(res.begin(), res.end(), 6) - res.begin() << endl;
 }
