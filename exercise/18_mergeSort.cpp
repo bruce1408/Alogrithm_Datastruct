@@ -183,7 +183,7 @@ int main()
     int n = res.size();
     vector<int> temp(6);
     // mergeSort2(res, temp, 0, 6);
+    // mergeSort3(res, temp, 0, n - 1);
     // mergeSort5(res, temp, 0, n - 1);
-    mergeSort3(res, temp, 0, n - 1);
     print(res);
 }
