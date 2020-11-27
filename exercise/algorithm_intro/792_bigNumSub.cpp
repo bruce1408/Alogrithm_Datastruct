@@ -12,60 +12,41 @@ using namespace std;
 /**
  * 判断a是否大于等于b的情况
 */
-// bool cmp(vector<int> &a, vector<int> &b)
-// {
-//     if (a.size() != b.size())
-//         return a.size() > b.size();
-//     else
-//     {
-//         for (int i = a.size() - 1; i >= 0; i--)
-//         {
-//             if (a[i] != b[i])
-//                 return a[i] > b[i];
-//         }
-//     }
-//     return true; // 所有的数都相同也返回true
-// }
-
-// vector<int> sub(vector<int> &a, vector<int> &b)
-// {
-//     int t = 0;
-//     vector<int> res;
-//     for (int i = 0; i < a.size(); i++)
-//     {
-
-//         t = a[i] - t;
-//         if (i < b.size())
-//             t -= b[i];
-//         res.push_back((t + 10) % 10); // 这里主要是两种情况，要么是t<0,那么就要借位，t+10 % 10，否则 t>=0 就是 t % 10;
-//         if (t < 0)
-//             t = 1;
-//         else
-//             t = 0;
-//     }
-//     // 考虑最后结果去除前导0
-//     while (res.size() > 1 && res.back() == 0)
-//         res.pop_back();
-//     return res;
-// }
-
-
-bool cmp(vector<int>&res1, vector<int>&res2)
+bool cmp(vector<int> &a, vector<int> &b)
 {
-    if(res1.size() != res2.size()) return res1.size() > res2.size();
+    if (a.size() != b.size())
+        return a.size() > b.size();
     else
     {
-        for(int i=0;i<res1.size();i++)
+        for (int i = a.size() - 1; i >= 0; i--)
         {
-            if(res1[i] != res2[i]) return res1[i] > res2[i];
+            if (a[i] != b[i])
+                return a[i] > b[i];
         }
     }
-    return true;
+    return true; // 所有的数都相同也返回true
 }
 
-vector<int>sub(vector<int>&res1, vector<int>&res2)
+vector<int> sub(vector<int> &a, vector<int> &b)
 {
-    
+    int t = 0;
+    vector<int> res;
+    for (int i = 0; i < a.size(); i++)
+    {
+
+        t = a[i] - t;
+        if (i < b.size())
+            t -= b[i];
+        res.push_back((t + 10) % 10); // 这里主要是两种情况，要么是t<0,那么就要借位，t+10 % 10，否则 t>=0 就是 t % 10;
+        if (t < 0)
+            t = 1;
+        else
+            t = 0;
+    }
+    // 考虑最后结果去除前导0
+    while (res.size() > 1 && res.back() == 0)
+        res.pop_back();
+    return res;
 }
 
 int main()
