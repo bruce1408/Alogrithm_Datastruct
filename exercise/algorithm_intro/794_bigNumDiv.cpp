@@ -11,7 +11,7 @@ vector<int> div(vector<int> &res1, int res2, int &r)
 {
     vector<int> res;
     r = 0;
-    for (int i = res1.size(); i >= 0; i--)
+    for (int i = res1.size() - 1; i >= 0; i--)
     {
         r = r * 10 + res1[i]; // 余数
         res.push_back(r / res2);
@@ -30,10 +30,9 @@ int main()
     cin >> a >> b;
     vector<int> res1;
     for (int i = a.size() - 1; i >= 0; i--)
-    {
         res1.push_back(a[i] - '0');
-    }
-    int c;
+
+    int c = 0;
     auto res = div(res1, b, c);
     for (int i = res.size() - 1; i >= 0; i--)
     {
