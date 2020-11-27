@@ -161,7 +161,23 @@ int lower_bound2(vector<int> &res, int k)
 }
 
 /**
- * 用法 3 upper_bound ,查找第一个大于某个数的下标；
+ * low_bund 3,使用yxc的写法,参考这种写法并记忆
+*/
+int low_bound3(vector<int> &res, int target)
+{
+    int l = 0, r = res.size() - 1;
+    while (l < r)
+    {
+        int mid = (l + r) >> 1;
+        if (res[mid] >= target)
+            r = mid;
+        else
+            l = mid + 1;
+    }
+    return r;
+}
+/**
+ * upper_bound ,查找第一个大于某个数的下标；
  * 这个和lower_bound 的区别是upper_bound是小于等于号，
  * 因为这里判断的是第一个大于这个数的位置下标
 */
@@ -179,11 +195,31 @@ int upper_bound0(vector<int> &res, int k)
     return left;
 }
 
+/**
+ * upper_bound 1,使用yxc的模板来做
+*/
+int upper_bound1(vector<int>&res, int target)
+{
+    int n = res.size();
+    int l = 0, r = n-1;
+    while(l < r)
+    {
+        int mid = (l+r+1)>>1;
+        if(res[mid] <= target)
+            l = mid;
+        else
+            r = mid-1;
+    }
+    return l;
+}
+
+
 int main()
 {
     int k = 3;
     vector<int> res = {1, 2, 2, 2, 3, 5, 7};
     cout << binarySearch1(res, k) << endl;
-    cout << upper_bound0(res, 3) << endl;
-    cout << lower_bound0(res, 4) << endl;
+    cout << upper_bound1(res, 3) << endl;
+    cout << lower_bound0(res, 3) << endl;
+    cout << low_bound3(res, 3) << endl;
 }
