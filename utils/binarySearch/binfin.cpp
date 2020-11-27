@@ -176,14 +176,14 @@ int low_bound3(vector<int> &res, int target)
     }
     return r;
 }
-/**
+/** {1, 2, 2, 2, 3, 5, 7};
  * upper_bound ,查找第一个大于某个数的下标；也是stl里面upperd_bound的实现
  * 和 lower_bound 的区别是 upper_bound 是小于等于号，
  * 因为这里判断的是第一个大于这个数的位置下标
 */
-int upper_bound0(vector<int> &res, int k)
+int upper_bound(vector<int> &res, int k)
 {
-    int left = 0, right = res.size();
+    int left = 0, right = res.size() - 1;
     while (left < right)
     {
         int mid = left + (right - left) / 2;
@@ -198,7 +198,7 @@ int upper_bound0(vector<int> &res, int k)
 /**
  * 使用二分来查找数组中最后一个大于等于该数字的位置,使用yxc的模板来做，他包含等于该数字
 */
-int upper_bound1(vector<int> &res, int target)
+int upper_bound_include(vector<int> &res, int target)
 {
     int n = res.size();
     int l = 0, r = n - 1;
@@ -212,15 +212,14 @@ int upper_bound1(vector<int> &res, int target)
     }
     return l;
 }
-
 int main()
 {
     int k = 3;
     vector<int> res = {1, 2, 2, 2, 3, 5, 7};
     cout << "查找当前数字位置: " << binarySearch1(res, k) << endl;
-    cout << "大于不等于数字3的首个位置是: " << upper_bound0(res, 3) << endl;
-    cout << "大于等于当前数字3的最后一个位置是: " << upper_bound1(res, 3) << endl;
+    cout << "大于不等于数字3的首个位置是: " << upper_bound(res, 2) << endl;
+    cout << "大于等于当前数字3的最后一个位置是: " << upper_bound_include(res, 3) << endl;
 
-    cout << "大于等于当前数字2的首位置是: " << lower_bound0(res, 2) << endl;
+    // cout << "大于等于当前数字2的首位置是: " << lower_bound0(res, 2) << endl;
     cout << "大于等于当前数字3的首位置是: " << low_bound3(res, 3) << endl;
 }
