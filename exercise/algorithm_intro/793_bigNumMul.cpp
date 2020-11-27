@@ -2,11 +2,15 @@
 #include <vector>
 #include <string>
 using namespace std;
+
 /**
- * 大数除法
- * 
+ * 大数乘法：
+ * A*b，A可能是一个很大越界的数字，b是一个小数，每次乘法的时候不是乘b的每一位
+ * 而是乘以整个数字b，初始进位设置为0，然后每次考虑到进位 t = A[i] * b + t(上次的进位)
+ * 这里开辟一个存放结果的数组res，res保存t%10余数，新的进位是t/10得到的；
+ * 最后判断是否有t进位大于0，如果大于0的话，那么存放res，然后去除前导0；返回结果数组
 */
-vector<int> div(vector<int> &res1, int res2)
+vector<int> mul(vector<int> &res1, int res2)
 {
     vector<int> res;
     int t = 0;
