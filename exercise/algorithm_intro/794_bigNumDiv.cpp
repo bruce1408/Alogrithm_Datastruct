@@ -1,23 +1,23 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 using namespace std;
 /**
- * 大数除法
+ * 大数除法，高精度整数除以低精度数
  * 
 */
-vector<int> div(vector<int> &res1, int res2)
+vector<int> div(vector<int> &res1, int res2, int &r)
 {
     vector<int> res;
-    int t = 0;
-    for (int i = 0; i < res1.size(); i++)
+    r = 0;
+    for (int i = res1.size(); i >= 0; i--)
     {
-        t = res1[i] * res2 + t;
-        res.push_back(t % 10);
-        t /= 10;
+        r = r * 10 + res1[i]; // 余数
+        res.push_back(r / res2);
+        r %= res2;
     }
-    if (t > 0)
-        res.push_back(t);
+    reverse(res.begin(), res.end());
     while (res.size() > 1 && res.back() == 0)
         res.pop_back();
     return res;
@@ -33,10 +33,12 @@ int main()
     {
         res1.push_back(a[i] - '0');
     }
-    auto res = mul(res1, b);
+    int c;
+    auto res = div(res1, b, c);
     for (int i = res.size() - 1; i >= 0; i--)
     {
         printf("%d", res[i]);
     }
-    cout << endl;
+    cout << endl
+         << c << endl;
 }
