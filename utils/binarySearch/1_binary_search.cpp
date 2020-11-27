@@ -179,28 +179,41 @@ int low_bound3(vector<int> &res, int target)
     }
     return r;
 }
-/**
- * 用法 3 upper_bound ,查找第一个大于某个数的下标；
- * 这个和lower_bound 的区别是upper_bound是小于等于号，
+
+/** {1, 2, 2, 2, 3, 5, 7};
+ * upper_bound, 查找第一个大于某个数的下标；也是stl里面 upper_bound的实现
+ * 和 lower_bound 的区别是 upper_bound 是小于等于号，
  * 因为这里判断的是第一个大于这个数的位置下标
 */
-int upper_bound0(vector<int> &res, int k)
+int upper_bound(vector<int> &res, int k)
 {
-    int left = 0, n = res.size(), right = n;
+    int left = 0, right = res.size() - 1;
     while (left < right)
     {
         int mid = left + (right - left) / 2;
         if (res[mid] <= k)
-        {
             left = mid + 1;
-        }
         else
-        {
             right = mid;
-        }
     }
     return left;
-    // return res[left] >= k ? left : -1;
+}
+
+/**
+ * 使用二分来查找数组中最后一个大于等于该数字的位置, 使用yxc的模板来做, 包含等于该数字
+*/
+int upper_bound_include(vector<int> &res, int target)
+{
+    int l = 0, r = res.size() - 1;
+    while (l < r)
+    {
+        int mid = (l + r + 1) >> 1;
+        if (res[mid] <= target)
+            l = mid;
+        else
+            r = mid - 1;
+    }
+    return l;
 }
 
 int main()
