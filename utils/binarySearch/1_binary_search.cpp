@@ -181,9 +181,10 @@ int low_bound3(vector<int> &res, int target)
 }
 
 /** {1, 2, 2, 2, 3, 5, 7};
- * upper_bound, 查找第一个大于某个数的下标；也是stl里面 upper_bound的实现
+ * 查找第一个大于某个数的下标；也是stl里面 upper_bound的实现
  * 和 lower_bound 的区别是 upper_bound 是小于等于号，
- * 因为这里判断的是第一个大于这个数的位置下标
+ * 因为这里判断的是第一个大于这个数的位置下标，这里和下面的upper_bound_include主要是它取不到mid，如果相同的话，那么
+ * 就跳过mid这个值，195行，left ！= mid, 而是left = mid+1取的是大于它的第一个元素的值。
 */
 int upper_bound(vector<int> &res, int k)
 {
@@ -201,6 +202,7 @@ int upper_bound(vector<int> &res, int k)
 
 /**
  * 使用二分来查找数组中最后一个大于等于该数字的位置, 使用yxc的模板来做, 包含等于该数字
+ * 这个不是upper_bound是因为l = mid,如果相同的话就可以等于这个值，输出
 */
 int upper_bound_include(vector<int> &res, int target)
 {
