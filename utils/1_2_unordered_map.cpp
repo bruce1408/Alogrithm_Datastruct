@@ -13,14 +13,12 @@ using namespace std;
  * map内部自建一颗红黑树(一 种非严格意义上的平衡二叉树)，这颗树具有对数据自动排序的功能，所以在map内部所有的数据都是有序的，
  * 后边我们会见识到有序的好处。
  * 
- * 
  * map 内部结构是红黑树，因此所有的元素插入到map都是进行排好序的，而且搜索过程是二叉树搜索，unordered_map 也是 key-value的映射。 
  * 
  * insert 插入对象 make_pair 和 pair两种，make_pair不需要写出类型，pair需要写出数据的类型
  * 比如：
  * m.insert(make_pair("Tom3", 100));
  * m.insert(pair<int, string>(2, "student_two"));  
-
 */
 
 /**
