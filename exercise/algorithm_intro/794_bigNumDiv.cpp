@@ -13,19 +13,37 @@ using namespace std;
  * 在去除前缀0，然后输出数组结果和最后的余数即可
  * 
 */
-vector<int> div(vector<int> &res1, int res2, int &r)
+// vector<int> div(vector<int> &res1, int res2, int &r)
+// {
+//     vector<int> res;
+//     r = 0;
+//     for (int i = res1.size() - 1; i >= 0; i--)
+//     {
+//         r = r * 10 + res1[i]; // 余数
+//         res.push_back(r / res2);
+//         r %= res2;
+//     }
+//     reverse(res.begin(), res.end());
+//     while (res.size() > 1 && res.back() == 0)
+//         res.pop_back();
+//     return res;
+// }
+
+vector<int> div(vector<int> &a, int b, int &c)
 {
     vector<int> res;
-    r = 0;
-    for (int i = res1.size() - 1; i >= 0; i--)
+    c = 0;
+    for (int i = a.size() - 1; i >= 0; i--)
     {
-        r = r * 10 + res1[i]; // 余数
-        res.push_back(r / res2);
-        r %= res2;
+        c = c * 10 + a[i];
+        res.push_back(c / b);
+        c %= b;
     }
     reverse(res.begin(), res.end());
     while (res.size() > 1 && res.back() == 0)
+    {
         res.pop_back();
+    }
     return res;
 }
 
