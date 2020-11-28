@@ -7,6 +7,7 @@
 using namespace std;
 
 /**
+ * 方法 1，和方法 2思路都一样，就是写法有点不同；
  * 前缀和求解，可以很方便计算前n项目的和，不用多循环遍历；
 */
 vector<int> prefixSum(vector<int> &res, vector<vector<int>> &pairs)
@@ -24,6 +25,9 @@ vector<int> prefixSum(vector<int> &res, vector<vector<int>> &pairs)
     return result;
 }
 
+/**
+ * 方法 2，写法简单
+*/
 vector<int> prefixSum1(vector<int> &res)
 {
     vector<int> prefix(res.size());
