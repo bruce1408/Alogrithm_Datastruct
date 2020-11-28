@@ -8,7 +8,9 @@ using namespace std;
 
 /**
  * 方法 1，和方法 2思路都一样，就是写法有点不同；
- * 前缀和求解，可以很方便计算前n项目的和，不用多循环遍历；
+ * 前缀和求解，可以很方便计算前n项目的和，不用多循环遍历；快速求出元素组中某段区间的和\
+ * 1 首先、for循环求出 每个S[i] (将 S[0] 定义为 0, 避免下标的转换)
+ * 2 然后、求 [l, r]中的和, 即为 S[r] - S[l-1]
 */
 vector<int> prefixSum(vector<int> &res, vector<vector<int>> &pairs)
 {
