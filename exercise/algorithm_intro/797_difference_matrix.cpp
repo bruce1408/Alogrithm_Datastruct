@@ -42,6 +42,7 @@ using namespace std;
  */
 void insert(vector<int> &b, int l, int r, int c)
 {
+    // 让b[l] 加上c，b[r+1]减去c就是对整个区间[l, r]之间进行差分
     b[l] += c;
     b[r + 1] -= c;
 }
