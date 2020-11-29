@@ -33,7 +33,7 @@ int maxSubstr(vector<int> &res)
                 count++;
             else
             {
-                i = j ;
+                i = j;
                 break;
             }
             maxNum = max(count, maxNum);
@@ -41,12 +41,34 @@ int maxSubstr(vector<int> &res)
     }
     return maxNum;
 }
+
+int maxSubstr1(vector<int> &res)
+{
+    int maxnum = 0;
+    for (int i = 0; i < res.size(); i++)
+    {
+        vector<int> nums(100010);
+        int count = 0;
+        for (int j = i; j < res.size(); j++)
+        {
+            if (nums[res[j]] == 0)
+            {
+                count++;
+                nums[res[j]] += 1;
+            }
+            else
+                break;
+            maxnum = max(count, maxnum);
+        }
+    }
+    return maxnum;
+}
 int main()
 {
     // int n = 5;
     // cin>>n;
-    vector<int> res = {1, 2, 2, 3, 5};
+    vector<int> res = {9, 3, 6, 9, 5, 10, 1, 2, 3, 9};
     // for (int i = 0; i < n; i++)
     //     cin >> res[i];
-    cout << maxSubstr(res) << endl;
+    cout << maxSubstr1(res) << endl;
 }
