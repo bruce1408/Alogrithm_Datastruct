@@ -4,7 +4,10 @@
 #include <algorithm>
 #include <unordered_map>
 using namespace std;
-
+/**
+ * 前缀和数组求解，对于一个数组a来说，前缀和数组的求和公式为：
+ * s[i][j] = s[i-1][j] + s[i][j-1]-s[i-1][j-1] + a[i][j]；
+*/
 vector<int> prefixSum(vector<int> &res, vector<vector<int>> &pairs)
 {
     vector<int> nums(res.size());
