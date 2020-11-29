@@ -35,6 +35,7 @@ int main()
             insert(i, j, i, j, a[i][j]);
         }
     }
+
     while(q--)
     {
         int x1, y1, x2, y2, c;
@@ -50,5 +51,4 @@ int main()
         }
         cout<<endl;
     }
-     
 }
