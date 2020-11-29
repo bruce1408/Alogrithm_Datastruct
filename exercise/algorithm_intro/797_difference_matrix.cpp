@@ -28,12 +28,12 @@ using namespace std;
  * 输出样例：
  * 3 4 5 3 4 2
 */
+
 void insert(vector<int>&b, int l, int r, int c)
 {
     b[l]+=c;
     b[r+1]-=c;
 }
-
 
 int main()
 {
@@ -43,6 +43,7 @@ int main()
     vector<int>b(n+1);
     for(int i=1; i<=n; i++)
         cin>>a[i]; 
+    // 对每个数进行差分求解
     for(int i=1;i<=n;i++) insert(b, i, i, a[i]);
     while(m--)
     {
@@ -50,6 +51,8 @@ int main()
         scanf("%d%d%d", &l, &r, &c);
         insert(l, r, c);
     }
+
+    // a[i] 是b[i]的前n项和
     for(int i=1;i<=n;i++)
     {
         b[i] += b[i-1];
