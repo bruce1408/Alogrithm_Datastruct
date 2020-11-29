@@ -7,6 +7,9 @@ using namespace std;
 /**
  * 前缀和数组求解，对于一个数组a来说，前缀和数组的求和公式为：
  * s[i][j] = s[i-1][j] + s[i][j-1]-s[i-1][j-1] + a[i][j]；
+ * 
+ * 如果求解的是[x1][y1]--[x2][y2]之间的和，那么应该是
+ * s[x2][y2] - s[x2][y1-1] - s[x1-1][y2] + s[x1-1][y1-1]
 */
 vector<int> prefixSum(vector<int> &res, vector<vector<int>> &pairs)
 {
@@ -41,7 +44,7 @@ int main()
     while (q--)
     {
         int x1, y1, x2, y2;
-        cin >> x1 >>y1 >> x2>>y2;
-        cout<<prefixSum[x2][y2] - prefixSum[x2][y1-1]-prefixSum[x1-1][y2] + prefixSum[x1-1][y1-1]<<endl;
+        cin >> x1 >> y1 >> x2 >> y2;
+        cout << prefixSum[x2][y2] - prefixSum[x2][y1 - 1] - prefixSum[x1 - 1][y2] + prefixSum[x1 - 1][y1 - 1] << endl;
     }
 }
