@@ -1,6 +1,6 @@
-#include<iostream>
-#include<vector>
-#include"../../utils/cout_vec.h"
+#include <iostream>
+#include <vector>
+#include "../../utils/cout_vec.h"
 
 using namespace std;
 /**
@@ -30,31 +30,34 @@ using namespace std;
 */
 
 /**
- * ai = b1 + b2 + b3 + .... +bi
+ * 数组a是数组b的前缀和
+ * 数组b是数组a的差分
+ * ai = b1 + b2 + b3 + .... +bi 
  * ...
  * b1 = a1
  * b2 = a2 - a1
  * b3 = a3 - a2
  * ...
  * bn = an - an-1
- * */ 
-void insert(vector<int>&b, int l, int r, int c)
+ */
+void insert(vector<int> &b, int l, int r, int c)
 {
-    b[l]+=c;
-    b[r+1]-=c;
+    b[l] += c;
+    b[r + 1] -= c;
 }
 
 int main()
 {
     int n, m;
-    cin>>n>>m;
-    vector<int>a(n+1);
-    vector<int>b(n+1);
-    for(int i=1; i<=n; i++)
-        cin>>a[i]; 
+    cin >> n >> m;
+    vector<int> a(n + 1);
+    vector<int> b(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
     // 对每个数进行差分求解
-    for(int i=1;i<=n;i++) insert(b, i, i, a[i]);
-    while(m--)
+    for (int i = 1; i <= n; i++)
+        insert(b, i, i, a[i]);
+    while (m--)
     {
         int l, r, c;
         scanf("%d%d%d", &l, &r, &c);
@@ -62,9 +65,9 @@ int main()
     }
 
     // a[i] 是b[i]的前n项和
-    for(int i=1;i<=n;i++)
+    for (int i = 1; i <= n; i++)
     {
-        b[i] += b[i-1];
+        b[i] += b[i - 1];
         printf("%d ", b[i]);
-    } 
+    }
 }
