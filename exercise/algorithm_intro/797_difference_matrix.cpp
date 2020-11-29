@@ -29,6 +29,15 @@ using namespace std;
  * 3 4 5 3 4 2
 */
 
+/**
+ * ai = b1 + b2 + b3 + .... +bi
+ * ...
+ * b1 = a1
+ * b2 = a2 - a1
+ * b3 = a3 - a2
+ * ...
+ * bn = an - an-1
+ * */ 
 void insert(vector<int>&b, int l, int r, int c)
 {
     b[l]+=c;
