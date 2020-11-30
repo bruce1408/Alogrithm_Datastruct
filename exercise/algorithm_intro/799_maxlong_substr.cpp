@@ -52,9 +52,8 @@ int maxSubstr1(vector<int> &res)
 
 /**
  * 方法 2，方法 1时间太长了，需要对这个双指针算法进行改进，降低时间复杂度；
- * i从0到n开始，然后j从0
+ * i从0到n开始遍历，然后j对应的次数是先减次数后右移，如果次数大于1，那么减去当前的次数，然后右移
 */
-
 int maxSubstr2(vector<int>&res)
 {
     int n = res.size(), count = 0;
@@ -75,8 +74,8 @@ int main()
 {
     // int n = 5;
     // cin>>n;
-    vector<int> res = {1,2,2,3,5};
+    vector<int> res = {1,0,2,3,5, 2};
     // for (int i = 0; i < n; i++)
     //     cin >> res[i];
-    cout << maxSubstr1(res) << endl;
+    cout << maxSubstr2(res) << endl;
 }
