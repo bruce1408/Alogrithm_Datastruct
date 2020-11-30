@@ -21,27 +21,11 @@ using namespace std;
  * 3
 */
 
-int maxSubstr(vector<int> &res)
-{
-    int maxNum = 0;
-    for (int i = 0; i < res.size(); i++)
-    {
-        int count = 1;
-        for (int j = i; j < res.size() - 1; j++)
-        {
-            if (res[j] != res[j + 1])
-                count++;
-            else
-            {
-                i = j;
-                break;
-            }
-            maxNum = max(count, maxNum);
-        }
-    }
-    return maxNum;
-}
-
+/**
+ * 方法 1，使用一个记录次数的数组，然后每次记录重复出现的次数
+ * 如果之前没有出现这个数字，那么统计长度的数字count自加一次，该数字对应的次数也加1，
+ * 否则退出当前循环，从下一位开始遍历，最后返回最长的那个长度即可，这里的时间复杂度是O(n^2)
+*/
 int maxSubstr1(vector<int> &res)
 {
     int maxnum = 0;
@@ -63,6 +47,11 @@ int maxSubstr1(vector<int> &res)
     }
     return maxnum;
 }
+
+/**
+ * 方法 2，方法 1时间太长了，需要对这个双指针算法进行改进，降低时间复杂度；
+ * i从0到n开始，然后j从0
+*/
 int main()
 {
     // int n = 5;
