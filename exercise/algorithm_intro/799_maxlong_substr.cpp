@@ -31,8 +31,9 @@ int maxSubstr1(vector<int> &res)
     int maxnum = 0;
     for (int i = 0; i < res.size(); i++)
     {
-        vector<int> nums(100010);
         int count = 0;
+        vector<int> nums(100010);
+
         for (int j = i; j < res.size(); j++)
         {
             if (nums[res[j]] == 0)
@@ -42,6 +43,7 @@ int maxSubstr1(vector<int> &res)
             }
             else
                 break;
+               
             maxnum = max(count, maxnum);
         }
     }
@@ -52,11 +54,28 @@ int maxSubstr1(vector<int> &res)
  * 方法 2，方法 1时间太长了，需要对这个双指针算法进行改进，降低时间复杂度；
  * i从0到n开始，然后j从0
 */
+
+int maxSubstr2(vector<int>&res)
+{
+    int n = res.size(), count = 0;
+    vector<int>temp(100010);
+    for(int i = 0, j = 0;i<n;i++)
+    {
+        temp[res[i]]++;
+        while(temp[res[i]]>1)  // 当前这个数组中的数字次数超过1
+        {
+            temp[res[j]]--;  // 那么就对大于1的数字减1，然后j向后走
+            j++;
+        }
+        count = max(i-j+1, count); // 得到最大的值
+    }
+    return count;
+}
 int main()
 {
     // int n = 5;
     // cin>>n;
-    vector<int> res = {9, 3, 6, 9, 5, 10, 1, 2, 3, 9};
+    vector<int> res = {1,2,2,3,5};
     // for (int i = 0; i < n; i++)
     //     cin >> res[i];
     cout << maxSubstr1(res) << endl;
