@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 /**
@@ -9,24 +9,37 @@ using namespace std;
 */
 void nums_one(vector<int> &a)
 {
-    int i = 0;
-    for (int j = 0; j < b.size(); j++)
+    int n = a.size();
+    for (int i = 0; i < n; i++)
     {
-        if (b[j] == a[i] && i < a.size())
-            i++;
+        int count = 0, j = 31;
+        while (j--)
+        {
+            if(a[i] & 1) count++;
+            a[i] = a[i] >> 1;
+        }
+        cout << count << " ";
     }
-    if (i != a.size())
-        printf("No");
-    else
-        printf("Yes");
+    cout << endl;
 }
 
+/**
+ * 方法 2, lowbit(x) = n & (-n)
+*/
+int lowbit(vector<int>&res)
+{
+    for(int i=0;i<res.size();i++)
+    {
+        while(res[i]) res[i] &(-res[i]);
+    }
+}
 
 int main()
 {
-    int n;
-    cin>>n;
-    vector<int>a(n);
-    for(int i=0;i<n;i++) cin>>a[i];
+    // int n;
+    // cin>>n;
+    // vector<int>a(n);
+    // for(int i=0;i<n;i++) cin>>a[i];
+    vector<int> a = {1, 2, 3, 4, 5};
     nums_one(a);
 }
