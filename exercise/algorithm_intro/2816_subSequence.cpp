@@ -1,5 +1,6 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
+#include "../../utils/cout_vec.h"
 using namespace std;
 
 /**
@@ -24,29 +25,58 @@ using namespace std;
  * 输出样例：
  * yes
 */
-string subSequence(vector<int>&a, vector<int>&b)
+
+/**
+ * 方法 1，使用双指针来做
+*/
+string subSequence1(vector<int> &a, vector<int> &b)
 {
-    string res = "no";
-    vector<int>temp;
-    for(int i=0, j = 0; i<a.size(); i++)
+    vector<int> temp;
+    for (int i = 0, j = 0; j < b.size(); j++)
     {
-        while(a[i]==b[j] && j<b.size())
+        if (b[j] == a[i] && i < a.size())
         {
-            
+            temp.push_back(j);
+            i++;
         }
     }
-    return res;
+    print(temp);
+    if (temp.size() != a.size())
+        return "No";
+    for (int i = 0; i < temp.size() - 1; i++)
+    {
+        if (temp[i] > temp[i + 1])
+            return "No";
+    }
+    return "Yes";
 }
+
+/**
+ * 方法 2，使用双指针来做，但是写法更加简单
+*/
+void subSequence2(vector<int> &a, vector<int> &b)
+{
+    int i = 0;
+    for (int j = 0; j < b.size(); j++)
+    {
+        if (b[j] == a[i] && i < a.size())
+            i++;
+    }
+    if (i != a.size())
+        printf("No");
+    else
+        printf("Yes");
+}
+
 int main()
 {
-    int n, m;
-    cin>>n>>m;
-    vector<int>a(n);
-    vector<int>b(n);
-    for(int i=0;i<n;i++) cin>>a[i];
-    for(int j= 0;j<m;j++) cin>>b[j];
-    cout<<subSequence(a, b)<endl;
-
-
-
+    // int n, m;
+    // cin>>n>>m;
+    // vector<int>a(n);
+    // vector<int>b(n);
+    // for(int i=0;i<n;i++) cin>>a[i];
+    // for(int j= 0;j<m;j++) cin>>b[j];
+    vector<int> a = {2, 2, 2};
+    vector<int> b = {1, 1, 1, 2, 2, 2};
+    subSequence2(a, b);
 }
