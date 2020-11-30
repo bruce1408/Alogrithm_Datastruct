@@ -61,7 +61,7 @@ int maxSubstr2(vector<int>&res)
     for(int i = 0, j = 0;i<n;i++)
     {
         temp[res[i]]++;
-        while(temp[res[i]]>1)  // 当前这个数组中的数字次数超过1
+        while(j<=i && temp[res[i]]>1)  // 当前这个数组中的数字次数超过1
         {
             temp[res[j]]--;  // 那么就对大于1的数字减1，然后j向后走
             j++;
