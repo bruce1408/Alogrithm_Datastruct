@@ -26,6 +26,29 @@ using namespace std;
 */
 
 /**
+ * 额外写一个unique函数，去重函数
+ * 满足一下条件：
+ * 1，它是第一个
+ * 2，a[i] != a[i-1]
+*/
+vector<int>::iterator unique_name(vector<int> &res)
+{
+    cout << "before unique:" << endl;
+    print(res);
+    sort(res.begin(), res.end());
+    int j = 0;
+    for (int i = 0; i < res.size(); i++)
+    {
+        if (!i || res[i] != res[i - 1])
+        {
+            res[j++] = res[i];
+        }
+    }
+    print(res);
+    return res.begin() + j;
+}
+
+/**
  * 方法 1，离散化
 */
 typedef pair<int, int> cord;
@@ -101,4 +124,8 @@ int main()
         int l = find(item.first, alls), r = find(item.second, alls);
         cout << s[r] - s[l - 1] << endl;
     }
+
+    // unique 函数单独写法
+    vector<int> res = {1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 6, 7, 7};
+    unique_name(res);
 }
