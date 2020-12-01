@@ -4,8 +4,8 @@ using namespace std;
 
 /**
  * 801 求解二进制中的1的个数
- * 
- * 
+ * 方法 1，就是循环31次，然后每次右移1位，然后
+ * 统计一共有多少位1；
 */
 void nums_one(vector<int> a)
 {
