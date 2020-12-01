@@ -9,7 +9,6 @@
 using namespace std;
 
 int num;
-
 struct cord
 {
     int x;
@@ -51,7 +50,6 @@ int main()
     double f;
     string s;
     cin >> i;
-
     for(int j = 0; j < i;j++){
         cin >> n;
         cin >> f;
@@ -60,11 +58,8 @@ int main()
         data[n] = p;
     }
 
-
     for(auto& e:data){
         cout  << e.first << " "<< e.second.first<<" " << e.second.second << endl;;
     }
-
-
     return 0;
 }
