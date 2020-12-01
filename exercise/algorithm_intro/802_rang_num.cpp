@@ -10,9 +10,14 @@ using namespaced std;
 /**
  * 方法 1，离散化
 */
-
+typedef pair<int, int>cord;
 vector<int>
 int main()
 {
+    int n, m;
+    cin>>n>>m;
+    vector<int>res;
+    vector<cord>nums;
+    
 
 }
