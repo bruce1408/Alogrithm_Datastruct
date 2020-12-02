@@ -59,5 +59,4 @@ int main()
     vector<int> res = {7,6,4,3,4,1};
     selectSort1(res);
     print(res);
-    
 }
