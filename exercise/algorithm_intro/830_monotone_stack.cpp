@@ -5,6 +5,7 @@ using namespace std;
 const int N = 100010;
 int s[N], point;
 /**
+ * 830
  * 单调栈算法，求一个数组左边第一个比它还小的数，如果存在输出这个数字
  * 否则输出-1即可；
 */
