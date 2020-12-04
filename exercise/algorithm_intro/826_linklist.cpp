@@ -74,10 +74,10 @@ int main()
         else if (op == 'D')
         {
             cin >> k;
-            if (k == 0)
+            if (k == 0) // 如果删除头结点的话，那么头结点下一个节点
                 head = ne[head];
             else
-                delete_k(k - 1);
+                delete_k(k - 1); // 下标从0开始的，第一个插入的点是0， 第k个插入点是k-1
         }
         else
         {
