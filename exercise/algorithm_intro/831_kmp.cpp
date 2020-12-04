@@ -45,7 +45,10 @@ char s[M], p[N];
 
 int main()
 {
-    cin >> n >> p + 1 >> m >> s + 1;
+    // cin >> n >> p + 1 >> m >> s + 1;
+    n = 3, m = 5;
+    p+1 = "aba";
+    s+1 = "ababa";
     for (int i = 2, j = 0; i <= n; i++)
     {
         while (j && p[i] != p[j + 1])
@@ -65,6 +68,7 @@ int main()
             printf("%d ", i - n);
             j = ne[j];
         }
+        cout<<endl;
     }
     return 0;
 }
