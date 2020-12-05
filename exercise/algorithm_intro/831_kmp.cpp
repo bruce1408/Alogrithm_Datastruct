@@ -37,49 +37,78 @@ void kmpBF()
 /**
  * 方法 2，优化双指针算法，使用next数组，用kmp算法来做
 */
-const int N = 1000010, M = 1000010;
+// const int N = 1000010, M = 1000010;
+
+// int n, m;
+// int ne[N];
+// char s[M], p[N];
+
+// int main()
+// {
+//     // cin >> n >> p + 1 >> m >> s + 1;
+//     n = 6, m = 5;
+//     // p+1 = "aba";
+//     p[1] = 'a';
+//     p[2] = 'b';
+//     p[3] = 'a';
+//     p[4] = 'b';
+//     p[5] = 'a';
+//     p[6] = 'a';
+
+
+//     s[1] = 'a';
+//     s[2] = 'b';
+//     s[3] = 'a';
+//     s[4] = 'b';
+//     s[5] = 'a';
+
+//     // s = "ababa";
+//     for (int i = 2, j = 0; i <= n; i++)
+//     {
+//         while (j && p[i] != p[j + 1])
+//             j = ne[j];
+//         if (p[i] == p[j + 1])
+//             j++;
+//         ne[i] = j;
+//     }
+//     // 匹配成功
+//     for (int i = 1, j = 0; i <= m; i++)
+//     {
+//         // j是否是从0开始还是
+//         while (j && s[i] != p[j + 1])
+//             j = ne[j];
+//         if (s[i] == p[j + 1])
+//             j++;
+//         if (j == n)
+//         {
+//             printf("%d ", i - n);
+//             j = ne[j];
+//         }
+//     }
+//     cout<<endl;
+//     for(int i=0;i<=m;i++)
+//     {
+//         cout<<ne[i]<<" ";
+//     }
+//     cout<<endl;
+//     return 0;
+// }
+
+
+const int N = 100010;
+char ne[N], s[N], p[N];
 
 int n, m;
-int ne[N];
-char s[M], p[N];
 
 int main()
 {
-    // cin >> n >> p + 1 >> m >> s + 1;
-    n = 3, m = 5;
-    p+1 = "aba";
-    p[1] = 'a';
-    p[2] = 'b';
-    p[3] = 'a';
+    cin>>n>>p+1>>m>>s+1;
+
+    // next数组构建过程，这里都从数组的下标1开始
+    for(int i=2, j=0; i<=n; i++)
+    {
+        
+    }
+    // 匹配过程
     
-    s[1] = 'a'
-    s[2] = 'b'
-    s[3] = 'a'
-    s[4] = 'b'
-    s[5] = 'a'
-
-
-    s+1 = "ababa";
-    for (int i = 2, j = 0; i <= n; i++)
-    {
-        while (j && p[i] != p[j + 1])
-            j = ne[j];
-        if (p[i] == p[j + 1])
-            j++;
-        ne[i] = j;
-    }
-    for (int i = 1, j = 0; i <= m; i++)
-    {
-        while (j && s[i] != p[j + 1])
-            j = ne[j];
-        if (s[i] == p[j + 1])
-            j++;
-        if (j == n)
-        {
-            printf("%d ", i - n);
-            j = ne[j];
-        }
-        cout<<endl;
-    }
-    return 0;
 }
