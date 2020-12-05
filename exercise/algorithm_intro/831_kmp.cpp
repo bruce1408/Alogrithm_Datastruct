@@ -107,8 +107,14 @@ int main()
     // next数组构建过程，这里都从数组的下标1开始
     for(int i=2, j=0; i<=n; i++)
     {
+        while(j && p[i]!=p[j+1]) j = ne[j];
+        if(p[i]==p[j+1]) j++;
+        ne[i] = j;
+    }
+    
+    // 匹配过程
+    for(int i = 1,j=0; i<=m; i++)
+    {
         
     }
-    // 匹配过程
-    
 }
