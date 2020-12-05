@@ -39,18 +39,6 @@ int query(string str)
 
 int main()
 {
-    // int n = 2;
-    // while (n--)
-    // {
-    //     string op, str;
-    //     cin >> op >> str;
-    //     // char op[2] = "I";
-    //     // scanf("%s%s", op, str);
-    //     if (op == "I")
-    //         insert(str);
-    //     else
-    //         printf("%d\n", query(str));
-    // }
 
     string op, str;
     op = "I", str = "abab";
@@ -61,9 +49,11 @@ int main()
     else
         printf("%d\n", query(str));
 
-    op = "I", str = "bac";
+    op = "I", str = "ab";
     if (op == "I")
         insert(str);
     else
         printf("%d\n", query(str));
-}
+    
+    printf("%d\n", query(str));
+}   
