@@ -61,7 +61,7 @@ int main()
     else
         printf("%d\n", query(str));
 
-    op = "q", str = "bac";
+    op = "I", str = "bac";
     if (op == "I")
         insert(str);
     else
