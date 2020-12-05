@@ -8,12 +8,12 @@ const int N = 100010;
  * */
 
 int son[N][26], cnt[N], idx; // 下标是0，是根节点也是空节点
-char str[N];
+// char str[N];
 
-void insert(char *str)
+void insert(string str)
 {
     int p = 0;
-    for (int i = 0; str[i]; i++)
+    for (int i = 0; i < str.size(); i++)
     {
         int u = str[i] - 'a';
         if (!son[p][u])
@@ -24,10 +24,10 @@ void insert(char *str)
     cnt[p]++;
 }
 
-int query(char *str)
+int query(string str)
 {
     int p = 0;
-    for (int i = 0; str[i]; i++)
+    for (int i = 0; i < str.size(); i++)
     {
         int u = str[i] - 'a';
         if (!son[p][u])
@@ -37,31 +37,33 @@ int query(char *str)
     return cnt[p];
 }
 
-// int main()
-// {
-//     int n;
-//     cin>>n;
-//     while(n--)
-//     {
-//         char op[2];
-//         scanf("%s%s", op, str);
-//         if(op[0]=='I') insert(str);
-//         else printf("%d\n",query(str));
-//     }
-// }
-
 int main()
 {
-    // char op[1];
-    char str[] = {"hello i am"};
-    char str1[] = "hello i am";
-    printf("%d, ", sizeof(str));
-    printf("%d", sizeof(str1));
-    // scanf("%s", op);
-    // cout << "op[0] is: " << op[0] << endl;
-    // // for (int i = 0; i < 2; i++)
-    // // {
-    // //     cout << op[0] << " ";
-    // // }
-    cout << endl;
+    // int n = 2;
+    // while (n--)
+    // {
+    //     string op, str;
+    //     cin >> op >> str;
+    //     // char op[2] = "I";
+    //     // scanf("%s%s", op, str);
+    //     if (op == "I")
+    //         insert(str);
+    //     else
+    //         printf("%d\n", query(str));
+    // }
+
+    string op, str;
+    op = "I", str = "abab";
+    // char op[2] = "I";
+    // scanf("%s%s", op, str);
+    if (op == "I")
+        insert(str);
+    else
+        printf("%d\n", query(str));
+
+    op = "q", str = "bac";
+    if (op == "I")
+        insert(str);
+    else
+        printf("%d\n", query(str));
 }
