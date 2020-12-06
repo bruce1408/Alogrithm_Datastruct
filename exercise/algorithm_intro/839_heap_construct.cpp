@@ -8,6 +8,7 @@ int h[N], cnt, ph[N], hp[N];
 
 void heap_swap(int i, int j)
 {
+    swap(ph[hp[i]], ph[hp[j]]);
     swap(h[i], h[j]);
 }
 void down(int index)
