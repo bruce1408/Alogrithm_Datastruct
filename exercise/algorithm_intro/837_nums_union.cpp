@@ -1,12 +1,15 @@
 #include <iostream>
 using namespace std;
 
+/**
+ * 使用并查集来做集合的个数
+*/
 const int N = 1000010;
 int p[N], se[N]; //size表示集合的大小
 
 int find(int x)
 {
-    // 这里就是包含了路径压缩的算法
+    // 这里就是使用路径压缩算法来做
     if (x != p[x])
         p[x] = find(p[x]);
     return p[x];
@@ -19,14 +22,15 @@ int main()
     for (int i = 1; i <= n; i++)
     {
         p[i] = i;
+        se[i] = 1;
     }
 
     while (m--)
     {
-        int op;
+        string op;
         cin >> op;
         int x1, x2;
-        if (op == 1)
+        if (op == "C")
         {
             cin >> x1 >> x2;
             // x1 = find(x1), x2 = find(x2);
