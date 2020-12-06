@@ -9,8 +9,9 @@ int h[N], cnt, ph[N], hp[N];
 void heap_swap(int i, int j)
 {
     swap(ph[hp[i]], ph[hp[j]]);
+    swap(hp[i], hp[b]);
     swap(h[i], h[j]);
-    
+
 }
 void down(int index)
 {
@@ -20,15 +21,23 @@ void down(int index)
     if(2 * index + 1 <= se && h[2*index+1] < h[t]) t = 2 * index+1;
     if(index != t) 
     {
-        swap(h[t], h[index]);
+        swap_heap(t, index);
         down(t);
     }
 }
 
+void up(int index)
+{
+    while(index / 2 && h[index] > h[index/2])
+    {
+        heap_swap(index, index/2);
+        index /= 2;
+    }
+}
 int main()
 {
     int n, m = 0;
-    cin>>n>>m;
+    cin>>n;
     while(n--)
     {
         string s;
