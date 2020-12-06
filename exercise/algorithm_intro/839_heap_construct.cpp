@@ -24,7 +24,6 @@ int main()
 {
     int n, m = 0;
     cin>>n>>m;
-
     while(n--)
     {
         string s;
