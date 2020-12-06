@@ -19,15 +19,14 @@ int main()
     for (int i = 1; i <= n; i++)
     {
         p[i] = i;
-        se[i] = 1;
     }
 
     while (m--)
     {
-        string op;
+        int op;
         cin >> op;
         int x1, x2;
-        if (op == "C")
+        if (op == 1)
         {
             cin >> x1 >> x2;
             // x1 = find(x1), x2 = find(x2);
