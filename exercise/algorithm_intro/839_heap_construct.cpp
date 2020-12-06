@@ -6,6 +6,10 @@ using namespace std;
 const int N = 100010;
 int h[N], cnt, ph[N], hp[N];
 
+void heap_swap(int i, int j)
+{
+    swap(h[i], h[j]);
+}
 void down(int index)
 {
     int t = index;
@@ -17,7 +21,6 @@ void down(int index)
         swap(h[t], h[index]);
         down(t);
     }
-    
 }
 
 int main()
