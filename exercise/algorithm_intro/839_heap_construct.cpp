@@ -33,7 +33,7 @@ int main()
         {
             cnt++;
             m++;
-
+            ph[m] = cnt, hp[cnt] = m;
             h[cnt] = x;
             up(cnt);
         }
