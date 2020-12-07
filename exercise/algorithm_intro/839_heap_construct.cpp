@@ -6,6 +6,7 @@ using namespace std;
 const int N = 100010;
 int h[N], cnt, ph[N], hp[N];
 /**
+ * 839 模拟堆，使用down 和 up操作
  * 这里构造堆的情况加入了一个复杂的操作，
  * 就是第k个数插入和删除，这里就需要记录，类似链表一样，记录第k个数
  * hp表示堆到索引的转换，ph表示索引到堆的转换
@@ -19,7 +20,6 @@ void heap_swap(int i, int j)
 void down(int index)
 {
     int t = index;
-
     if (2 * index <= cnt && h[2 * index] < h[t])
         t = 2 * index;
     if (2 * index + 1 <= cnt && h[2 * index + 1] < h[t])
@@ -33,7 +33,7 @@ void down(int index)
 
 void up(int index)
 {
-    while (index / 2 && h[index] > h[index / 2])
+    while (index / 2 && h[index] < h[index / 2])
     {
         heap_swap(index, index / 2);
         index /= 2;
