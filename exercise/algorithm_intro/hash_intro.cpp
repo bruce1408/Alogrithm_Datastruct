@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-int main()
+void prime()
 {
     for(int i = 100000;;i++)
     {
@@ -20,4 +20,18 @@ int main()
             break;
         }
     }
+    while(1)
+    {
+        int n;
+        cout<<"input a num:"<<endl;
+        cin>>n;
+        cout<<n%3<<endl;
+    }
 } 
+
+
+int main()
+{
+    prime();
+}
+  
