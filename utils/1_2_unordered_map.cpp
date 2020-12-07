@@ -134,7 +134,7 @@ void mapexample3()
 }
 
 /**
- * 数据的插入--第四种：使用insert函数，使用数组的形式
+ * 数据的插入--第四种：使用数组的形式
 */
 void mapexample4()
 {
