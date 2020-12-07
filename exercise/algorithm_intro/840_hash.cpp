@@ -5,37 +5,48 @@ using namespace std;
 /**
  * 开放寻址法来模拟哈希表
  * 只开了一个一维数组，长度是2-3倍的数据范围
- * 
+ * null 表示数组的这个数是空的，不在数据范围即可 
 */
 const int N = 200003, null = 0x3f3f3f3f;
 int h[N];
+
+/**
+ * 方法 1，find函数，首先对x进行存储，看h所在下标是不是不为空，且有其他值，那么
+ * 就往后看，如果看到最后一个数了，那么这个时候从头开始看，是不是有空位可以插进去
+ * 最后返回插入的位置，所以find函数，当这个数字存在，返回下标，当这个数字不存在，返回
+ * 插入的位置；
+*/
 int find(int x)
 {
     int t = (x % N + N) % N;
     while (h[t] != null && h[t] != x)
     {
-        t ++ ;
-        if (t == N) t = 0;
+        t++;
+        if (t == N)
+            t = 0;
     }
     return t;
 }
 
 int main()
 {
-    memset(h, 0x3f, sizeof h);
+    memset(h, 0x3f, sizeof h); // 初始化所有数字为一个特殊字
     int n;
     scanf("%d", &n);
 
-    while (n -- )
+    while (n--)
     {
         char op[2];
         int x;
         scanf("%s%d", op, &x);
-        if (*op == 'I') h[find(x)] = x;
+        if (*op == 'I')
+            h[find(x)] = x;
         else
         {
-            if (h[find(x)] == null) puts("No");
-            else puts("Yes");
+            if (h[find(x)] == null)
+                puts("No");
+            else
+                puts("Yes");
         }
     }
     return 0;
