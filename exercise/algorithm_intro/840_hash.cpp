@@ -2,10 +2,11 @@
 #include <vector>
 using namespace std;
 
+/**
+ * 开放寻址法来模拟哈希表
+*/
 const int N = 200003, null = 0x3f3f3f3f;
-
 int h[N];
-
 int find(int x)
 {
     int t = (x % N + N) % N;
