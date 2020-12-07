@@ -4,6 +4,8 @@ using namespace std;
 
 /**
  * 开放寻址法来模拟哈希表
+ * 只开了一个一维数组，长度是2-3倍的数据范围
+ * 
 */
 const int N = 200003, null = 0x3f3f3f3f;
 int h[N];
@@ -21,7 +23,6 @@ int find(int x)
 int main()
 {
     memset(h, 0x3f, sizeof h);
-
     int n;
     scanf("%d", &n);
 
@@ -37,7 +38,6 @@ int main()
             else puts("Yes");
         }
     }
-
     return 0;
 }
 
