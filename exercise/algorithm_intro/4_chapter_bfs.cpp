@@ -2,7 +2,10 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
+/**
+ * 图的遍历
+ * 使用深度优先遍历 和 宽度优先遍历
+*/
 int n;
 const int N = 100010, M = N * 2;
 int h[N], value[N], ne[N], idx;
