@@ -9,15 +9,15 @@ using namespace std;
  * 使用BFS算法来做，最短路径只有在权重为1的情况下可以使用BFS
  * 
 */
-
 typedef pair<int, int> PII;
 const int N = 110;
 int n, m;
 int path[N][N]; // 保存的是整个地图
-int d[N][N];    // 保存的是距离
+int d[N][N];    // 保存的是距离长度
 PII q[N * N];
+PII rute[N][N];
 
-int bfs(vector<vector<int>> &d)
+int bfs(vector<vector<int>> &d, vector<vector<int>>&rute1)
 {
     // 上右下左四个点的坐标
     vector<int> dx = {-1, 0, 1, 0};
@@ -25,7 +25,7 @@ int bfs(vector<vector<int>> &d)
     int head = -1, rear = -1;
     q[0] = {0, 0};
     d[0][0] = 0;
-    while (head != rear)
+    while (head <= rear)
     {
         auto t = q[head++]; // 取出队头
         for (int i = 0; i < 4; i++)
@@ -33,11 +33,22 @@ int bfs(vector<vector<int>> &d)
             int x = t.first + dx[i], y = t.second + dy[i];
             if (x >= 0 && x < n && y >= 0 && y < m && path[x][y] != 1 && d[x][y] == -1)
             {
+                // cout<<x<<" "<<y<<endl;
                 d[x][y] = d[t.first][t.second] + 1;
                 q[++rear] = {x, y}; // 入队
+                rute1.push_back({t.first, t.second});
+                rute[x][y] = t;
             }
         }
     }
+    int x = n-1, y = m-1;
+    while(x || y)
+    {
+        cout<<x<<" "<<y<<endl;
+        auto t = rute[x][y];
+        x = t.first, y = t.second;
+    }
+    
     return d[n - 1][m - 1];
 }
 int main()
@@ -55,5 +66,7 @@ int main()
      * 如果走过了，就这个点的坐标+1，最后输出的是最后右下角点的值，即路径长度
      * */
     vector<vector<int>> dis(N, vector<int>(N, -1));
-    cout << bfs(dis) << endl;
+    vector<vector<int>> rute1;
+    cout << bfs(dis, rute1) << endl;
+    
 }
