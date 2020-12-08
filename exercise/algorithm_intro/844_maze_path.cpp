@@ -15,9 +15,9 @@ int n, m;
 int path[N][N]; // 保存的是整个地图
 int d[N][N];    // 保存的是距离长度
 PII q[N * N];
-PII rute[N][N];
+PII rute[N][N]; // 路径保存
 
-int bfs(vector<vector<int>> &d, vector<vector<int>>&rute1)
+int bfs(vector<vector<int>> &d)
 {
     // 上右下左四个点的坐标
     vector<int> dx = {-1, 0, 1, 0};
@@ -36,19 +36,19 @@ int bfs(vector<vector<int>> &d, vector<vector<int>>&rute1)
                 // cout<<x<<" "<<y<<endl;
                 d[x][y] = d[t.first][t.second] + 1;
                 q[++rear] = {x, y}; // 入队
-                rute1.push_back({t.first, t.second});
                 rute[x][y] = t;
             }
         }
     }
-    int x = n-1, y = m-1;
-    while(x || y)
+    // 打印最短路径部分
+    int x = n - 1, y = m - 1;
+    while (x || y)
     {
-        cout<<x<<" "<<y<<endl;
+        cout << x << " " << y << endl;
         auto t = rute[x][y];
         x = t.first, y = t.second;
     }
-    
+
     return d[n - 1][m - 1];
 }
 int main()
@@ -66,7 +66,5 @@ int main()
      * 如果走过了，就这个点的坐标+1，最后输出的是最后右下角点的值，即路径长度
      * */
     vector<vector<int>> dis(N, vector<int>(N, -1));
-    vector<vector<int>> rute1;
-    cout << bfs(dis, rute1) << endl;
-    
+    cout << bfs(dis) << endl;
 }
