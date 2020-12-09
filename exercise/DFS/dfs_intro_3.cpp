@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-int n, maxValue;
+int n, maxValue, x, k;
 const int N = 100010;
 int nums[N], visited[N];
 /**
@@ -17,7 +17,7 @@ void dfs()
 
 int main()
 {
-    cin>>n;
+    cin>>n>>k>>x;
     for(int i=0;i<n;i++)
         cin>>nums[i];
     dfs(0, );
