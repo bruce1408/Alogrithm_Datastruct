@@ -24,31 +24,31 @@ using namespace std;
 int n;
 const int N = 20;
 char g[N][N];
-bool col[N], dg[N], udg[N];
+// bool col[N], dg[N], udg[N];
 
-void dfs(int u)
-{
-    // u == n 表示已经搜了n行，故输出这条路径
-    if (u == n)
-    {
-        for (int i = 0; i < n; i++)
-            puts(g[i]); // 等价于cout << g[i] << endl;
-        puts("");       // 换行
-        return;
-    }
-    //对n个位置按行搜索
-    for (int i = 0; i < n; i++)
-        // 剪枝(对于不满足要求的点，不再继续往下搜索)              udg[n - u + i]，+n是为了保证大于0
-        if (!col[i] && !dg[u + i] && !udg[n - u + i])
-        {
-            g[u][i] = 'Q';
-            col[i] = dg[u + i] = udg[n - u + i] = true;
-            dfs(u + 1);
-            // 恢复现场 这步很关键
-            col[i] = dg[u + i] = udg[n - u + i] = false;
-            g[u][i] = '.';
-        }
-}
+// void dfs(int u)
+// {
+//     // u == n 表示已经搜了n行，故输出这条路径
+//     if (u == n)
+//     {
+//         for (int i = 0; i < n; i++)
+//             puts(g[i]); // 等价于cout << g[i] << endl;
+//         puts("");       // 换行
+//         return;
+//     }
+//     //对n个位置按行搜索
+//     for (int i = 0; i < n; i++)
+//         // 剪枝(对于不满足要求的点，不再继续往下搜索)              udg[n - u + i]，+n是为了保证大于0
+//         if (!col[i] && !dg[u + i] && !udg[n - u + i])
+//         {
+//             g[u][i] = 'Q';
+//             col[i] = dg[u + i] = udg[n - u + i] = true;
+//             dfs(u + 1);
+//             // 恢复现场 这步很关键
+//             col[i] = dg[u + i] = udg[n - u + i] = false;
+//             g[u][i] = '.';
+//         }
+// }
 
 /**
  * 定义纵坐标为y轴，横坐标为x轴，u是每一层的状态，
@@ -59,9 +59,9 @@ void dfs(int u)
 */
 bool row[N], col[N], dg[N * 2], udg[N * 2];
 
-void dfs2(int x, int y, int s)
+void dfs2(int x, int y, int index)
 {
-    if (s > n)
+    if (index > n)
         return;
     if (y == n) // 每一行的最后一列搜索完毕，开始下一行
     {
@@ -70,7 +70,7 @@ void dfs2(int x, int y, int s)
     }
     if (x == n) // 最后一行搜索完毕
     {
-        if (s == n)
+        if (index == n)
         {
             for (int i = 0; i < n; i++)
             {
@@ -84,14 +84,14 @@ void dfs2(int x, int y, int s)
     }
     // 不放皇后，继续下一层遍历
     g[x][y] = '.';
-    dfs2(x, y + 1, s);
+    dfs2(x, y + 1, index);
 
     // 满足条件的话这位置是可以放皇后
     if (!row[x] && !col[y] && !dg[x + y] && !udg[x - y + n])
     {
         g[x][y] = 'Q';
         row[x] = col[y] = dg[x + y] = udg[x - y + n] = true;
-        dfs2(x, y + 1, s + 1);
+        dfs2(x, y + 1, index + 1);
         row[x] = col[y] = dg[x + y] = udg[x - y + n] = false;
         g[x][y] = '.';
     }
@@ -104,6 +104,6 @@ int main()
         for (int j = 0; j < n; j++)
             g[i][j] = '.';
 
-    dfs(0);
+    dfs2(0, 0, 0);
     return 0;
 }
