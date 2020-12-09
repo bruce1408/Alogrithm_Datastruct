@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * 数的排列，使用深度优先搜索来做
+ * 给定一个数字n，然后求这个数字的全排列，使用深度优先搜索来做
  * 
  * 此题中dfs表示的含义是：求出从第u行到最后一行的所有path。
  * dfs的求法：根据通项公式的含义，假设已知第u+1行到最后一行的所有path，
@@ -43,6 +43,7 @@ void dfs(int u)
 }
 
 /**
+ * 物品价格的最大值：
  * 输入长度为n的数组表示有n个物品，然后每个物品分别对应它的价格和重量
  * 这里设置两个数组，一个表示物品的重量，还有一个表示物品的价格
  * 最后找出不超过给定重量的最大价格；
@@ -100,15 +101,14 @@ void dfs2(int index, int sumW, int sumC)
 {
     if (index == n1)
     {
-        return;
+        return; // 已经完成了对n件物品的选择
     }
-    dfs1(index + 1, sumW, sumC);
-    if (sumW + w[index] <= V)
+    dfs1(index + 1, sumW, sumC); // 不选第index物品
+    // 只有加入index物品之后没有查过限定重量，才可以继续
+    if (sumW + w[index] <= V && sumC + c[index] > ans)
     {
-        if (sumC + c[index] > ans)
-        {
-            ans = sumC + c[index];
-        }
+        ans = sumC + c[index]; // 更新最大的价值
+        // 选择第index+1件商品
         dfs1(index + 1, sumW + w[index], sumC + c[index]);
     }
 }
@@ -120,7 +120,6 @@ int main()
     // 输入物品件数以及背包容量
     // cin >> n1 >> V;
     n1 = 5, V = 8;
-
     dfs2(0, 0, 0);
     printf("%d\n", maxValue);
 }
