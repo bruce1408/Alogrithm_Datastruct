@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+using namespace std;
+
 int n, maxValue, x, k, ans;
 const int N = 100010;
 int visited[N];
@@ -18,16 +20,18 @@ void dfs(int index, int newK, int sum, int sum2)
     dfs(index + 1, newK, sum, sum2);
     if (sum < x)
     {
-        for(int i=index;i<n-1;i++)
+        for (int i = index; i < n - 1; i++)
         {
-            if(sum + nums[i]==x)
+            if (sum + nums[i] == x)
             {
-                ans = max(ans, sum2+ nums[i]*nums[i]);
-                dfs(i，newK+1, sum+nums[i], sum2+nums[i]*nums[i]);
+                ans = max(ans, sum2 + nums[i] * nums[i]);
+                dfs(i, newK + 1, sum + nums[i], sum2 + nums[i] * nums[i]);
             }
-            // dfs(index + 1, newK + 1, sum + nums[i], sum2 + nums[i] * nums[i]);
+            else
+            {
+                dfs(i + 1, newK + 1, sum + nums[i], sum2 + nums[i] * nums[i]);
+            }
         }
-        
     }
 }
 
@@ -38,4 +42,5 @@ int main()
     //     cin>>nums[i];
     n = 4;
     dfs(0, 0, 0, 0);
+    cout << ans << endl;
 }
