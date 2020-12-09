@@ -1,8 +1,7 @@
-#include<iostream>
-#include<vector>
-#include<cstring>
+#include <iostream>
+#include <vector>
+#include <cstring>
 using namespace std;
-
 
 /**
  * 拓扑序列：
@@ -18,7 +17,7 @@ using namespace std;
  * 然后接着进行宽搜的类型； 
 */
 
-const int N  = 100010;
+const int N = 100010;
 int n, m;
 int h[N], e[N], ne[N];
 int q[N], d[N], idx;
@@ -27,54 +26,55 @@ void add(int a, int b)
 {
     e[idx] = b;
     ne[idx] = h[a];
-    h[a] = idx; 
+    h[a] = idx;
     idx++;
 }
 
 bool topsort()
 {
     int head = 0, rear = -1;
-    for(int i=1;i<=n;i++)
+    for (int i = 1; i <= n; i++)
     {
-        if(!d[i])
+        if (!d[i])
         {
             q[++rear] = i;
         }
     }
-    while(head<=rear)
+    while (head <= rear)
     {
         int t = q[head++];
-        for(int i= h[t];i!=-1;i=ne[i])
+        for (int i = h[t]; i != -1; i = ne[i])
         {
             int j = e[i];
             d[j]--;
-            if(d[j]==0)
+            if (d[j] == 0)
             {
                 q[++rear] = j;
             }
         }
     }
-    return rear == n-1;
+    return rear == n - 1;
 }
 
 int main()
 {
-    cin>>n>>m;
+    cin >> n >> m;
     memset(h, -1, sizeof h);
-    for(int i=0;i<m;i++)
+    for (int i = 0; i < m; i++)
     {
         int a, b;
-        cin>>a>>b;
+        cin >> a >> b;
         add(a, b);
         d[b]++; // 入度+1
     }
-    if(topsort())
+    if (topsort())
     {
-        for(int i=0; i<n; i++)
+        for (int i = 0; i < n; i++)
         {
-            cout<<q[i]<<" ";
+            cout << q[i] << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
-    else cout<<-1<<endl;
+    else
+        cout << -1 << endl;
 }
