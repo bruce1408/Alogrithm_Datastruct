@@ -125,8 +125,25 @@ void intersect()
 
 int main()
 {
-    exampleSet1();
-    exampleSet2();
-    exampleSet3();
-    intersect();
+    // exampleSet1();
+    // exampleSet2();
+    // exampleSet3();
+    // intersect();
+
+    vector<int> r1 = {1, 2, 3};
+    vector<int> r2 = {2, 3, 4};
+    vector<int> r3 = {1, 2, 3};
+    set<vector<int>> res;
+    res.insert(r1);
+    res.insert(r2);
+    res.insert(r3);
+    vector<vector<int>> temp(res.begin(), res.end());
+    for (auto i : temp)
+    {
+        for (auto x : i)
+        {
+            cout << x << " ";
+        }
+        cout << endl;
+    }
 }

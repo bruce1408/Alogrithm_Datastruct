@@ -1,26 +1,25 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <set>
 using namespace std;
-
 /**
- * Given an array nums of distinct integers, 
- * return all the possible permutations. 
- * You can return the answer in any order.
+ * 47 permutation
+ * Given a collection of numbers, nums, 
+ * that might contain duplicates, 
+ * return all possible unique permutations in any order.
  * 
  * Example 1:
+ * Input: nums = [1,1,2]
+ * Output:
+ * [[1,1,2],
+ *  [1,2,1],
+ *  [2,1,1]]
+ * Example 2:
  * Input: nums = [1,2,3]
  * Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
- * Example 2:
- * Input: nums = [0,1]
- * Output: [[0,1],[1,0]]
- * Example 3:
- * Input: nums = [1]
- * Output: [[1]]
- * 
- * 给一个数组，数字互不相同，求这组数的全排列，这里主要负数
+ * 这里数组里面可能包含重复元素
 */
-
 void dfsLeetcode(int index, vector<int> &path, vector<bool> &visited, vector<int> &nums, vector<vector<int>> &temp)
 {
     int len = nums.size();
@@ -56,12 +55,14 @@ vector<vector<int>> permute(vector<int> &nums)
     vector<int> path(n, 0);
     vector<bool> visited(n, false);
     dfsLeetcode(0, path, visited, nums, temp);
-    return temp;
+    set<vector<int>> res(temp.begin(), temp.end());
+    vector<vector<int>> s(res.begin(), res.end());
+    return s;
 }
 
 int main()
 {
-    vector<int> ans = {0, -1, 1};
+    vector<int> ans = {1, 1, 2};
 
     for (auto i : permute(ans))
     {
