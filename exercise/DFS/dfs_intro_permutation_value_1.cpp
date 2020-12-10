@@ -112,14 +112,33 @@ void dfs2(int index, int sumW, int sumC)
         dfs1(index + 1, sumW + w[index], sumC + c[index]);
     }
 }
+// int main()
+// {
+//     // cin >> n;
+//     // n = 3;
+//     // dfs(0);
+//     // 输入物品件数以及背包容量
+//     // cin >> n1 >> V;
+//     n1 = 5, V = 8;
+//     dfs2(0, 0, 0);
+//     printf("%d\n", maxValue);
+// }
+
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+
 int main()
 {
-    // cin >> n;
-    // n = 3;
-    // dfs(0);
-    // 输入物品件数以及背包容量
-    // cin >> n1 >> V;
-    n1 = 5, V = 8;
-    dfs2(0, 0, 0);
-    printf("%d\n", maxValue);
+    double a, b, c;
+    cin >> a >> b >> c;
+    if (a == 0)
+        return 1;
+    double x = sqrt(b * b - a * c * 4);
+    if (x <= 0)
+        return 1;
+    double x1 = (-b + x) / (2 * a);
+    double x2 = (-b - x) / (2 * a);
+    printf("r1=%7.2f\nr2=%7.2f", x1, x2);
 }
