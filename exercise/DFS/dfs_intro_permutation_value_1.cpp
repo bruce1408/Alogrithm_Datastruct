@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+
 using namespace std;
 /**
  * 给定一个数字n，然后求这个数字的全排列，使用深度优先搜索来做
@@ -111,33 +112,18 @@ void dfs2(int index, int sumW, int sumC)
         dfs1(index + 1, sumW + w[index], sumC + c[index]);
     }
 }
-// int main()
-// {
-//     // cin >> n;
-//     // n = 3;
-//     // dfs(0);
-//     // 输入物品件数以及背包容量
-//     // cin >> n1 >> V;
-//     n1 = 5, V = 8;
-//     dfs2(0, 0, 0);
-//     printf("%d\n", maxValue);
-// }
-
-#include <iostream>
-#include <string>
-#include <cmath>
-using namespace std;
 
 int main()
 {
-    double a, b, c;
-    cin >> a >> b >> c;
-    if (a == 0)
-        return 1;
-    double x = sqrt(b * b - a * c * 4);
-    if (x <= 0)
-        return 1;
-    double x1 = (-b + x) / (2 * a);
-    double x2 = (-b - x) / (2 * a);
-    printf("r1=%7.2f\nr2=%7.2f", x1, x2);
+    // 题目一，求解排列问题
+    cout << "请输入一个数字：n" << endl;
+    cin >> n;
+    // n = 3;
+    dfs(0, 0);
+    // 题目二，求解背包问题
+    // 输入物品件数以及背包容量
+    // cin >> n1 >> V;
+    // n1 = 5, V = 8;
+    // dfs2(0, 0, 0);
+    // printf("%d\n", maxValue);
 }

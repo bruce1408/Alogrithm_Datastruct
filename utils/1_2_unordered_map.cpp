@@ -140,7 +140,7 @@ void mapexample4()
 {
     cout<<"====== mapexample4(): ======"<<endl;
     map<int, string> mapStudent;  
-    mapStudent[1] = "student_one";  
+    mapStudent[-1] = "student_one";  
     mapStudent[2] = "student_two";  
     mapStudent[3] = "student_three";  
     map<int, string>::iterator iter;  
