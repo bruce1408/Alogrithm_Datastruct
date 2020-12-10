@@ -106,7 +106,22 @@ int visited[N], s[N];
 */
 void dfs3(int u)
 {
-    if(u==
+    if(u==n)
+    {
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++) cout<<path[i][j];
+            cout<<endl;
+        }
+        cout<<endl;
+        return ;
+    }
+
+    
+    
+    
+
+
 }
 int main()
 {
