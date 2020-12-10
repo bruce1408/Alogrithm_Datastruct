@@ -32,7 +32,6 @@ int bfs()
         q.pop();
         if (t.x == T.x && t.y == T.y)
         {
-            cout << t.step << endl;
             return t.step;
         }
 
@@ -40,6 +39,7 @@ int bfs()
         {
             int newx = t.x + dx[i];
             int newy = t.y + dy[i];
+            // 注意这里不等于*，判断条件不能改成==".",这样会走不到终点T的
             if (newx >= 0 && newx < n && newy >= 0 && newy < m && path[newx][newy] != "*" && visited[newx][newy] == false)
             {
                 visited[newx][newy] = true;
