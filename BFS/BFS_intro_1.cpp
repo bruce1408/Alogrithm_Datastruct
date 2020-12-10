@@ -21,7 +21,7 @@ using namespace std;
  * 求数组中的块的大小
 */
 const int N = 110;
-int n, m, ans, path[N][N];
+int n, m, ans, res, path[N][N];
 bool visited[N][N];
 typedef pair<int, int> PII; // 表示点的坐标，可以用结构体，也可以用pair来表示
 
@@ -43,6 +43,7 @@ void bfs(int x, int y)
             {
                 q.push({newx, newy});
                 visited[newx][newy] = true;
+                res++;
             }
         }
     }
@@ -69,5 +70,6 @@ int main()
             }
         }
     }
+    // cout << res << endl;
     cout << ans << endl;
 }
