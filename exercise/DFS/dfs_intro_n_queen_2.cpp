@@ -99,7 +99,7 @@ using namespace std;
 
 const int N = 20;
 int n;
-int visited[N], s[N]; 
+int visited[N], col[N], ; 
 /**
  * 假设遍历每一列，这里只考虑列，然后行不用考虑
  * 认为行就是每一行只能放一个元素，所以考虑列就好了
@@ -117,7 +117,15 @@ void dfs3(int u)
         return ;
     }
 
-    
+    for(int i=0;i<n;i++)
+    {
+        if(!visited[i] && !col[i] &&)
+        {
+            
+        }
+    }
+
+
     
     
 
