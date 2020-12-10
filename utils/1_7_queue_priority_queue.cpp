@@ -41,12 +41,12 @@ void print(queue<int> gq)
 
 void print(priority_queue<int> q)
 {
-    while(!q.empty())
-    {
-        cout<<q.top()<<" ";
-        q.pop();
-    }
-    cout<<endl;
+	while (!q.empty())
+	{
+		cout << q.top() << " ";
+		q.pop();
+	}
+	cout << endl;
 }
 
 /**
@@ -112,7 +112,6 @@ struct cmp1 // 重写仿生函数
 	}
 };
 
-
 /**
  * 优先队列基本使用，定义结构，使用运算符重载,自定义优先级1
 */
@@ -138,7 +137,7 @@ struct cmp3
 struct number1
 {
 	int x;
-	bool operator<(const number1 & a) const
+	bool operator<(const number1 &a) const
 	{
 		return x > a.x; //最小值优先
 	}
@@ -179,8 +178,10 @@ void priority_queue_example()
 		que4.push(a[i]);
 	}
 
-	for (i = 0; num1[i].x; i++) que5.push(num1[i]);
-	for (i = 0; num2[i].x; i++) que6.push(num2[i]);
+	for (i = 0; num1[i].x; i++)
+		que5.push(num1[i]);
+	for (i = 0; num2[i].x; i++)
+		que6.push(num2[i]);
 
 	printf("采用默认优先关系:\n(priority_queue<int>que;)\n");
 	printf("Queue 0:\n");
@@ -240,20 +241,54 @@ void priority_queue_example()
 	puts("");
 }
 
+/**
+ * queue 修改队列的元素，如果修改的是原元素，那么不会修改队列中的元素，具体例子如下：
+ * */
+struct node
+{
+	int data;
+} a[10];
+
+void modifyValue()
+{
+	queue<node> q;
+	for (int i = 1; i <= 3; i++)
+	{
+		a[i].data = i;
+		q.push(a[i]);
+	}
+	q.front().data = 100;											   // 队首元素改为100，但是对原元素修改不会影响队列的副本
+	cout << a[1].data << " " << a[2].data << " " << a[3].data << endl; // 还是 1, 2, 3
+	a[1].data = 200;
+	cout << q.front().data << endl; // 对原元素的修改也无法改变队列中的元素 100;
+}
+
+void modifyValue1()
+{
+	queue<int> q;
+	for (int i = 1; i <= 3; i++)
+	{
+		a[i].data = i;
+		q.push(i); // q 存放的是数组元素的下标
+	}
+	a[q.front()].data = 100;
+	cout << a[1].data << endl; // 对原元素的修改也无法改变队列中的元素 100;
+}
 
 int main()
 {
 	priority_queue<Node, vector<Node>, cmp1> p;
 	for (int i = 0; i < 10; ++i)
-		p.push(Node(10 - i, i*10));
+		p.push(Node(10 - i, i * 10));
 
 	while (!p.empty())
 	{
 		cout << p.top().x << ' ' << p.top().y << endl;
 		p.pop();
 	}
-	coutBigNum();
-	coutSmallNum();
-	priority_queue_example();
+	// coutBigNum();
+	// coutSmallNum();
+	// priority_queue_example();
+	modifyValue1();
 	return 0;
 }

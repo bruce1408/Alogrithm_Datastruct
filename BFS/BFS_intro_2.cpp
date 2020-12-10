@@ -3,22 +3,26 @@
 using namespace std;
 
 const int N = 110;
-int n, m, ans;
+int n, m;
 vector<vector<string>> path = {
     {".", ".", ".", ".", "."},
     {".", "*", ".", "*", "."},
     {".", "*", "S", "*", "."},
     {".", "*", "*", "*", "."},
     {".", ".", ".", "T", "."}};
+/**
+ * visited 表示的是节点是否已经入过队，而不是被访问，如果被访问的话，那么可能某个节点正在队列中
+ * 但还未访问，这样可能由于其他节点可以到达它而将这个节点再次入队，导致反复入队，计算量大增。因此bfs每个节点只能入队一次
+ * 所以需要判断visited数组，看节点是否已入过队而非节点被访问；
+ * */
 bool visited[N][N];
-typedef pair<int, int> PII;
 struct node
 {
     int x, y;
     int step;
-} S, T, Node;
+}; // 也可以接着后面初始化的时候写
 
-// node start, f, res;
+node S, T, Node;
 
 int bfs()
 {
@@ -31,9 +35,7 @@ int bfs()
         node t = q.front(); // 取出队首元素
         q.pop();
         if (t.x == T.x && t.y == T.y)
-        {
             return t.step;
-        }
 
         for (int i = 0; i < 4; i++)
         {
