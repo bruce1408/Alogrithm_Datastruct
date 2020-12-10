@@ -130,13 +130,8 @@ void dfs3(int u)
             g[N][N] = '.';
         }
     }
-
-
-    
-    
-
-
 }
+
 int main()
 {
     cin >> n;
