@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <vector>
 using namespace std;
-
 /**
  * 给定一个数字n，然后求这个数字的全排列，使用深度优先搜索来做
  * 

@@ -16,11 +16,9 @@ vector<int> temp, ans;
 
 void dfs(int index, int newK, int sum, int sum2)
 {
-
     // 如果是超过了k个数，或者处理完了n个数，或者是和超过了x，返回
     if (index == n || newK > k || sum > x)
         return;
-
     // 如果满足条件
     if (newK == k && sum == x)
     {
