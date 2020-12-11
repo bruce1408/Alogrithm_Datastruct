@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include<map>
 using namespace std;
 
 /**
@@ -18,7 +19,7 @@ using namespace std;
  *  /  \
  *  15   7
  * 重构一颗二叉树
- * 给定中序遍历和前序遍历，然后重构一颗二叉树
+ * 给定中序遍历和先序遍历，然后重构一颗二叉树
 */
 
 struct TreeNode
@@ -52,7 +53,7 @@ TreeNode *create(vector<int> &preorder, vector<int> &inorder, int preL, int preR
     TreeNode *root = new TreeNode;
     root->val = preorder[preL]; // preL 即是根节点
     int k;
-    for (k = inL; k < inR; k++)
+    for (k = inL; k <= inR; k++)
     {
         if (inorder[k] == preorder[preL]) // 找到了根节点
         {
@@ -65,7 +66,7 @@ TreeNode *create(vector<int> &preorder, vector<int> &inorder, int preL, int preR
     return root;
 }
 
-TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder)
+TreeNode *buildTree1(vector<int> &preorder, vector<int> &inorder)
 {
     int preL = 0, preR = preorder.size() - 1;
     int inL = 0, inR = inorder.size() - 1;
@@ -75,21 +76,60 @@ TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder)
 /**
  * 方法 2，使用中序遍历和后序遍历重建一颗二叉树
 */
-create1(vector<int>&postorder, vector<int>&inorder, int postL, int postR, int inL, int inR)
+TreeNode *create1(vector<int> &postorder, vector<int> &inorder, int postL, int postR, int inL, int inR)
 {
-
+    if (postL > postR)
+        return nullptr;
+    TreeNode *root = new TreeNode;
+    root->val = postorder[postR];
+    int k;
+    for (k = inL; k <= inR; k++)
+    {
+        if (root->val == inorder[k])
+        {
+            break;
+        }
+    }
+    int numLeft = k - inL;
+    root->left = create1(postorder, inorder, postL, postL + numLeft - 1, inL, k - 1);
+    root->right = create1(postorder, inorder, postL + numLeft, postR - 1, k + 1, inR);
+    return root;
 }
 
-TreeNode *buildTree2(vector<int>postorder, vector<int>&inorder)
+TreeNode *buildTree2(vector<int> postorder, vector<int> &inorder)
 {
-    int postL = 0, postR = postorder.size()-1;
-    inL = 0, inR = inorder.size()-1;
+    int postL = 0, postR = postorder.size() - 1;
+    int inL = 0, inR = inorder.size() - 1;
     return create1(postorder, inorder, postL, postR, inL, inR);
+}
+
+/**
+ * 方法 3，使用
+*/
+TreeNode* helper(vector<int>& preorder, vector<int>& inorder,int prestart,int instart,int inend,unordered_map<int,int> &m)
+{
+    if(instart>inend)
+        return NULL;
+    TreeNode* root=new TreeNode(preorder[prestart]);
+    int index=m[preorder[prestart]];
+    
+    root->left=helper(preorder,inorder,prestart+1,instart,index-1,m);
+    root->right=helper(preorder,inorder,prestart+index-instart+1,index+1,inend,m);
+    
+    return root;
+    
+}
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) 
+{
+    unordered_map<int,int> m;
+    for(int i=0;i<inorder.size(); i++)
+        m[inorder[i]]=i;
+    return helper(preorder,inorder,0,0,inorder.size()-1,m);
 }
 
 int main()
 {
     vector<int> preorder = {3, 9, 20, 15, 7};
     vector<int> inorder = {9, 3, 15, 20, 7};
-    precout(buildTree(preorder, inorder));
+    precout(buildTree1(preorder, inorder));
 }
