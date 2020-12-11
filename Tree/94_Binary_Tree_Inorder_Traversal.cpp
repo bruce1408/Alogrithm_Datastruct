@@ -100,16 +100,17 @@ vector<int> inorderTraversal3_1(TreeNode *root)
 }
 
 /**
- * 方法 3.2, 用栈的方法stack,思路和上面的一摸一样
+ * 方法 3.2, 中序遍历二叉树，用栈的方法stack,思路和上面的一摸一样
  * */
 vector<int> inorderTraversal3_2(TreeNode *root)
 {
 	vector<int> res;
 	stack<TreeNode *> Q;
 	TreeNode *p;
-	if (!root) return {};
+	if (!root)
+		return {};
 	p = root;
-	while (!Q.empty() || p!=NULL)
+	while (!Q.empty() || p != NULL)
 	{
 		while (p)
 		{
@@ -127,6 +128,37 @@ vector<int> inorderTraversal3_2(TreeNode *root)
 	return res;
 }
 
+// 前序遍历
+void preorder_s(TreeNode *root)
+{
+	if (root == nullptr)
+		return;
+	cout << root->val << " ";
+	preorder_s(root->left);
+	preorder_s(root->right);
+}
+
+// 中序遍历
+void inorder_s(TreeNode *root)
+{
+	if (root == nullptr)
+		return;
+
+	inorder_s(root->left);
+	cout << root->val << " ";
+	inorder_s(root->right);
+}
+
+// 后序遍历
+void postorder_s(TreeNode *root)
+{
+	if (root == nullptr)
+		return;
+	postorder_s(root->left);
+	postorder_s(root->right);
+	cout << root->val << " ";
+}
+
 int main()
 {
 	TreeNode *head = new TreeNode(3);
@@ -139,8 +171,14 @@ int main()
 	h2->left = h3;
 	h2->right = h4;
 	vector<int> rest;
-	rest = inorderTraversal3_2(head);
-	for (auto i : rest)
-		cout << i << " ";
-	return 0;
+	// rest = inorderTraversal3_2(head);
+	// for (auto i : rest)
+	// 	cout << i << " ";
+	// return 0;
+
+	preorder_s(head);
+	cout << endl;
+	inorder_s(head);
+	cout << endl;
+	postorder_s(head);
 }
