@@ -8,7 +8,6 @@ using namespace std;
  * 右节点大于根节点
  * 按照二叉树中序遍历的话是一个有序的数组
 */
-
 struct node
 {
     int val;
