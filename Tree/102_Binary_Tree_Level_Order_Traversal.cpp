@@ -81,12 +81,29 @@ public:
 			levelorder(root->right, level + 1, res);
 	}
 };
+
+/**
+ * 使用队列来实现二叉树的中序遍历，对于这道题来说，打印出来的写法显然不够
+ * 还需要装进容器中输出出来
+*/
 void levelOrder_stack(TreeNode *root)
 {
 	if (root == nullptr)
 		return;
 	queue<TreeNode *> q;
+	q.push(root);
+	while (!q.empty())
+	{
+		TreeNode *temp = q.front();
+		q.pop();
+		cout << temp->val << " ";
+		if (temp->left)
+			q.push(temp->left);
+		if (temp->right)
+			q.push(temp->right);
+	}
 }
+
 int main()
 {
 	TreeNode *head = new TreeNode(3);
@@ -98,10 +115,11 @@ int main()
 	head->right = h2;
 	h2->left = h3;
 	h2->right = h4;
-	vector<vector<int>> rest;
-	rest = levelOrder(head);
-	int n = rest.size();
-	cout << n << endl;
+	// vector<vector<int>> rest;
+	// rest = levelOrder(head);
+	// int n = rest.size();
+	// cout << n << endl;
+	levelOrder_stack(head);
 
 	return 0;
 }
