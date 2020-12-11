@@ -84,7 +84,7 @@ vector<vector<int>> levelorder_queue2(TreeNode *root)
 }
 
 /**
- * 方法 3，BFS来做，用到的是队列实现；
+ * 方法 3，BFS来做，用到的是队列实现，是对方法 2的优化
  * */
 vector<vector<int>> levelOrder(TreeNode *root)
 {
