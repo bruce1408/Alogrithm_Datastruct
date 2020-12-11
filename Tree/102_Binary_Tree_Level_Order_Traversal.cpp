@@ -26,68 +26,11 @@ struct TreeNode
 };
 
 /**
- * 方法1：就是层序遍历的思想，用到的是队列，注意，两个循环，一个是判断是否为空，一个是对每一层的个数遍历；
- * */
-vector<vector<int>> levelOrder(TreeNode *root)
-{
-	vector<vector<int>> res;
-	queue<TreeNode *> Q;
-	TreeNode *q;
-
-	if (!root)
-		return {};
-	Q.push(root);
-	while (!Q.empty())
-	{
-		vector<int> temp;
-		int n = Q.size();
-		for (int i = 0; i < n; i++)
-		{
-			q = Q.front();
-			Q.pop();
-			temp.push_back(q->val);
-			if (q->left)
-				Q.push(q->left);
-			if (q->right)
-				Q.push(q->right);
-		}
-		res.push_back(temp);
-	}
-	return res;
-}
-
-/**
- * 方法2：递归
- * */
-class Solution
-{
-public:
-	vector<vector<int>> levelOrder(TreeNode *root)
-	{
-		vector<vector<int>> res;
-		levelorder(root, 0, res);
-		return res;
-	}
-	void levelorder(TreeNode *root, int level, vector<vector<int>> &res)
-	{
-		if (!root)
-			return;
-		if (res.size() == level)
-			res.push_back({});
-		res[level].push_back(root->val);
-		if (root->left)
-			levelorder(root->left, level + 1, res);
-		if (root->right)
-			levelorder(root->right, level + 1, res);
-	}
-};
-
-/**
- * 层序遍历使用BFS的思路来做即可
+ * 方法 1，单纯打印，不要两层循环，层序遍历使用BFS的思路来做即可
  * 使用队列来实现二叉树的层序遍历，对于这道题来说，打印出来的写法显然不够
  * 还需要装进容器中输出出来
 */
-void levelOrder_stack(TreeNode *root)
+void levelOrder_queue1(TreeNode *root)
 {
 	if (root == nullptr)
 		return;
@@ -105,7 +48,10 @@ void levelOrder_stack(TreeNode *root)
 	}
 }
 
-vector<vector<int>> levelorder_queue(TreeNode *root)
+/**
+ * 方法 2，使用两个队列来做，核心就是BFS宽度有限搜索；这里用了两个空间，可以继续优化
+*/
+vector<vector<int>> levelorder_queue2(TreeNode *root)
 {
 	vector<vector<int>> t;
 	queue<TreeNode *> q;
@@ -136,6 +82,65 @@ vector<vector<int>> levelorder_queue(TreeNode *root)
 	}
 	return t;
 }
+
+/**
+ * 方法1：就是层序遍历的思想，用到的是队列，注意，两个循环，一个是判断是否为空，一个是对每一层的个数遍历；
+ * */
+vector<vector<int>> levelOrder(TreeNode *root)
+{
+	vector<vector<int>> res;
+	queue<TreeNode *> Q;
+	TreeNode *q;
+
+	if (!root)
+		return {};
+	Q.push(root);
+	while (!Q.empty())
+	{
+		vector<int> temp;
+		int n = Q.size();
+		while (n--)
+		{
+			q = Q.front();
+			Q.pop();
+			temp.push_back(q->val);
+			if (q->left)
+				Q.push(q->left);
+			if (q->right)
+				Q.push(q->right);
+		}
+		res.push_back(temp);
+	}
+	return res;
+}
+
+/**
+ * 使用dfs来优化
+*/
+class Solution3
+{
+public:
+	vector<vector<int>> ans;
+
+	void dfs(TreeNode *root, int level)
+	{
+		if (!root)
+			return;
+		if (level == ans.size())
+		{
+			ans.push_back({});
+		}
+		ans[level].push_back(root->val);
+		dfs(root->left, level + 1);
+		dfs(root->right, level + 1);
+	}
+	vector<vector<int>> levelOrder(TreeNode *root)
+	{
+		dfs(root, 0);
+
+		return ans;
+	}
+};
 
 int main()
 {
