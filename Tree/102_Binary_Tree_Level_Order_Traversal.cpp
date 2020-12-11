@@ -105,6 +105,38 @@ void levelOrder_stack(TreeNode *root)
 	}
 }
 
+vector<vector<int>> levelorder_queue(TreeNode *root)
+{
+	vector<vector<int>> t;
+	queue<TreeNode *> q;
+	queue<TreeNode *> h;
+	if (root == nullptr)
+		return {};
+	q.push(root);
+	while (!q.empty())
+	{
+		vector<int> res;
+		while (!q.empty())
+		{
+			TreeNode *temp = q.front();
+			res.push_back(temp->val);
+			q.pop();
+			if (temp->left)
+				h.push(temp->left);
+			if (temp->right)
+				h.push(temp->right);
+		}
+		t.push_back(res);
+		while (!h.empty())
+		{
+			TreeNode *temp1 = h.front();
+			q.push(temp1);
+			h.pop();
+		}
+	}
+	return t;
+}
+
 int main()
 {
 	TreeNode *head = new TreeNode(3);
@@ -120,7 +152,15 @@ int main()
 	// rest = levelOrder(head);
 	// int n = rest.size();
 	// cout << n << endl;
-	levelOrder_stack(head);
+	// levelOrder_stack(head);
+	for (auto i : levelorder_queue(head))
+	{
+		for (auto j : i)
+		{
+			cout << j << " ";
+		}
+		cout << endl;
+	}
 
 	return 0;
 }
