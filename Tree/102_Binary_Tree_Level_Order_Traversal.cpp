@@ -84,14 +84,13 @@ vector<vector<int>> levelorder_queue2(TreeNode *root)
 }
 
 /**
- * 方法1：就是层序遍历的思想，用到的是队列，注意，两个循环，一个是判断是否为空，一个是对每一层的个数遍历；
+ * 方法 3，BFS来做，用到的是队列实现；
  * */
 vector<vector<int>> levelOrder(TreeNode *root)
 {
 	vector<vector<int>> res;
 	queue<TreeNode *> Q;
 	TreeNode *q;
-
 	if (!root)
 		return {};
 	Q.push(root);
@@ -115,32 +114,27 @@ vector<vector<int>> levelOrder(TreeNode *root)
 }
 
 /**
- * 使用dfs来优化
+ * 方法 4，使用dfs来优化
 */
-class Solution3
+vector<vector<int>> ans;
+void dfs(TreeNode *root, int level)
 {
-public:
-	vector<vector<int>> ans;
-
-	void dfs(TreeNode *root, int level)
+	if (!root)
+		return;
+	if (level == ans.size())
 	{
-		if (!root)
-			return;
-		if (level == ans.size())
-		{
-			ans.push_back({});
-		}
-		ans[level].push_back(root->val);
-		dfs(root->left, level + 1);
-		dfs(root->right, level + 1);
+		ans.push_back({});
 	}
-	vector<vector<int>> levelOrder(TreeNode *root)
-	{
-		dfs(root, 0);
+	ans[level].push_back(root->val);
+	dfs(root->left, level + 1);
+	dfs(root->right, level + 1);
+}
+vector<vector<int>> levelOrder3(TreeNode *root)
+{
+	dfs(root, 0);
 
-		return ans;
-	}
-};
+	return ans;
+}
 
 int main()
 {
@@ -158,7 +152,7 @@ int main()
 	// int n = rest.size();
 	// cout << n << endl;
 	// levelOrder_stack(head);
-	for (auto i : levelorder_queue(head))
+	for (auto i : levelorder_queue2(head))
 	{
 		for (auto j : i)
 		{
