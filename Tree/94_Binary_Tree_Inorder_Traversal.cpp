@@ -112,7 +112,7 @@ vector<int> inorderTraversal3_2(TreeNode *root)
 	p = root;
 	while (!Q.empty() || p != NULL)
 	{
-		while (p!=nullptr)
+		while (p != nullptr)
 		{
 			Q.push(p);
 			p = p->left;
@@ -162,24 +162,31 @@ void postorder_s(TreeNode *root)
 	cout << root->val << " ";
 }
 
-vector<int>inorder_s(TreeNode * head)
+// 中序的非递归版本
+vector<int> inorder_stack(TreeNode *head)
 {
-	vector<int>res;
-	stack<TreeNode *>s;
+	vector<int> res;
+	stack<TreeNode *> s;
 	TreeNode *q;
 	q = head;
-	while(!s.empty() || q!=nullptr)
+	if (head == nullptr)
+		return {};
+	while (!s.empty() || q != nullptr)
 	{
-		while(q!=nullptr)
+		while (q != nullptr)
 		{
 			s.push(q);
 			q = q->left;
 		}
-		if(!s.empty())
+		if (!s.empty())
 		{
-			
+			q = s.top();
+			res.push_back(q->val);
+			s.pop();
+			q = q->right;
 		}
 	}
+	return res;
 }
 
 int main()
@@ -199,9 +206,13 @@ int main()
 	// 	cout << i << " ";
 	// return 0;
 
-	preorder_s(head);
+	// preorder_s(head);
 	cout << endl;
-	inorder_s(head);
+	// inorder_s(head);
 	cout << endl;
-	postorder_s(head);
+	// postorder_s(head);
+	for (auto i : inorder_stack(head))
+	{
+		cout << i << " ";
+	}
 }
