@@ -112,7 +112,7 @@ vector<int> inorderTraversal3_2(TreeNode *root)
 	p = root;
 	while (!Q.empty() || p != NULL)
 	{
-		while (p)
+		while (p!=nullptr)
 		{
 			Q.push(p);
 			p = p->left;
@@ -128,6 +128,9 @@ vector<int> inorderTraversal3_2(TreeNode *root)
 	return res;
 }
 
+/**
+ * 深度优先遍历包括前序，中序，后续
+*/
 // 前序遍历
 void preorder_s(TreeNode *root)
 {
@@ -157,6 +160,26 @@ void postorder_s(TreeNode *root)
 	postorder_s(root->left);
 	postorder_s(root->right);
 	cout << root->val << " ";
+}
+
+vector<int>inorder_s(TreeNode * head)
+{
+	vector<int>res;
+	stack<TreeNode *>s;
+	TreeNode *q;
+	q = head;
+	while(!s.empty() || q!=nullptr)
+	{
+		while(q!=nullptr)
+		{
+			s.push(q);
+			q = q->left;
+		}
+		if(!s.empty())
+		{
+			
+		}
+	}
 }
 
 int main()
