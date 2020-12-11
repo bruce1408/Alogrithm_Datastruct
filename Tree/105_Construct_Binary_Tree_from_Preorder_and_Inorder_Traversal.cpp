@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include<map>
+#include <unordered_map>
 using namespace std;
 
 /**
@@ -104,27 +104,26 @@ TreeNode *buildTree2(vector<int> postorder, vector<int> &inorder)
 }
 
 /**
- * 方法 3，使用
+ * 方法 3，使用unordered_map
 */
-TreeNode* helper(vector<int>& preorder, vector<int>& inorder,int prestart,int instart,int inend,unordered_map<int,int> &m)
+TreeNode *helper(vector<int> &preorder, vector<int> &inorder, int prestart, int instart, int inend, unordered_map<int, int> &m)
 {
-    if(instart>inend)
+    if (instart > inend)
         return NULL;
-    TreeNode* root=new TreeNode(preorder[prestart]);
-    int index=m[preorder[prestart]];
-    
-    root->left=helper(preorder,inorder,prestart+1,instart,index-1,m);
-    root->right=helper(preorder,inorder,prestart+index-instart+1,index+1,inend,m);
-    
+    TreeNode *root = new TreeNode(preorder[prestart]);
+    int index = m[preorder[prestart]];
+
+    root->left = helper(preorder, inorder, prestart + 1, instart, index - 1, m);
+    root->right = helper(preorder, inorder, prestart + index - instart + 1, index + 1, inend, m);
+
     return root;
-    
 }
-TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) 
+TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder)
 {
-    unordered_map<int,int> m;
-    for(int i=0;i<inorder.size(); i++)
-        m[inorder[i]]=i;
-    return helper(preorder,inorder,0,0,inorder.size()-1,m);
+    unordered_map<int, int> m;
+    for (int i = 0; i < inorder.size(); i++)
+        m[inorder[i]] = i;
+    return helper(preorder, inorder, 0, 0, inorder.size() - 1, m);
 }
 
 int main()
