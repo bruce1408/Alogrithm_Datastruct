@@ -91,8 +91,7 @@ vector<vector<int>> levelOrder(TreeNode *root)
 	vector<vector<int>> res;
 	queue<TreeNode *> Q;
 	TreeNode *q;
-	if (!root)
-		return {};
+	if (!root) return {};
 	Q.push(root);
 	while (!Q.empty())
 	{
@@ -103,10 +102,8 @@ vector<vector<int>> levelOrder(TreeNode *root)
 			q = Q.front();
 			Q.pop();
 			temp.push_back(q->val);
-			if (q->left)
-				Q.push(q->left);
-			if (q->right)
-				Q.push(q->right);
+			if (q->left) Q.push(q->left);
+			if (q->right) Q.push(q->right);
 		}
 		res.push_back(temp);
 	}
