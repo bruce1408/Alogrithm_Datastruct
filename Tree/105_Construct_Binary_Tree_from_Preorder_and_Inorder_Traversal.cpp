@@ -104,17 +104,17 @@ TreeNode *buildTree2(vector<int> postorder, vector<int> &inorder)
 }
 
 /**
- * 方法 3，使用unordered_map
+ * 方法 3，使用unordered_map来节省计算，但是本质思路都是一样的
 */
 TreeNode *helper(vector<int> &preorder, vector<int> &inorder, int prestart, int instart, int inend, unordered_map<int, int> &m)
 {
     if (instart > inend)
         return NULL;
     TreeNode *root = new TreeNode(preorder[prestart]);
-    int index = m[preorder[prestart]];
+    int index = m[preorder[prestart]]; // 这个就是根节点
 
     root->left = helper(preorder, inorder, prestart + 1, instart, index - 1, m);
-    root->right = helper(preorder, inorder, prestart + index - instart + 1, index + 1, inend, m);
+    root->right = helper(preorder, inorder, prestart + 1 + (index - instart), index + 1, inend, m); // 括号这一项可以看成是左子树节点的个数
 
     return root;
 }
