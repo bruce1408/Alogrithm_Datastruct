@@ -63,17 +63,17 @@ using namespace std;
 
 struct node
 {
-    int val, height;
+    int data, height;
     node *left;
     node *right;
-    node(int x) : val(x), height(0), left(NULL), right(NULL) {}
+    node(int x) : data(x), height(0), left(NULL), right(NULL) {}
 };
 
 /**
  * 生成一个新节点，v是节点的权值
  * height是高度，设置起始的高度设置为1
 */
-node *newNode(int v)
+node *newNode(int x)
 {
     node *root = new node(x);
     root->height = 1;
@@ -213,7 +213,7 @@ void insert(node *&root, int x)
         root = newNode(x);
         return;
     }
-    if (root->val > x) // 当前节点的值大于插入节点的数字
+    if (root->data > x) // 当前节点的值大于插入节点的数字
     {
         insert(root->left, x);
         updateHeight(root);        // 更新树高
@@ -249,12 +249,28 @@ void insert(node *&root, int x)
     }
 }
 
-node * creat(vector<int>&res)
+node *create(vector<int> &res)
 {
     node *root = nullptr;
-    for(int i=0;i<res.size();i++)
+    for (int i = 0; i < res.size(); i++)
     {
         insert(root, res[i]);
     }
     return root;
+}
+
+void preorder(node *root)
+{
+    if (root == nullptr)
+        return;
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
+int main()
+{
+    vector<int> res = {1, 2, 3, 4, 5};
+    node *root = create(res);
+    preorder(root);
 }
