@@ -130,3 +130,17 @@ void search(node *root, int x)
     else
         search(root->left, x);
 }
+
+/**
+ * 节点左旋；
+*/
+void L(node*&root)
+{
+    node * temp = root->right;
+    root->right = temp->left;
+    temp->left = root;
+    updateHeight(root);
+    updateHeight(temp);
+    root = temp;
+}
+
