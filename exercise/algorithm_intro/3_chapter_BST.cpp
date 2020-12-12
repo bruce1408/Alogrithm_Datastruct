@@ -7,6 +7,13 @@ using namespace std;
  * 左节点小于或者等于根节点
  * 右节点大于根节点
  * 按照二叉树中序遍历的话是一个有序的数组
+ * 
+ *      5
+ *     / \
+ *    3   7
+ *   / \  / \
+ *  2  4 6   8
+ * 
 */
 struct node
 {
@@ -117,22 +124,39 @@ void deleteNode(node *&root, int x)
         return;
     if (root->val == x) // 找到要删除的节点
     {
-        if (root->left == NULL && root->rchild == nullptr) // 左右叶子节点都不存在，直接删除
+        if (root->left == NULL && root->right == nullptr) // 左右叶子节点都不存在，直接删除
             root = nullptr;
-        else if(root->left !=nullptr) // 删除的这个节点的左子树不为空节点
+        else if (root->left != nullptr) // 删除的这个节点的左子树不为空节点
         {
             node *pre = findMax(root->left); // 找到这个节点的前驱节点，就是左子树的最右节点，比这个节点小的最大节点
             root->val = pre->val;
-            deleteNode(root->left, pre->val);
+            deleteNode(root->left, pre->val); // 这里删除的不再是原来的点，而是赋值之后，新的前驱节点的数值
         }
-
+        else // 如果右子树不为空的话，那么在右子树中删除左节点
+        {
+            node *after = findMin(root->right);
+            root->val = after->val;
+            deleteNode(root->right, after->val);
+        }
+    }
+    else if (root->val > x)
+    {
+        deleteNode(root->left, x);
+    }
+    else
+    {
+        deleteNode(root->right, x);
     }
 }
+
 int main()
 {
     vector<int> res = {5, 3, 7, 4, 2, 8, 6};
-    inorder(create(res));
+    node *root = create(res);
+    cout << "中序遍历果: " << endl;
+    inorder(root);
     cout << endl;
-    cout << findMax(create(res))->val << endl;
-    cout << findMin(create(res))->val << endl;
+    cout << "找出根节点 5 的前驱节点和后继节点" << endl;
+    cout << "前驱节点: " << findMax(root->left)->val << endl;
+    cout << "后继节点: " << findMin(root->right)->val << endl;
 }
