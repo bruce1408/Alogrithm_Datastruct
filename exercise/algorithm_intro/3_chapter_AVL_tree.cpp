@@ -205,22 +205,7 @@ void R(node *&root)
  * 在插入新节点之后还需要从插入的节点开始从下往上判断节点是否失衡，
  * 因此在insert之后更新当前子树的高度，并在这之后根据树型是LL、LR、RR、RL进行平衡操作
 */
-void insert(node *&root, int x)
-{
-    if (root == nullptr)
-    {
-        root = newNode(x);
-        return;
-    }
-    if (root->val > x)
-        insert(root->left, x);
-    else
-        insert(root->right, x);
-}
 
-/**
- * 插入权值为x的节点
-*/
 void insert(node *&root, int x)
 {
     if (root == nullptr)
@@ -228,7 +213,7 @@ void insert(node *&root, int x)
         root = newNode(x);
         return;
     }
-    if (root->val > x)
+    if (root->val > x) // 当前节点的值大于插入节点的数字
     {
         insert(root->left, x);
         updateHeight(root);        // 更新树高
@@ -238,28 +223,38 @@ void insert(node *&root, int x)
             {
                 R(root);
             }
-            else if(getBalance(root->left)==-1) // 这个是LR的情况
+            else if (getBalance(root->left) == -1) // 这个是LR的情况
             {
                 L(root->left);
                 R(root);
             }
         }
-        else
+    }
+    else // 当前节点的值小于插入节点的数字
+    {
+        insert(root->right, x); // 右子树插入
+        updateHeight(root);     // 更新树高
+        if (getBalance(root) == -2)
         {
-            insert(root->right, x); // 右子树插入
-            updateHeight(root); // 更新树高
-            if(getBalance(root)==-2)
+            if (getBalance(root->right) == -1) // RR型
             {
-                if(getBalance(root->right)==-1)
-                {
-                    L(root);
-                }
-                else if(getBalance(root->right)==1)
-                {
-                    R(root->right);
-                    L(root);
-                }
+                L(root);
+            }
+            else if (getBalance(root->right) == 1) // RL型
+            {
+                R(root->right);
+                L(root);
             }
         }
     }
+}
+
+node * creat(vector<int>&res)
+{
+    node *root = nullptr;
+    for(int i=0;i<res.size();i++)
+    {
+        insert(root, res[i]);
+    }
+    return root;
 }
