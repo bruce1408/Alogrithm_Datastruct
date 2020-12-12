@@ -172,3 +172,8 @@ void R(node *&root)
     updateHeight(temp);
     root = temp;
 }
+
+/**
+ * 对比左旋和右旋代码发现，两组代码只不过是把代码中的出现的left变成right，right变成left
+ * 所以左旋操作和右旋操作就是对称的，互为逆操作
+*/
