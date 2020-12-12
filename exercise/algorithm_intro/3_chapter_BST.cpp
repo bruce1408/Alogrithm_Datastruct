@@ -60,7 +60,7 @@ void insert(node *&root, int x) // 这里函数在二叉树中插入一个数据
 }
 
 /**
- * 二叉树查找树的建立
+ * 二叉查找树的建立
 */
 node *create(vector<int> &res)
 {
@@ -68,6 +68,27 @@ node *create(vector<int> &res)
     for (int i = 0; i < res.size(); i++)
     {
         insert(root, res[i]);
+    }
+    return root;
+}
+
+/**
+ * 二叉查找树的节点删除
+ */
+node *findMax(node *root)
+{
+    while (root->right != nullptr)
+    {
+        root = root->right; // 不断往右，然后找到最后的那个节点
+    }
+    return root;
+}
+
+node *findMin(node *root)
+{
+    while (root->left != nullptr)
+    {
+        root = root->left;
     }
     return root;
 }
@@ -83,8 +104,12 @@ void inorder(node *root)
     cout << root->val << " ";
     inorder(root->right);
 }
+
 int main()
 {
     vector<int> res = {5, 3, 7, 4, 2, 8, 6};
     inorder(create(res));
+    cout << endl;
+    cout << findMax(create(res))->val << endl;
+    cout << findMin(create(res))->val << endl;
 }
