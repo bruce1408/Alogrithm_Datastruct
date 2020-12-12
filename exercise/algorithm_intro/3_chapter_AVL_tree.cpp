@@ -103,6 +103,30 @@ int getBalance(node *root)
 /**
  * 更新root节点的高度height
 */
+void updateHeight(node *root)
+{
+    root->height = max(getHeight(root->left->height), getHeight(root->right->height)) + 1;
+}
 
-
-
+/**
+ * 平衡二叉树的基本操作
+ * 查找、插入
+*/
+void search(node *root, int x)
+{
+    if (root == nullptr)
+    {
+        cout << "failed " << endl;
+        return;
+    }
+    if (x == root->data)
+    {
+        cout << "finded" << endl;
+    }
+    else if (root->data > x)
+    {
+        search(root->right, x);
+    }
+    else
+        search(root->left, x);
+}
