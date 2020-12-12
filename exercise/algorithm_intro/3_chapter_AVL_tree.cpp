@@ -93,7 +93,7 @@ int getHeight(node *root)
 
 /**
  * 计算root节点的平衡因子，
- * 左子树的高度减去右子树的高度
+ * 左子树的高度减去右子树的高度，值为-1, 0, 1三种情况
 */
 int getBalance(node *root)
 {
@@ -134,13 +134,12 @@ void search(node *root, int x)
 /**
  * 节点左旋；
 */
-void L(node*&root)
+void L(node *&root)
 {
-    node * temp = root->right;
+    node *temp = root->right;
     root->right = temp->left;
     temp->left = root;
     updateHeight(root);
     updateHeight(temp);
     root = temp;
 }
-
