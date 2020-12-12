@@ -167,7 +167,7 @@ void R(node *&root)
 {
     node *temp = root->left;
     root->left = temp->right;
-    temp->left = root;
+    temp->right = root;
     updateHeight(root);
     updateHeight(temp);
     root = temp;
