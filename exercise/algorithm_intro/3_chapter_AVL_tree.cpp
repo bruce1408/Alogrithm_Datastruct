@@ -71,7 +71,7 @@ struct node
 
 /**
  * 生成一个新节点，v是节点的权值
- * height是高度，起始高度设置为1
+ * height是高度，设置起始的高度设置为1
 */
 node *newNode(int v)
 {
@@ -172,4 +172,3 @@ void R(node *&root)
     updateHeight(temp);
     root = temp;
 }
-
