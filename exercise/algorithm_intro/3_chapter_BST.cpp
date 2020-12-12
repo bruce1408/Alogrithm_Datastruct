@@ -73,7 +73,7 @@ node *create(vector<int> &res)
 }
 
 /**
- * 二叉查找树的节点删除
+ * 二叉查找树后继节点查找，查找的是最右子树节点
  */
 node *findMax(node *root)
 {
@@ -84,6 +84,9 @@ node *findMax(node *root)
     return root;
 }
 
+/**
+ * 二叉查找树前驱结点查找，找到的是最左子树节点
+*/
 node *findMin(node *root)
 {
     while (root->left != nullptr)
@@ -105,6 +108,26 @@ void inorder(node *root)
     inorder(root->right);
 }
 
+/**
+ * 二叉查找树删除值为x的某个节点
+*/
+void deleteNode(node *&root, int x)
+{
+    if (root == nullptr) // 如果这节点空直接返回
+        return;
+    if (root->val == x) // 找到要删除的节点
+    {
+        if (root->left == NULL && root->rchild == nullptr) // 左右叶子节点都不存在，直接删除
+            root = nullptr;
+        else if(root->left !=nullptr) // 删除的这个节点的左子树不为空节点
+        {
+            node *pre = findMax(root->left); // 找到这个节点的前驱节点，就是左子树的最右节点，比这个节点小的最大节点
+            root->val = pre->val;
+            deleteNode(root->left, pre->val);
+        }
+
+    }
+}
 int main()
 {
     vector<int> res = {5, 3, 7, 4, 2, 8, 6};
