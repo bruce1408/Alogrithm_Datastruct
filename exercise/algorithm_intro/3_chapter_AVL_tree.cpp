@@ -138,16 +138,32 @@ void search(node *root, int x)
  *   a1   b
  *       / \
  *     b1   b2
- * 1.让b的左子树成为a的右子树
+ * 1.让b的左树b1成为a的右子树
  * 2.让a成为b的左子树
  * 3.将根节点设置为b
 */
 void L(node *&root)
 {
-    node *temp = root->right; //
+    node *temp = root->right; // root 指向节点a, temp 指向节点b
     root->right = temp->left;
     temp->left = root;
-    updateHeight(root);
-    updateHeight(temp);
+    updateHeight(root); // 更新a节点的高度
+    updateHeight(temp); // 更新b节点的高度
     root = temp;
+}
+
+/**
+ * 节点右旋；
+ *       b
+ *     /  \ 
+ *    a    b1
+ *   / \
+ * a1   a2
+ * 1.让a的右树a2成为b的左子树
+ * 2.让b成为a的左子树
+ * 3.将根节点设置为a
+*/
+void R(node *&root)
+{
+    node *
 }
