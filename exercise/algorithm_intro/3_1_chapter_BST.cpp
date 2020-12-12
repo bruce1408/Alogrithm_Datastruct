@@ -12,7 +12,11 @@ struct node
 
 void insert(node *root, int x)
 {
-    
+    if (root == NULL)
+    {
+        root = new node(x);
+        return;
+    }
 }
 int main()
 {
