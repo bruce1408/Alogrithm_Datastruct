@@ -14,9 +14,10 @@ void preorder(node *root)
 {
     if (root == nullptr)
         return;
-    cout << root->data << " ";
     preorder(root->left);
+
     preorder(root->right);
+    cout << root->data << " ";
 }
 
 void insert(node *&root, int x)
@@ -39,11 +40,12 @@ void insert(node *&root, int x)
 
 int main()
 {
-    node *root = nullptr;
+    node *root = NULL; // 定义头结点
     vector<int> res = {1, 2, 3, 4, 5};
     for (int i = 0; i < res.size(); i++)
     {
         insert(root, res[i]);
     }
-    preorder(root);
+    cout << root->data << endl;
+    // preorder(root);
 }
