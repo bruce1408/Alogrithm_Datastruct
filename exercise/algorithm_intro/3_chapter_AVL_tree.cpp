@@ -10,10 +10,23 @@ struct node
     node(int x) : data(x), left(NULL), right(NULL) {}
 };
 
+void preorder(node *root)
+{
+    if (root == nullptr)
+        return;
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
 void insert(node *&root, int x)
 {
     if (root == nullptr)
         return;
+    // if (x == root->val)
+    // {
+    //     return; // 说明这个节点已经存在，不需要插入
+    // } // 这里可以插入相同的数字
     if (root->data > x)
     {
         insert(root->left, x);
@@ -22,9 +35,15 @@ void insert(node *&root, int x)
     {
         insert(root->right, x); // 这里其实包含了等于的情况，如果等于的话就在右子树上继续构建
     }
+}
 
-    int main()
+int main()
+{
+    node *root = nullptr;
+    vector<int> res = {1, 2, 3, 4, 5};
+    for (int i = 0; i < res.size(); i++)
     {
-        vector<int> res = {1, 2, 3, 4, 5};
-        vector<int> res = {1, 2, 3, 4, 5};
+        insert(root, res[i]);
     }
+    preorder(root);
+}
