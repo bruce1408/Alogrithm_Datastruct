@@ -15,19 +15,17 @@ void preorder(node *root)
     if (root == nullptr)
         return;
     preorder(root->left);
-
-    preorder(root->right);
     cout << root->data << " ";
+    preorder(root->right);
 }
 
 void insert(node *&root, int x)
 {
     if (root == nullptr)
+    {
+        root = new node(x);
         return;
-    // if (x == root->val)
-    // {
-    //     return; // 说明这个节点已经存在，不需要插入
-    // } // 这里可以插入相同的数字
+    }
     if (root->data > x)
     {
         insert(root->left, x);
@@ -46,6 +44,5 @@ int main()
     {
         insert(root, res[i]);
     }
-    cout << root->data << endl;
-    // preorder(root);
+    preorder(root);
 }
