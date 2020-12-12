@@ -165,5 +165,7 @@ void L(node *&root)
 */
 void R(node *&root)
 {
-    node *
+    node *temp = root->left;
+    root->left = temp->right;
+    
 }
