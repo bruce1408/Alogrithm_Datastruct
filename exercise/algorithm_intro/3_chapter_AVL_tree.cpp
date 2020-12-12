@@ -100,11 +100,11 @@ int getBalance(node *root)
 }
 
 /**
- * 更新root节点的高度height
+ * 更新root节点的高度height,当前节点的左子树和右子树的高度的较大的那一个然后+1
 */
 void updateHeight(node *root)
 {
-    root->height = max(getHeight(root->left->height), getHeight(root->right->height)) + 1;
+    root->height = max(getHeight(root->left), getHeight(root->right)) + 1;
 }
 
 /**
@@ -205,18 +205,61 @@ void R(node *&root)
  * 在插入新节点之后还需要从插入的节点开始从下往上判断节点是否失衡，
  * 因此在insert之后更新当前子树的高度，并在这之后根据树型是LL、LR、RR、RL进行平衡操作
 */
-void insert(node* &root, int x)
+void insert(node *&root, int x)
 {
-    if(root==nullptr)
+    if (root == nullptr)
     {
         root = newNode(x);
-        return ;
+        return;
     }
-    if(root->val>x)
+    if (root->val > x)
         insert(root->left, x);
     else
         insert(root->right, x);
 }
 
-
-
+/**
+ * 插入权值为x的节点
+*/
+void insert(node *&root, int x)
+{
+    if (root == nullptr)
+    {
+        root = newNode(x);
+        return;
+    }
+    if (root->val > x)
+    {
+        insert(root->left, x);
+        updateHeight(root);        // 更新树高
+        if (getBalance(root) == 2) // 当前节点的平衡因子是2，那么可能是LL或者LR的情况
+        {
+            if (getBalance(root->left) == 1) // 这个是LL的情况
+            {
+                R(root);
+            }
+            else if(getBalance(root->left)==-1) // 这个是LR的情况
+            {
+                L(root->left);
+                R(root);
+            }
+        }
+        else
+        {
+            insert(root->right, x); // 右子树插入
+            updateHeight(root); // 更新树高
+            if(getBalance(root)==-2)
+            {
+                if(getBalance(root->right)==-1)
+                {
+                    L(root);
+                }
+                else if(getBalance(root->right)==1)
+                {
+                    R(root->right);
+                    L(root);
+                }
+            }
+        }
+    }
+}
