@@ -54,6 +54,16 @@ void L(node *root)
     root = temp;
 }
 
+void insert(node*root, int x)
+{
+    if(root==nullptr)
+    {
+        root = newNode(x);
+        return ;
+    }
+    
+}
+
 int main()
 {
     
