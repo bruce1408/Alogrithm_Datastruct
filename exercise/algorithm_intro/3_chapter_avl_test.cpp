@@ -10,7 +10,6 @@ struct node
     node(int x):val(x), height(0),left(NULL), right(NULL) {}
 };
 
-
 node *newNode(int x)
 {
     
@@ -37,14 +36,16 @@ node *insert(node *&root, int x)
     return root;
 }
 
+// 左旋
 void L(node*root)
 {
 
 }
 
+// 右旋
 void R(node*root)
 {
-    
+
 }
 
 int main()
