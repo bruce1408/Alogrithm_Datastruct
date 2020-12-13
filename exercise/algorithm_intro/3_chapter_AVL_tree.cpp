@@ -100,7 +100,7 @@ int getBalance(node *root)
 }
 
 /**
- * 更新root节点的高度height,当前节点的左子树和右子树的高度的较大的那一个然后+1
+ * 更新root节点的高度height, 当前节点的左子树和右子树的高度的较大的那一个然后+1
 */
 void updateHeight(node *root)
 {
