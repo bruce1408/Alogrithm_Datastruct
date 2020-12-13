@@ -61,6 +61,14 @@ void insert(node*root, int x)
         root = newNode(x);
         return ;
     }
+    if(root->data >x)
+    {
+        
+    }
+    else
+    {
+        
+    }
     
 }
 
