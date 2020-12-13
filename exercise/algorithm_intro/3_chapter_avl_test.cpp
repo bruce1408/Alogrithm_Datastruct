@@ -28,8 +28,23 @@ node *insert(node *&root, int x)
     }
     if(root->val > x)
     {
-        
+        insert(root->left, x);
     }
+    else
+    {
+        insert(root->right, x);
+    }
+    return root;
+}
+
+void L(node*root)
+{
+
+}
+
+void R(node*root)
+{
+    
 }
 
 int main()
