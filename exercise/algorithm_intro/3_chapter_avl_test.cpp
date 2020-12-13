@@ -19,11 +19,26 @@ node *newNode(int x)
     return node;
 }
 
+void getHeight(node *root)
+{
+    if(root==nullptr) return 0;
+    return root->height;
+}
+
+void updateHeight(node*root)
+{
+    
+    
+}
 // 右旋的情况适用于LL或者LR
 void R(node*root)
 {
     node*temp = root->left;
+    root->left = temp->right;
+    temp->right = root;
     
+
+
 }
 
 // 左旋
