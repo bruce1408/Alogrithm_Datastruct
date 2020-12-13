@@ -19,31 +19,15 @@ node *newNode(int x)
     return node;
 }
 
-node *insert(node *&root, int x)
+// 右旋的情况适用于LL或者LR
+void R(node*root)
 {
-    if(root==nullptr)
-    {
-        node * root = newNode(x);
-    }
-    if(root->val > x)
-    {
-        insert(root->left, x);
-    }
-    else
-    {
-        insert(root->right, x);
-    }
-    return root;
+    node*temp = root->left;
+    
 }
 
 // 左旋
 void L(node*root)
-{
-
-}
-
-// 右旋
-void R(node*root)
 {
 
 }
