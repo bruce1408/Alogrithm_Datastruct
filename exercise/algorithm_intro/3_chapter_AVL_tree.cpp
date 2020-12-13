@@ -270,7 +270,7 @@ void preorder(node *root)
 
 int main()
 {
-    vector<int> res = {1, 2, 3, 4, 5};
+    vector<int> res = {1, 2, 3, 4};
     node *root = create(res);
     preorder(root);
 }
