@@ -54,6 +54,11 @@ void L(node *root)
     root = temp;
 }
 
+int getBalance(node *root)
+{
+    return getHeight(root->left) - getHeight(root->right);
+}
+
 void insert(node*root, int x)
 {
     if(root==nullptr)
@@ -63,7 +68,9 @@ void insert(node*root, int x)
     }
     if(root->data >x)
     {
-        
+        insert(root->left, x)
+        updateHeight(root);
+        if()
     }
     else
     {
