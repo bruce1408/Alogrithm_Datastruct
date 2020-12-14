@@ -31,20 +31,6 @@ void add_n(int a, int b, int c)
     h[a] = idx++;
 }
 
-void dfs(int s, int t)
-{
-    if (s == t) //如果当前已经到达了起点s，那么就输出起点并返回即可
-    {
-        cout << t << " ";
-        return;
-    }
-    else
-    {
-        dfs(s, pre[t]);   // 递归访问v的前驱节点pre[v]
-        cout << t << " "; // 从最深处return之后，输出每一层的顶点号
-    }
-}
-
 int dijkstra()
 {
     fill(dis, dis + N, inf); // 使用fill函数把数组dis整个值赋值为最大值inf
@@ -56,14 +42,16 @@ int dijkstra()
         auto t = heap.top(); // 取出队头元素
         heap.pop();
         int ind = t.second, distance = t.first;
+
         if(visited[ind]) continue;
+
         visited[ind] = true;
 
         // 从1开始是因为节点范围是1-n, 这层循环是使u=dis[u]最小的还未被访问的顶点的标号，找到未访问的最小d[u]对应的节点
-        for (int i= h[ind], i!=-1;i++)
+        for (int i= h[ind], i!=-1;i=ne[i])
         {
             int j = e[i];
-            if (visited[j] == false && dis[j] > dis[ind] + w[i])
+            if (visited[j] == false && dis[ind] + w[i] < dis[j])
             {
                 dis[j] = dis[ind] + w[i];
                 heap.push({dis[j], j});
