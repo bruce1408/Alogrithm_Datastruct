@@ -40,7 +40,7 @@ bool topsort()
     {
         if (!indegree[i])
         {
-            q[++rear] = i;
+            q[++rear] = i; // q的下表是0开始，而节点是从1开始
         }
     }
     // dfs 遍历过程
