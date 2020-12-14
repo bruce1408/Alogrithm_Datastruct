@@ -10,18 +10,36 @@ int n, m;
 int g[N][N];
 int dis[N];
 bool visited[N];
+int pre[N]; // 保存最短路径
 
 /**
  * 方法 1
  * 最短路径问题，由于是稠密图，所以使用邻接矩阵来做，然后初始化为最大值
 */
+
+/**
+ * 打印出最短路径是多少
+*/
+void dfs(int s, int t)
+{
+    if (s == t) //如果当前已经到达了起点s，那么就输出起点并返回即可
+    {
+        cout << t << " ";
+        return;
+    }
+    else
+    {
+        dfs(s, pre[t]);   // 递归访问v的前驱节点pre[v]
+        cout << t << " "; // 从最深处return之后，输出每一层的顶点号
+    }
+}
 int dijkstra()
 {
     fill(dis, dis + N, inf);    // 使用fill函数把数组dis整个值赋值为最大值inf
     dis[1] = 0;                 // 节点1到达自身的距离为0
     for (int i = 0; i < n; i++) // 循环n次，n个节点
     {
-        int u = -1, MIN = inf; // u使得d[u] 最小，MIN存放该最小的d[u],u这里表示找到最小距离的节点，是一个节点范围在[1, n]之间 ;
+        int u = -1, MIN = inf; // 在未被访问的节点中找到一个距离dis最小的点，u这里表示找到最小距离的节点，是一个节点范围在[1, n]之间 ;
         // 从1开始是因为节点范围是1-n, 这层循环是使u=dis[u]最小的还未被访问的顶点的标号，找到未访问的最小d[u]对应的节点
         for (int j = 1; j <= n; j++)
         {
@@ -40,6 +58,7 @@ int dijkstra()
             if (visited[v] == false && g[u][v] != inf && dis[u] + g[u][v] < dis[v])
             {
                 dis[v] = g[u][v] + dis[u]; // 更新优化dis[v]
+                pre[v] = u;                // 这里保存v的前驱节点是u
             }
         }
     }
