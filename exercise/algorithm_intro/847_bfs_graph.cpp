@@ -30,9 +30,9 @@ void add(int a, int b)
 int bfs()
 {
     int head = 0, rear = 0;
-    q[0] = 1;
-    memset(d, -1, sizeof d);
-    d[1] = 0;
+    q[0] = 1;                // 0号节点是编号为1的节点，第一个元素是起点是1
+    memset(d, -1, sizeof d); // 默认所有的距离初始距离为-1；
+    d[1] = 0;                // 每个节点距离起点的距离
     while (head <= rear)
     {
         int t = q[head++];
@@ -47,6 +47,34 @@ int bfs()
         }
     }
     return d[n];
+}
+
+/**
+ * 第二种方式的写法就是多加了一个判断是否之前访问过的数组
+ * 上面用距离d数组可以代替这里的visited
+*/
+bool visited[N];
+int bfs1()
+{
+    memset(dis, -1, sizeof dis);
+    dis[1] = 0;
+    int head = 0, rear = 0;
+    q[0] = 1;
+    while (head <= rear)
+    {
+        int t = q[head++];
+        for (int i = h[t]; i != -1; i = ne[i])
+        {
+            int j = value[i];
+            if (!visited[j])
+            {
+                dis[j] = dis[t] + 1;
+                visited[j] = true;
+                q[++rear] = j;
+            }
+        }
+    }
+    return dis[n];
 }
 
 int main()
