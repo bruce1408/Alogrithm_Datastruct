@@ -74,17 +74,22 @@ int n, m, s, t;
  * weight[u]表示当前节点u这个城市所拥有的物资数目，这个题目初始设定
  * num[u]表示从起点s开始到u这个节点的最短路径条数，初始化num[s]起始节点=1，然后其余节点为0
  * */
-int g[N][N], w[N], num[N], d[N], weight[N];
-bool visited[N]={false};
+// int g[N][N], w[N], num[N], d[N], weight[N];
+vector<int> weight(N);
+vector<vector<int>> g(N, vector<int>(N, inf));
+vector<int> w(N, 0);
+vector<int> d(N, inf);
+vector<int> num(N, 0);
+bool visited[N] = {false};
 
 void dijkstra()
 {
-    fill(num, num + N, 0); // 初始化为0
-    fill(d, d + N, inf);   // 初始化为最大值
-    fill(w, w + N, 0);     // 初始化为0
-    d[0] = 0;              // 因为节点范围从0-n,所以起始节点0设置距离为0
-    w[0] = weight[0];      // w起始节点设置为0号节点的点权
-    num[0] = 1;            // 0号节点的最短路径条数
+    // fill(num, num + N, 0); // 初始化为0
+    // fill(d, d + N, inf);   // 初始化为最大值
+    // fill(w, w + N, 0);     // 初始化为0
+    d[0] = 0;         // 因为节点范围从0-n,所以起始节点0设置距离为0
+    w[0] = weight[0]; // w起始节点设置为0号节点的点权
+    num[0] = 1;       // 0号节点的最短路径条数
     for (int i = 0; i < n; i++)
     {
         int u = -1, MIN = inf;
@@ -122,18 +127,37 @@ void dijkstra()
 
 int main()
 {
-    fill(g[0], g[0] + N*N, inf);
-    cin >> n >> m >> s >> t;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> weight[i];
-    }
-    while (m--)
-    {
-        int x, y, z;
-        cin >> x >> y >> z;
-        g[y][x] = g[x][y] = z;
-    }
+    // fill(g[0], g[0] + N * N, inf);
+    // cin >> n >> m >> s >> t;
+    // for (int i = 0; i < n; i++)
+    // {
+    //     cin >> weight[i];
+    // }
+    // while (m--)
+    // {
+    //     int x, y, z;
+    //     cin >> x >> y >> z;
+    //     g[y][x] = g[x][y] = z;
+    // }
+    weight[0] = 1;
+    weight[1] = 2;
+    weight[2] = 1;
+    weight[3] = 5;
+    weight[4] = 3;
+    vector<vector<int>> cord = {
+        {0, 1, 1},
+        {0, 2, 2},
+        {0, 3, 1},
+        {1, 2, 1},
+        {2, 4, 1},
+        {3, 4, 1}};
+    n = 5, m = 6;
+    s = 0, t = 2;
     dijkstra();
+    for (int i = 0; i < 6; i++)
+    {
+        cout << cord[i][0] << " " << cord[i][1] << endl;
+        g[cord[i][0]][cord[i][1]] = g[cord[i][1]][cord[i][0]] = cord[i][2];
+    }
     cout << num[t] << " " << w[t] << endl;
 }
