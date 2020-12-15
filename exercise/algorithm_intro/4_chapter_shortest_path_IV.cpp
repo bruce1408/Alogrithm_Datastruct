@@ -4,7 +4,7 @@ using namespace std;
 const int N = 510;
 const int inf = 1e9;
 
-int n, m, s, t;
+int n, m, s, t, minCost = inf;
 int g[N][N], cost[N][N], d[N];
 bool visited[N];
 vector<int> pre[N], tempPath;
@@ -50,17 +50,37 @@ void dijkstra(int s)
 */
 void dfs(int v)
 {
-    if(v==s)
+    if (v == s)
     {
         tempPath.push_back(v);
-        int value;
-        if
+        int tempCost = 0;
+        for (int i = tempPath.size() - 1; i > 0; i--)
+        {
+            int id = tempPath[i], idNext = tempPath[i - 1];
+            tempCost += cost[id][idNext];
+        }
+
+        if (tempCost < minCost)
+        {
+            minCost = tempCost;
+            path = tempPath;
+        }
+        tempPath.pop_back();
+        return;
     }
+    tempPath.push_back(v);
+    for (int i = 0; i < pre[v].size(); i++) // 遍历v这个节点的所有前驱
+    {
+        dfs(pre[v][i]);
+    }
+    tempPath.pop_back();
 }
+
 int main()
 {
     cin >> n >> m >> s >> t;
     fill(g[0], g[0] + N * N, inf);
+    fill(cost[0], cost[0] + N * N, inf);
     while (m--)
     {
         int a, b, c, d;
@@ -68,7 +88,8 @@ int main()
         g[a][b] = g[b][a] = c;
     }
     dijkstra(0);
-    cout << "最短路径为:" << endl;
+    dfs(t);
+    cout << "最短路径为:" << minCost << endl;
     cout << endl;
     cout << "起点到该点的最短路径长度为: " << d[t] << endl;
     /**
