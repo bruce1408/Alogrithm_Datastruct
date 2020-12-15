@@ -52,7 +52,9 @@ void dfs(int v)
 {
     if(v==s)
     {
-        tempPath.push_b
+        tempPath.push_back(v);
+        int value;
+        if
     }
 }
 int main()
