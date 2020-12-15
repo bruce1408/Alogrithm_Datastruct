@@ -2,7 +2,11 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
+/**
+ * 给定一个n个点m条边的有向图，图中可能存在重边和自环，所有边权均为正值。
+ * 请你求出1号点到n号点的最短距离，如果无法从1号点走到n号点，则输出-1
+ * 使用邻接矩阵来做
+*/
 const int N = 510;
 const int inf = 1e9;
 int d[N];
@@ -50,4 +54,13 @@ int main()
         g[a][b] = min(g[a][b], c);
     }
     cout << dijkstra() << endl;
+    /**
+     * 输入如下：
+     * 3 3
+     * 1 2 2
+     * 2 3 1
+     * 1 3 4
+     * 输出如下：
+     * 3
+    */
 }
