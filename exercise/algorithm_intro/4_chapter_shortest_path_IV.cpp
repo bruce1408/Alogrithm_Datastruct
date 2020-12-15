@@ -47,18 +47,18 @@ void dijkstra(int s)
 
 int main()
 {
-    // cin >> n >> m >> s >> t;
-    // fill(g[0], g[0] + N * N, inf);
-    // while (m--)
-    // {
-    //     int a, b, c, d;
-    //     cin >> a >> b >> c >> d;
-    //     g[a][b] = g[b][a] = c;
-    // }
-    // dijkstra(0);
-    // cout << "最短路径为:" << endl;
-    // cout << endl;
-    // cout << "起点到该点的最短路径长度为: " << d[t] << endl;
+    cin >> n >> m >> s >> t;
+    fill(g[0], g[0] + N * N, inf);
+    while (m--)
+    {
+        int a, b, c, d;
+        cin >> a >> b >> c >> d;
+        g[a][b] = g[b][a] = c;
+    }
+    dijkstra(0);
+    cout << "最短路径为:" << endl;
+    cout << endl;
+    cout << "起点到该点的最短路径长度为: " << d[t] << endl;
     /**
      * 输入如下：
      *  4 5 0 3
@@ -72,17 +72,4 @@ int main()
      * 3
      * 40
     */
-    vector<int> res[3];
-    res[0].push_back(0);
-    res[1].push_back(3);
-    res[1].push_back(4);
-    res[2].push_back(5);
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < res[i].size(); j++)
-        {
-            cout << res[i][j] << " ";
-        }
-        cout << endl;
-    }
 }
