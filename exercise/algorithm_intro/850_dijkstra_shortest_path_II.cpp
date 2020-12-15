@@ -22,7 +22,6 @@ int e[N], ne[N], w[N], h[N], idx;
 /**
  * 打印出最短路径是多少
 */
-
 void add_n(int a, int b, int c)
 {
     e[idx] = b;
@@ -44,7 +43,6 @@ int dijkstra()
         int ind = t.second, distance = t.first;
 
         if(visited[ind]) continue;
-
         visited[ind] = true;
 
         // 从1开始是因为节点范围是1-n, 这层循环是使u=dis[u]最小的还未被访问的顶点的标号，找到未访问的最小d[u]对应的节点
