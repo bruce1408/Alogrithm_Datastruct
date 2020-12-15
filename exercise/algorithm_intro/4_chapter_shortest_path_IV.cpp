@@ -7,7 +7,7 @@ const int inf = 1e9;
 int n, m, s, t;
 int g[N][N], cost[N][N], d[N];
 bool visited[N];
-vector<int> pre[N];
+vector<int> pre[N], tempPath;
 
 void dijkstra(int s)
 {
@@ -33,18 +33,28 @@ void dijkstra(int s)
                 if (d[u] + g[u][v] < d[v])
                 {
                     d[v] = d[u] + g[u][v];
-                    pre[v].clear();      // 清空pre[v]
-                    pre[v].push_back(u); // u为v的前驱
+                    pre[v].clear();      // 清空pre[v]，如果当前中介点u可以使得d[v]更优，那么就清空pre数组，然后添加u这个数组
+                    pre[v].push_back(u); // u为v的前驱，因为数组pre每次都会清空，所以pre不要求初始化
                 }
                 else if (d[u] + g[u][v] == d[v])
                 {
-                    pre[v].push_back(u); // u是v的前驱之一
+                    pre[v].push_back(u); // 如果有相同的路径，那么就在原来的基础上添加u这个节点
                 }
             }
         }
     }
 }
 
+/**
+ * 上述pre保存的可能有多条最短路径，那么使用dfs来遍历，找出根据第二标尺的最优解
+*/
+void dfs(int v)
+{
+    if(v==s)
+    {
+        tempPath.push_b
+    }
+}
 int main()
 {
     cin >> n >> m >> s >> t;
