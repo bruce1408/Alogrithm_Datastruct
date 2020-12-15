@@ -38,7 +38,7 @@ void dijkstra(int s)
                 }
                 else if (d[u] + g[u][v] == d[v])
                 {
-                    pre[v].push_back(u);
+                    pre[v].push_back(u); // u是v的前驱之一
                 }
             }
         }
