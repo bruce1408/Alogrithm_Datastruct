@@ -66,7 +66,7 @@ using namespace std;
  * 
 */
 const int N = 510;
-const int inf = 10e9;
+const int inf = 1e9;
 int n, m, s, t;
 /**
  * weight 表示城市i中的物资数目，
@@ -153,11 +153,11 @@ int main()
         {3, 4, 1}};
     n = 5, m = 6;
     s = 0, t = 2;
-    dijkstra();
     for (int i = 0; i < 6; i++)
     {
-        cout << cord[i][0] << " " << cord[i][1] << endl;
         g[cord[i][0]][cord[i][1]] = g[cord[i][1]][cord[i][0]] = cord[i][2];
     }
+    dijkstra();
+
     cout << num[t] << " " << w[t] << endl;
 }
