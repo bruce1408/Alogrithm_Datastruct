@@ -5,17 +5,16 @@ const int N = 510;
 const int inf = 1e9;
 
 int n, m, s, t;
-// cost[u][v]表示从u到v点花费矩阵，d[u]表示起点到u这个点的最短路径，c[u]表示起点到u这个点的最小花费
 int g[N][N], cost[N][N], c[N], d[N], pre[N];
 bool visited[N];
 
-void dijkstra(int s) // s表示起点
+void dijkstra(int s)
 {
-    fill(d, d + N, inf);        // 初始化d距离矩阵，设置为inf
-    fill(c, c + N, 0);          //最小化费设置为0
-    d[s] = 0;                   // 起点s到达自身的距离设置为0
-    c[s] = 0;                   // 起点s到达自身的花费为0
-    for (int i = 0; i < n; i++) // 初始化pre数组的每个点的前驱为自身
+    fill(d, d + N, inf);
+    fill(c, c + N, 0);
+    d[s] = 0;
+    c[s] = 0;
+    for (int i = 0; i < n; i++)
         pre[i] = i;
     for (int i = 0; i < n; i++)
     {
@@ -29,23 +28,23 @@ void dijkstra(int s) // s表示起点
                 u = j;
             }
         }
-        visited[u] = true; // 标记u为已访问
+        visited[u] = true;
         for (int v = 0; v < n; v++)
         {
-            if (visited[v] == false && g[u][v] != inf) // 如果v未能访问 && u能到达v
+            if (visited[v] == false && g[u][v] != inf)
             {
                 if (d[u] + g[u][v] < d[v])
                 {
-                    d[v] = d[u] + g[u][v];    // 优化d[v]
-                    c[v] = c[u] + cost[u][v]; // 优化c[v]
-                    pre[v] = u;               // v的前驱设置为u
+                    d[v] = d[u] + g[u][v];
+                    c[v] = c[u] + cost[u][v];
+                    pre[v] = u;
                 }
                 else if (d[u] + g[u][v] == d[v])
                 {
                     if (c[u] + cost[u][v] < c[v])
                     {
                         c[v] = c[u] + cost[u][v];
-                        pre[v] = u; // v的前驱设置为u
+                        pre[v] = u;
                     }
                 }
             }
@@ -53,9 +52,6 @@ void dijkstra(int s) // s表示起点
     }
 }
 
-/**
- * 打印路径
-*/
 void dfs(int s, int t)
 {
     if (s == t)
@@ -72,7 +68,7 @@ void dfs(int s, int t)
 
 int main()
 {
-    cin >> n >> m >> s >> t; // 设置n表示节点数目0~n-1，m表示边的数目，s表示起点，t表示终点
+    cin >> n >> m >> s >> t;
     fill(g[0], g[0] + N * N, inf);
     while (m--)
     {
