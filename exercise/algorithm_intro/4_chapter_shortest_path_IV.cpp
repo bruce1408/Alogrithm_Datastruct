@@ -33,8 +33,8 @@ void dijkstra(int s)
                 if (d[u] + g[u][v] < d[v])
                 {
                     d[v] = d[u] + g[u][v];
-                    pre[v].clear();
-                    pre[v].push_back(u);
+                    pre[v].clear();      // 清空pre[v]
+                    pre[v].push_back(u); // u为v的前驱
                 }
                 else if (d[u] + g[u][v] == d[v])
                 {
