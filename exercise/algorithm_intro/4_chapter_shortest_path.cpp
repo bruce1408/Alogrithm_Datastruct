@@ -33,6 +33,7 @@ void dfs(int s, int t)
         cout << t << " "; // 从最深处return之后，输出每一层的顶点号
     }
 }
+
 int dijkstra()
 {
     fill(dis, dis + N, inf);    // 使用fill函数把数组dis整个值赋值为最大值inf
