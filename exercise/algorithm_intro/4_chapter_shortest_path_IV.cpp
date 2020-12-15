@@ -4,7 +4,7 @@ using namespace std;
 const int N = 510;
 const int inf = 1e9;
 /**
- * 和4_chapter_shortest_path_III.cpp思路一样，写法上面使用dfs来优化。
+ * 和4_chapter_shortest_path_III.cpp思路一样，写法上面使用dfs来优化，主要参考shortest_path_III
 */
 int n, m, s, t, minCost = inf;
 int g[N][N], cost[N][N], d[N];
