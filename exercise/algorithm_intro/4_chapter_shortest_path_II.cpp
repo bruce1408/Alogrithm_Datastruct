@@ -128,14 +128,12 @@ int main()
     {
         cin >> weight[i];
     }
-
     while (m--)
     {
         int x, y, z;
         cin >> x >> y >> z;
         g[y][x] = g[x][y] = z;
     }
-
     dijkstra();
     cout << num[t] << " " << w[t] << endl;
 }
