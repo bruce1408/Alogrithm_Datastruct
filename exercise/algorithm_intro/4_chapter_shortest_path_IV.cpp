@@ -70,9 +70,7 @@ void dfs(int v)
     }
     tempPath.push_back(v);
     for (int i = 0; i < pre[v].size(); i++) // 遍历v这个节点的所有前驱
-    {
         dfs(pre[v][i]);
-    }
     tempPath.pop_back();
 }
 
