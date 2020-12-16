@@ -9,7 +9,8 @@ const int N = 510;
 const int inf = 1e9, M = 10010;
 int d[N], back[N];
 
-/**
+/**bellman_ford 算法用来针对出现负权边的情况，
+ * 遍历n次，每次遍历m条边，然后用每一条边去更新起点到该节点的距离；
  * 结构体来保存两个节点之间的边权
 */
 struct node
@@ -21,9 +22,9 @@ int bellman_ford()
 {
     fill(d, d + N, inf);
     d[1] = 0;
-    for (int i = 0; i < k; i++) // k个节点
+    for (int i = 0; i < k; i++) // k次遍历
     {
-        memcpy(back, d, sizeof d);
+        memcpy(back, d, sizeof d); // 使用back数组，避免a里面更新为b，
         for (int j = 0; j < m; j++) // 遍历每条边
         {
             int a = edge[j].a, b = edge[j].b, c = edge[j].c;
