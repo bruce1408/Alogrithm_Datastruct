@@ -1,5 +1,5 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
+#include <algorithm>
 using namespace std;
 
 /**
@@ -12,10 +12,18 @@ using namespace std;
 struct Cord
 {
     int x, y;
-    bool operator<(const Cord & p) const
+    bool operator<(const Cord &p) const // 重载小于号运算符
     {
-        return x<p.x; // 从小到大排序, 如果是x>p.x的话，那么就是从大到小排序
+        return x > p.x; // 从小到大排序, 如果是x>p.x的话，那么就是从大到小排序
     }
+} a[6];
+
+/**
+ * 第二种排序方式：使用cmp来进行排序，不用重载预算符
+*/
+struct Cord
+{
+    int x, y;
 } a[6];
 
 bool cmp(Cord a, Cord b)
@@ -25,26 +33,26 @@ bool cmp(Cord a, Cord b)
 
 void print(Cord a[])
 {
-    for(int i=0;i<6;i++)
+    for (int i = 0; i < 6; i++)
     {
-        cout<<"("<<a[i].x<<" "<<a[i].y<<")"<<" ";
+        cout << "(" << a[i].x << " " << a[i].y << ")"
+             << " ";
     }
-    cout<<endl;
+    cout << endl;
 }
 
 int main()
 {
-    for(int i=0; i<6;i++)
+    for (int i = 0; i < 6; i++)
     {
         a[i].x = -i;
         a[i].y = i;
     }
     print(a);
     // 使用cmp辅助函数来排序
-    // sort(a, a+6, cmp);
+    // sort(a, a + 6, cmp);
     // 使用结构体内部重载运算符来进行排序
-    sort(a, a+6);
+    sort(a, a + 6);
 
     print(a);
-    
 }
