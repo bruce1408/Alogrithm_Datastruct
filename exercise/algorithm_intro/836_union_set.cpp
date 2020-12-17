@@ -43,7 +43,7 @@ using namespace std;
  *      else return findfather(father[x]);
  * }
  * 
- * 这种写法更加省时
+ * todo 这种写法更加省时, 查找一个节点的父节点，如果这个节点不是当前节点的父节点的时候，那么递归找到a的根节点，把根节点赋值给father[a]
  * int findfather(int a)
  * {
  *     if(a != father[a]) father[a] = findfather(father[a]);
