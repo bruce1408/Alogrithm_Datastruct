@@ -8,9 +8,15 @@ const int inf = 1e9;
 int g[N][N], d[N];
 bool visited[N];
 
+struct edge
+{
+    int u, v; // 边的两个端点编号
+    int cost; // 边权
+}edge[N];
+
 int kruskal()
 {
-        
+
 }
 int main()
 {
