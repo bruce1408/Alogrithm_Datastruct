@@ -33,7 +33,9 @@ bool cmp(edge a, edge b)
 /**
  * 带路径压缩的找父节点的方法
 */
-int findfather(int
+int findfather(int a)
+{
+    if (a != p[a])
         p[a] = findfather(p[a]);
     return p[a];
 }
@@ -80,6 +82,4 @@ int main()
         cout << "impossible" << endl;
     else
         cout << t << endl;
-    if(t==-1) cout<<"impossible"<<endl;
-    else cout<<t<<endl;
 }
