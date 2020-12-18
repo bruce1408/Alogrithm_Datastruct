@@ -25,12 +25,16 @@ void getprime(int n)
     }
 }
 
+/**
+ * 方法 2，优化筛法，不用再多次删除某些数
+ * 只要删除质数的所有倍数删除就好了，
+*/
 void getprime1(int n)
 {
     // int cnt = 0;
     for (int i = 2; i <= n; i++)
     {
-        if (visited[i] == false)
+        if (visited[i] == false) // 只有是质数的时候才删除质数的倍数
         {
             primes[cnt++] = i;
             for (int j = i + i; j <= n; j += i)
@@ -42,8 +46,23 @@ void getprime1(int n)
 }
 
 /**
- * 方法 2，线性筛法
+ * 方法 3，线性筛法
 */
+void getprime2(int n)
+{
+    for (int i = 2; i <= n; i++)
+    {
+        if (!st[i])
+            primes[cnt++] = i;
+        for (int j = 0; primes[j] <= n / i; j++)
+        {
+            st[primes[j] * i] = true;
+            if (i % primes[j] == 0)
+                break;
+        }
+    }
+}
+
 int main()
 {
     int n = 8;
