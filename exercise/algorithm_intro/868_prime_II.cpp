@@ -11,6 +11,9 @@ const int N = 1e6 + 10;
 int primes[N], cnt;
 bool visited[N];
 
+/**
+ * 方法 1，朴素筛法
+*/
 void getprime(int n)
 {
     for (int i = 2; i <= n; i++)
@@ -22,11 +25,30 @@ void getprime(int n)
     }
 }
 
+void getprime1(int n)
+{
+    // int cnt = 0;
+    for (int i = 2; i <= n; i++)
+    {
+        if (visited[i] == false)
+        {
+            primes[cnt++] = i;
+            for (int j = i + i; j <= n; j += i)
+            {
+                visited[j] = true;
+            }
+        }
+    }
+}
+
+/**
+ * 方法 2，线性筛法
+*/
 int main()
 {
     int n = 8;
     // cin>>n;
-    getprime(n);
+    getprime1(n);
     printf("8之前的素数共有: %d 个\n", cnt);
     for (int i = 0; i < cnt; i++)
     {
