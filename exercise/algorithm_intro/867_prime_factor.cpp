@@ -2,8 +2,13 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
 int n;
+
+/**
+ * 分解质因数，指的就是将一个正整数n写成一个或者多个质数的乘积的形式
+ * 例如6=2*3；180 = 2^2*3^2*5^1;
+ * 然后写成底数和指数的形式即可；
+*/
 void prime(int n)
 {
     for (int i = 2; i <= n / i; i++)
