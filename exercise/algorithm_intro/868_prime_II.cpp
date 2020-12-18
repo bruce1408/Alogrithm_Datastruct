@@ -47,6 +47,7 @@ void getprime1(int n)
 
 /**
  * 方法 3，线性筛法
+ * 核心是：n只会被最小质因子筛掉
 */
 void getprime2(int n)
 {
@@ -57,8 +58,8 @@ void getprime2(int n)
         for (int j = 0; primes[j] <= n / i; j++)
         {
             st[primes[j] * i] = true;
-            if (i % primes[j] == 0)
-                break;
+            if (i % primes[j] == 0) //prime[j]一定是i的最小质因子
+                break; 
         }
     }
 }
