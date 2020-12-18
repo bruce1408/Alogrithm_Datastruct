@@ -12,7 +12,6 @@ const int mod = 1e9 + 7;
 int main()
 {
     int n;
-    long long ans = 1;
     unordered_map<int, int> res;
     cin >> n;
     while (n--)
@@ -31,8 +30,17 @@ int main()
         if (x > 1)
             res[x]++;
     }
-    for (auto i : res)
-        ans = ans * (i.second + 1) % mod;
+    long long s = 1;
+    for(auto t: res)
+    {
+        long long res = 1;
+        int p = t.first, a = t.second;
+        while(a--)
+        {
+            res = (res * p + 1)%mod;
+        }
+        s = s * res % mod;
+    }
 
-    cout << ans << endl;
+    cout << s << endl;
 }
