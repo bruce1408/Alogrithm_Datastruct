@@ -39,16 +39,17 @@ long long binaryPow1(int a, int b, int c)
 
 /**
  * 方法 3，快速幂的迭代写法
+ * 返回的是a^k mod b
 */
 long long binaryPow2(int a, int b, int c)
 {
     long long ans = 1;
     while (b > 0)
     {
-        if (b & 1)
-            ans = ans * a % c;
-        a = a * a % c;
-        b = b >> 1;
+        if (b & 1)             // 第一次迭代b末尾要是1的话就是a的2的0次方
+            ans = ans * a % c; // 最开始a 是 2的0次方
+        a = a * a % c;         // a是上一个数的平方 mod c
+        b = b >> 1;            // 然后看b的下一位
     }
     return ans;
 }
