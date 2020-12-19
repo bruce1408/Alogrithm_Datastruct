@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 /**
- * 欧几里得扩展方法
+ * 欧几里得扩展方法 
  * 给定n对正整数ai,bi，对于每对数，求出一组xi,yi，
  * 使其满足 ai∗xi + bi∗yi = gcd(ai,bi)。
  * 如果b=0，那么返回公约数为a，然后ax = d = a
@@ -11,6 +11,7 @@ using namespace std;
  * 然后根据a mod b = a - a/b * b;
  * 带入公式之后得到x不变，y = y- a / b * x；
  * 不断更新x和y即可
+ * x和y不唯一，有很多种情况
  * 
 */
 int exgcd(int a, int b, int &x, int &y)
