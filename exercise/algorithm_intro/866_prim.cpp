@@ -50,6 +50,7 @@ void prim(int x)
     }
     cout << "Yes" << endl;
 }
+
 int n;
 int main()
 {
