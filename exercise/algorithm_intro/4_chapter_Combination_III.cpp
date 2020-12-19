@@ -56,7 +56,7 @@ const int N = 1e6;
 int prime[N];
 
 // cal函数用来求解n的阶乘的质因子数为p的个数，不是n
-int cal(int n, int p)
+int cal(LL n, LL p)
 {
     int ans = 0;
     for (int i = 2; i <= n; i++)
@@ -70,28 +70,53 @@ int cal(int n, int p)
     }
     return ans;
 }
-int binaryPow(int a, int b, int c)
+
+LL binaryPow(int a, int b, int c)
 {
-    for(int i=2;i<=n)
+    LL ans = 1;
+    while (b)
+    {
+        if (b & 1)
+            ans = ans * a % c;
+        b >>= 1;
+        a = a * a % c;
+    }
+    return ans;
 }
-LL comb4(LL n, LL m)
+
+LL comb3mod(int n, int m, int p)
 {
     LL ans = 1;
     // 遍历不超过所有n的指数质数
     for (LL i = 0; prime[i] <= n; i++)
     {
         // 计算C(n,m)中prime[i]的指数c，cal(n, k)为n!含有质因子k的个数
-        int c = comb4(n, prime[i]) - comb4(m, prime[i]) - comb4(n - m, prime[i]);
+        int c = cal(n, prime[i]) - cal(m, prime[i]) - cal(n - m, prime[i]);
         // 快速幂计算prime[i]^c%p
         ans = ans * binaryPow(prime[i], c, p) % p;
     }
     return ans;
 }
+/**
+ * 方法 4，使用定义式的变形来计算
+*/
+LL comb4mod(int n, int m, int p)
+{
+    int ans =1;
+    for(int i = 1;i<=m;i++)
+    {
+        ans = ans * (n-m+i) % p;
+        ans = ans * inverse(i, p) % p;
+    }
+    return ans;
+}
+
 int main()
 {
     int n = 4, m = 2, p = 5; // 这个数据范围使用定义法会越界，
-    cout << comb2mod(n, m, p) << endl;
-    vector<vector<int>> res(67, vector<int>(67, 0));
+    // cout << comb2mod(n, m, p) << endl;
+    cout << comb3mod(n, m, p) << endl;
+
+    // vector<vector<int>> res(67, vector<int>(67, 0));
     // cout << comb2(n, m, res) << endl;
-    // cout << comb4(n, m) << endl;
 }
