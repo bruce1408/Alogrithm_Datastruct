@@ -40,7 +40,7 @@ int gauss()
         for (int i = r; i < n; i++)  //
             if (fabs(a[i][n]) > eps) // a[i][n] 代表 b_i ,即 左边=0，右边=b_i,0 != b_i, 所以无解。
                 return 2;
-        return 1; // 否则， 0 = 0，就是r ~ n-1的方程都是多余方程
+        return 1; // 否则， 0 = 0，就是r ~ n-1的方程无穷多解
     }
     // 唯一解 ↓，从下往上回代，得到方程的解
     for (int i = n - 1; i >= 0; i--)
