@@ -32,5 +32,5 @@ void prime(int n)
 
 int main()
 {
-    prime(14);
+    prime(120);
 }
