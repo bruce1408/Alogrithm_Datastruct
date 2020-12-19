@@ -18,7 +18,6 @@ typedef long long LL;
  * C(n,m) = C(n-1, m) + C(n-1, m-1)
  * 这个递推公式可以最后使得n或者是m变成相同或者是让m变为0，可以作为递推边界
 */
-
 LL comb1(LL n, LL m)
 {
     if (m == n || m == 0)
