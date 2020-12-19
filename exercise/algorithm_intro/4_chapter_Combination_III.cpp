@@ -14,7 +14,7 @@ typedef long long LL;
 */
 
 /**
- * 方法 1递推公式来计算
+ * 方法 1递归计算
  * C(n,m) = C(n-1, m) + C(n-1, m-1)
  * 这个递推公式可以最后使得n或者是m变成相同或者是让m变为0，可以作为递推边界
 */
@@ -26,11 +26,11 @@ LL comb1(LL n, LL m)
     return (comb1(n - 1, m) + comb1(n - 1, m - 1));
 }
 
-LL comb1(LL n, LL m, LL p)
+LL comb1mod(LL n, LL m, LL p)
 {
     if (m == n || m == 0)
         return 1;
-    return (comb1(n - 1, m) % p + comb1(n - 1, m - 1)) % p;
+    return (comb1(n - 1, m) + comb1(n - 1, m - 1)) % p;
 }
 
 /**
@@ -63,7 +63,7 @@ LL comb4(LL n, LL m)
 int main()
 {
     int n = 4, m = 2, p = 5; // 这个数据范围使用定义法会越界，
-    cout << comb1(n, m, p) << endl;
+    cout << comb1mod(n, m, p) << endl;
     vector<vector<int>> res(67, vector<int>(67, 0));
     // cout << comb2(n, m, res) << endl;
     // cout << comb4(n, m) << endl;
