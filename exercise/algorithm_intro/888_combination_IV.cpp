@@ -21,7 +21,7 @@ void getprimes(int n)
     }
 }
 
-// 求n的阶乘的p因子的个数
+// 求n的阶乘的p因子的个数，n!中这个素数的个数，n! = (n/p + n/p^2 + n/p^3 + .....) 个质因子p
 int get(int n, int p)
 {
     int t = 0;
@@ -58,9 +58,10 @@ int main()
 {
     int a, b;
     cin >> a >> b;
-    ;
+    // 得到小于a的所有素数
     getprimes(a);
 
+    // 遍历每一个素数，然后求解n!中这个素数的个数，n! = (n/p + n/p^2 + n/p^3 + .....) 个质因子p
     for (int i = 0; i < cnt; i++)
     {
         int p = primes[i];
