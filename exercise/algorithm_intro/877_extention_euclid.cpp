@@ -1,7 +1,8 @@
 #include <iostream>
 using namespace std;
 /**
- * 欧几里得扩展方法 
+ * 扩展欧几里得方法 
+ * 使用扩展欧几里得算法来求解 a * x1 + b * y2 = gcd(a, b)
  * 给定n对正整数ai,bi，对于每对数，求出一组xi,yi，
  * 使其满足 ai∗xi + bi∗yi = gcd(ai,bi)。
  * 如果b=0，那么返回公约数为a，然后ax = d = a
@@ -21,10 +22,8 @@ int exgcd(int a, int b, int &x, int &y)
         x = 1, y = 0;
         return a;
     }
-
     int t = exgcd(b, a % b, y, x);
     y = y - a / b * x;
-
     return t;
 }
 
