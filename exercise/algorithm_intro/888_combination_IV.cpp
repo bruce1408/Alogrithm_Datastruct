@@ -30,7 +30,6 @@ int get(int n, int p)
         t += n / p;
         n /= p;
     }
-
     return t;
 }
 
@@ -65,7 +64,7 @@ int main()
     for (int i = 0; i < cnt; i++)
     {
         int p = primes[i];
-        sum[i] = get(a, p) - get(b, p) - get(a - b, p);
+        sum[i] = get(a, p) - get(b, p) - get(a - b, p); // 得到质因子数组sum
     }
 
     vector<int> res;
@@ -79,6 +78,7 @@ int main()
         }
     }
 
+    // 高精度乘法结果输出
     for (int i = res.size() - 1; i >= 0; i--)
     {
         printf("%d", res[i]);
