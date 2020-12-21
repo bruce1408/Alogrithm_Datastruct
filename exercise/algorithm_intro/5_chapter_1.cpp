@@ -29,6 +29,6 @@ int main()
                 f[i][j] = max(f[i - 1][j], f[i - 1][j - w[i]] + v[i]);
         }
 
-    cout << f[n][m];
+    cout << f[n][m] << endl;
     return 0;
 }
