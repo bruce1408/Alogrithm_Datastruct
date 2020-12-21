@@ -1,14 +1,13 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-const int N = 100010;
-const int mod = 1e9 + 7;
-
 typedef long long LL;
+const int N = 200010, mod = 1e9 + 7;
 
 int fact[N], infact[N];
 /**
- * 组合数II求解，取模mod
+ * 0-1序列，使用卡特尔定律来求解
  * 主要是用逆元来求解阶乘运算
 */
 // 符合费马小定理求逆元,为a^p-2, 使用快速幂来求解
@@ -36,11 +35,7 @@ int main()
 
     int n;
     cin >> n;
-    while (n--)
-    {
-        int a, b;
-        cin >> a >> b;
-        // 提前对两个求模，不然会溢出
-        printf("%d\n", (LL)fact[a] * infact[b] % mod * infact[a - b] % mod);
-    }
+
+    // 提前对两个求模，不然会溢出
+    printf("%d\n", (LL)(fact[2 * n] * infact[n] % mod * infact[2 * n - n] % mod) * inv(n + 1, mod - 2, mod) % mod);
 }

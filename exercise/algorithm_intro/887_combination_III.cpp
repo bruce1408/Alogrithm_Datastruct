@@ -7,6 +7,8 @@ int p;
 /**
  * 组合数求解3，使用lucas算法即可
 */
+
+// 使用费马小定理求逆元部分
 int inv(int a, int m)
 {
     int ans = 1;
