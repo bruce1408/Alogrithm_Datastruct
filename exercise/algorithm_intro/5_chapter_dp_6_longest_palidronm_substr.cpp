@@ -20,9 +20,7 @@ bool pard(int i, int j, string a)
             j--;
         }
         else
-        {
             return false;
-        }
     }
     return true;
 }
