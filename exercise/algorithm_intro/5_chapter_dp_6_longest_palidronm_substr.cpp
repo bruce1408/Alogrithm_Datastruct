@@ -10,6 +10,11 @@ using namespace std;
  * 输出：
  * atzjujzta
 */
+
+/**
+ * 方法 1，使用暴力搜索来做
+ * 
+*/
 bool pard(int i, int j, string a)
 {
     while (i < j)
