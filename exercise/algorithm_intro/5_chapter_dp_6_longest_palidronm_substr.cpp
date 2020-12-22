@@ -59,19 +59,49 @@ void palindromic1()
 
 /**
  * 方法 2，使用动态规划来做
- * d[i][j]表示从s[i]到s[j] 是否是回文串
- * 如果s[i]==s[j]: d[i][j] = 
+ * d[i][j]表示从s[i]到s[j]这个子串是否是回文串
+ * 如果s[i]==s[j]: d[i][j] = d[i+1][j-1] 
+ * 如果s[i]!-s[j]: 0
+ * 边界是：d[i][i] = 1; dp[i][i+1] = s[i]==s[i+1] ? 1:0
 */
+const int N = 200;
+int d[N][N];
 void palindromic2()
 {
-    string s = "abcba";
+    string s = "redivider";
+    int len = s.size(), ans = 1;
+    // 边界问题
+    for (int i = 0; i < len; i++)
+    {
+        d[i][i] = 1;
+        if (i < len - 1)
+        {
+            if (s[i] == s[i + 1])
+            {
+                d[i][i + 1] = 1; // 从i到i+1是回文串，长度是2
+                ans = 2;
+            }
+        }
+    }
 
+    // 状态转移方程
+    for (int L = 3; L <= len; L++)
+    {
+        for (int i = 0; i + L - 1 < len; i++) // i表示左端点，i+L-1表示右端点
+        {
+            int j = i + L - 1; // 子串的右端点
+            if (s[i] == s[j] && d[i + 1][j - 1] == 1)
+            {
+                d[i][j] = 1;
+                ans = L;
+            }
+        }
+    }
+    cout << ans << endl;
 }
 
 int main()
 {
-    palindromic1();
-    // string a = "redivider";
-    // cout << a.size() << endl;
-    // cout << a.substr(0, 3) << endl;
+    palindromic1(); // 方法 1
+    palindromic2(); // 方法 2
 }
