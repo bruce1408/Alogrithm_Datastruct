@@ -13,11 +13,13 @@ using namespace std;
 
 /**
  * 方法 1，使用暴力搜索来做
+ * 枚举端点i和j两个端点，然后判断i和j区间字符串是不是回文子串
+ * 从复杂度上看，枚举端点属于O(n^2)，然后判断回文属于O(n),总的复杂度是O(n^3)
  * 
 */
 bool pard(int i, int j, string a)
 {
-    while (i < j)
+    while (i <= j)
     {
         if (a[i] == a[j])
         {
@@ -30,10 +32,9 @@ bool pard(int i, int j, string a)
     return true;
 }
 
-int main()
+void palindromic1()
 {
-    string a = "zsubusht";
-    // cout << a.substr(1, 3) << endl;
+    string a = "redivider";
     int n = a.size();
     string res;
     for (int i = 0; i < n; i++)
@@ -43,8 +44,9 @@ int main()
         {
             if (pard(i, j, a))
             {
-                temp = a.substr(i, j);
-                // cout << temp << endl;
+                temp = a.substr(i, j + 1);
+                // cout << i << " " << j << " " << temp << endl;
+
                 if (temp.size() > res.size())
                 {
                     res = temp;
@@ -53,4 +55,21 @@ int main()
         }
     }
     cout << res << endl;
+}
+
+/**
+ * 方法 2，使用动态规划来做
+ * d[i][j]表示从i到j的回文串长度
+*/
+void palindromic2()
+{
+    string s = "abcba";
+}
+
+int main()
+{
+    palindromic1();
+    // string a = "redivider";
+    // cout << a.size() << endl;
+    // cout << a.substr(0, 3) << endl;
 }
