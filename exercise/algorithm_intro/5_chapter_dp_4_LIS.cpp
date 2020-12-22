@@ -11,6 +11,9 @@ using namespace std;
  * 长度是5
  * 
  * 设置一个数组d[i]表示以A[i]结尾的最长不下降子序列
+ * res[i]之前的存在元素res[j]<=res[i]
+ * 且 d[j] + 1 > d[i] j结尾的元素长度+1要大于以i结尾的元素
+ * 满足上面两条
 */
 const int N = 20;
 int d[N];
@@ -26,7 +29,7 @@ int main()
         {
             if (res[i] > res[j] && (d[j] + 1 > d[i]))
             {
-                d[i] = d[j] + 1;
+                d[i] = max(d[j] + 1, 1);
             }
         }
         maxnum = max(maxnum, d[i]);
