@@ -8,22 +8,22 @@ using namespace std;
  * Explanation: 342 + 465 = 807.
  * 
  * 两个链表，然后相加，得到一个新的链表；
- * 我自己的这种方法不好，越做越复杂，网上的思路是对的，
- * 我这种思路有问题。
  */
 
 struct ListNode
 {
 	int val;
-	ListNode* next; // 定义一个指针是可以的
+	ListNode *next; // 定义一个指针是可以的
 	ListNode(int x) : val(x), next(NULL) {}
 };
 
 void print_list(struct ListNode *head);
 
 /**
- * 方法 1，创建一个新的链表，然后逐位相加即可，这里要注意进位，是否进位，怎么进位，进位是否传递等方法
- * 和方法 2相比，多了进位判断，就是下文注释掉的if-else语句，可以直接用carry = sumValue / 10;来代替
+ * 方法 1，创建一个新的链表，然后逐位相加即可，这里要注意进位，
+ * 是否进位，怎么进位，进位是否传递等方法
+ * 和方法 2相比，多了进位判断，就是下文注释掉的if-else语句，
+ * 可以直接用carry = sumValue / 10;来代替
  * 这样写法就很简单。时间复杂度是O(n)，空间是O(max(m,n))；
 */
 ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
@@ -47,7 +47,7 @@ ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 	{
 		int p1Sum = p1->val + carry;
 		p1->val = p1Sum % 10;
-		
+
 		carry = p1Sum / 10;
 		head->next = p1;
 		head = p1;
