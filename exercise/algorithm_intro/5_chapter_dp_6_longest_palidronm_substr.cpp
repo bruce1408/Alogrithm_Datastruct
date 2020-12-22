@@ -59,11 +59,13 @@ void palindromic1()
 
 /**
  * 方法 2，使用动态规划来做
- * d[i][j]表示从i到j的回文串长度
+ * d[i][j]表示从s[i]到s[j] 是否是回文串
+ * 如果s[i]==s[j]: d[i][j] = 
 */
 void palindromic2()
 {
     string s = "abcba";
+
 }
 
 int main()
