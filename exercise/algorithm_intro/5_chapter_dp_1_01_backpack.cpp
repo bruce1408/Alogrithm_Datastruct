@@ -8,15 +8,15 @@ using namespace std;
 */
 const int N = 1005;
 int w[N];    // 重量
-int v[N];    // 价值
+int c[N];    // 价值
 int f[N][N]; // f[i][j], j重量下前i个物品的最大价值
 
-int main()
+void backpack1()
 {
-    int n, m;
+    int n=5, m=8; // n=5表示背包数量，m=8表示背包容纳的总重量，
     cin >> n >> m;
     for (int i = 1; i <= n; ++i)
-        cin >> w[i] >> v[i];
+        cin >> w[i] >> c[i];
 
     for (int i = 1; i <= n; ++i)
         for (int j = 1; j <= m; ++j)
@@ -26,9 +26,31 @@ int main()
                 f[i][j] = f[i - 1][j];
             // 能装，需判断
             else
-                f[i][j] = max(f[i - 1][j], f[i - 1][j - w[i]] + v[i]);
+                f[i][j] = max(f[i - 1][j], f[i - 1][j - w[i]] + c[i]);
         }
 
     cout << f[n][m] << endl;
-    return 0;
+}
+
+void backpack2()
+{
+    int n, m; // n=5表示物品数量，m=8表示背包容纳的总重量，
+    cin >> n >> m;
+    for (int i = 1; i <= n; ++i)
+        cin >> w[i] >> c[i];
+
+    for (int i = 1; i <= n; ++i)
+    {
+        for (int v = w[i]; v <= m; v++)
+        {
+            f[i][v] = max(f[i - 1][v], f[i - 1][v - w[i]] + c[i]);
+        }
+    }
+
+    cout << f[n][m] << endl;
+}
+
+int main()
+{
+    backpack1();
 }
