@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 /**
- * 最长不下降子序列
+ * 最长不下降子序列 LIS (longest increase sequence)
  * 在一个数字序列中，找到最长的子序列保证它是不下降的
  * 例如 
  * 1 2 3 -1 -2 7 9
