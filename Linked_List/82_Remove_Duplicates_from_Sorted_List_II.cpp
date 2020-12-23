@@ -28,24 +28,24 @@ void print_list(struct ListNode *head);
  * 那就相当于before子链cur没有重复数字，接着遍历，否则，有重复数字，
  * before->next = cur->next;这一句是关键。
  */
-ListNode *deleteDuplicates(ListNode *head)
+ListNode *deleteDuplicates1(ListNode *head)
 {
 	if (!head || !head->next)
 		return head;
-	ListNode *start = new ListNode(-1);
-	start->next = head;
-	ListNode *pre = start;
-	while (pre->next)
+	ListNode *dummy = new ListNode(-1);
+	dummy->next = head;
+	ListNode *cur = dummy;
+	while (cur->next)
 	{
-		ListNode *cur = pre->next;
-		while (cur->next && cur->next->val == cur->val)
-			cur = cur->next;
-		if (cur != pre->next)
-			pre->next = cur->next;
+		ListNode *a = cur->next;
+		while (a->next && a->next->val == a->val)
+			a = a->next;
+		if (cur->next != a)
+			cur->next = a->next;
 		else
-			pre = pre->next;
+			cur = cur->next;
 	}
-	return start->next;
+	return dummy->next;
 }
 
 /**
@@ -105,48 +105,18 @@ ListNode *deleteDuplicates3(ListNode *head)
 	if (head->next && head->next->val == head->val)
 	{
 		while (head->next && head->val == head->next->val) // 开头重复
-		{
 			head = head->next;
-		}
 		return deleteDuplicates3(head->next); // 中间重复
 	}
 	head->next = deleteDuplicates3(head->next); // 尾部重复
 	return head;
 }
 
-// 方法 4，自己做的，和方法2类似
-ListNode *deleteDuplication4(ListNode *head)
-{
-	ListNode *dummy = new ListNode(-1);
-	dummy->next = head;
-	ListNode *cur = head, *p = dummy;
-	while (cur && cur->next)
-	{
-		ListNode *after = cur->next;
-		if (after->val != cur->val)
-		{
-			p = cur;
-			cur = cur->next;
-		}
-		else
-		{
-			while (after && (cur->val == after->val))
-			{
-				cur = after;
-				after = after->next;
-			}
-			p->next = after;
-			cur = after;
-		}
-	}
-	return dummy->next;
-}
-
 int main()
 {
 	ListNode *head = new ListNode(1);
 	ListNode *node2 = new ListNode(1);
-	ListNode *node3 = new ListNode(1);
+	ListNode *node3 = new ListNode(2);
 	ListNode *node4 = new ListNode(3);
 	ListNode *node5 = new ListNode(3);
 	ListNode *node6 = new ListNode(3);
@@ -159,7 +129,7 @@ int main()
 	node5->next = node6;
 	node6->next = node7;
 	print_list(head);
-	print_list(deleteDuplication4(head));
+	print_list(deleteDuplicates3(head));
 	return 0;
 }
 
