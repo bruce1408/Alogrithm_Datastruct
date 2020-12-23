@@ -128,7 +128,6 @@ ListNode *rotateRight3(ListNode *head, int k)
 /**
  * 方法 4，和方法 3思路都一样，就是写法略有不同
 */
-
 ListNode *rotateRight4(ListNode *head, int k)
 {
     if (!head)
