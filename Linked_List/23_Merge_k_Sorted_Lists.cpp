@@ -97,6 +97,7 @@ ListNode *mergeKLists2(vector<ListNode *> &lists)
             return a->val > b->val;
         }
     };
+
     priority_queue<ListNode *, vector<ListNode *>, cmp> q; // 构成一个链表的最小堆
 
     for (auto node : lists)
