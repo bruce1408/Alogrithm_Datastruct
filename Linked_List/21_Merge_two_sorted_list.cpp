@@ -60,7 +60,7 @@ ListNode *mergeTwoLists2(ListNode *l1, ListNode *l2)
     if (!l1 || !l2)
         return l1 ? l1 : l2;
     ListNode dummy(0);
-    // 如果是这行语句的话，那么就返回的是dummy.next
+    // 如果是这行语句的话，那么就返回的是dummy->next
     // ListNode *dummy = new ListNode(0);
     ListNode *cur = &dummy;
     while (l1 && l2)
@@ -85,40 +85,9 @@ ListNode *mergeTwoLists2(ListNode *l1, ListNode *l2)
 }
 
 /**
- * 方法 3，思路和上面都一样,头结点是指针
+ * 方法 3，二路归并递归算法。
 */
 ListNode *mergeTwoLists3(ListNode *l1, ListNode *l2)
-{
-    ListNode *p1 = l1, *p2 = l2;
-    ListNode *head = new ListNode(0);
-    ListNode *cur = head;
-    while (p1 && p2)
-    {
-        ListNode *temp;
-        if (p1->val < p2->val)
-        {
-            temp = new ListNode(p1->val);
-            p1 = p1->next;
-        }
-        else
-        {
-            temp = new ListNode(p2->val);
-            p2 = p2->next;
-        }
-        cur->next = temp;
-        cur = temp;
-    }
-    if (p1)
-        cur->next = p1;
-    if (p2)
-        cur->next = p2;
-    return head->next;
-}
-
-/**
- * 方法 4，标准答案的简洁版，使用递归，而是使用其他版本。
-*/
-ListNode *mergeTwoLists4(ListNode *l1, ListNode *l2)
 {
     if (!l1)
         return l2;
@@ -126,7 +95,7 @@ ListNode *mergeTwoLists4(ListNode *l1, ListNode *l2)
         return l1;
     ListNode *head = l1->val < l2->val ? l1 : l2;
     ListNode *nonhead = l1->val < l2->val ? l2 : l1;
-    head->next = mergeTwoLists4(head->next, nonhead);
+    head->next = mergeTwoLists3(head->next, nonhead);
     return head;
 }
 
@@ -151,7 +120,7 @@ int main()
     print_list(head1);
     print_list(head2);
 
-    ListNode *before = mergeTwoLists4(head1, head2);
+    ListNode *before = mergeTwoLists3(head1, head2);
     print_list(before);
     return 0;
 }
