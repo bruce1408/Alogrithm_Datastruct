@@ -40,27 +40,24 @@ ListNode *removeNthFromEnd(ListNode *head, int n)
     return head;
 }
 /**
- * 方法 2，方法 2和方法 1思路一样，写法略有不同。
+ * 方法 2，先求出所有长度，然后删除第k个点，就是从前往后遍历。
 */
 ListNode *removeNthFromEnd1(ListNode *head, int n)
 {
-    if (!head->next)
-        return NULL;
-    ListNode *cur = head, *pre = head;
-    while (n > 0)
+    ListNode *dummy = new ListNode(-1);
+    dummy->next = head;
+    ListNode *cur = dummy;
+    int len = 0;
+    for (auto p = head; p; p = p->next)
+        len++;
+
+    for (int i = 0; i < len - n; i++)
     {
-        n--;
         cur = cur->next;
     }
-    if (!cur)
-        return head->next;
-    while (cur->next)
-    {
-        pre = pre->next;
-        cur = cur->next;
-    }
-    pre->next = pre->next->next;
-    return head;
+    cur->next = cur->next->next;
+    // cout << len << endl;
+    return dummy->next;
 }
 
 void print_list(struct ListNode *head)
@@ -87,7 +84,7 @@ int main()
     a3->next = a4;
     a4->next = a5;
     // print_list(removeNthFromEnd(head,5));
-    print_list(removeNthFromEnd(head, 2));
+    print_list(removeNthFromEnd1(head, 2));
 
     return 0;
 }

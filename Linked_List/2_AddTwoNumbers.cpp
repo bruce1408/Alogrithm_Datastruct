@@ -25,6 +25,8 @@ void print_list(struct ListNode *head);
  * 和方法 2相比，多了进位判断，就是下文注释掉的if-else语句，
  * 可以直接用carry = sumValue / 10;来代替
  * 这样写法就很简单。时间复杂度是O(n)，空间是O(max(m,n))；
+ * 
+ * 虚拟头结点很重要
 */
 ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 {
@@ -32,7 +34,6 @@ ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
 	ListNode *p1 = l1, *p2 = l2;
 	ListNode *head = new ListNode(0); // 开始建立一个头结点，最后返回这个头结点的下一个链表作为开头；
 	ListNode *cur = head;
-	bool carryFlag = false;
 	while (p1 && p2)
 	{
 		int tempSum = p1->val + p2->val + carry;
@@ -119,35 +120,23 @@ ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2)
 	return head->next;
 }
 /**
- * 方法 3，
+ * 方法 3，非常简洁的写法，代码优雅
 */
 ListNode *addTwoNum3(ListNode *l1, ListNode *l2)
 {
-	ListNode *result = new ListNode(0);
-	ListNode *res = result;
-	if (l1 == nullptr && l2 == nullptr)
-		return nullptr;
-	int carray = 0;
-	while (l1 && l2)
+	ListNode *dummy = new ListNode(-1), *cur = dummy;
+	int t = 0;
+	while (l1 || l2 || t)
 	{
-		int x = l1->val + l2->val + carray;
-		carray = x / 10;
-		ListNode *p = new ListNode(x % 10);
-		result->next = p;
-		result = p;
-		l1 = l1->next;
-		l2 = l2->next;
+		if (l1)
+			t += l1->val, l1 = l1->next;
+		if (l2)
+			t += l2->val, l2 = l2->next;
+		cur->next = new ListNode(t % 10);
+		cur = cur->next;
+		t /= 10;
 	}
-	while (l1)
-	{
-		int x = l1->val + carray;
-		carray = x / 10;
-		ListNode *p = new ListNode(x % 10);
-		result->next = p;
-		result = p;
-		l1 = l1->next;
-	}
-	return res->next;
+	return dummy->next;
 }
 
 int main()
