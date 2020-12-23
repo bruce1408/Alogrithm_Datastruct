@@ -20,10 +20,13 @@ struct ListNode
 void print_list(struct ListNode *head);
 
 /**
- * 方法 1，使用两层while循环判断,教科书解法，找一个步长是1的节点之间的关系即可，用before和cur两个节点，因为可能开头的元素就是要删除的元素，
- * 所以设置头结点，每次遍历before这个节点，before后面的设置cur节点，让子节点cur开始走，如果cur到while循环结束，它的前一个节点还是before
- * 那就相当于before子链cur没有重复数字，接着遍历，否则，有重复数字，before->next = cur->next;这一句兼职是关键啊！太牛逼了，我写的太冗长了
- * 没有考虑有这么简洁的写法。方法2是自己写的，我再默写一遍表达对作者的崇拜吧。
+ * 方法 1，使用两层while循环判断,教科书解法，
+ * 找一个步长是1的节点之间的关系即可，
+ * 用before和cur两个节点，因为可能开头的元素就是要删除的元素，
+ * 所以设置头结点，每次遍历before这个节点，before后面的设置cur节点，
+ * 让子节点cur开始走，如果cur到while循环结束，它的前一个节点还是before
+ * 那就相当于before子链cur没有重复数字，接着遍历，否则，有重复数字，
+ * before->next = cur->next;这一句是关键。
  */
 ListNode *deleteDuplicates(ListNode *head)
 {
@@ -44,33 +47,9 @@ ListNode *deleteDuplicates(ListNode *head)
 	}
 	return start->next;
 }
-/**
- * 方法 1，表达崇拜。默写一遍
-*/
-ListNode *deleteDuplicates1(ListNode *head)
-{
-	if (!head || !head->next)
-		return head;
-	ListNode *dummy = new ListNode(-1), *before = dummy;
-	while (before->next)
-	{
-		ListNode *cur = before->next;
-		while (cur->next && cur->next->val == cur->val)
-		{
-			cur = cur->next;
-		}
-		if (cur != before->next)
-			before->next = cur->next;
-		else
-		{
-			before = before->next; // 说明没有相同的子链表，继续向下走；
-		}
-	}
-	return dummy->next;
-}
 
 /**
- * 方法 2，使用的是逻辑算法，两层while循环，如果找到相同的节点，
+ * 方法 2，看图说话，两层while循环，如果找到相同的节点，
  * 那么进入第二层while循环，判断到底是有多少个相同的节点，然后开始把这些节点删除即可。
  * 边界条件需要考虑多种情况，比较麻烦，需要一一举例测试一下
  * 比如：
@@ -135,23 +114,23 @@ ListNode *deleteDuplicates3(ListNode *head)
 	return head;
 }
 
-
 // 方法 4，自己做的，和方法2类似
-ListNode* deleteDuplication4(ListNode* head) {
-	ListNode * dummy = new ListNode (-1);
+ListNode *deleteDuplication4(ListNode *head)
+{
+	ListNode *dummy = new ListNode(-1);
 	dummy->next = head;
-	ListNode * cur = head, *p = dummy;
-	while(cur && cur->next)
+	ListNode *cur = head, *p = dummy;
+	while (cur && cur->next)
 	{
-		ListNode * after = cur->next;
-		if(after->val != cur->val)
+		ListNode *after = cur->next;
+		if (after->val != cur->val)
 		{
 			p = cur;
 			cur = cur->next;
 		}
 		else
 		{
-			while(after && (cur->val == after->val))
+			while (after && (cur->val == after->val))
 			{
 				cur = after;
 				after = after->next;
