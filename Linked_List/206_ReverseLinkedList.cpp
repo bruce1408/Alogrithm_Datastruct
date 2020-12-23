@@ -78,6 +78,7 @@ ListNode *reverseList3(ListNode *head)
  * reverseList4函数就是翻转head作为头结点的链表，然后返回的是
  * 最后一个节点，也是翻转之后的第一个节点；
  * 		1->2->3->4->5 翻转之前
+ * 
  * 		1         2<-3<-4<-5  翻转之后
  * 		head   head->next
  * 
