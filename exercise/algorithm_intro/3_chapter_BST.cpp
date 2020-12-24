@@ -8,12 +8,14 @@ using namespace std;
  * 右节点大于根节点
  * 按照二叉树中序遍历的话是一个有序的数组
  * 
- *      5
- *     / \
- *    3   7
- *   / \  / \
- *  2  4 6   8
- * 
+ *       5
+ *     /   \
+ *    3     7
+ *   / \   / \
+ *  2   4 6   8
+ * 节点的前驱和后继
+ * 二叉搜索树节点的前驱是比该节点权值小的最大节点，是该节点 左子树 的 最右节点
+ *              后继是比该节点权值大的最小节点，是该节点 右子树 的 最左节点
 */
 struct node
 {
@@ -78,7 +80,7 @@ node *create(vector<int> &res)
 /**
  * 二叉查找树后继节点查找，查找的是最右子树节点
  */
-node *findMax(node *root)
+node *preNode(node *root)
 {
     while (root->right != nullptr)
     {
@@ -90,7 +92,7 @@ node *findMax(node *root)
 /**
  * 二叉查找树前驱结点查找，找到的是最左子树节点
 */
-node *findMin(node *root)
+node *reaNode(node *root)
 {
     while (root->left != nullptr)
     {
@@ -124,13 +126,13 @@ void deleteNode(node *&root, int x)
             root = nullptr;
         else if (root->left != nullptr) // 删除的这个节点的左子树不为空节点
         {
-            node *pre = findMax(root->left); // 找到这个节点的前驱节点，就是左子树的最右节点，比这个节点小的最大节点
+            node *pre = preNode(root->left); // 找到这个节点的前驱节点，就是左子树的最右节点，比这个节点小的最大节点
             root->val = pre->val;
             deleteNode(root->left, pre->val); // 这里删除的不再是原来的点，而是赋值之后，新的前驱节点的数值
         }
         else // 如果右子树不为空的话，那么在右子树中删除左节点
         {
-            node *after = findMin(root->right);
+            node *after = reaNode(root->right);
             root->val = after->val;
             deleteNode(root->right, after->val);
         }
@@ -153,6 +155,6 @@ int main()
     inorder(root);
     cout << endl;
     cout << "找出根节点 5 的前驱节点和后继节点" << endl;
-    cout << "前驱节点: " << findMax(root->left)->val << endl;
-    cout << "后继节点: " << findMin(root->right)->val << endl;
+    cout << "前驱节点: " << preNode(root->left)->val << endl;
+    cout << "后继节点: " << reaNode(root->right)->val << endl;
 }
