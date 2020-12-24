@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 /**
  * 这一道题是重新排列链表，
@@ -9,18 +9,23 @@ using namespace std;
  * */
 struct ListNode
 {
-	int val;
-	ListNode *next;
-	ListNode (int x):val(x),next(NULL){}
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
 };
+
 void print_list(ListNode *head);
-class Solution {
+class Solution
+{
 public:
-    void reorderList(ListNode *head) {
-        if (!head || !head->next || !head->next->next) return;
+    void reorderList(ListNode *head)
+    {
+        if (!head || !head->next || !head->next->next)
+            return;
         ListNode *fast = head;
         ListNode *slow = head;
-        while (fast->next && fast->next->next) {
+        while (fast->next && fast->next->next)
+        {
             slow = slow->next;
             fast = fast->next->next;
         }
@@ -28,14 +33,16 @@ public:
         slow->next = NULL;
         ListNode *last = mid;
         ListNode *pre = NULL;
-        while (last) {
+        while (last)
+        {
             ListNode *next = last->next;
             last->next = pre;
             pre = last;
             last = next;
         }
 
-        while (head && pre) {
+        while (head && pre)
+        {
             ListNode *next = head->next;
             head->next = pre;
             pre = pre->next;
@@ -45,14 +52,14 @@ public:
     }
 };
 
-
-ListNode* reorder(ListNode * head)
+ListNode *reorder(ListNode *head)
 {
-    if(!head) return nullptr;
+    if (!head)
+        return nullptr;
     ListNode *slow = head;
     ListNode *fast = head;
-    // 寻找中间的节点 
-    while(fast && fast->next)
+    // 寻找中间的节点
+    while (fast && fast->next)
     {
         slow = slow->next;
         fast = fast->next->next;
@@ -62,9 +69,9 @@ ListNode* reorder(ListNode * head)
 
     ListNode *aftcur = aft;
     ListNode *aftrear = nullptr;
-    ListNode *aftpre =aft;
+    ListNode *aftpre = aft;
     // 反转后一半的节点
-    while(aftcur)
+    while (aftcur)
     {
         aftpre = aftcur;
         aftcur = aftcur->next;
@@ -75,9 +82,9 @@ ListNode* reorder(ListNode * head)
     print_list(slow);
     print_list(aftrear);
     // 开始合并了
-    while(slow && aftrear)
+    while (slow && aftrear)
     {
-        ListNode * cur = slow->next;
+        ListNode *cur = slow->next;
         slow->next = aftrear;
         aftrear = aftrear->next;
         slow->next->next = cur;
@@ -85,51 +92,34 @@ ListNode* reorder(ListNode * head)
     }
     print_list(head);
     return head;
-
 }
-
 
 int main()
 {
-	ListNode *a1 = new ListNode(1);   
-    ListNode *a2 = new ListNode(2);   
-    ListNode *a3 = new ListNode(3);   
-    ListNode *a4 = new ListNode(4);   
+    ListNode *a1 = new ListNode(1);
+    ListNode *a2 = new ListNode(2);
+    ListNode *a3 = new ListNode(3);
+    ListNode *a4 = new ListNode(4);
     ListNode *a5 = new ListNode(5);
-    a1->next = a2;   
-    a2->next = a3;   
-    a3->next = a4;   
-    a4->next = a5;  
-	print_list(a1);
-	// Solution s;
+    a1->next = a2;
+    a2->next = a3;
+    a3->next = a4;
+    a4->next = a5;
+    print_list(a1);
+    // Solution s;
     // s.reorderList(a1);
-	// print_list(a1);
+    // print_list(a1);
     reorder(a1);
-return 0;	
+    return 0;
 }
 
-//打印部分：	
+//打印部分：
 void print_list(struct ListNode *head)
 {
-	while(head)
-	{
-		cout<<head->val<<"->";
-		head = head->next;
-	}
-	cout<<"end"<<endl;
+    while (head)
+    {
+        cout << head->val << "->";
+        head = head->next;
+    }
+    cout << "end" << endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
