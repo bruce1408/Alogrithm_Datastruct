@@ -45,7 +45,7 @@ void search(node *root, int x)
 }
 
 /**
- * 二叉查找树节点的插入
+ * 二叉查找树节点的插入,使用递归来插入新节点
  * */
 void insert(node *&root, int x) // 这里函数在二叉树中插入一个数据域为x的节点，root要加上引用
 {
@@ -55,13 +55,9 @@ void insert(node *&root, int x) // 这里函数在二叉树中插入一个数据
         return;
     }
     if (x == root->val)
-    {
-        return; // 说明这个节点已经存在，不需要插入
-    }
+        return;             // 说明这个节点已经存在，不需要插入
     else if (x > root->val) // 如果这个数大于根节点，说明应该在右节点插入
-    {
         insert(root->right, x);
-    }
     else
         insert(root->left, x);
 }
