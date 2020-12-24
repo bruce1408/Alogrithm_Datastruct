@@ -61,7 +61,8 @@ void InsertSort(int *arr)
 }
 
 /**
- * 方法 2，直接使用链表来排序
+ * 方法 2，直接使用链表来排序,推荐做法，首先head节点给dummy
+ * 然后在依次判断，temp节点和数组排序的时候一样，都是从head->next节点开始
  **/
 ListNode *insertionSortList(ListNode *head)
 {
@@ -72,9 +73,7 @@ ListNode *insertionSortList(ListNode *head)
 		ListNode *temp = head->next;
 		//如果是cur第一次是空或者前面小于后面的，那么依次遍历
 		while (cur->next != NULL && cur->next->val < head->val)
-		{
 			cur = cur->next; // 满足条件，依次向后移动元素。
-		}
 		head->next = cur->next;
 		cur->next = head;
 		head = temp;

@@ -28,7 +28,7 @@ void print_list(struct ListNode *head)
     cout << "end" << endl;
 }
 /**
- * 方法一；递归且用归并排序
+ * 方法一；归并排序
  */
 ListNode *merge(ListNode *l1, ListNode *l2)
 {
@@ -95,6 +95,7 @@ ListNode *merge2(ListNode *l1, ListNode *l2)
 
     return dummy->next;
 }
+
 ListNode *sortList2(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
