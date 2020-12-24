@@ -60,3 +60,10 @@ TreeNode *build(vector<int> &nums, int l, int r)
 /**
  * 方法 2，直接使用链表来做，不用转化成数组。
 */
+TreeNode *sortedListToBST1(ListNode *head)
+{
+    
+    
+
+
+}
