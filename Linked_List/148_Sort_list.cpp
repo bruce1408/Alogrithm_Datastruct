@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include<cmath>
+#include <cmath>
 using namespace std;
 
 /**
@@ -9,6 +9,9 @@ using namespace std;
  * 综合题目，对一个链表排序，利用归并方法进行排序；
  * Input: 4->2->1->3
  * Output: 1->2->3->4
+ * 快速排序时间复杂度满足，但是空间复杂度不满足
+ * 归并排序时间复杂度满足，非递归版本空间复杂度满足
+ * 因此选择归并非递归做法
  * */
 struct ListNode
 {
@@ -28,7 +31,7 @@ void print_list(struct ListNode *head)
     cout << "end" << endl;
 }
 /**
- * 方法一；归并排序
+ * 方法一；归并排序，递归解法不满足空间要求
  */
 ListNode *merge(ListNode *l1, ListNode *l2)
 {
@@ -66,7 +69,7 @@ ListNode *sortList(ListNode *head)
 }
 
 /**
- * 方法二： 不用递归，归并排序
+ * 方法二： 不用递归，归并排序满足条件
  */
 ListNode *merge2(ListNode *l1, ListNode *l2)
 {
