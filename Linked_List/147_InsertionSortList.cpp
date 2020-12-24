@@ -47,10 +47,9 @@ int *list_to_array(ListNode *l)
 // 插入排序
 void InsertSort(int *arr)
 {
-	int i, j, key;
-	for (i = 1; i < 7; i++)
+	for (int i = 1; i < 7; i++)
 	{
-		key = arr[i];
+		int key = arr[i];
 		int j = i - 1;
 		while (j >= 0 && arr[j] > key)
 		{
@@ -66,10 +65,10 @@ void InsertSort(int *arr)
  **/
 ListNode *insertionSortList(ListNode *head)
 {
-	ListNode *sortHead = new ListNode(-1);
+	ListNode *dummy = new ListNode(-1);
 	while (head)
 	{
-		ListNode *cur = sortHead;
+		ListNode *cur = dummy;
 		ListNode *temp = head->next;
 		//如果是cur第一次是空或者前面小于后面的，那么依次遍历
 		while (cur->next != NULL && cur->next->val < head->val)
@@ -80,30 +79,25 @@ ListNode *insertionSortList(ListNode *head)
 		cur->next = head;
 		head = temp;
 	}
-	return sortHead->next;
+	return dummy->next;
 }
 
 int main()
 {
-	ListNode *head = new ListNode(1);
-	ListNode *node2 = new ListNode(2);
+	ListNode *head = new ListNode(6);
+	ListNode *node2 = new ListNode(5);
 	ListNode *node3 = new ListNode(3);
 	ListNode *node4 = new ListNode(4);
 	ListNode *node5 = new ListNode(3);
-	ListNode *node6 = new ListNode(2);
-	ListNode *node7 = new ListNode(1);
 	head->next = node2;
 	node2->next = node3;
 	node3->next = node4;
 	node4->next = node5;
-	node5->next = node6;
-	node6->next = node7;
 	print_list(head);
 
 	ListNode *p;
 	p = insertionSortList(head);
 	print_list(p);
-
 	return 0;
 }
 
