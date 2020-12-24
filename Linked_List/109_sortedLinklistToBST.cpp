@@ -59,11 +59,34 @@ TreeNode *build(vector<int> &nums, int l, int r)
 
 /**
  * 方法 2，直接使用链表来做，不用转化成数组。
+ * 先遍历一遍链表，然后求出链表的总长度，然后再次遍历链表到中间节点的前一个节点，
+ * 先写右边的节点，然后再写左边的节点，左边的末尾要指向空
+ * 
+ *   1->  2->  3->  4->  5
+ *       cur  mid
+ * 遍历的时候找的是cur，因为要找到mid的起一个节点，然后让
+ * cur->next->next成为右子树的开头，cur->next=nullptr表示左子树的结尾和原来断开
+ * 左子树的开头是head
 */
-TreeNode *sortedListToBST1(ListNode *head)
+TreeNode *sortedListToBST(ListNode *head)
 {
-    
-    
-
-
+    int cnt = 0;
+    ListNode *cur = head;
+    while (cur)
+    {
+        cur = cur->next;
+        cnt++;
+    }
+    cur = head;
+    for (int i = 0; i < cnt / 2 - 1; i++)
+        cur = cur->next;
+    if (!head)
+        return nullptr;
+    if (cnt == 1)
+        return new TreeNode(head->val);
+    TreeNode *root = new TreeNode(cur->next->val);
+    root->right = sortedListToBST(cur->next->next); // 右子树的区间
+    cur->next = nullptr;                            // 右子树装完之后，左子树的最后一个节点设置为空
+    root->left = sortedListToBST(head);             // 左子树从头开始到cur
+    return root;
 }
