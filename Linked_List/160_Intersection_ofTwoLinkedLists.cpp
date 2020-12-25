@@ -15,8 +15,9 @@ struct ListNode
 void printf_list(ListNode *u);
 
 /**
- * 方法 1，使用的是长度比较法，第一是比较两个链表的长度,然后是长度长的那个减去短的，长的链表从差值处开始和
- * 短的链表进行循环。不过链表的交点不是数值相同
+ * 方法 1，使用的是长度比较法；
+ * k = n1 - n2 
+ * 比较两个链表的长度,然后是长度长的那个减去短的k，长的链表从差值处开始和短的链表同时走，相遇点就是交点
  */
 int getLength(ListNode *head)
 {
@@ -32,6 +33,7 @@ int getLength(ListNode *head)
 ListNode *getIntersectionNode1(ListNode *headA, ListNode *headB)
 {
 	ListNode *a = headA, *b = headB;
+	// 较长的链表多走k步之后，在和另一个链表一起走，相遇点就是交点
 	int lena = getLength(a), lenb = getLength(b);
 	if (lena < lenb)
 	{
@@ -43,6 +45,7 @@ ListNode *getIntersectionNode1(ListNode *headA, ListNode *headB)
 		for (int i = 0; i < lena - lenb; i++)
 			a = a->next;
 	}
+
 	while (a && b && a != b)
 	{
 		a = a->next;
