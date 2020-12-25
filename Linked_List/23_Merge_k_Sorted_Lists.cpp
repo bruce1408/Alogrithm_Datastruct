@@ -35,6 +35,23 @@ struct ListNode
  * 比如当 n=5 时，那么此时 k=3，则0和3合并，1和4合并，最中间的2空出来。当n是偶数的时候，加1也不会有影响，
  * 比如当 n=4 时，此时 k=2，那么0和2合并，1和3合并
  */
+ListNode *mergeKLists(vector<ListNode *> &lists)
+{
+    if (lists.size() == 0)
+        return nullptr;
+    int n = lists.size();
+    while (n > 1)
+    {
+        int k = (n + 1) / 2; // 参考归并排序的方法。
+        for (int i = 0; i < n && i + k < n; i++)
+        {
+            lists[i] = mergeListNode(lists[i], lists[i + k]);
+        }
+        n = k;
+    }
+    return lists[0];
+}
+
 ListNode *mergeListNode(ListNode *l1, ListNode *l2)
 {
     ListNode *res = new ListNode(-1);
@@ -57,22 +74,6 @@ ListNode *mergeListNode(ListNode *l1, ListNode *l2)
     return res->next;
 }
 
-ListNode *mergeKLists(vector<ListNode *> &lists)
-{
-    if (lists.size() == 0)
-        return nullptr;
-    int n = lists.size();
-    while (n > 1)
-    {
-        int k = (n + 1) / 2; // 参考归并排序的方法。
-        for (int i = 0; i < n && i + k < n; i++)
-        {
-            lists[i] = mergeListNode(lists[i], lists[i + k]);
-        }
-        n = k;
-    }
-    return lists[0];
-}
 
 /**
  * 方法 2，使用最小堆来解决问题，首先把k个链表的首元素都加入最小堆中,
@@ -80,7 +81,6 @@ ListNode *mergeKLists(vector<ListNode *> &lists)
  * 然后把取出元素的下一个元素再加入堆中，下次仍从堆中取出最小的元素做相同的操作，
  * 以此类推，直到堆中没有元素了，此时k个链表也合并为了一个链表，返回首节点即可。
  * 最小堆参考堆相关知识
- * 
 */
 ListNode *mergeKLists2(vector<ListNode *> &lists)
 {
