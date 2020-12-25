@@ -15,32 +15,7 @@ struct ListNode
 void printf_list(ListNode *u);
 
 /**
- * 方法 1，假设这个单链表是升序排列的，找出两组链表的交集：
- * 但是本题目不是升序排列的，所以这个方法不可取；
- */
-ListNode *getIntersectionNode1(ListNode *headA, ListNode *headB)
-{
-	ListNode *p1 = headA, *p2 = headB;
-	while (p1 && p2)
-	{
-		if (p1->val == p2->val)
-		{
-			return p1;
-		}
-		else if (p1->val > p2->val)
-		{
-			p2 = p2->next;
-		}
-		else
-		{
-			p1 = p1->next;
-		}
-	}
-	return nullptr;
-}
-
-/**
- * 方法 2，使用的是长度比较法，第一是比较两个链表的长度,然后是长度长的那个减去短的，长的链表从差值处开始和
+ * 方法 1，使用的是长度比较法，第一是比较两个链表的长度,然后是长度长的那个减去短的，长的链表从差值处开始和
  * 短的链表进行循环。不过链表的交点不是数值相同
  */
 int getLength(ListNode *head)
@@ -54,7 +29,7 @@ int getLength(ListNode *head)
 	return cnt;
 }
 
-ListNode *getIntersectionNode2(ListNode *headA, ListNode *headB)
+ListNode *getIntersectionNode1(ListNode *headA, ListNode *headB)
 {
 	ListNode *a = headA, *b = headB;
 	int lena = getLength(a), lenb = getLength(b);
@@ -77,46 +52,12 @@ ListNode *getIntersectionNode2(ListNode *headA, ListNode *headB)
 }
 
 /**
- * 方法 3，利用环来做
-*/
-ListNode *getIntersectionNode2_1(ListNode *headA, ListNode *headB)
-{
-	ListNode *pA = headA, *pB = headB;
-	bool continueA = false, continueB = false;
-	if (pA == NULL || pB == NULL)
-		return NULL;
-	while ((pA != NULL) && (pB != NULL))
-	{
-		if (pA->val == pB->val)
-			break;
-		pA = pA->next;
-		pB = pB->next;
-
-		if (pA == NULL)
-		{
-			if (continueA)
-				break;
-			pA = headB;
-			continueA = true;
-		}
-		if (pB == NULL)
-		{
-			if (continueB)
-				break;
-			pB = headA;
-			continueB = true;
-		}
-	}
-	return pA;
-}
-
-/**
- * 方法 3，是利用环的思想。最经典的方法
+ * 方法 2，是利用环的思想。推荐写法
  * 题目中强调了链表中不存在环，但是我们可以用环的思想来做，
  * 我们让两条链表分别从各自的开头开始往后遍历，当其中一条遍历到末尾时，我们跳到另一个条链表的开头继续遍历。
  * 两个指针最终会相等，而且只有两种情况，一种情况是在交点处相遇，另一种情况是在各自的末尾的空节点处相等。
  * 为什么一定会相等呢，因为两个指针走过的路程相同，是两个链表的长度之和，所以一定会相等。
- * 
+ * a+b+c = a+c+b
  * 比如是
  * a = 4   1 8 4 5
  * b = 5 0 1 8 4 5
@@ -126,7 +67,7 @@ ListNode *getIntersectionNode2_1(ListNode *headA, ListNode *headB)
  * b = 5 0 1 8 4 5 | 4   1 8 4 5
  * 那么a b 走的路径长度之和一样。最后知道知道a b 链表相同的即可，记住不是val值相同。
  */
-ListNode *getIntersectionNode3(ListNode *headA, ListNode *headB)
+ListNode *getIntersectionNode2(ListNode *headA, ListNode *headB)
 {
 	if (!headA || !headB)
 		return NULL; // 边界条件给忘了？
@@ -135,12 +76,6 @@ ListNode *getIntersectionNode3(ListNode *headA, ListNode *headB)
 	{
 		a = a ? a->next : headB;
 		b = b ? b->next : headA;
-
-		// 等价的写法
-		// if(a) a = a->next;
-		// else a = headB;
-		// if(b) b = b->next ;
-		// else b = headA;
 	}
 	return a;
 }
@@ -179,6 +114,6 @@ int main()
 	//打印出两个链表的值
 	printf_list(p1);
 	printf_list(p2);
-	cout << getIntersectionNode2_1(p1, p2)->val << endl;
+	cout << getIntersectionNode3(p1, p2)->val << endl;
 	return 0;
 }

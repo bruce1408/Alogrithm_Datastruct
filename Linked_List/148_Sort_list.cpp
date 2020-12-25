@@ -49,8 +49,7 @@ ListNode *sortList(ListNode *head)
     }
     cur = head;
     ListNode *left, *right, *tail;
-    // 从1开始，每次从下往上合并链表，然后step乘2
-    for (int step = 1; step < cnt; step <<= 1)
+    for (int step = 1; step < cnt; step <<= 1) // 从1开始，每次从下往上合并链表，然后step乘2
     {
         cur = dummy->next;
         tail = dummy;
@@ -99,7 +98,6 @@ ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head)
  * 例如 1 -> 2 -> 3 -> 4 -> 5 ->6->null ;n 选择 1 拆分，
  *     1 -> null,     2 -> 3 -> 4 -> 5 -> 6 -> null
  * 最后结果返回的是6，即第二个子链表的最后一个节点
- * 
  */
 ListNode *split(ListNode *head, int n)
 {
