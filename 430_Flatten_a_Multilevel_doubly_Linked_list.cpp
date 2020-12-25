@@ -1,17 +1,19 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-// 这一道题目就是说定义节点结构，有孩子节点，返回的是一个没有孩子节点的链表
-class Node 
+/**
+ * 这一道题目就是说定义节点结构，有孩子节点，返回的是一个没有孩子节点的链表
+*/
+class Node
 {
-    public:
+public:
     int val = NULL;
-    Node* prev = NULL;
-    Node* next = NULL;
-    Node* child = NULL;
+    Node *prev = NULL;
+    Node *next = NULL;
+    Node *child = NULL;
     Node() {}
-    Node(int _val, Node* _prev, Node* _next, Node* _child) 
+    Node(int _val, Node *_prev, Node *_next, Node *_child)
     {
         val = _val;
         prev = _prev;
@@ -20,32 +22,56 @@ class Node
     }
 };
 
-
-Node * flatten(Node*head)
+/**
+ * 方法 1
+*/
+Node *flatten1(Node *head)
 {
-    if(head==nullptr) return nullptr;
+    if (head == nullptr)
+        return nullptr;
     Node *p = head;
-    while(p)
+    while (p)
     {
-        if(p->child==nullptr)
+        if (p->child == nullptr)
         {
             p = p->next;
             continue;
         }
         // case 1: has a child node
-        Node* temp = p->child;
-        while(temp->next) temp = temp->next;
+        Node *temp = p->child;
+        while (temp->next)
+            temp = temp->next;
         temp->next = p->next;
         // 链接两根线，next 和 pre
-        if(p->next!=nullptr) p->next->prev = temp;
-        p->next = p->child; 
+        if (p->next != nullptr)
+            p->next->prev = temp;
+        p->next = p->child;
         p->child->prev = p;
         p->child = nullptr;
     }
-
-
+    return head;
 }
-int main()
+
+/**
+ * 方法 2
+*/
+Node *flatten2(Node *head)
 {
-    return 0;
+    for (Node *h = head; h; h = h->next)
+    {
+        if (h->child)
+        {
+            Node *next = h->next;
+            h->next = h->child;
+            h->next->prev = h;
+            h->child = NULL;
+            Node *p = h->next;
+            while (p->next)
+                p = p->next;
+            p->next = next;
+            if (next)
+                next->prev = p;
+        }
+    }
+    return head;
 }
