@@ -34,27 +34,23 @@ void print_list(struct ListNode *head)
 /**
  * 方法 1， 使用自底向上策略,空间复杂度O(1)，时间复杂度O(NlgN)
 */
-// 函数声明
 ListNode *split(ListNode *head, int n);
 ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head);
+
 ListNode *sortList(ListNode *head)
 {
-    if (!head || !(head->next))
-        return head;
-
-    //get the linked list's length
-    ListNode *cur = head;
-    int length = 0;
+    ListNode *dummy = new ListNode(-1), *cur = head;
+    dummy->next = head;
+    int cnt = 0;
     while (cur)
     {
-        length++;
+        cnt++;
         cur = cur->next;
     }
-
-    ListNode *dummy = new ListNode(0);
-    dummy->next = head;
+    cur = head;
     ListNode *left, *right, *tail;
-    for (int step = 1; step < length; step <<= 1)
+    // 从1开始，每次从下往上合并链表，然后step乘2
+    for (int step = 1; step < cnt; step <<= 1)
     {
         cur = dummy->next;
         tail = dummy;
@@ -70,49 +66,52 @@ ListNode *sortList(ListNode *head)
 }
 
 /**
- * Divide the linked list into two lists,
- * while the first list contains first n nodes
- * return the second list's head
- */
-ListNode *split(ListNode *head, int n)
-{
-    //if(!head) return NULL;
-    for (int i = 1; head && i < n; i++)
-        head = head->next;
-
-    if (!head)
-        return NULL;
-    ListNode *second = head->next;
-    head->next = NULL;
-    return second;
-}
-/**
-     * merge the two sorted linked list l1 and l2,
-     * then append the merged sorted linked list to the node head
-     * return the tail of the merged sorted linked list
+ * 合并l1 和 l2，合并后的链表返回最后一个节点，因为下次合并要接在上次合并的链表的
+ * 最后一个位置即可
  */
 ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head)
 {
+    if (!l1)
+        head->next = l2;
+    if (!l2)
+        head->next = l1;
     ListNode *cur = head;
     while (l1 && l2)
     {
-        if (l1->val > l2->val)
+        if (l1->val < l2->val)
         {
-            cur->next = l2;
-            cur = l2;
-            l2 = l2->next;
+            cur->next = l1, l1 = l1->next;
+            cur = cur->next;
         }
         else
         {
-            cur->next = l1;
-            cur = l1;
-            l1 = l1->next;
+            cur->next = l2, l2 = l2->next, cur = cur->next;
         }
     }
-    cur->next = (l1 ? l1 : l2);
+    l1 ? cur->next = l1 : cur->next = l2;
     while (cur->next)
         cur = cur->next;
     return cur;
+}
+
+/**
+ * 传入一个head链表，和参数n，就是把这个链表的前n个链表拆分出来，返回拆分后面部分链表的最后一个节点
+ * 例如 1 -> 2 -> 3 -> 4 -> 5 ->6->null ;n 选择 1 拆分，
+ *     1 -> null,     2 -> 3 -> 4 -> 5 -> 6 -> null
+ * 最后结果返回的是6，即第二个子链表的最后一个节点
+ * 
+ */
+ListNode *split(ListNode *head, int n)
+{
+    for (int i = 1; i < n && head; i++)
+    {
+        head = head->next;
+    }
+    if (!head)
+        return nullptr;
+    ListNode *rear = head->next;
+    head->next = nullptr;
+    return rear;
 }
 
 /**
@@ -210,5 +209,14 @@ int main()
     ListNode b1(5, &c1);
     ListNode a1(-1, &b1);
     ListNode *head = &a1;
-    print_list(sortList(head));
+    // print_list(sortList(head));
+
+    print_list(head);
+
+    ListNode *cur = head;
+    ListNode *left = split(cur, 1);
+    print_list(left);
+    print_list(split(left, 1));
+    // print_list(split(head, 2));
+    // print_list(split(head, 4));
 }
