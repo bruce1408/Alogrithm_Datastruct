@@ -30,10 +30,95 @@ void print_list(struct ListNode *head)
     }
     cout << "end" << endl;
 }
+
 /**
- * 方法一；归并排序，递归解法不满足空间要求
+ * 方法 1， 使用自底向上策略,空间复杂度O(1)，时间复杂度O(NlgN)
+*/
+// 函数声明
+ListNode *split(ListNode *head, int n);
+ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head);
+ListNode *sortList(ListNode *head)
+{
+    if (!head || !(head->next))
+        return head;
+
+    //get the linked list's length
+    ListNode *cur = head;
+    int length = 0;
+    while (cur)
+    {
+        length++;
+        cur = cur->next;
+    }
+
+    ListNode *dummy = new ListNode(0);
+    dummy->next = head;
+    ListNode *left, *right, *tail;
+    for (int step = 1; step < length; step <<= 1)
+    {
+        cur = dummy->next;
+        tail = dummy;
+        while (cur)
+        {
+            left = cur;
+            right = split(left, step);
+            cur = split(right, step);
+            tail = merge(left, right, tail);
+        }
+    }
+    return dummy->next;
+}
+
+/**
+ * Divide the linked list into two lists,
+ * while the first list contains first n nodes
+ * return the second list's head
  */
-ListNode *merge(ListNode *l1, ListNode *l2)
+ListNode *split(ListNode *head, int n)
+{
+    //if(!head) return NULL;
+    for (int i = 1; head && i < n; i++)
+        head = head->next;
+
+    if (!head)
+        return NULL;
+    ListNode *second = head->next;
+    head->next = NULL;
+    return second;
+}
+/**
+     * merge the two sorted linked list l1 and l2,
+     * then append the merged sorted linked list to the node head
+     * return the tail of the merged sorted linked list
+ */
+ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head)
+{
+    ListNode *cur = head;
+    while (l1 && l2)
+    {
+        if (l1->val > l2->val)
+        {
+            cur->next = l2;
+            cur = l2;
+            l2 = l2->next;
+        }
+        else
+        {
+            cur->next = l1;
+            cur = l1;
+            l1 = l1->next;
+        }
+    }
+    cur->next = (l1 ? l1 : l2);
+    while (cur->next)
+        cur = cur->next;
+    return cur;
+}
+
+/**
+ * 方法 2；归并排序，递归解法不满足空间要求
+ */
+ListNode *merge2(ListNode *l1, ListNode *l2)
 {
     if (!l1)
         return l2;
@@ -41,17 +126,17 @@ ListNode *merge(ListNode *l1, ListNode *l2)
         return l1;
     if (l1->val < l2->val)
     {
-        l1->next = merge(l1->next, l2);
+        l1->next = merge2(l1->next, l2);
         return l1;
     }
     else
     {
-        l2->next = merge(l1, l2->next);
+        l2->next = merge2(l1, l2->next);
         return l2;
     }
 }
 
-ListNode *sortList(ListNode *head)
+ListNode *sortList2(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
         return head;
@@ -65,13 +150,13 @@ ListNode *sortList(ListNode *head)
         fast = fast->next->next;
     }
     pre->next = nullptr;
-    return merge(sortList(head), sortList(slow));
+    return merge2(sortList2(head), sortList2(slow));
 }
 
 /**
- * 方法二： 不用递归，归并排序满足条件
+ * 方法 3： 不用递归，归并排序满足时间要去，空间要求不满足
  */
-ListNode *merge2(ListNode *l1, ListNode *l2)
+ListNode *merge3(ListNode *l1, ListNode *l2)
 {
     if (!l1)
         return l2;
@@ -99,7 +184,7 @@ ListNode *merge2(ListNode *l1, ListNode *l2)
     return dummy->next;
 }
 
-ListNode *sortList2(ListNode *head)
+ListNode *sortList3(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
         return head;
@@ -114,30 +199,7 @@ ListNode *sortList2(ListNode *head)
     slow->next = nullptr;
     print_list(head);
     print_list(mid);
-    return merge2(sortList2(head), sortList2(mid));
-}
-/**
- * 方法 3，使用额外的空间，虽然不满足要求，还是写出来作为一种补充
-*/
-ListNode *sortList3(ListNode *head)
-{
-    ListNode *cur = head;
-    vector<int> res;
-    while (cur)
-    {
-        res.push_back(cur->val);
-        cur = cur->next;
-    }
-    sort(res.begin(), res.end());
-    cur = head;
-    int i = 0;
-    while (cur)
-    {
-        cur->val = res[i];
-        i++;
-        cur = cur->next;
-    }
-    return head;
+    return merge3(sortList3(head), sortList3(mid));
 }
 
 int main()
@@ -148,6 +210,5 @@ int main()
     ListNode b1(5, &c1);
     ListNode a1(-1, &b1);
     ListNode *head = &a1;
-    print_list(sortList3(head));
-    cout << ceil(3.14) << endl;
+    print_list(sortList(head));
 }
