@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 /**
- * 链表的反转算法：
+ * 链表的反转
  * 核心的思想是一个工作指针p、一个rear指针初始值设为NULL,还有一个从后往前指的指针before。
 */
 struct ListNode

@@ -18,7 +18,7 @@ struct ListNode
 void printf_list(ListNode *u);
 
 /**
- * 方法 1,给一个前继节点
+ * 方法 1,设置头结点然后开始删除
 */
 ListNode *removeElements1(ListNode *head, int val)
 {

@@ -1,13 +1,12 @@
 #include <iostream>
 #include <vector>
-#include<stack>
+#include <stack>
 using namespace std;
 /**
  * Given a singly linked list, determine if it is a palindrome.
  * 判断是否是回文链表,思路：
- * 可以用栈，还有反转链表都可以来做。
+ * 反转链表来做。
  */
-
 struct ListNode
 {
     int val;
@@ -24,9 +23,11 @@ void print_list(ListNode *head)
     }
     cout << "end" << endl;
 }
-/** 方法 1，值放到容器中去，在容器中判断是否是回文数，
+
+/** 方法 1，
+ * 值放到容器中去，在容器中判断是否是回文数，
  * 容器中，设置两个数值，i和j，一个从0开始，一个从最后一个位置开始比较，分别自增
- * 和自减1。然后通过下标来判断是不是相同，算法的时间复杂度是O(n),但是空间复杂度也是O(n)
+ * 和自减1。然后通过下标来判断是不是相同，算法的时间复杂度是O(n),但是空间复杂度也是O(n),不满足常数空间复杂度
  */
 bool isPalindrome1(ListNode *head)
 {
@@ -46,21 +47,21 @@ bool isPalindrome1(ListNode *head)
 }
 
 /**
- * 方法 2，使用栈来做即可
+ * 方法 2，使用栈来做即可，不满足题目条件
 */
 bool isPalindrome2(ListNode *head)
 {
-    stack<int>tmp;
+    stack<int> tmp;
     ListNode *cur = head;
-    while(cur)
+    while (cur)
     {
         tmp.push(cur->val);
         cur = cur->next;
     }
     cur = head;
-    while(!tmp.empty())
+    while (!tmp.empty())
     {
-        if(tmp.top() != cur->val)
+        if (tmp.top() != cur->val)
         {
             return false;
         }
@@ -72,9 +73,9 @@ bool isPalindrome2(ListNode *head)
     }
     return true;
 }
+
 /**
- * 方法 3，回文链表，找到中间节点的链表然后反转，比价复杂。
- * 这个算法中反转部分使用了带头结点的
+ * 方法 3，回文链表，找到中间节点的链表然后反转。
  */
 ListNode *ReverseList3(ListNode *head)
 {
@@ -96,18 +97,20 @@ ListNode *ReverseList3(ListNode *head)
 bool isPalindrome3(ListNode *head)
 {
     if (head == nullptr)
-    {
         return true;
-    }
     ListNode *slow = head;
     ListNode *fast = head->next;
+
+    // 找到链表的中间点
     while (fast && fast->next)
     {
         slow = slow->next;
         fast = fast->next->next;
     }
+    cout << "中点是: " << slow->val << endl;
     slow = slow->next;
     ListNode *q = ReverseList3(slow);
+
     // 判断是否是回文串
     ListNode *p = head;
     while (p && q)
@@ -171,14 +174,14 @@ int main()
     ListNode *head = new ListNode(1);
     ListNode *node2 = new ListNode(2);
     ListNode *node3 = new ListNode(5);
-    // ListNode *node4 = new ListNode(4);
+    ListNode *node4 = new ListNode(4);
     ListNode *node5 = new ListNode(5);
     ListNode *node6 = new ListNode(2);
     ListNode *node7 = new ListNode(1);
     head->next = node2;
     node2->next = node3;
-    // node3->next = node4;
-    node3->next = node5;
+    node3->next = node4;
+    node4->next = node5;
     node5->next = node6;
     node6->next = node7;
 
@@ -187,36 +190,6 @@ int main()
         cout << "是回文串" << endl;
     else
         cout << "不是回文串" << endl;
-    cout << middleList3(head)->val << endl;
+    // cout << middleList4(head)->val << endl;
     return 0;
 }
-
-// 20190306 判断是否是回文串，那就是要先找到中间节点，然后翻转！分两步来实现
-
-// bool isPalindrome(ListNode* head){
-//     if(!head || !head->next) return true;
-//     ListNode *slow = head, *fast = head;
-//     while(fast->next && fast->next->next)
-//     {
-//         fast = fast->next->next;
-//         slow = slow->next;
-//     }
-//     // 中间节点找到了，是slow
-//     ListNode *cur = head;
-//     ListNode *last = slow->next;
-//     while(last->next)  // 后半部分翻转,这里前一个是slow，可以认为它是头结点的翻转！
-//     {
-//         ListNode *tmp = last->next;
-//         last->next = tmp->next;
-//         tmp->next = slow->next;
-//         slow->next = tmp;
-//     }
-//     // judge if the list is palindrome
-//     while(slow->next)
-//     {
-//         slow = slow->next;
-//         if(cur->val != slow->val) return false;
-//         cur = cur->next;
-//     }
-//     return true;
-// }

@@ -84,21 +84,33 @@ ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
 /**
  * 方法 1.1,思路和方法 1完全一样，只不过就是写法上更加简单和简洁，非常值得借鉴一下
 */
-ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+{
     stack<int> s1, s2;
-    while (l1) {
+    while (l1)
+    {
         s1.push(l1->val);
         l1 = l1->next;
     }
-    while (l2) {
+    while (l2)
+    {
         s2.push(l2->val);
         l2 = l2->next;
     }
     int sum = 0;
     ListNode *res = new ListNode(0);
-    while (!s1.empty() || !s2.empty()) {
-        if (!s1.empty()) {sum += s1.top(); s1.pop();}
-        if (!s2.empty()) {sum += s2.top(); s2.pop();}
+    while (!s1.empty() || !s2.empty())
+    {
+        if (!s1.empty())
+        {
+            sum += s1.top();
+            s1.pop();
+        }
+        if (!s2.empty())
+        {
+            sum += s2.top();
+            s2.pop();
+        }
         res->val = sum % 10;
         ListNode *head = new ListNode(sum / 10);
         head->next = res;
@@ -111,9 +123,11 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
  * 方法 2，使用链表反转的技术。一般链表翻转，空间上可以用栈来解决，但是如果解决空间问题，那么就用
  * 带头结点的或者是不带头结点的算法来反转链表；这是常用的方法
 */
-ListNode* reverse(ListNode* head) {
+ListNode *reverse(ListNode *head)
+{
     ListNode *pre = nullptr;
-    while (head) {
+    while (head)
+    {
         ListNode *t = head->next;
         head->next = pre;
         pre = head;
@@ -122,13 +136,15 @@ ListNode* reverse(ListNode* head) {
     return pre;
 }
 
-ListNode* addTwoNumbers2(ListNode* l1, ListNode* l2) {
+ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2)
+{
     l1 = reverse(l1);
     l2 = reverse(l2);
     ListNode dummy_head(0);
-    ListNode* it = &dummy_head;
+    ListNode *it = &dummy_head;
     int sum = 0, carry = 0;
-    while(l1 || l2 || carry) {
+    while (l1 || l2 || carry)
+    {
         sum = carry + (l1 ? l1->val : 0) + (l2 ? l2->val : 0);
         carry = sum / 10;
         it->next = new ListNode(sum % 10);
@@ -136,44 +152,53 @@ ListNode* addTwoNumbers2(ListNode* l1, ListNode* l2) {
         l1 = l1 ? l1->next : nullptr;
         l2 = l2 ? l2->next : nullptr;
     }
-    return reverse(dummy_head.next);        
+    return reverse(dummy_head.next);
 }
-// ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 
-//     vector<int> nums1, nums2;
-//     while(l1)//l1
-//     {
-//         nums1.push_back(l1->val);
-//         l1 = l1->next;
-//     }
-//     while(l2)//l2
-//     {
-//         nums2.push_back(l2->val);
-//         l2 = l2->next;
-//     }
-
-//     int m = nums1.size(), n = nums2.size();
-//     int sumResult = 0, carry = 0;
-
-//     ListNode *head = nullptr, *p = nullptr;
-//     /*算法的核心部分：*/
-//     for(int i = m - 1, j = n - 1; i >= 0 || j >= 0 || carry > 0; i--, j--) {
-//         sumResult = carry;
-//         if(i >= 0)
-//             sumResult += nums1[i];
-
-//         if(j >= 0)
-//             sumResult += nums2[j];
-
-//         carry = sumResult / 10;
-
-//         p = new ListNode(sumResult%10);
-//         /*头部插入算法！*/
-//         p->next = head;
-//         head = p;
-//     }
-//     return head;
-// }
+/**
+ * 方法 4，使用翻转链表来做，每个都翻转相加，然后结果再翻转链表即可
+*/
+class Solution
+{
+public:
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+    {
+        // 思路就是先写一个翻转链表函数，然后l1和l2翻转，结果相加之后再翻转即可
+        ListNode *r1 = reverseNode(l1);
+        ListNode *r2 = reverseNode(l2);
+        ListNode *dummy = new ListNode(-1), *cur = dummy;
+        int t = 0;
+        while (r1 || r2)
+        {
+            if (r1)
+                t += r1->val, r1 = r1->next;
+            if (r2)
+                t += r2->val, r2 = r2->next;
+            cur->next = new ListNode(t % 10);
+            t /= 10;
+            cur = cur->next;
+        }
+        if (t)
+            cur->next = new ListNode(t); // 这个地方要考虑最后还有进位，不能漏了
+        return reverseNode(dummy->next);
+    }
+    // 链表的翻转
+    ListNode *reverseNode(ListNode *head)
+    {
+        if (!head || !head->next)
+            return head;
+        ListNode *a = head, *b = head->next;
+        while (b)
+        {
+            ListNode *c = b->next;
+            b->next = a;
+            a = b;
+            b = c;
+        }
+        head->next = NULL;
+        return a;
+    }
+};
 
 void printf_list(ListNode *head)
 {
