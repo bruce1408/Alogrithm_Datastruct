@@ -1,79 +1,119 @@
-#include<iostream>
-#include<sstream>
-#include<string>
+#include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 /**
  * 方法 1、字符转数字 利用流方法简单
- * */ 
+ * */
 int strTonum(string a)
 {
     int res;
     stringstream stream;
-    stream<<a;
-    stream>>res;
+    stream << a;
+    stream >> res;
     return res;
 }
 
 /**
- * 方法 2、不是利用流，而是更加一般的方法； 按照几个条件去处理，空格->正负号->字符到数字->越界->输出
-
+ * 方法 2、不是利用流，而是更加一般的方法； 
+ * 按照几个条件去处理，先处理空格 -> 然后正负号 -> 然后字符到数字 -> 越界 -> 输出
+ * 简称 空·符·数算法(瞎编吧)
  * */
 int strTonum2(string str)
 {
-    if(str.empty()) return 0;
-    int i=0, res=0, sign=1, n=str.size();
+    if (str.empty())
+        return 0;
+    int i = 0, res = 0, sign = 1, n = str.size();
     // 排除开头的空格
-    while(str[i]==' '&& i<n) ++i;
+    while (str[i] == ' ' && i < n)
+        ++i;
     // 如果是有符号的，那么记录符号即可
-    if(str[i]=='+'||str[i]=='-')
+    if (str[i] == '+' || str[i] == '-')
     {
-        sign = (str[i++]=='+') ? 1:-1;
+        sign = (str[i++] == '+') ? 1 : -1;
     }
-    while(str[i]>='0'&&str[i]<='9'&&i<n)
+    while (str[i] >= '0' && str[i] <= '9' && i < n)
     {
         // 考虑溢出问题。如果是这个数大于21xxxxxx467，那么就是取最大的那个越界边界。
-        if(res>INT_MAX/10 || (res==INT_MAX/10 && str[i]-'0'>7))
+        if (res > INT_MAX / 10 || (res == INT_MAX / 10 && str[i] - '0' > 7))
         {
-            return (sign==1)?INT_MAX:INT_MIN;
+            return (sign == 1) ? INT_MAX : INT_MIN;
         }
-        res = 10 * res + str[i++]-'0';
+        res = 10 * res + str[i++] - '0';
     }
-    return res*sign;
+    return res * sign;
 }
 
 /**
- * 方法 三、使用常规方法来做，先考虑空格，然后考虑正负号；
+ * 方法 3,和上面思路一样，就是写法有些不同
  * 按照几个条件去处理，空格->正负号->字符到数字->越界->输出
  * 然后在考虑是否越界
 */
-int strTonum3(string str) 
+class Solution
 {
-    int k = 0; 
-    //去空格
-    while(k < str.size() && str[k] == ' ') k++;
-    bool is_minus = false;
-    long long num = 0;
-    //判正负
-    if(str[k] == '+') k++;
-    else if(str[k] == '-') k++, is_minus = true;
-    //字符变数字
-    while(k < str.size() && str[k] >= '0' && str[k] <= '9')
+public:
+    int myAtoi(string str)
     {
-        num = num * 10 + str[k] - '0';
-        k++;
-    }
-    //处理特例
-    if(is_minus) num *= -1;
-    if(num > INT64_MAX) num = INT64_MAX;
-    if(num < INT64_MIN) num = INT64_MIN;
-    return (int) num;
-}
+        long res = 0;
+        int k = 0;
+        int n = str.size();
+        // 排出空格
+        while (k < n && str[k] == ' ')
+            k++;
 
+        // 空格之后直接结束的话返回0
+        if (k == n)
+            return 0;
+        // 判断数据的符号是什么
+        int minus = 1;
+        if (str[k] == '+' || str[k] == '-')
+            minus = (str[k++] == '-') ? -1 : 1;
+
+        // 判断数字部分
+        while (k < n && str[k] >= '0' && str[k] <= '9')
+        {
+            // 直接得出当前的数字，然后越界就对其进行相应的处理
+            res = res * 10 + str[k] - '0';
+            if (minus * res > INT_MAX)
+                return INT_MAX;
+            if (minus * res < INT_MIN)
+                return INT_MIN;
+            k++;
+        }
+        return res * minus;
+    }
+
+    // 数字是整型，就按照整型来
+    int myAtoi(string str)
+    {
+        int res = 0;
+        int k = 0;
+        while (k < str.size() && str[k] == ' ')
+            k++;
+        if (k == str.size())
+            return 0;
+
+        int minus = 1;
+        if (str[k] == '-' || str[k] == '+')
+            minus = (str[k++] == '-') ? -1 : 1;
+        // 判断数字部分
+        while (k < str.size() && str[k] >= '0' && str[k] <= '9')
+        {
+            // 不管符号，直接判断是否越界，int最大的数字是2147483647, 所以只要大于7肯定越界
+            if (res > INT_MAX / 10 || (res == INT_MAX / 10 && (str[k] - '0') > 7))
+            {
+                return (minus == -1) ? INT_MIN : INT_MAX;
+            }
+            res = res * 10 + (str[k++] - '0');
+        }
+        return res * minus;
+    }
+};
 
 int main()
 {
     string a = "     -9807";
-    cout<<strTonum(a)<<endl;
+    cout << strTonum(a) << endl;
     return 0;
 }
