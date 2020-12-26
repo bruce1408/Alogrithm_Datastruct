@@ -7,7 +7,8 @@ using namespace std;
  * 左减只能是1位，左边减法不能跨级，右加不能超过3位，
 */
 /**
- * 方法 1，使用的逻辑算法来解，参考一位网友的解法，就是
+ * 方法 1，因为通过整张表显示1000,900，500，400，100，90，50，40，0，9, 5, 4, 1
+ * 这些数比较特殊，所以可以使用这些数构成一个罗马数字
 */
 string intToRoman(int num)
 {
@@ -65,44 +66,9 @@ string intToRoman(int num)
 }
 
 /**
- * 方法 2
+ * 方法 2 直接使用上面的特殊的字段,所有的数字都可以使用下面的这几个数字来凑一个整数出来
 */
 string intToRoman2(int num)
-{
-    string res = "";
-    vector<char> roman{'M', 'D', 'C', 'L', 'X', 'V', 'I'};
-    vector<int> value{1000, 500, 100, 50, 10, 5, 1};
-    for (int n = 0; n < 7; n += 2)
-    {
-        int x = num / value[n];
-        if (x < 4)
-        {
-            for (int i = 1; i <= x; ++i)
-                res += roman[n];
-        }
-        else if (x == 4)
-        {
-            res = res + roman[n] + roman[n - 1];
-        }
-        else if (x > 4 && x < 9)
-        {
-            res += roman[n - 1];
-            for (int i = 6; i <= x; ++i)
-                res += roman[n];
-        }
-        else if (x == 9)
-        {
-            res = res + roman[n] + roman[n - 2];
-        }
-        num %= value[n];
-    }
-    return res;
-}
-
-/**
- * 方法 3，对于上面方法 1的写法上的优化
-*/
-string intToRoman3(int num)
 {
     string res = "";
     vector<int> val{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
@@ -119,5 +85,5 @@ string intToRoman3(int num)
 }
 int main()
 {
-    cout << intToRoman3(45) << endl;
+    cout << intToRoman2(45) << endl;
 }
