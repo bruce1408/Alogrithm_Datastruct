@@ -4,6 +4,12 @@
 using namespace std;
 
 /**
+ * 17 电话号码组合
+ * 给定一个数字字符串，然后输出代表的所有字符组合
+ * 
+ * 比如2是abc, 3是def; 23 就是abc 和 def 的两两组合结果如下
+ * Input: "23"
+ * Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
  * 
 */
 
