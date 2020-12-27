@@ -13,6 +13,9 @@ using namespace std;
  * 
 */
 
+/**
+ * 方法 1，使用DFS深度优先遍历来做
+*/
 void letterStr(string digits, vector<string> &dict, int num, string s, vector<string> &res);
 vector<string> letterCombinations(string digits)
 {
@@ -36,6 +39,26 @@ void letterStr(string digits, vector<string> &dict, int num, string s, vector<st
     {
         letterStr(digits, dict, num + 1, s + t[i], res);
     }
+}
+
+/**
+ * 方法 2，使用迭代算法
+*/
+vector<string> letterCombinations(string digits)
+{
+    vector<string> res;
+    string charmap[10] = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    res.push_back("");
+    for (int i = 0; i < digits.size(); i++)
+    {
+        vector<string> tempres;
+        string chars = charmap[digits[i] - '0'];
+        for (int c = 0; c < chars.size(); c++)
+            for (int j = 0; j < res.size(); j++)
+                tempres.push_back(res[j] + chars[c]);
+        res = tempres;
+    }
+    return res;
 }
 
 int main()
