@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 /**
@@ -27,11 +28,11 @@ bool isMatch(string s, string p)
     // p和s都是空字符串，返回true，否则false
     if (p.empty())
         return s.empty();
-    
+
     // 如果p长度是1且p是.那么s长度也是1返回true
     if (p.size() == 1)
         return (s.size() == 1 && (s[0] == p[0] || p[0] == '.'));
-    
+
     // 如果p第二个字符不是*，递归从第二个字符开始判断
     if (p[1] != '*')
     {
@@ -39,7 +40,7 @@ bool isMatch(string s, string p)
             return false;
         return (s[0] == p[0] || p[0] == '.') && isMatch(s.substr(1), p.substr(1));
     }
-    // s = ab, p = a*b, 考虑*的情况 
+    // s = ab, p = a*b, 考虑*的情况
     while (!s.empty() && (s[0] == p[0] || p[0] == '.'))
     {
         if (isMatch(s, p.substr(2)))
@@ -49,8 +50,38 @@ bool isMatch(string s, string p)
     return isMatch(s, p.substr(2));
 }
 
+/**
+ * 方法 2，使用动态规划，使用上面边界条件不容易想到所有的情况
+ * 状态计算部分
+ * 如果是p[j] !='*',考虑*使用了0次，那么dij  = d[i,j-2]
+ * 如果使用超过1次d[ij] = d[i-1][j],因为上次j没有使用到*符号，而本次才使用了*，所以当前的d[ij]=上次i-1和j
+ * 并且当前s[i-1]==p[j-2] || p[j-2]=='.'
+*/
+bool isMatch2(string s, string p)
+{
+    int n = s.size(), m = p.size();
+    vector<vector<bool>> dp(n + 1, vector<bool>(m + 1, false));
+    dp[0][0] = true;
+    for (int i = 0; i <= n; i++) //i从0开始
+    {
+        for (int j = 1; j <= m; j++) //j从1开始，j从0没有意义
+        {
+            if (p[j - 1] == '*')
+            {
+                dp[i][j] = dp[i][j - 2] || (i && dp[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.'));
+            }
+            else
+                dp[i][j] = i && dp[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '.']);
+        }
+    }
+    return dp[n][m];
+}
+
+
+
+
 int main()
 {
-    string a = "aa*", b = "a*";
-    cout << isMatch(a, b) << endl;
+    string a = "ab", b = "a*b";
+    cout << isMatch2(a, b) << endl;
 }
