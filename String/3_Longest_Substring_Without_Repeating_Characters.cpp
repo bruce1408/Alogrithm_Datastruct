@@ -32,6 +32,7 @@ int lengthOfLongestSubstring1(string s)
 
 /**
  * 方法 2，和方法 1思路类似，使用两个指针，这里j和i指的是字符串区间，写法略有区别，推荐写法
+ * 参考 845trie树
 */
 int lengthOfLongestSubstring2(string s)
 {
