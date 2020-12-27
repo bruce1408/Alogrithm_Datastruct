@@ -55,7 +55,7 @@ bool isMatch(string s, string p)
  * 状态计算部分
  * 如果是p[j] !='*',考虑*使用了0次，那么dij  = d[i,j-2]
  * 如果使用超过1次d[ij] = d[i-1][j],因为上次j没有使用到*符号，而本次才使用了*，所以当前的d[ij]=上次i-1和j
- * 并且当前s[i-1]==p[j-2] || p[j-2]=='.'
+ * 并且当前s[i-1]==p[j-2] || p[j-2]=='.',使用ab 和a*b举例即可
 */
 bool isMatch2(string s, string p)
 {
@@ -71,17 +71,14 @@ bool isMatch2(string s, string p)
                 dp[i][j] = dp[i][j - 2] || (i && dp[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.'));
             }
             else
-                dp[i][j] = i && dp[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '.']);
+                dp[i][j] = i && dp[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '.');
         }
     }
     return dp[n][m];
 }
 
-
-
-
 int main()
 {
-    string a = "ab", b = "a*b";
+    string a = "aac", b = "a*c";
     cout << isMatch2(a, b) << endl;
 }
