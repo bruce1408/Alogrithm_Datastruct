@@ -16,6 +16,7 @@ void dfs(int u)
         cout << endl;
         return;
     }
+    
     for (int i = 1; i <= n; i++)
     {
         if (visited[i] != 1)
