@@ -44,7 +44,7 @@ void letterStr(string digits, vector<string> &dict, int num, string s, vector<st
 /**
  * 方法 2，使用迭代算法
 */
-vector<string> letterCombinations(string digits)
+vector<string> letterCombinations2(string digits)
 {
     vector<string> res;
     string charmap[10] = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
@@ -55,7 +55,11 @@ vector<string> letterCombinations(string digits)
         string chars = charmap[digits[i] - '0'];
         for (int c = 0; c < chars.size(); c++)
             for (int j = 0; j < res.size(); j++)
+            {
+                string s = res[j] + chars[c];
                 tempres.push_back(res[j] + chars[c]);
+            }
+        // tempres.push_back(res[j] + chars[c]);
         res = tempres;
     }
     return res;
@@ -64,7 +68,7 @@ vector<string> letterCombinations(string digits)
 int main()
 {
     string digits = "2345";
-    for (auto i : letterCombinations(digits))
+    for (auto i : letterCombinations2(digits))
     {
         cout << i << " ";
     }
