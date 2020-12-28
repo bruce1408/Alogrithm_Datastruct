@@ -10,7 +10,7 @@ using namespace std;
 */
 
 /**
- * 方法 1，使用双指针来做，可能会超时
+ * 方法 1，使用双指针来做，超时
 */
 void kmpBF()
 {
@@ -38,72 +38,66 @@ void kmpBF()
  * 方法 2，优化双指针算法，使用next数组，用kmp算法来做
  * 手动测试例子
 */
-const int N = 1000010, M = 1000010;
+const int N1 = 1000010, M1 = 1000010;
 
-int n, m;
-int ne[N];
-char s[M], p[N];
+int n1, m1;
+int ne1[N1];
+char s1[M1], p1[N1];
 
-int main()
+void kmp1()
 {
     // cin >> n >> p + 1 >> m >> s + 1;
-    n = 3, m = 5;
-    // p+1 = "aba";
-    p[1] = 'a';
-    p[2] = 'b';
-    p[3] = 'a';
+    n1 = 3, m1 = 5;
+    p1[1] = 'a';
+    p1[2] = 'b';
+    p1[3] = 'a';
 
-    s[1] = 'a';
-    s[2] = 'b';
-    s[3] = 'a';
-    s[4] = 'b';
-    s[5] = 'a';
+    s1[1] = 'a';
+    s1[2] = 'b';
+    s1[3] = 'a';
+    s1[4] = 'b';
+    s1[5] = 'a';
 
     // s = "ababa";
-    for (int i = 2, j = 0; i <= n; i++)
+    for (int i = 2, j = 0; i <= n1; i++)
     {
-        while (j && p[i] != p[j + 1])
-            j = ne[j];
-        if (p[i] == p[j + 1])
+        while (j && p1[i] != p1[j + 1])
+            j = ne1[j];
+        if (p1[i] == p1[j + 1])
             j++;
-        ne[i] = j;
+        ne1[i] = j;
     }
     // 匹配成功
-    for (int i = 1, j = 0; i <= m; i++)
+    for (int i = 1, j = 0; i <= m1; i++)
     {
         // j是否是从0开始还是
-        while (j && s[i] != p[j + 1])
-            j = ne[j];
-        if (s[i] == p[j + 1])
+        while (j && s1[i] != p1[j + 1])
+            j = ne1[j];
+        if (s1[i] == p1[j + 1])
             j++;
-        if (j == n)
+        if (j == n1)
         {
-            printf("%d ", i - n);
-            j = ne[j];
+            printf("%d ", i - n1);
+            j = ne1[j];
         }
     }
     cout << endl;
-    for (int i = 0; i <= m; i++)
-    {
-        cout << ne[i] << " ";
-    }
+    for (int i = 0; i <= m1; i++)
+        cout << ne1[i] << " ";
     cout << endl;
-    return 0;
 }
 
 /**
  * 手写kmp版本3
 */
-const int N = 1000010, M = 1000010;
-char ne[N], s[M], p[N];
-int n, m;
+const int N2 = 1000010, M2 = 1000010;
+char ne[N2], s[M2], p[N2];
+int n2, m2;
 
-int main()
+void kmp2()
 {
     // cin>>n>>p+1>>m>>s+1;
-
-    n = 3, m = 5;
-    // p+1 = "aba";
+    n2 = 3, m2 = 5;
     p[1] = 'a';
     p[2] = 'b';
     p[3] = 'a';
@@ -117,26 +111,31 @@ int main()
      * 这里的下标都是从1开始
      * next数组构建过程，这里都从数组的下标1开始
      * */
-    for (int i = 2, j = 0; i <= n; i++)
+    for (int i = 2, j = 0; i <= n2; i++)
     {
-        while (j && p[i] != p[j + 1])
-            j = ne[j]; // 反复令j=next[j]，直到j退回到0；或者p[i]==p[j+1]
-        if (p[i] == p[j + 1])
-            j++;   // 如果p[i] ==p[j+1],则令next[i] = j+1;
+        while (j && p[i] != p[j + 1]) // 反复令j=next[j]，直到j退回到0；或者p[i]==p[j+1]
+            j = ne[j];
+        if (p[i] == p[j + 1]) // 如果p[i] ==p[j+1],则令next[i] = j+1;
+            j++;
         ne[i] = j; // 否则next[i] = j;
     }
-
     // 匹配过程
-    for (int i = 1, j = 0; i <= m; i++)
+    for (int i = 1, j = 0; i <= m2; i++)
     {
         while (j && s[i] != p[j + 1])
             j = ne[j];
         if (s[i] == p[j + 1])
             j++;
-        if (j == n) // 匹配成功
+        if (j == n2) // 匹配成功
         {
-            printf("%d ", i - n);
+            printf("%d ", i - n2);
             // j = ne[j];
         }
     }
+}
+
+int main()
+{
+    // kmpBF();
+    kmp1();
 }
