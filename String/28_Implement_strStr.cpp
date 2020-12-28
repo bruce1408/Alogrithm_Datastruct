@@ -43,11 +43,11 @@ int strStr1(string s, string p)
 /**
  * 方法 2，优化算法，时间4ms
 */
-int strStr2(string haystack, string needle)
+int strStr2(string s, string needle)
 {
-    if (needle.empty())
+    if (p.empty())
         return 0;
-    int m = haystack.size(), n = needle.size();
+    int m = s.size(), n = p.size();
     if (m < n)
         return -1;
     for (int i = 0; i <= m - n; ++i)
@@ -55,7 +55,7 @@ int strStr2(string haystack, string needle)
         int j = 0;
         for (j = 0; j < n; ++j)
         {
-            if (haystack[i + j] != needle[j])
+            if (s[i + j] != p[j])
                 break;
         }
         if (j == n)
