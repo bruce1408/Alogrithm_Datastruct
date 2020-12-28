@@ -64,6 +64,9 @@ int strStr2(string haystack, string needle)
     return -1;
 }
 
+/**
+ * 方法 3，kmp算法
+*/
 int main()
 {
     cout << strStr("hello", "ll") << endl;
