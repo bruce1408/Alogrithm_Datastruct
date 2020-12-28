@@ -3,13 +3,14 @@
 using namespace std;
 
 /**
+ * 58 length of last word 求末尾单词的长度 
  * Given a string s consists of upper/lower-case alphabets and empty space characters ' ', 
  * return the length of last word (last word means the last appearing word if we loop from left to right) in the string.
  * If the last word does not exist, return 0.
  * Note: A word is defined as a maximal substring consisting of non-space characters only
  * 
- * Input: "Hello World"
- * Output: 5
+ * "Hello World", length = 5;
+ * "   day ",length = 3;
 */
 
 /**
@@ -66,6 +67,23 @@ int lengthOfLastWord3(string s)
         res += 1;
     }
     return res;
+}
+
+/**
+ * 方法 4
+*/
+int lengthOfLastWord(string s)
+{
+    for (int i = s.size() - 1; i >= 0; i--)
+    {
+        if (s[i] == ' ')
+            continue;
+        int j = i - 1;
+        while (j >= 0 && s[j] != ' ')
+            j--;
+        return i - j;
+    }
+    return 0;
 }
 int main()
 {
