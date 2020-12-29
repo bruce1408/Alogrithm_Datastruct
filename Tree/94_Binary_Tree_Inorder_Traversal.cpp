@@ -155,6 +155,12 @@ vector<int> inorderTraversal4(TreeNode *root)
 	}
 	return res;
 }
+
+void inordered(TreeNode * root)
+{
+	
+}
+
 /**
  * 深度优先遍历包括前序，中序，后续
 */
