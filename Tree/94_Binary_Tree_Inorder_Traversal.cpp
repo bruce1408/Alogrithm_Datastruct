@@ -187,7 +187,7 @@ void inorderTraversal5(TreeNode *root)
 				pre->right = cur;
 				cur = cur->left;
 			}
-			else
+			else // 这里的意思是pre->right 等于 当前的cur
 			{
 				pre->right = NULL;
 				cout << cur->val << endl;
