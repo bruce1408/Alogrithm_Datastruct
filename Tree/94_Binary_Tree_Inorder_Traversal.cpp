@@ -121,6 +121,40 @@ vector<int> inorderTraversal3_2(TreeNode *root)
  * Morris方法中不需要为每个节点额外分配指针指向其前驱（predecessor）和后继节点（successor），
  * 只需要利用叶子节点中的左右空指针指向某种顺序遍历下的前驱节点或后继节点就可以了。
 */
+vector<int> inorderTraversal4(TreeNode *root)
+{
+	vector<int> res;
+	if (!root)
+		return res;
+	TreeNode *cur, *pre;
+	cur = root;
+	while (cur)
+	{
+		if (!cur->left)
+		{
+			res.push_back(cur->val);
+			cur = cur->right;
+		}
+		else
+		{
+			pre = cur->left;
+			while (pre->right && pre->right != cur)
+				pre = pre->right;
+			if (!pre->right)
+			{
+				pre->right = cur;
+				cur = cur->left;
+			}
+			else
+			{
+				pre->right = NULL;
+				res.push_back(cur->val);
+				cur = cur->right;
+			}
+		}
+	}
+	return res;
+}
 /**
  * 深度优先遍历包括前序，中序，后续
 */
@@ -177,7 +211,7 @@ int main()
 	// inorder_s(head);
 	cout << endl;
 	// postorder_s(head);
-	for (auto i : inorderTraversal3_1(head))
+	for (auto i : inorderTraversal4(head))
 	{
 		cout << i << " ";
 	}
