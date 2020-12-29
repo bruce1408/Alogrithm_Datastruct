@@ -156,17 +156,17 @@ bool isValidBST5(TreeNode *root)
 	bool res = true;
 	while (cur)
 	{
-		if (!cur->left) // 左子树为空，那么当前节点为右子节点
+		if (!cur->left) // 当前节点的左孩子为空，那么把右孩子作为当前节点
 		{
-			if (parent && parent->val >= cur->val) // 如果没有左子树，那么记录父节点，然后父节点
+			if (parent && parent->val >= cur->val) // 如果没有左子树，那么记录父节点，然后父节的值如果大于当前当前节点的值，就是false
 				res = false;
 			parent = cur;
-			cur = cur->right;
+			cur = cur->right; //右孩子作为当前节点
 		}
-		else // 左子树不是空，那么找前驱节点
+		else // 如果当前节点的左孩子不是空，在当前节点的左子树中找到中序遍历下的前驱节点
 		{
-			pre = cur->left;						// 左子树的前驱节点
-			while (pre->right && pre->right != cur) // 当前节点的右子树不是空且右子树不等于当前节点，那么就找到前驱节点为止
+			pre = cur->left;						// 当前节点左子树存在，找到前驱节点
+			while (pre->right && pre->right != cur) // 如果右孩子不是空且右孩子不是当前节点，那么就找到前驱节点为止
 				pre = pre->right;
 
 			if (!pre->right) // 如果前驱节点的右孩子是空节点，那么右孩子设置为当前节点，当前节点更新为当前节点的左孩子
@@ -174,10 +174,10 @@ bool isValidBST5(TreeNode *root)
 				pre->right = cur;
 				cur = cur->left;
 			}
-			else if (pre->right == cur) //如果前驱节点的右孩子节点是当前节点,右孩子设置为NULL，更新当前节点为当前节点的右孩子，这里加一个parent判断
+			else if (pre->right == cur) // 如果前驱节点的右孩子节点是当前节点,右孩子设置为NULL，更新当前节点为当前节点的右孩子，这里加一个parent判断
 			{
 				pre->right = NULL;
-				if (parent->val >= cur->val)
+				if (parent->val >= cur->val) // 加上parent判断，如果这个值大于等于当前节点的值，不满足条件res=false
 					res = false;
 				parent = cur;
 				cur = cur->right;
