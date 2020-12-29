@@ -54,7 +54,7 @@ bool isValidBST(TreeNode *root)
 {
     if (!root)
         return true;
-    return dfs(root, LONG_MIN, LONG_MAX);
+    return dfs(root, LONG_MIN, LONG_MAX); // 设置两个数，分别是系统最小值和最大值
 }
 
 bool dfs(TreeNode *root, int ln, int rn)
@@ -67,7 +67,7 @@ bool dfs(TreeNode *root, int ln, int rn)
 }
 
 /**
- * 方法 3，使用Mirrors树遍历
+ * 方法 3，使用Mirrors树遍历，属于非递归不用栈的遍历方法
 */
 bool isValidBST(TreeNode *root)
 {
@@ -77,7 +77,7 @@ bool isValidBST(TreeNode *root)
     bool res = true;
     while (cur) // cur不为空
     {
-        if (!cur->left)  // 没有左子树，将cur指向右子节点
+        if (!cur->left) // 没有左子树，将cur指向右子节点
         {
             if (parent && parent->val >= cur->val)
                 res = false;
@@ -91,12 +91,12 @@ bool isValidBST(TreeNode *root)
                 pre = pre->right;
             if (!pre->right) // 如果pre不存在右子节点
             {
-                pre->right = cur;  // 右子节点指回cur
-                cur = cur->left; // cur指向其左子节点
+                pre->right = cur; // 右子节点指回cur
+                cur = cur->left;  // cur指向其左子节点
             }
-            else 
+            else
             {
-                pre->right = NULL;  // pre右子节点置空
+                pre->right = NULL; // pre右子节点置空
                 if (parent->val >= cur->val)
                     res = false;
                 parent = cur;
