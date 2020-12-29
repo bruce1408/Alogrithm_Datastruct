@@ -141,6 +141,7 @@ bool dfs(TreeNode *root, long ln, long rn)
  * 方法 5，使用Mirrors中序遍历算法，这个算法是空间复杂度是O(1)
  * 主要加一个parent指针，用来保存当前节点的左子树如果为空的话，那么parent记录右子树的父节点;
  * 参考链接：https://www.cnblogs.com/anniekim/archive/2013/06/15/morristraversal.html
+ * 
  * 1、判断当前节点的左孩子是不是为空，如果是空的话就输出当前节点并更新当前节点为右孩子节点
  * 2、如果当前节点的左孩子不是空节点，那么就找到当前节点的前驱节点
  * 		2-1、如果前驱节点的右子树是空，把前驱节点的右孩子设置为当前节点；当前节点更新为当前节点的左子节点
@@ -155,25 +156,25 @@ bool isValidBST5(TreeNode *root)
 	bool res = true;
 	while (cur)
 	{
-		if (!cur->left)
+		if (!cur->left) // 左子树为空，那么当前节点为右子节点
 		{
-			if (parent && parent->val >= cur->val)
+			if (parent && parent->val >= cur->val) // 如果没有左子树，那么记录父节点，然后父节点
 				res = false;
 			parent = cur;
 			cur = cur->right;
 		}
-		else
+		else // 左子树不是空，那么找前驱节点
 		{
-			pre = cur->left;
-			while (pre->right && pre->right != cur)
+			pre = cur->left;						// 左子树的前驱节点
+			while (pre->right && pre->right != cur) // 当前节点的右子树不是空且右子树不等于当前节点，那么就找到前驱节点为止
 				pre = pre->right;
 
-			if (!pre->right)
+			if (!pre->right) // 如果前驱节点的右孩子是空节点，那么右孩子设置为当前节点，当前节点更新为当前节点的左孩子
 			{
 				pre->right = cur;
 				cur = cur->left;
 			}
-			else
+			else if (pre->right == cur) //如果前驱节点的右孩子节点是当前节点,右孩子设置为NULL，更新当前节点为当前节点的右孩子，这里加一个parent判断
 			{
 				pre->right = NULL;
 				if (parent->val >= cur->val)
