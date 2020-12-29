@@ -156,9 +156,45 @@ vector<int> inorderTraversal4(TreeNode *root)
 	return res;
 }
 
-void inordered(TreeNode * root)
+/**
+ * 方法 5，使用Mirrors中序遍历来做，只用O(1)空间
+ * 参考链接：https://www.cnblogs.com/anniekim/archive/2013/06/15/morristraversal.html
+ * 1、判断当前节点的左孩子是不是为空，如果是空的话就输出当前节点并更新当前节点为右孩子节点
+ * 2、如果当前节点的左孩子不是空节点，那么就找到当前节点的前驱节点
+ * 		2-1、如果前驱节点的右子树是空，把前驱节点的右孩子设置为当前节点；当前节点更新为当前节点的左子节点
+ * 		2-2、如果前驱节点的右子树是当前节点，那么把右子树设置为空，同时输出当前节点，当前节点更新为当前节点右孩子节点
+ * 3、重复上面1-2步骤
+*/
+void inorderTraversal5(TreeNode *root)
 {
-	
+	TreeNode *cur = root, *pre = NULL;
+	while (cur) // 当前节点是否存在
+	{
+		if (!cur->left)
+		{
+			cout << cur->val << endl;
+			cur = cur->right;
+		}
+		else
+		{
+			// TreeNode *pre = cur->left; // 当前节点的左子树
+			pre = cur->left;
+
+			while (pre->right && pre->right != cur)
+				pre = pre->right;
+			if (pre->right == NULL)
+			{
+				pre->right = cur;
+				cur = cur->left;
+			}
+			else
+			{
+				pre->right = NULL;
+				cout << cur->val << endl;
+				cur = cur->right;
+			}
+		}
+	}
 }
 
 /**
@@ -217,8 +253,9 @@ int main()
 	// inorder_s(head);
 	cout << endl;
 	// postorder_s(head);
-	for (auto i : inorderTraversal4(head))
-	{
-		cout << i << " ";
-	}
+	// for (auto i : inorderTraversal4(head))
+	// {
+	// 	cout << i << " ";
+	// }
+	inorderTraversal5(head);
 }
