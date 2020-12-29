@@ -1,12 +1,11 @@
-/**
- * 94. Binary Tree Inorder Traversal
- * 二叉树的中序遍历
-*/
-
 #include <iostream>
 #include <vector>
 #include <stack>
 using namespace std;
+/**
+ * 94. Binary Tree Inorder Traversal
+ * 二叉树的中序遍历
+*/
 
 struct TreeNode
 {
@@ -20,51 +19,42 @@ struct TreeNode
  * 方法1：使用递归的方式，但是res每次递归的时候要重建，所以索性把
  * res变成静态变量。或者是其他方法。比如方法2
  * */
-class Solution1
-{
-public:
-	vector<int> inorderTraversal(TreeNode *root)
-	{
-		if (!root)
-			return {};
-		else
-		{
-			inorderTraversal(root->left);
-			res.push_back(root->val);
-			inorderTraversal(root->right);
-		}
-		return res;
-	}
+vector<int> res;
 
-private: //加了静态变量，res每次都在
-	vector<int> res;
-};
+vector<int> inorderTraversal1(TreeNode *root)
+{
+	if (!root)
+		return {};
+	else
+	{
+		inorderTraversal1(root->left);
+		res.push_back(root->val);
+		inorderTraversal1(root->right);
+	}
+	return res;
+}
 
 /**
  * 方法 2，不用静态变量
- * */
-class Solution2
+ **/
+void midTraversal(TreeNode *root, vector<int> &res) //res必须加上引用
 {
-public:
-	void midTraversal(TreeNode *root, vector<int> &res) //res必须加上引用
+	if (!root)
+		return;
+	else
 	{
-		if (!root)
-			return;
-		else
-		{
-			midTraversal(root->left, res);
-			res.push_back(root->val);
-			midTraversal(root->right, res);
-		}
+		midTraversal(root->left, res);
+		res.push_back(root->val);
+		midTraversal(root->right, res);
 	}
+}
 
-	vector<int> inorderTraversal(TreeNode *root)
-	{
-		vector<int> res; //这个作用是传res
-		midTraversal(root, res);
-		return res;
-	}
-};
+vector<int> inorderTraversal2(TreeNode *root)
+{
+	vector<int> res; //这个作用是传res
+	midTraversal(root, res);
+	return res;
+}
 
 /**
  * 方法 3.1, 中序遍历二叉树，利用迭代的方法,而没有使用递归来遍历二叉树
@@ -82,12 +72,9 @@ vector<int> inorderTraversal3_1(TreeNode *root)
 		{
 			while (p != NULL)
 			{
-				cout << "p value: " << p->val << endl;
 				Q[++top] = p;
-				cout << "top: " << top << endl;
 				p = p->left;
 			}
-			cout << top << endl;
 			if (top > -1)
 			{
 				p = Q[top--];
@@ -129,6 +116,12 @@ vector<int> inorderTraversal3_2(TreeNode *root)
 }
 
 /**
+ * 方法 4，使用Mirrors遍历来做，如果要求的空间复杂度要求是常数，那么Mirrors算法可以是最好的解决方式
+ * 空间复杂度是O(1)常数，为什么是O(1)复杂度，递归或者是非递归版本使用的是栈来保存前驱或者是后继节点
+ * Morris方法中不需要为每个节点额外分配指针指向其前驱（predecessor）和后继节点（successor），
+ * 只需要利用叶子节点中的左右空指针指向某种顺序遍历下的前驱节点或后继节点就可以了。
+*/
+/**
  * 深度优先遍历包括前序，中序，后续
 */
 // 前序遍历
@@ -162,33 +155,6 @@ void postorder_s(TreeNode *root)
 	cout << root->val << " ";
 }
 
-// 中序的非递归版本
-vector<int> inorder_stack(TreeNode *head)
-{
-	vector<int> res;
-	stack<TreeNode *> s;
-	TreeNode *q;
-	q = head;
-	if (head == nullptr)
-		return {};
-	while (!s.empty() || q != nullptr)
-	{
-		while (q != nullptr)
-		{
-			s.push(q);
-			q = q->left;
-		}
-		if (!s.empty())
-		{
-			q = s.top();
-			res.push_back(q->val);
-			s.pop();
-			q = q->right;
-		}
-	}
-	return res;
-}
-
 int main()
 {
 	TreeNode *head = new TreeNode(3);
@@ -211,7 +177,7 @@ int main()
 	// inorder_s(head);
 	cout << endl;
 	// postorder_s(head);
-	for (auto i : inorder_stack(head))
+	for (auto i : inorderTraversal3_1(head))
 	{
 		cout << i << " ";
 	}
