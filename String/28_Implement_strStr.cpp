@@ -68,8 +68,41 @@ int strStr2(string s, string p)
 }
 
 /**
- * 方法 3，kmp算法
+ * 方法 3，kmp算法，先生成一个next数组，然后使用kmp算法来做
 */
+vector<int> getnext2(string s)
+{
+    int j = -1;
+    vector<int> ne(s.size(), -1);
+    for (int i = 1; i < s.size(); i++)
+    {
+        while (j != -1 && s[i] != s[j + 1])
+            j = ne[j];
+        if (s[i] == s[j + 1])
+            j++;
+        ne[i] = j;
+    }
+    return ne;
+}
+
+int strStr(string s, string p)
+{
+    if (p.empty())
+        return 0;
+    int m = p.size();
+    vector<int> ne = getnext2(p);
+    int j = -1, ans = 0;
+    for (int i = 0; i < s.size(); i++)
+    {
+        while (j != -1 && s[i] != p[j + 1])
+            j = ne[j];
+        if (s[i] == p[j + 1])
+            j++;
+        if (j == m - 1)
+            return i - m + 1;
+    }
+    return -1;
+}
 
 int main()
 {

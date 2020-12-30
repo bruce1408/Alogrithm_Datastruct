@@ -203,9 +203,9 @@ int kmp4(string s, string p)
         if (s[i] == p[j + 1])
             j++;
         if (j == m - 1)
-            ans++;
+            return i - m + 1;
     }
-    return ans;
+    return -1;
 }
 
 int main()
@@ -214,5 +214,5 @@ int main()
     // generat();
     // getnext1();
     // getnext2();
-    cout << kmp4("abababab", "abab") << endl;
+    cout << kmp4("ababcd", "abc") << endl;
 }
