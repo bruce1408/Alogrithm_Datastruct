@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdio>
+#include <vector>
 using namespace std;
 
 /**
@@ -12,7 +13,7 @@ using namespace std;
 /**
  * 方法 1，使用双指针来做，超时
 */
-void kmpBF()
+void kmp1()
 {
     int m = 3, n = 5;
     string s = "ababa";
@@ -44,7 +45,7 @@ int n1, m1;
 int ne1[N1];
 char s1[M1], p1[N1];
 
-void kmp1()
+void kmp2()
 {
     // cin >> n >> p + 1 >> m >> s + 1;
     n1 = 3, m1 = 5;
@@ -94,7 +95,7 @@ const int N2 = 1000010, M2 = 1000010;
 char ne[N2], s[M2], p[N2];
 int n2, m2;
 
-void kmp2()
+void kmp3()
 {
     // cin>>n>>p+1>>m>>s+1;
     // s = ababa, p = aba
@@ -135,8 +136,42 @@ void kmp2()
     }
 }
 
+/**
+ * next数组构成
+*/
+void generat()
+{
+    string s = "ababaab";
+    int n = s.size();
+    vector<int> ne(n, -1);
+    for (int i = 1; i < n; i++)
+    {
+        int j = i - 1;
+        if (s[i] == s[ne[j] + 1])
+            ne[i] = ne[j] + 1;
+        else
+        {
+            while (j >= 1)
+            {
+                if (s[i] == s[ne[j] + 1])
+                {
+                    ne[i] = ne[j] + 1;
+                    break;
+                }
+                else
+                    j = ne[j];
+            }
+        }
+    }
+
+    for (auto i : ne)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+}
 int main()
 {
-    // kmpBF();
-    kmp1();
+    // kmp1();
+    generat();
 }
