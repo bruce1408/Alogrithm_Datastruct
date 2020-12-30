@@ -136,10 +136,11 @@ void kmp3()
     }
 }
 
+/*================================================next 数组生成方式========================================================*/
 /**
- * next数组构成方法 1，手写
+ * next数组构成方法 1，不推荐版本，冗余
 */
-void generat()
+void getnext1()
 {
     string s = "abababc";
     int n = s.size();
@@ -174,9 +175,9 @@ void generat()
 /**
  * next数组构成方法 2
 */
-void getnext()
+vector<int> getnext2(string s)
 {
-    string s = "ababaab";
+    // string s = "ababaab";
     int j = -1;
     vector<int> ne(s.size(), -1);
     for (int i = 1; i < s.size(); i++)
@@ -187,26 +188,31 @@ void getnext()
             j++;
         ne[i] = j;
     }
+    return ne;
 }
 
-void getnext()
+int kmp4(string s, string p)
 {
-    string s = "abababaab";
-    int j = -1;
-    vector<int> ne(s.size(), -1);
-    for (int i = 1; i < s.size(); i++)
+    int m = p.size();
+    vector<int> ne = getnext2(p);
+    int j = -1, ans = 0;
+    for (int i = 0; i < s.size(); i++)
     {
-        while (i != -1 && s[i] != s[j + 1])
+        while (j != -1 && s[i] != p[j + 1])
             j = ne[j];
-        if (s[i] == s[j + 1])
+        if (s[i] == p[j + 1])
             j++;
-        ne[i] = j;
+        if (j == m - 1)
+            ans++;
     }
+    return ans;
 }
 
 int main()
 {
     // kmp1();
     // generat();
-    getnext();
+    // getnext1();
+    // getnext2();
+    cout << kmp4("abababab", "abab") << endl;
 }
