@@ -88,7 +88,7 @@ void kmp1()
 }
 
 /**
- * 手写kmp版本3
+ * 方法 3，手写kmp版本
 */
 const int N2 = 1000010, M2 = 1000010;
 char ne[N2], s[M2], p[N2];
@@ -97,6 +97,7 @@ int n2, m2;
 void kmp2()
 {
     // cin>>n>>p+1>>m>>s+1;
+    // s = ababa, p = aba
     n2 = 3, m2 = 5;
     p[1] = 'a';
     p[2] = 'b';
