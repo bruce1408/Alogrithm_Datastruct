@@ -53,9 +53,9 @@ void recoverTree2(TreeNode *root)
     TreeNode *cur = root, *pre = NULL, *first = NULL;
     while (cur)
     {
-        if (!cur->left) 
+        if (!cur->left)
         {
-            cout<<cur->val;
+            cout << cur->val;
             cur = cur->right;
         }
         else
@@ -71,6 +71,7 @@ void recoverTree2(TreeNode *root)
             else if (pre->right == cur)
             {
                 pre->right = NULL;
+                cout << cur->val;
                 cur = cur->right;
             }
         }

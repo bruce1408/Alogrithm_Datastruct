@@ -147,6 +147,9 @@ bool dfs(TreeNode *root, long ln, long rn)
  * 		2-1、如果前驱节点的右子树是空，把前驱节点的右孩子设置为当前节点；当前节点更新为当前节点的左子节点
  * 		2-2、如果前驱节点的右子树是当前节点，那么把右子树设置为空，同时输出当前节点，当前节点更新为当前节点右孩子节点
  * 3、重复上面1-2步骤
+ * 
+ * 注意，下面的代码就在两个地方进行的判断，一个是当前节点的左孩子为空的时候，判断父亲节点是否小于右孩子节点，如果不是就是false
+ * 还有一个是当前节点的前驱节点的右孩子是当前节点的时候，说明已经遍历过了，这个时候
 */
 bool isValidBST5(TreeNode *root)
 {
@@ -160,8 +163,8 @@ bool isValidBST5(TreeNode *root)
 		{
 			if (parent && parent->val >= cur->val) // 如果没有左子树，那么记录父节点，然后父节的值如果大于当前当前节点的值，就是false
 				res = false;
-			parent = cur;
-			cur = cur->right; //右孩子作为当前节点
+			parent = cur;	  // todo 设置父节点是当前节点
+			cur = cur->right; // 右孩子作为当前节点
 		}
 		else // 如果当前节点的左孩子不是空，在当前节点的左子树中找到中序遍历下的前驱节点
 		{
@@ -179,7 +182,7 @@ bool isValidBST5(TreeNode *root)
 				pre->right = NULL;
 				if (parent->val >= cur->val) // 加上parent判断，如果这个值大于等于当前节点的值，不满足条件res=false
 					res = false;
-				parent = cur;
+				parent = cur; // todo父节点是当前节点
 				cur = cur->right;
 			}
 		}
