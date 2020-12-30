@@ -137,11 +137,11 @@ void kmp3()
 }
 
 /**
- * next数组构成
+ * next数组构成方法 1，手写
 */
 void generat()
 {
-    string s = "ababaab";
+    string s = "abababc";
     int n = s.size();
     vector<int> ne(n, -1);
     for (int i = 1; i < n; i++)
@@ -151,7 +151,7 @@ void generat()
             ne[i] = ne[j] + 1;
         else
         {
-            while (j >= 1)
+            while (j >= 0)
             {
                 if (s[i] == s[ne[j] + 1])
                 {
@@ -170,8 +170,43 @@ void generat()
     }
     cout << endl;
 }
+
+/**
+ * next数组构成方法 2
+*/
+void getnext()
+{
+    string s = "ababaab";
+    int j = -1;
+    vector<int> ne(s.size(), -1);
+    for (int i = 1; i < s.size(); i++)
+    {
+        while (j != -1 && s[i] != s[j + 1])
+            j = ne[j];
+        if (s[i] == s[j + 1])
+            j++;
+        ne[i] = j;
+    }
+}
+
+void getnext()
+{
+    string s = "abababaab";
+    int j = -1;
+    vector<int> ne(s.size(), -1);
+    for (int i = 1; i < s.size(); i++)
+    {
+        while (i != -1 && s[i] != s[j + 1])
+            j = ne[j];
+        if (s[i] == s[j + 1])
+            j++;
+        ne[i] = j;
+    }
+}
+
 int main()
 {
     // kmp1();
-    generat();
+    // generat();
+    getnext();
 }
