@@ -18,26 +18,26 @@ using namespace std;
 
 string countAndSay(int n)
 {
-    string temp = "1";
+    string s = "1";
     for (int i = 0; i < n - 1; i++)
     {
-        string s;
-        for (int j = 0; j < temp.size(); j++)
+        string temp;
+        for (int j = 0; j < s.size(); j++)
         {
-            int cnt = 1;
-            while (j + 1 < temp.size() && temp[j] == temp[j + 1])
+            int cnt = 1; // 初始化每次字符出现的次数为1次
+            while (j + 1 < s.size() && s[j] == s[j + 1])
             {
                 cnt++;
                 j++;
             }
-            s += to_string(cnt) + temp[j];
+            temp += to_string(cnt) + s[j];
         }
-        temp = s;
+        s = temp;
     }
-    return temp;
+    return s;
 }
 
 int main()
 {
-    cout << countAndSay(6) << endl;
+    cout << countAndSay(4) << endl;
 }
