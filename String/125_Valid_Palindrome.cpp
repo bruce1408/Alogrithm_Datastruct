@@ -3,7 +3,8 @@
 using namespace std;
 
 /**
- * 方法 1，利用isalnum()函数来判断isalnum判断数字和字母，返回的是true，如果是其他字符，那么返回false
+ * 方法 1，利用isalnum()函数来判断字符是数字或者是字母，返回的是bool值，数字或字母是true，
+ * 如果是其他字符，那么返回false
  * 把原来那些非字母和数字的符号去掉，然后构成一个新的字符串，判断字符串是否是回文字符串
  */
 bool dealpa(string temp)
@@ -22,14 +23,14 @@ bool dealpa(string temp)
 	return true;
 }
 
-bool isPalindrome(string s)
+bool isPalindrome1(string s)
 {
-	if (s.size() == 0)
+	if (s.size() == 0) // 空字符串的话是回文串
 		return true;
 	string temp;
 	for (int i = 0; i < s.size(); i++)
 	{
-		if (isalnum(s[i]))
+		if (isalnum(s[i])) // 是否是字母或者是数字
 			temp += s[i];
 	}
 	cout << temp << endl;
@@ -39,30 +40,8 @@ bool isPalindrome(string s)
 /**
  * 方法 2，不用构成新的字符串，直接判断
  * */
-bool isPalindrome(string temp)
-{
-	int left = 0, right = temp.size() - 1;
-	while (left < right)
-	{
-		if (!isalnum(temp[left]))
-			left++;
-		else if (!isalnum(temp[right]))
-			right--;
-		else if ((temp[left] + 32 - 'a') % 32 != (temp[right] + 32 - 'a') % 32)
-			return false;
-		else
-		{
-			left++;
-			right--;
-		}
-	}
-	return true;
-}
-
-/**
- * 方法 3
-*/
-bool isPalindrome(string s)
+bool isAlphaNum(char &ch);
+bool isPalindrome2(string s)
 {
 	int left = 0, right = s.size() - 1;
 	while (left < right)
@@ -97,5 +76,5 @@ int main()
 {
 	string a = "A man, a plan, a canal: Panama";
 	// getline(cin,a);
-	cout << isPalindrome(a);
+	cout << isPalindrome1(a) << endl;
 }
