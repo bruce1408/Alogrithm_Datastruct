@@ -38,6 +38,35 @@ int longestValidParentheses(string s)
     return res;
 }
 
+/**
+ * 方法 2，使用双指针算法来做，left和right分别表示两个指针，记录左括号和右括号出现的次数，当遇见左括号，left自增1，否则，右括号自增1，
+ * 最长的括号序列是左括号等于右括号的次数，更新结果，如果右括号大于左括号，那么left right 次数重新置位0，说明当前不合法。
+ * 如果是(()长度应该是2，但是上述条件cover不到这种情况，所以就再从后往前遍历一遍即可，采用类似的机制，不过这次不是右括号大于左括号了
+ * 而是，左括号大于右括号那么就置位0，最后返回res
+*/
+int longestValidParentheses(string s)
+{
+    int res = 0, left = 0, right = 0, n = s.size();
+    for (int i = 0; i < n; ++i)
+    {
+        (s[i] == '(') ? ++left : ++right; // 如果是左括号left++，否则right++
+        if (left == right)                // 如果是左右括号的数目相等，那么更新匹配数res的值
+            res = max(res, 2 * right);
+        else if (right > left) // 如果是右边大于左边，那么左右计数全都置0
+            left = right = 0;
+    }
+    left = right = 0; // 再从后往前遍历
+    for (int i = n - 1; i >= 0; --i)
+    {
+        (s[i] == '(') ? ++left : ++right;
+        if (left == right)
+            res = max(res, 2 * left);
+        else if (left > right) // 这里不同的地方就是左括号数大于右括号数就重新置为0
+            left = right = 0;
+    }
+    return res;
+}
+
 int main()
 {
     string s = ")(()())";
