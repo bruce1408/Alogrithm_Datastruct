@@ -58,70 +58,9 @@ vector<int> findSubstring1(string s, vector<string> &words)
 }
 
 /**
- * 方法 2，双指针做法,
+ * 方法 2，优化上面代码
 */
 vector<int> findSubstring2(string s, vector<string> &words)
-{
-    unordered_map<string, int> hash;
-    vector<int> res;
-    int n = s.size(), m = words.size();
-    if (n == 0 || m == 0)
-        return res;
-    int len = words[0].size();
-    if (n < m * len)
-        return res;
-    for (auto word : words)
-        hash[word]++;
-    int size = hash.size();
-    for (int i = 0; i < len; i++)
-    {
-        unordered_map<string, int> cur_hash;
-        int sa = 0;
-        for (int j = i, k = i; k <= n - len;)
-        {
-            string temp = s.substr(k, len);
-            if (hash.find(temp) == hash.end()) // hash里面没有这个单词
-            {
-                k = k + len; // 跳到下一个单词
-                j = k;
-                cur_hash.clear();
-                sa = 0;
-            }
-            else
-            {
-                cur_hash[temp]++;
-                if (cur_hash[temp] == hash[temp])
-                    sa++;
-                else if (cur_hash[temp] > hash[temp])
-                {
-                    while (j < k && cur_hash[temp] > hash[temp])
-                    {
-                        string cur = s.substr(j, len);
-                        j += len;
-                        cur_hash[cur]--;
-                        if (cur_hash[cur] == hash[cur] - 1)
-                            sa--;
-                    }
-                }
-                if (sa == size)
-                {
-                    string temp = s.substr(j, len);
-                    cur_hash[temp]--;
-                    sa--;
-                    res.push_back(j);
-                    j += len;
-                }
-                k = k + len;
-            }
-        }
-    }
-    return res;
-}
-
-/**
- * 方法 3，
-*/
-vector<int> findSubstring(string s, vector<string> &words)
 {
     vector<int> res;
     int n = s.size(), m = words.size();
@@ -129,15 +68,16 @@ vector<int> findSubstring(string s, vector<string> &words)
         return res;
     int len = words[0].size();
     unordered_map<string, int> hash; // hash表示每个单词出现的次数
-    for (auto word : words) 
+    for (auto word : words)
         hash[word]++;
-    for (int i = 0; i < len; i++) // 
+
+    for (int i = 0; i < len; i++) // 遍历每个单词的长度
     {
         int cnt = 0;
         unordered_map<string, int> cur_hash;
-        for (int j = i; j <= n - len; j += len)
-        { 
-            if (j >= i + m * len) // 如果当前
+        for (int j = i; j <= n - len; j += len) // j是每一个单词的起始位置
+        {
+            if (j >= i + m * len) // 如果当前j超过了m个单词长度，那么减去长度跨度为len, 开头是m*len单词
             {
                 auto word = s.substr(j - m * len, len);
                 cur_hash[word]--;
@@ -159,7 +99,7 @@ int main()
 {
     string s = "barfoothefoobarman";
     vector<string> words = {"foo", "bar"};
-    for (auto i : findSubstring3(s, words))
+    for (auto i : findSubstring2(s, words))
     {
         cout << i << endl;
     }
