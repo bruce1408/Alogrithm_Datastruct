@@ -67,28 +67,62 @@ vector<int> findSubstring2(string s, vector<string> &words)
     int n = s.size(), m = words.size();
     if (n == 0 || m == 0)
         return res;
-    int len = words[0].size(), end = n - m * len;
+    int len = words[0].size();
     if (n < m * len)
         return res;
     for (auto word : words)
         hash[word]++;
     int size = hash.size();
-    for (int i= 0; i < len; i++)
+    for (int i = 0; i < len; i++)
     {
         unordered_map<string, int> cur_hash;
         int sa = 0;
-        for (int i = k; j = k; j <= n - len)
+        for (int j = i, k = i; k <= n - len;)
         {
-            string temp = s.substr(j, len);
+            string temp = s.substr(k, len);
+            if (hash.find(temp) == hash.end()) // hash里面没有这个单词
+            {
+                k = k + len; // 跳到下一个单词
+                j = k;
+                cur_hash.clear();
+                sa = 0;
+            }
+            else
+            {
+                cur_hash[temp]++;
+                if (cur_hash[temp] == hash[temp])
+                    sa++;
+                else if (cur_hash[temp] > hash[temp])
+                {
+                    while (j < k && cur_hash[temp] > hash[temp])
+                    {
+                        string cur = s.substr(j, len);
+                        j += len;
+                        cur_hash[cur]--;
+                        if (cur_hash[cur] == hash[cur] - 1)
+                            sa--;
+                    }
+                }
+                if (sa == size)
+                {
+                    string temp = s.substr(j, len);
+                    cur_hash[temp]--;
+                    sa--;
+                    res.push_back(j);
+                    j += len;
+                }
+                k = k + len;
+            }
         }
     }
+    return res;
 }
 
 int main()
 {
     string s = "barfoothefoobarman";
     vector<string> words = {"foo", "bar"};
-    for (auto i : findSubstring(s, words))
+    for (auto i : findSubstring2(s, words))
     {
         cout << i << endl;
     }
