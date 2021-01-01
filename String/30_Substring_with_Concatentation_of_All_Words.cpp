@@ -58,7 +58,7 @@ vector<int> findSubstring1(string s, vector<string> &words)
 }
 
 /**
- * 方法 2，双指针做法
+ * 方法 2，双指针做法,
 */
 vector<int> findSubstring2(string s, vector<string> &words)
 {
@@ -118,11 +118,48 @@ vector<int> findSubstring2(string s, vector<string> &words)
     return res;
 }
 
+/**
+ * 方法 3，
+*/
+vector<int> findSubstring(string s, vector<string> &words)
+{
+    vector<int> res;
+    int n = s.size(), m = words.size();
+    if (n == 0 || m == 0)
+        return res;
+    int len = words[0].size();
+    unordered_map<string, int> hash; // hash表示每个单词出现的次数
+    for (auto word : words) 
+        hash[word]++;
+    for (int i = 0; i < len; i++) // 
+    {
+        int cnt = 0;
+        unordered_map<string, int> cur_hash;
+        for (int j = i; j <= n - len; j += len)
+        { 
+            if (j >= i + m * len) // 如果当前
+            {
+                auto word = s.substr(j - m * len, len);
+                cur_hash[word]--;
+                if (cur_hash[word] < hash[word]) // 如果cur_hash中word这个单词小于总数，说明当前单词有效，cnt--
+                    cnt--;
+            }
+            auto word = s.substr(j, len);
+            cur_hash[word]++;
+            if (cur_hash[word] <= hash[word])
+                cnt++;
+            if (cnt == m)
+                res.push_back(j - (m - 1) * len);
+        }
+    }
+    return res;
+}
+
 int main()
 {
     string s = "barfoothefoobarman";
     vector<string> words = {"foo", "bar"};
-    for (auto i : findSubstring2(s, words))
+    for (auto i : findSubstring3(s, words))
     {
         cout << i << endl;
     }
