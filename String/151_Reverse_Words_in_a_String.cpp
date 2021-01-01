@@ -27,7 +27,7 @@ using namespace std;
 /**
  * 方法 1，基于字符串流的操作sstream
 */
-void reverseWords1(string &s)
+string reverseWords1(string &s)
 {
 	istringstream iss(s);
 	string temp;
@@ -37,6 +37,7 @@ void reverseWords1(string &s)
 		s = temp + " " + s;
 	if (!s.empty() && s[0] == ' ')
 		s = ""; //输入是空格的时候，输出为空
+	return s;
 }
 
 /**
@@ -91,20 +92,34 @@ string reverseWords2(string s)
 */
 string reverseWords3(string s)
 {
-	
-	if(s.empty()) return s;
-	int n = s.size();
-	for(int i=0,j = n-1;;i++,j--)
-	{
-		if(s[i]==' ') continue;
 
+	if (s.empty())
+		return s;
+	int k = 0; // k用来记录当前非空的单词长度
+	int n = s.size(), i = 0, j = n;
+	for (int i = 0; i < n; i++) // 遍历每个单词
+	{
+		if (s[i] == ' ')
+			continue;
+		int j = i, t = k;
+		while (j < s.size() && s[j] != ' ')
+			s[t++] = s[j++];
+		reverse(s.begin() + k, s.begin() + t);
+		s[t++] = ' ';
+		k = t, i = j;
 	}
+	if (k)
+		k--;
+	s.erase(s.begin() + k, s.end());
+	reverse(s.begin(), s.end());
+	return s;
 }
 
 int main()
 {
 	string s = " hello world my name ";
 	cout << "before reverse is: " << s << endl;
-	reverseWords1(s);
-	cout << "after reverse is: " << s << endl;
+	// reverseWords1(s);
+	// cout << "after reverse is: " << s << endl;
+	cout << reverseWords3(s) << endl;
 }
