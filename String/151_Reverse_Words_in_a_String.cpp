@@ -87,10 +87,18 @@ string reverseWords2(string s)
 /**
  * 方法 3，首先对每一个字符进行翻转，然后在对每个单词进行翻转即可
  * 比如s="hello world",翻转每个字符，"dlrow olleh",接着翻转每个单词"world hello"完成
+ * 用双指针算法来做
 */
 string reverseWords3(string s)
 {
+	
+	if(s.empty()) return s;
+	int n = s.size();
+	for(int i=0,j = n-1;;i++,j--)
+	{
+		if(s[i]==' ') continue;
 
+	}
 }
 
 int main()
