@@ -92,25 +92,23 @@ string reverseWords2(string s)
 */
 string reverseWords3(string s)
 {
-
 	if (s.empty())
 		return s;
-	int k = 0; // k用来记录当前非空的单词长度
-	int n = s.size(), i = 0, j = n;
-	for (int i = 0; i < n; i++) // 遍历每个单词
+	int n = s.size(), start = 0; // start用来记录当前非空的单词的起始位置
+	for (int i = 0; i < n; i++)	 // 遍历每个单词
 	{
 		if (s[i] == ' ')
 			continue;
-		int j = i, t = k;
-		while (j < s.size() && s[j] != ' ')
+		int j = i, t = start;				// t指向非空单词的起始位置
+		while (j < s.size() && s[j] != ' ') // 把空格的地方用单词向前平移
 			s[t++] = s[j++];
-		reverse(s.begin() + k, s.begin() + t);
-		s[t++] = ' ';
-		k = t, i = j;
+		reverse(s.begin() + start, s.begin() + t); // 翻转这个单词
+		s[t++] = ' ';							   // 这个单词的下一位加一个空格
+		start = t, i = j;						   // 下一个单词的开始位置为当前的t，j赋值给i
 	}
-	if (k)
-		k--;
-	s.erase(s.begin() + k, s.end());
+	if (start) // 最后的起始位置不为空，那么最后一位空格减去
+		start--;
+	s.erase(s.begin() + start, s.end());
 	reverse(s.begin(), s.end());
 	return s;
 }
