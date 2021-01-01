@@ -14,8 +14,6 @@ return 2.
 #include<unordered_map>
 using namespace std;
 
-
-
 int firstUniqChar(string s)
 {
 	unordered_map<char,int>res;
@@ -29,8 +27,6 @@ int firstUniqChar(string s)
 	return -1;
 		
 }
-
-
 
 int main()
 {
