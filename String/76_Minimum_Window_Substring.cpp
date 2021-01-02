@@ -78,7 +78,7 @@ string minWindow2(string s, string t)
 }
 
 /**
- * 方法 3，思路一样，就是空间上不用哈希，该用数组来降低空间消耗
+ * 方法 3，思路一样，就是空间上不用哈希，该用数组来降低空间消耗,更加高效
 */
 string minWindow3(string s, string t)
 {
