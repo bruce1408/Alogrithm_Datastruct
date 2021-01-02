@@ -52,6 +52,6 @@ string simplifyPath(string p)
 
 int main()
 {
-    string s = "/a/./b/../../c/";
+    string s = "/home/bruce/../abc";
     cout << simplifyPath(s) << endl;
 }
