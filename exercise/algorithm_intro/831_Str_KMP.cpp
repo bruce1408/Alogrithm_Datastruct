@@ -174,6 +174,9 @@ void getnext1()
 
 /**
  * next数组构成方法 2
+ * next[i]表示s[0]~ s[i]字符串中最长相等的前后缀中前缀的最后一位
+ * 比如字符串如：     a b a b c a a b c
+ * 得到的next数组为： -1 -1 0 1 -1 0 0 1 -1
 */
 vector<int> getnext2(string s)
 {
@@ -208,11 +211,56 @@ int kmp4(string s, string p)
     return -1;
 }
 
+/**
+ * 方法 3，next数组生成
+*/
+vector<int> getNext3(string str)
+{
+    int len = str.size();
+    vector<int> next(len, -1);
+    int i = 0;
+    next[i] = -1;
+    int j = -1;
+    while (i < len)
+    {
+        if (j == -1 || str[i] == str[j]) //循环的if部分
+        {
+            ++i;
+            ++j;
+            //修正的地方就发生下面这4行
+            if (str[i] != str[j]) //++i，++j之后，再次判断ptrn[i]与ptrn[j]的关系
+                next[i] = j;      //之前的错误解法就在于整个判断只有这一句。
+            else
+                next[i] = next[j]; //这里其实是优化了后的，也可以仍是next[i]=j
+            //当str[i]==str[j]时，如果str[i]匹配失败，那么换成str[j]肯定也匹配失败，
+            //所以不是令next[i]=j，而是next[i] = next[j]，跳过了第j个字符，
+            //即省去了不必要的比较
+            //非优化前的next[i]表示前i个字符中前缀与后缀相同的最大长度
+        }
+        else //循环的else部分
+            j = next[j];
+    }
+    return next;
+}
+
 int main()
 {
     // kmp1();
     // generat();
     // getnext1();
-    // getnext2();
+    auto res = getnext2("abcdabc");
+    for (auto i : res)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+    
+    auto res1 = getNext3("abcdabc");
+    for (auto i : res1)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+
     cout << kmp4("ababcd", "abc") << endl;
 }
