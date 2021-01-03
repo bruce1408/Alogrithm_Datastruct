@@ -173,10 +173,10 @@ void getnext1()
 }
 
 /**
- * next数组构成方法 2
+ * next数组构成方法 2，使用双指针算法来做
  * next[i]表示s[0]~ s[i]字符串中最长相等的前后缀中前缀的最后一位
  * 比如字符串如：     a b a b c a a b c
- * 得到的next数组为： -1 -1 0 1 -1 0 0 1 -1
+ * 得到的next数组为： -1 -1 0 1 -1 0 0 1 2
 */
 vector<int> getnext2(string s)
 {
@@ -185,7 +185,7 @@ vector<int> getnext2(string s)
     vector<int> ne(s.size(), -1);
     for (int i = 1; i < s.size(); i++)
     {
-        while (j != -1 && s[i] != s[j + 1])
+        while (j != -1 && s[i] != s[j + 1]) // j不能等于第一个数且
             j = ne[j];
         if (s[i] == s[j + 1])
             j++;
@@ -196,9 +196,8 @@ vector<int> getnext2(string s)
 
 int kmp4(string s, string p)
 {
-    int m = p.size();
+    int m = p.size(), j = -1;
     vector<int> ne = getnext2(p);
-    int j = -1, ans = 0;
     for (int i = 0; i < s.size(); i++)
     {
         while (j != -1 && s[i] != p[j + 1])
@@ -250,16 +249,13 @@ int main()
     // getnext1();
     auto res = getnext2("abcdabc");
     for (auto i : res)
-    {
         cout << i << " ";
-    }
     cout << endl;
-    
+
+    // 第二种求解方法
     auto res1 = getNext3("abcdabc");
     for (auto i : res1)
-    {
         cout << i << " ";
-    }
     cout << endl;
 
     cout << kmp4("ababcd", "abc") << endl;
