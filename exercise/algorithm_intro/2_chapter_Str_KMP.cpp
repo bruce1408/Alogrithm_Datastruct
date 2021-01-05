@@ -6,8 +6,10 @@ using namespace std;
 
 /**
  * 最小循环节求解，如果字符串s长度是len，那么得到next数组之后，
- * 如果len 可以被 len-next[len]整除，len%(len - next[len]==0),那么循环周期就是
- * len/(len - next[len])
+ * 1、如果len 可以被 len-next[len]整除，len%(len - next[len]==0),
+ * 那么循环周期就是len/(len - next[len])，循环节就是next[len]个字符构成的子串
+ * 2、如果不能整除，那么设置 L = len-next[len]；
+ * 需要补的位数是： L - next[len] % L
 */
 /**
  * KMP算法：

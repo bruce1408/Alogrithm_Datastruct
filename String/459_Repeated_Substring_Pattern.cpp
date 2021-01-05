@@ -11,7 +11,8 @@ using namespace std;
  * 输入: "abab"
  * 输出: True
  * 解释: 可由子字符串 "ab" 重复两次构成
- * 其实就是求解字符串的周期  n - next[n]就是源字符串中的最小周期
+ * 其实就是求解字符串的周期  n - next[n]就是源字符串中的最小周期，这个周期可能不是完整
+ * 周期
 */
 
 /**
@@ -21,8 +22,8 @@ bool repeatedSubstringPattern(string s)
 {
     int n = s.size();
     s = ' ' + s;
-    vector<int> next(n + 1);
-    for (int i = 2, j = 0; i <= n; i++)
+    vector<int> next(n, -1);
+    for (int i = 2, j = 0; i < n; i++)
     {
         while (j && s[i] != s[j + 1])
             j = next[j];
@@ -30,7 +31,7 @@ bool repeatedSubstringPattern(string s)
             j++;
         next[i] = j;
     }
-    int t = n - next[n];
+    int t = n - next[n]; // len - ne[len], len 表示字符长度
     return t < n && n % t == 0;
 }
 
