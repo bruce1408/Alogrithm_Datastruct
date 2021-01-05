@@ -1,41 +1,58 @@
-#include<iostream>
-#include<vector>
-#include<string>
+#include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
-/*
-    字符串压缩，
-    Input:
-    ["a","a","b","b","c","c","c]
 
-    Output:
-    ["a","2","b","2","c","3"]
+/**
+ * 443 字符串压缩，
+ * Input:
+ * ["a","a","b","b","c","c","c]
+ * Output:
+ * ["a","2","b","2","c","3"]
+ * 
 */
 
-
-int compress(vector<char>& chars) 
+/**
+ * 方法 1，使用双指针算法来做
+ * 两个指针分别指向的是单词重复的那段区间，然后再判断区间长度，大于9的话要逐位
+ * 转化成字符即可
+*/
+int compress(vector<char> &chars)
 {
     const int n = chars.size();
     int p = 0;
-    for (int i = 1; i <= n; ++i) 
+    for (int i = 1; i <= n; ++i)
     {
         int count = 1;
-        while (i < n && chars[i] == chars[i - 1]) { ++i; ++count; }
+        while (i < n && chars[i] == chars[i - 1])
+        {
+            ++i;
+            ++count;
+        }
         chars[p++] = chars[i - 1];
-        if (count == 1) continue;
+        if (count == 1)
+            continue;
         for (char c : to_string(count))
-        chars[p++] = c;
+            chars[p++] = c;
     }
-    for(auto i:chars)
+    for (auto i : chars)
     {
-        cout<<i<<" ";
+        cout << i << " ";
     }
     return p;
 }
 
+/**
+ * 方法 2，使用to_string 算法其实是一个logn空间复杂度
+*/
+int compress2(vector<char> &s)
+{
+    int n = s.size();
+}
 int main()
 {
-    vector<char>res = {'a','a','a','b','b'};
-    cout<<compress(res);
+    vector<char> res = {'a', 'a', 'a', 'b', 'b'};
+    cout << compress(res);
     // for(auto i:res)
     // {
     //     cout<<i<<endl;
