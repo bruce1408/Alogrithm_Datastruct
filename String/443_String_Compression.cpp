@@ -10,16 +10,7 @@ using namespace std;
     Output:
     ["a","2","b","2","c","3"]
 */
-// int compress(vector<char>& chars) 
-// {
-//     int n = chars.size();
-//     int cur = 0;
-//     for(int i=0; i<n; i++)
-//     {
-//         int j=i;
-//         while(j<n-1 && )
-//     }
-// }
+
 
 int compress(vector<char>& chars) 
 {
