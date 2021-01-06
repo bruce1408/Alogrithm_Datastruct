@@ -1,12 +1,11 @@
-/*56  和 57 是很类似的题目，56是给定的区间然后合并，而57新给一个区间。*/
-
 #include<iostream>
 #include<algorithm>
 #include<vector>
 using namespace std;
-
-
-
+/**
+ * 
+ * 56  和 57 是很类似的题目，56是给定的区间然后合并，而57新给一个区间。
+ * */
 struct Interval
 {
 	int start;
@@ -14,7 +13,6 @@ struct Interval
 	Interval() : start(0), end(0) {}
 	Interval(int s, int e) : start(s), end(e) {}
 };
-
 
 class Solution
 {
