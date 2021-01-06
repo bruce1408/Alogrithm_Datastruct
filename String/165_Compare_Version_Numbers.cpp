@@ -5,7 +5,7 @@
 using namespace std;
 
 /**
- * 165比较括号
+ * 165 比较版本
  * 给定两个字符串的版本号，然后分别比较字符串的版本号码的大小；版本号之间用'.'隔开即可
  * 然后版本号要是大于另一个的话，那么就是返回1，如果小于的话就是返回-1，其他返回0
  * 比如：
@@ -66,25 +66,25 @@ int compareVersion2(string s, string t)
 /**
  * 方法 3，字符流函数
  * */
-// int compareVersion3(string version1, string version2)
-// {
-//     istringstream v1(version1 + "."), v2(version2 + ".");
-//     int d1 = 0, d2 = 0;
-//     char dot = '.';
-//     while (v1.good() || v2.good())
-//     {
-//         if (v1.good())
-//             v1 >> d1 >> dot;
-//         if (v2.good())
-//             v2 >> d2 >> dot;
-//         if (d1 > d2)
-//             return 1;
-//         else if (d1 < d2)
-//             return -1;
-//         d1 = d2 = 0;
-//     }
-//     return 0;
-// }
+int compareVersion3(string version1, string version2)
+{
+    istringstream v1(version1 + "."), v2(version2 + ".");
+    int d1 = 0, d2 = 0;
+    char dot = '.';
+    while (v1.good() || v2.good())
+    {
+        if (v1.good())
+            v1 >> d1 >> dot;
+        if (v2.good())
+            v2 >> d2 >> dot;
+        if (d1 > d2)
+            return 1;
+        else if (d1 < d2)
+            return -1;
+        d1 = d2 = 0;
+    }
+    return 0;
+}
 
 int main()
 {
