@@ -14,7 +14,6 @@ using namespace std;
  * 然后这里小于20的数不一样，有单独的表达，所以三位数还要看一下十位是不是小于20
 */
 string convertHundred(int num);
-
 string numberToWords(int num)
 {
     string res = convertHundred(num % 1000);
@@ -45,10 +44,6 @@ string convertHundred(int num)
         res = v1[a] + " Hundred" + (b ? " " + res : "");
     return res;
 }
-
-/**
- * 方法 2
-*/
 
 int main()
 {
