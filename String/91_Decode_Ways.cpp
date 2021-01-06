@@ -73,6 +73,7 @@ int numDecodings2(string s)
         dp[i] = (s[i - 1] == '0') ?
     }
 }
+
 int main()
 {
     string s = "1226";

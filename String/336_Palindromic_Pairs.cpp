@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
 /**
@@ -8,7 +9,8 @@ using namespace std;
 */
 
 /**
- * 方法 1，使用暴力搜索来做，超时了，时间复杂度是n2L
+ * 方法 1，使用暴力搜索来做，超时了，时间复杂度是n^2*L
+ * 长度为L的回文串的时间复杂度是O(L)
 */
 bool palind(string s)
 {
@@ -29,12 +31,12 @@ vector<vector<int>> palindromePairs(vector<string> &words)
     int n = words.size();
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; < n; j++)
+        for (int j = 0; j < n; j++)
         {
             if (i != j)
             {
                 string t = words[i] + words[j];
-                if (t)
+                if (palind(t))
                     res.push_back({i, j});
             }
         }
@@ -42,6 +44,37 @@ vector<vector<int>> palindromePairs(vector<string> &words)
     return res;
 }
 
+/**
+ * 方法 2，上面时间复杂度太高了。
+ * 参考https://www.acwing.com/solution/content/363/
+*/
+vector<vector<int>>palindromePairs2(vector<string>&words)
+{
+    unordered_map<string, int>hash;
+    for(int i= 0;i<words.size();i++)
+    {
+        auto w = words[i];
+        reverse(w.begin(), w.end());
+        hash[w] = i;
+    }
+    vector<vector<int>>res;
+    for(int i=0;i<words.size();i++)
+    {
+        auto w = words.size();
+        for(int j=0;j<w.size();j++)
+        {
+            
+        }
+    }
+}
+
 int main()
 {
+    vector<string> words = {"abcd", "dcba", "lls", "s", "sssll"};
+    for (auto i : palindromePairs(words))
+    {
+        for (auto x : i)
+            cout << x << " ";
+        cout << endl;
+    }
 }
