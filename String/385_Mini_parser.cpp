@@ -47,9 +47,10 @@ NestedInteger deserialize(string s)
 NestedInteger dfs(string &s, int &u)
 {
     NestedInteger res;
-    if (s[u] == '[') // 内部节点
-    {
+    if (s[u] == '[')
+    {        // 当前是左括号，说明是一个内部结点
         u++; // 跳过左括号
+        // 对于这个左括号到自己的右括号的部分，递归处理每个儿子
         while (s[u] != ']')
             res.add(dfs(s, u));
         u++; // 跳过右括号
@@ -57,7 +58,8 @@ NestedInteger dfs(string &s, int &u)
             u++; // 跳过逗号
     }
     else
-    {
+    { // 当前是一个数，不用isdigit判断，因为可能带负号
+        // 先把这个数找出来
         int k = u;
         while (k < s.size() && s[k] != ',' && s[k] != ']')
             k++;
