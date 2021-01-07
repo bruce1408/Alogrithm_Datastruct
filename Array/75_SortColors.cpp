@@ -9,35 +9,43 @@ using namespace std;
 */
 
 /**
- * 方法 1，使用三个指针来做
+ * 方法 1，使用三个变量依次记录0，1，2的个数，然后保存在新的数组里面
 */
 void sortColors(vector<int> &num)
 {
-	int count0 = 0, count1 = 0, count2 = 0;
+	vector<int> count(3);
 	for (auto i : num)
+		count[i]++;
+	for (int i = 0, t = 0; i < count.size(); i++)
 	{
-		if (i == 0)
-			count0++;
-		else if (i == 1)
-			count1++;
-		else
-			count2++;
+		for (int j = 0; j < count[i]; j++)
+		{
+			num[t++] = i;
+		}
 	}
-	int j = 0;
-	while (j < count0)
-		num[j++] = 0;
+}
 
-	while (j < count1 + count1)
-		num[j++] = 1;
-
-	while (j < count0 + count1 + count2)
-		num[j++] = 2;
+/**
+ * 方法 2，使用两个指针，分别表示0和1之间的界限，和1和2之间的界限
+*/
+void sortColors2(vector<int> &num)
+{
+	int i = 0, j = num.size() - 1; // 两个指针，分别表示0-1界限和1-2界限
+	for (int k = 0; k <= j;)
+	{
+		if (num[k] == 0)
+			swap(num[k++], num[i++]);
+		else if (num[k] == 2)
+			swap(num[k], num[j--]);
+		else
+			k++;
+	}
 }
 
 int main()
 {
 	vector<int> num = {0, 2, 1, 0, 1};
-	sortColors(num);
+	sortColors2(num);
 	for (auto i : num)
 		cout << i << " ";
 }
