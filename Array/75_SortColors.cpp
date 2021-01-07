@@ -1,102 +1,43 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-/*-----------------------1、快速排序的方法来解决三色旗的问题--------------------*/
-class Solution
+/**
+ * 给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，
+ * 使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+ * 此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+*/
+
+/**
+ * 方法 1，使用三个指针来做
+*/
+void sortColors(vector<int> &num)
 {
-	public:
-	
-	void swap(vector<int> &num,int low,int high)
+	int count0 = 0, count1 = 0, count2 = 0;
+	for (auto i : num)
 	{
-		int temp = num[low];
-		num[low] = num[high];
-		num[high] = temp;
-	}
-	
-	int partition(vector<int> &num,int low,int high)
-	{
-		int piovkey = num[low];
-		while(low<high)
-		{
-			while(low<high && num[high]>=piovkey)
-			{
-				high--;
-			}
-			swap(num,low,high);
-		
-			while(low<high && num[low]<=piovkey)
-			{
-				low++;
-			}
-			swap(num,low,high);
-		}
-		return low;
-	}
-	
-	void Quicksort(vector<int> &num,int low,int high)
-	{
-		int poiv;
-		while(low<high)
-		{
-			poiv = partition(num,low,high);
-			Quicksort(num,low,poiv-1);
-			low = poiv + 1;
-		}
-	}
-	
-	void sortColors(vector<int>& nums)
-	{
-		int high = nums.size()-1;
-		Quicksort(nums,0,high);
-	}
-};
-
-
-void print_vec(vector<int> num)
-{
-	for(auto i:num)
-		cout<<i<<" ";
-	cout<<endl;
-}
-
-/*--------------------------2、统计个数解决三色旗问题---------------------------*/
-
-void sortC(vector<int> &num)
-{
-	int count0 = 0,count1 = 0,count2 = 0;
-	for(auto i:num)
-	{
-		if(i==0)
+		if (i == 0)
 			count0++;
-		else if(i==1)
+		else if (i == 1)
 			count1++;
 		else
 			count2++;
 	}
-	
-	int j=0;
-	
-	//关键步骤；将统计好的个数分别放到里面。
-	while(j<count0)
-		num[j++]=0;
-	
-	while(j<count1+count1)
-		num[j++]=1;
-	
-	while(j<count0+count1+count2)
-		num[j++]=2;
-	
-}
+	int j = 0;
+	while (j < count0)
+		num[j++] = 0;
 
+	while (j < count1 + count1)
+		num[j++] = 1;
+
+	while (j < count0 + count1 + count2)
+		num[j++] = 2;
+}
 
 int main()
 {
-	vector<int> num = {0,2,1,0,1};
-	print_vec(num);
-	// Solution s;
-	// s.sortColors(num);
-	sortC(num);
-	print_vec(num);
-	
+	vector<int> num = {0, 2, 1, 0, 1};
+	sortColors(num);
+	for (auto i : num)
+		cout << i << " ";
 }

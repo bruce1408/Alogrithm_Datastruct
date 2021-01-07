@@ -12,7 +12,8 @@ using namespace std;
  * 主要集中在中间产生交集的部分;
  * 设置一个遍历i扫描整个区间范围，
  * 如果是s[i][1] < t[0]没有交集
- * 
+ * 如果是s[i][0] <= t[1] 产生交集部分，更新t[0] 和t[1],然后遍历当前i
+ * 最后添加没有交集部分
 */
 vector<vector<int>> insert(vector<vector<int>> &s, vector<int> &t)
 {
