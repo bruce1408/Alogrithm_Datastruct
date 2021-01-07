@@ -12,11 +12,11 @@ using namespace std;
  **/
 
 /**
- * 方法 1，
+ * 方法 1，先对所有区间对进行排序，设置第一个区间对的元素分别是l和r，然后不断更新，
+ * 更新的方式和方法 2一样。
 */
 vector<vector<int>> merge(vector<vector<int>> &s)
 {
-	int n = s.size(), i = 0;
 	sort(s.begin(), s.end());
 	vector<vector<int>> res;
 	int l = s[0][0], r = s[0][1];
@@ -35,21 +35,33 @@ vector<vector<int>> merge(vector<vector<int>> &s)
 }
 
 /**
- * 方法 2
+ * 方法 2和方法 1思路相同，写法略有不同,
+ * 先对区间对进行首元素从小到大排序，把第一个区间对放进res结果数组中，然后判断下一个
+ * 区间对的第一个元素是否大于res最后一个区间对的第二个元素，如果是的话，那么说明
+ * 该区间不用合并，直接放入res数组中即可，否则，更新res最后一个元素
 */
-vector<vector<int>> merge(vector<vector<int>> &s)
+vector<vector<int>> merge2(vector<vector<int>> &s)
 {
 	sort(s.begin(), s.end());
 	vector<vector<int>> res;
 	res.push_back(s[0]);
 	for (int i = 1; i < s.size(); i++)
 	{
-		if (s[i][0] > res.back()[1])
+		if (res.back()[1] < s[i][0])
 			res.push_back(s[i]);
 		else
-		{
 			res.back()[1] = max(res.back()[1], s[i][1]);
-		}
 	}
 	return res;
+}
+
+int main()
+{
+	vector<vector<int>> res = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
+	for (auto x : merge2(res))
+	{
+		for (auto i : x)
+			cout << i << " ";
+		cout << endl;
+	}
 }
