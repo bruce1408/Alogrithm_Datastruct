@@ -6,7 +6,6 @@ using namespace std;
  * 一轮是遍历已经排序的部分。
  * 思路2 是正确解答，思路一是一种尝试。
  **/
-
 struct ListNode
 {
 	int val;
@@ -81,6 +80,20 @@ ListNode *insertionSortList(ListNode *head)
 	return dummy->next;
 }
 
+/**
+ * 方法 3，插入排序
+*/
+ListNode *insertionSortList3(ListNode *head)
+{
+	ListNode * dummy = new ListNode(-1);
+	while(head)
+	{
+		ListNode*cur= head;
+		ListNode *before = dummy;
+		
+
+	}
+}
 int main()
 {
 	ListNode *head = new ListNode(6);
