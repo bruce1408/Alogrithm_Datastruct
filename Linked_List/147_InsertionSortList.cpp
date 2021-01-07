@@ -85,22 +85,27 @@ ListNode *insertionSortList(ListNode *head)
 */
 ListNode *insertionSortList3(ListNode *head)
 {
-	ListNode * dummy = new ListNode(-1);
-	while(head)
+	ListNode *dummy = new ListNode(-1);
+	ListNode *p = head;
+	while (p)
 	{
-		ListNode*cur= head;
-		ListNode *before = dummy;
-		
-
+		ListNode *cur = dummy, *temp = p->next;		  // 这里提前保存p->next这个位置，后面会覆盖
+		while (cur->next && cur->next->val <= p->val) // 时候下一个链表的值小于当前值，那么就继续向后遍历
+			cur = cur->next;
+		p->next = cur->next; // 这里cur的下一个值就是大于p的值，p插入的位置就是在p和p->next之间
+		cur->next = p;
+		p = temp;
 	}
+	return dummy->next;
 }
+
 int main()
 {
-	ListNode *head = new ListNode(6);
+	ListNode *head = new ListNode(-1);
 	ListNode *node2 = new ListNode(5);
 	ListNode *node3 = new ListNode(3);
 	ListNode *node4 = new ListNode(4);
-	ListNode *node5 = new ListNode(3);
+	ListNode *node5 = new ListNode(0);
 	head->next = node2;
 	node2->next = node3;
 	node3->next = node4;
@@ -108,7 +113,7 @@ int main()
 	print_list(head);
 
 	ListNode *p;
-	p = insertionSortList(head);
+	p = insertionSortList3(head);
 	print_list(p);
 	return 0;
 }
