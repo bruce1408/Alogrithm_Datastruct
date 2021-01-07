@@ -36,7 +36,7 @@ void sortColors2(vector<int> &num)
 		if (num[k] == 0)
 			swap(num[k++], num[i++]);
 		else if (num[k] == 2)
-			swap(num[k], num[j--]);
+			swap(num[k], num[j--]); // 这里不用交换k，其实前面0的话k也自加，这里其实是把1放到这个位置
 		else
 			k++;
 	}
