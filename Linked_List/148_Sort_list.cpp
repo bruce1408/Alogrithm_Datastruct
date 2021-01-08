@@ -36,7 +36,6 @@ void print_list(struct ListNode *head)
 */
 ListNode *split(ListNode *head, int n);
 ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head);
-
 ListNode *sortList(ListNode *head)
 {
     ListNode *dummy = new ListNode(-1), *cur = head;
@@ -151,7 +150,7 @@ ListNode *sortList2(ListNode *head)
 }
 
 /**
- * 方法 3： 不用递归，归并排序满足时间要去，空间要求不满足
+ * 方法 3： 不用递归，归并排序满足时间要求，空间要求不满足
  */
 ListNode *merge3(ListNode *l1, ListNode *l2)
 {
