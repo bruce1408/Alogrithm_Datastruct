@@ -66,6 +66,7 @@ string largestNumber2(vector<int> &nums)
 }
 /**
  * 方法 2，使用dfs深度优先搜索来找到所有的可能结果，然后进行筛选即可
+ * 但是没有做完，可能思路不对
 */
 void dfs(vector<int> &nums, int n, vector<string> &res, int k, string s, unordered_map<int, bool> &used)
 {
