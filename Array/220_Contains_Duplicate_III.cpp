@@ -16,18 +16,16 @@ using namespace std;
 */
 bool containsNearbyAlmostDuplicate(vector<int> &nums, int k, int t)
 {
-    map<int, int> temp;
-    for (int i = 0; i < nums.size(); i++)
+    map<long, long>res;
+    int j = 0;
+    for(int i=0;i<nums.size();i++)
     {
-        temp[i] = nums[i];
+        if(i-j > k) res.erase(nums[j++]);
+        auto a  = res.lower_bound((long long)nums[i] - t);
+        cout<<*a<<endl;
+        if(a!=res.end() && )
+
     }
-    for (int i = 0; i < nums.size(); i++)
-    {
-        if (temp.find(i)->second - temp.find(i + k)->second == t ||
-            temp.find(i)->second - temp.find(i + k)->second == -t)
-            return true;
-    }
-    return false;
 }
 
 /**
