@@ -42,11 +42,28 @@ string largestNumber1(vector<int> &nums)
 		res += to_string(i);
 	}
 	//以下两句是说去掉最小数的时候0打头的情况，一般最大数的同时为0的情况也需要判断
-	auto pos = res.find_first_not_of('0');
-	return pos == string::npos ? "0" : res.substr(pos);
-	// return res; //在求最大的数的时候没有问题，但是如果是最小数的话那么可能有0打头。
+	auto pos = res.find_first_not_of('0');				// 找到第一个不是0的位置
+	return pos == string::npos ? "0" : res.substr(pos); // 如果全是0，返回“0”；否则 return res;
+														// 在求最大的数的时候没有问题，但是如果是最小数的话那么可能有0打头。
 }
 
+/**
+ * 方法 2，思路和方法 1一样，但是写法不同
+*/
+string largestNumber2(vector<int> &nums)
+{
+	sort(nums.begin(), nums.end(), [](int x, int y) {
+		string a = to_string(x), b = to_string(y);
+		return a + b > b + a;
+	});
+	string res;
+	for (auto x : nums)
+		res += to_string(x);
+	int k = 0;
+	while (k + 1 < nums.size() && res[k] == '0')
+		k++;
+	return res.substr(k);
+}
 /**
  * 方法 2，使用dfs深度优先搜索来找到所有的可能结果，然后进行筛选即可
 */
@@ -70,7 +87,7 @@ void dfs(vector<int> &nums, int n, vector<string> &res, int k, string s, unorder
 	}
 }
 
-string largestNumber2(vector<int> &nums)
+string largestNumber3(vector<int> &nums)
 {
 	int n = nums.size();
 	vector<string> res;
@@ -86,5 +103,5 @@ string largestNumber2(vector<int> &nums)
 int main()
 {
 	vector<int> num = {0, 1, 4};
-	cout << largestNumber1(num) << endl;
+	cout << largestNumber2(num) << endl;
 }
