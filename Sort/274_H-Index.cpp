@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 /**
  * 首先把序列进行排序，注意是逆序排序，然后对这个序列进行分析，如果指数大于等于当前的
@@ -7,84 +7,60 @@ using namespace std;
  * 序列的个数。
  */
 
-class Solution
+/**
+ * 方法 1，按照降序进行排序，然后比较
+*/
+int hIndex(vector<int> &s)
 {
-	public:
-	
-	void print_vec(vector<int> a)
+	int n = s.size();
+	sort(s.begin(), s.end(), greater<int>());
+	for (int i = 0; i < n; i++)
 	{
-		for(auto i:a)
-			cout<<i<<" ";
-		cout<<endl;
+		if (i >= s[i])
+			return i;
 	}
-	void swap(vector<int> &citations,int low,int high)
-	{
-		int temp = citations[low];
-		citations[low] = citations[high];
-		citations[high] = temp;
-	}
-	
-	int partition(vector<int> &citations,int low,int high)
-	{
-		int pivotkey;
-		pivotkey = citations[low];
-	
-		while(low<high)
-		{
-			while(low<high && citations[high]<=pivotkey)
-				high--;
-			swap(citations,low,high);
-		
-			while(low<high && citations[low]>=pivotkey)
-				low++;
-			swap(citations,low,high);
-		}
-		return low;
-	}
-	
-	void Msort(vector<int> &citations,int low,int high)
-	{
-		int pivot ;
-		while(low<high)
-		{
-			pivot = partition(citations,low,high);
-			Msort(citations,low,pivot-1);
-			low = pivot+1;
-		}
-	}
-	
-	int hIndex(vector<int>& citations)
-	{
-		Msort(citations,0,citations.size()-1);
-		for(int index=0;index<citations.size();++index)
-		{
-			if(index>=citations[index])
-				return index;
-		}
-		return citations.size() ;
-	}
-	
-	
-	
-};
+	return s.size();
+}
 
+/**
+ * 方法 2，写法略有不同
+*/
+int hIndex2(vector<int> &c)
+{
+	sort(c.begin(), c.end(), greater<int>());
+	for (int h = c.size(); h; h--)
+		if (c[h - 1] >= h)
+			return h;
+	return 0;
+}
 
+/**
+ * 方法 3，使用二分做法,升序排列，然后再利用二分判断
+*/
+int hIndex3(vector<int> &citations)
+{
+	if (citations.size() == 0)
+		return 0;
+	sort(citations.begin(), citations.end());
+	int l = 0, r = citations.size() - 1;
+	while (l < r)
+	{
+		int mid = (l + r + 1) >> 1; // 找到最后一个 文章数量大于等于数目的
+		if (citations.size() - mid > citations[mid])
+			l = mid; // [l,mid-1] [mid,r]
+		else
+			r = mid - 1;
+	}
+	if (citations.size() - l <= citations[l])
+		l--;
+	return citations.size() - (l + 1);
+}
 
 int main()
 {
-	vector<int> a ={3,0,6,1,5};
+	vector<int> a = {3, 0, 6, 1, 5};
 	// vector<int> a ={6,6,6,6,6};
-	Solution s;
-	s.Msort(a,0,a.size()-1);
-	s.print_vec(a);
-	
-	cout<<"指数是： "<<s.hIndex(a)<<endl;
+
+	cout << "指数是： " << hIndex(a) << endl;
 	return 0;
-	
 }
-
-
-
-
-
-
