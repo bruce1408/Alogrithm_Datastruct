@@ -12,43 +12,36 @@ using namespace std;
  * */
 
 /**
- * 方法 1
+ * 方法 1，类似是一个滑动窗口k，然后在这个窗口k内的差值存在绝对值小于等于t即可
 */
-bool containsNearbyAlmostDuplicate(vector<int> &nums, int k, int t)
+bool containsNearbyAlmostDuplicate1(vector<int> &nums, int k, int t)
 {
-    map<long, long>res;
+    map<long, long> res;
     int j = 0;
-    for(int i=0;i<nums.size();i++)
+    for (int i = 0; i < nums.size(); i++)
     {
-        if(i-j > k) res.erase(nums[j++]);
-        auto a  = res.lower_bound((long long)nums[i] - t);
-        cout<<*a<<endl;
-        if(a!=res.end() && )
-
+        if (i - j > k)
+            res.erase(nums[j++]);
+        cout << nums[i] - t << endl;
+        auto a = res.lower_bound((long long)nums[i] - t); // long long 转换很关键，防止越界
+        cout << "当前的a是：" << a->first << " " << a->second << endl;
+        if (a != res.end() && abs(nums[i] - a->first) <= t)
+            return true;
+        res[nums[i]] = i;
     }
+    return false;
 }
 
 /**
  * 方法 2
 */
-bool containsNearbyAlmostDuplicate1(vector<int> &nums, int k, int t)
+bool containsNearbyAlmostDuplicate2(vector<int> &nums, int k, int t)
 {
-    map<long long, int> m;
-    int j = 0;
-    for (int i = 0; i < nums.size(); ++i)
-    {
-        if (i - j > k)
-            m.erase(nums[j++]);
-        auto a = m.lower_bound((long long)nums[i] - t);
-        if (a != m.end() && abs(a->first - nums[i]) <= t)
-            return true;
-        m[nums[i]] = i;
-    }
     return false;
 }
 
 int main()
 {
-    vector<int> res = {1, 2, 3, 1};
-    cout << containsNearbyAlmostDuplicate1(res, 3, 0) << endl;
+    vector<int> res = {1, 1, 2, 2, 3, 3};
+    cout << containsNearbyAlmostDuplicate1(res, 2, 3) << endl;
 }
