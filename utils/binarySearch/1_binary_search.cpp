@@ -21,17 +21,11 @@ int binarySearch(vector<int> &res, int k)
     {
         int mid = (left + right) / 2;
         if (res[mid] > k)
-        {
             right = mid - 1;
-        }
         else if (res[mid] < k)
-        {
             left = mid + 1;
-        }
         else
-        {
             return mid;
-        }
     }
     return -1;
 }
@@ -105,14 +99,10 @@ int lower_bound0(vector<int> &res, int k)
     {
         int mid = (left + right) / 2;
         if (res[mid] >= k)
-        {
             right = mid - 1;
-        }
         else
-        {
             left = mid + 1;
-        }
-    }
+    }d
     return left; // 这个是标准的lower_bound输出，不存在的数且大于所有元素，返回最大下标，
     // left 是左侧边界；
     // return left <= n ? left : -1; // 不存在的数字返回-1；提醒找不到,下面这种写法也是可以的；

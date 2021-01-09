@@ -50,9 +50,9 @@ struct person
         this->age = age;
     }
     // 运算符重载,
-    bool operator < (const person & p) const
+    bool operator<(const person &p) const
     {
-        return this->age  < p.age;
+        return this->age < p.age;
     }
 };
 
@@ -61,7 +61,7 @@ struct person
 */
 void mapexample1()
 {
-    cout<<"====== mapexample1(): ======"<<endl;
+    cout << "====== mapexample1(): ======" << endl;
     map<person, int> m;
     person p1("Tom1", 20);
     person p2("Tom2", 22);
@@ -73,7 +73,7 @@ void mapexample1()
     m.insert(make_pair(p5, 100));
     m.insert(make_pair(p1, 100));
     m.insert(make_pair(p2, 100));
-   
+
     // 迭代方法1 map
     for (map<person, int>::iterator iter = m.begin(); iter != m.end(); iter++)
     {
@@ -92,45 +92,45 @@ struct person1
     int age;
     person1(string name, int age)
     {
-        this->name =  name;
+        this->name = name;
         this->age = age;
     }
-    bool operator== (const person1& p) const
+    bool operator==(const person1 &p) const
     {
-        return name==p.name && age==p.age;
+        return name == p.name && age == p.age;
     }
 };
 
 /**
  * 数据的插入--第二种：用insert函数插入pair数据
- * */  
-void mapexample2()  
-{  
-    cout<<"====== mapexample2(): ======"<<endl;
-    map<int, string> mapStudent;  
-    mapStudent.insert(pair<int, string>(1, "student_one"));  
-    mapStudent.insert(pair<int, string>(2, "student_two"));  
-    mapStudent.insert(pair<int, string>(3, "student_three"));  
-    map<int, string>::iterator iter;  
-    for(iter = mapStudent.begin(); iter != mapStudent.end(); iter++)
+ * */
+void mapexample2()
+{
+    cout << "====== mapexample2(): ======" << endl;
+    map<int, string> mapStudent;
+    mapStudent.insert(pair<int, string>(1, "student_one"));
+    mapStudent.insert(pair<int, string>(2, "student_two"));
+    mapStudent.insert(pair<int, string>(3, "student_three"));
+    map<int, string>::iterator iter;
+    for (iter = mapStudent.begin(); iter != mapStudent.end(); iter++)
     {
-        cout<<iter->first<<' '<<iter->second<<endl; 
+        cout << iter->first << ' ' << iter->second << endl;
     }
-}  
+}
 
 /**
  * 数据的插入--第三种：使用insert函数插入value_type数据
 */
-void mapexample3()  
-{  
-    cout<<"====== mapexample3(): ======"<<endl;
-    map<int, string> mapStudent;  
-    mapStudent.insert(map<int, string>::value_type (1, "student_one")); 
-    mapStudent.insert(map<int, string>::value_type (2, "student_two"));  
-    mapStudent.insert(map<int, string>::value_type (3, "student_three"));  
-    map<int, string>::iterator iter;  
-    for(iter = mapStudent.begin(); iter != mapStudent.end(); iter++)  
-        cout<<iter->first<<' '<<iter->second<<endl; 
+void mapexample3()
+{
+    cout << "====== mapexample3(): ======" << endl;
+    map<int, string> mapStudent;
+    mapStudent.insert(map<int, string>::value_type(1, "student_one"));
+    mapStudent.insert(map<int, string>::value_type(2, "student_two"));
+    mapStudent.insert(map<int, string>::value_type(3, "student_three"));
+    map<int, string>::iterator iter;
+    for (iter = mapStudent.begin(); iter != mapStudent.end(); iter++)
+        cout << iter->first << ' ' << iter->second << endl;
 }
 
 /**
@@ -138,14 +138,14 @@ void mapexample3()
 */
 void mapexample4()
 {
-    cout<<"====== mapexample4(): ======"<<endl;
-    map<int, string> mapStudent;  
-    mapStudent[-1] = "student_one";  
-    mapStudent[2] = "student_two";  
-    mapStudent[3] = "student_three";  
-    map<int, string>::iterator iter;  
-    for(iter = mapStudent.begin(); iter != mapStudent.end(); iter++)  
-        cout<<iter->first<<' '<<iter->second<<endl;  
+    cout << "====== mapexample4(): ======" << endl;
+    map<int, string> mapStudent;
+    mapStudent[-1] = "student_one";
+    mapStudent[2] = "student_two";
+    mapStudent[3] = "student_three";
+    map<int, string>::iterator iter;
+    for (iter = mapStudent.begin(); iter != mapStudent.end(); iter++)
+        cout << iter->first << ' ' << iter->second << endl;
 }
 
 /**
@@ -157,7 +157,6 @@ void mapexample4()
  * 否者是没有找到，第二种就是count函数，如果map.count(num)返回的是个数，如果个数是0说明也没有找到
  * 
  * 遍历map，使用范围for循环，或者是迭代器
- * 
 */
 void unordered_map_example()
 {
@@ -166,9 +165,9 @@ void unordered_map_example()
     temp.insert(pair<int, int>(1, 2));
     temp.insert(pair<int, int>(5, 4));
     temp.insert(pair<int, int>(4, 5));
-    for(unordered_map<int, int>::iterator it=temp.begin();it!=temp.end();it++)
+    for (unordered_map<int, int>::iterator it = temp.begin(); it != temp.end(); it++)
     {
-        cout<<it->first<<" "<<it->second<<endl;
+        cout << it->first << " " << it->second << endl;
     }
 }
 
