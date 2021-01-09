@@ -82,7 +82,7 @@ void exampleSet2()
 
 void exampleSet3()
 {
-    //multiset 迭代器
+    //multiset 迭代器 遍历
     cout << "正向迭代器" << endl;
     multiset<int> res = {1, 4, 2, 3, 3, 5, 6, 7, 8, 2, 9, 1};
     for (auto it = res.begin(); it != res.end(); it++)
@@ -141,9 +141,7 @@ int main()
     for (auto i : temp)
     {
         for (auto x : i)
-        {
             cout << x << " ";
-        }
         cout << endl;
     }
 }
