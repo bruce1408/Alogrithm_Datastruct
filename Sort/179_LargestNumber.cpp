@@ -21,7 +21,11 @@ using namespace std;
  * 不满足这个比较定义；
  * 所以需要证明一下新的比较运算是不是满足全序关系，参考链接如下
  * https://baike.baidu.com/item/%E5%85%A8%E5%BA%8F%E5%85%B3%E7%B3%BB/943310?fromtitle=%E5%85%A8%E5%BA%8F&fromid=10577699
-*/
+ * 简单来说就是满足一下三个关系：
+ * 如果 a ≤ b 且 b ≤ a 则 a = b (反对称性)
+ * 如果 a ≤ b 且 b ≤ c 则 a ≤ c (传递性)
+ * 如果 a ≤ b 或 b ≤ a (完全性)
+ * */
 static bool compare(int a, int b)
 {
 	auto stra = to_string(a);
