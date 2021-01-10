@@ -4,6 +4,8 @@
 using namespace std;
 
 /**
+ * 414 第三个最大的数字，如果没有就返回第二个最大的数，如果有相同的重复的数字
+ * 那么就返回的是不重复的第三个最大的数
  * Given a non-empty array of integers, 
  * return the third maximum number in this array. 
  * If it does not exist, return the maximum number. 
