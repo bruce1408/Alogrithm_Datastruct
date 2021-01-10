@@ -35,27 +35,58 @@ int thirdMax1(vector<int> &nums)
     int len = nums.size();
     if (len < 3)
         return len == 1 ? nums[0] : max(nums[0], nums[1]);
-    long maxNum = LONG_MIN, midNum = LONG_MIN, thirdNum = LONG_MIN;
+    long first = LONG_MIN, second = LONG_MIN, thirdNum = LONG_MIN;
     for (int i = 0; i < nums.size(); i++)
     {
-        if (nums[i] > maxNum)
+        if (nums[i] > first)
         {
-            thirdNum = midNum;
-            midNum = maxNum;
-            maxNum = nums[i];
+            thirdNum = second;
+            second = first;
+            first = nums[i];
         }
-        else if (nums[i] > midNum && nums[i] < maxNum)
+        else if (nums[i] > second && nums[i] < first)
         {
-            thirdNum = midNum;
-            midNum = nums[i];
+            thirdNum = second;
+            second = nums[i];
         }
-        else if (nums[i] > thirdNum && nums[i] < midNum)
+        else if (nums[i] > thirdNum && nums[i] < second)
         {
             thirdNum = nums[i];
         }
     }
     // 如果第三个数是最小的long_min 或者第二大和第三大数字相同的话，那就返回最大值，否则返回最小值；
-    return (thirdNum == LONG_MIN || thirdNum == midNum) ? maxNum : thirdNum;
+    return (thirdNum == LONG_MIN || thirdNum == second) ? first : thirdNum;
+}
+
+/**
+ * 方法 2，上面的方法的不同写法
+*/
+int thirdMax2(vector<int> &res)
+{
+    int s = 0, n = res.size();
+    long long inf = 1e18, first = -inf, second = -inf, third = -inf;
+    for (int i = 0; i < n; i++)
+    {
+        if (res[i] > first)
+        {
+            third = second;
+            second = first;
+            first = res[i];
+            s++;
+        }
+        else if (res[i] > second && res[i] < first)
+        {
+            third = second;
+            second = res[i];
+            s++;
+        }
+        else if (res[i] > third && res[i] < second)
+            third = res[i], s++;
+    }
+    if (s < 3)
+        return first;
+    else
+        return third;
 }
 
 /**
@@ -83,7 +114,7 @@ int thirdMax2(vector<int> &nums)
 
 int main()
 {
-    vector<int> nums = {1, 2, -2147483648};
+    vector<int> nums = {1, 2, 3};
     cout << thirdMax2(nums);
     return 0;
 }
