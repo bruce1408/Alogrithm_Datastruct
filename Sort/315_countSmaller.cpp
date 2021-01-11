@@ -37,8 +37,12 @@ vector<int> countSmaller(vector<int> &nums)
 
 
 /**
- * 方法 2，
+ * 方法 2，使用树状数组的做法
 */
+vector<int> countSmaller2(vector<int> &nums)
+{
+
+}
 int main()
 {
     vector<int> res = {5, 2, 6, 1};
