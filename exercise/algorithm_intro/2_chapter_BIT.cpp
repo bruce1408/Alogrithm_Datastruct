@@ -58,9 +58,9 @@ int main()
     for (int i = 0; i < res.size(); i++)
     {
         update(res[i], 1);
-        // 统计在元素左边比该元素小的元素个数
-        t.push_back(getSum(N) - getSum(res[i]));
         // 统计在元素左边比该元素大的元素个数
+        // t.push_back(getSum(N) - getSum(res[i]));
+        // 统计在元素左边比该元素小的元素个数
         t.push_back(getSum(res[i] - 1));
     }
     for (auto i : t)
