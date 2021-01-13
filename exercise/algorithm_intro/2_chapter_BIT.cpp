@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "../../utils/cout_vec.h"
 using namespace std;
 
 /**
@@ -29,16 +30,17 @@ int c[N];                      // c[i]数组表示的是在i号位之前lowbit(i
 */
 void update(int x, int v)
 {
+    int s = 0;
     for (int i = x; i <= N; i += lowbit(i))
-        c[i] += v; // 让c[i]加上v，然后让c[i+lowbit(i)]加上v
+        c[i] += v, s += lowbit(i); // 让c[i]加上v，然后让c[i+lowbit(i)]加上v
 }
 
 /**
  * 返回前x个整数之和，因为
- * a[1] + ...a[x] = 
- *                  sum(1, x) = 
- *                  a[1] + a[x - lowbit(x)] + a[x - lowbit(x) + 1] + ...a[x] = 
- *                  a[1] + a[x - lowbit(x)] + c[x] 因为c[x]覆盖的长度是lowbit(x),所以c[x] 是a[x- lowbit(x)+1 ~ x]的和
+ * a[1] + ... a[x] = 
+*  sum(1, x) = 
+*  a[1] + a[x - lowbit(x)] + a[x - lowbit(x) + 1] + ...a[x] = 
+*  a[1] + a[x - lowbit(x)] + c[x] 因为c[x]覆盖的长度是lowbit(x),所以c[x] 是a[x - lowbit(x) + 1 ~ x]的和
  * 所以，上面式子可以写成
  * sum(1, x) = sum(1, x- lowbit(x)) + c[x];
  * 前x个数之和如下函数所示：
@@ -54,15 +56,43 @@ int getSum(int x)
 int main()
 {
     vector<int> res = {2, 3, 1, 5, 6, 1}; // 给定一个数组，统计在该元素左边比该元素小的元素个数
-    vector<int> t;
-    for (int i = 0; i < res.size(); i++)
+    vector<int> left_less;
+    vector<int> left_great;
+    vector<int> right_less;
+    vector<int> right_great;
+    int len = res.size();
+
+    cout << "原数组为:" << endl;
+    print(res);
+
+    // 统计左边部分
+    // for (int i = 0; i < res.size(); i++)
+    // {
+    //     update(res[i], 1);
+    //     // 统计在元素左边比该元素大的元素个数
+    //     left_great.push_back(getSum(N) - getSum(res[i]));
+    //     // 统计在元素左边比该元素小的元素个数
+    //     left_less.push_back(getSum(res[i] - 1));
+    // }
+    // cout << "左边大于该元素的个数：" << endl;
+    // print(left_great);
+    // cout << "左边小于该元素的个数：" << endl;
+    // print(left_less);
+
+    // 统计右边部分
+    for (int i = res.size() - 1; i >= 0; i--)
     {
         update(res[i], 1);
-        // 统计在元素左边比该元素大的元素个数
-        // t.push_back(getSum(N) - getSum(res[i]));
-        // 统计在元素左边比该元素小的元素个数
-        t.push_back(getSum(res[i] - 1));
+        // 统计在元素右边比该元素大的元素个数
+        right_great.push_back(getSum(N) - getSum(res[i]));
+        // 统计在元素右边比该元素小的元素个数
+        right_less.push_back(getSum(res[i] - 1));
     }
-    for (auto i : t)
-        cout << i << " ";
+    reverse(right_great.begin(), right_great.end()); // 右边部分需要翻转一下
+    reverse(right_less.begin(), right_less.end());
+    cout << "右边大于该元素的个数：" << endl;
+    print(right_great);
+    cout << "右边小于该元素的个数：" << endl;
+    print(right_less);
+    cout << endl;
 }
