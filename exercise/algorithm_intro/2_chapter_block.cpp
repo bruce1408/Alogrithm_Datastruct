@@ -52,7 +52,7 @@ void pop_()
 
 int main()
 {
-    int n = 6, k = 2; // K 表示求第k个数字
+    int n = 6, k = 2; // n表示数字个数, k表示求第k个数字
     while (n)
     {
         cout << "请输入整数x：" << endl;
