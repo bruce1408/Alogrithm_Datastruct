@@ -62,9 +62,7 @@ int main()
         if (st.size() < k)
             cout << "元素个数不够，请继续输入" << endl;
         else
-        {
             peekMedian(k);
-        }
         n--;
     }
 }
