@@ -24,14 +24,12 @@ void peekMedian(int k)
     int sum = 0;
     int idx = 0;
     while (sum + block[idx] < k)
-    {
         sum += block[idx++]; // 没有达到k，那么sum累加block[idx]元素个数，如果超过了就跳出
-    }
+    
     int num = idx * sqrn; // 找到所在的块的其实元素下标
+    
     while (sum + table[num] < k)
-    {
         sum += table[num++]; // 累加块内元素，然后知道sum+到k位置
-    }
     printf("find the %dth num: %d\n", k, num);
 }
 
