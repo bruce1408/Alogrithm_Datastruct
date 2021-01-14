@@ -19,7 +19,7 @@ stack<int> st;   // 用栈来插入或者是删除当前数字
 int block[sqrn]; // block[i]表示第i个块元素个数
 int table[N];    // table[x]表示当前元素存在的个数
 
-void peekMedian(int k) 
+void peekMedian(int k)
 {
     int sum = 0;
     int idx = 0;
@@ -52,7 +52,7 @@ void pop_()
 
 int main()
 {
-    int n = 6, k = 2;
+    int n = 6, k = 2; // K 表示求第k个数字
     while (n)
     {
         cout << "请输入整数x：" << endl;
