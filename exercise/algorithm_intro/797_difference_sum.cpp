@@ -82,13 +82,13 @@ int main()
     // 求解差分数组b的初始化，对每个数进行差分求解
     for (int i = 1; i <= n; i++)
         insert(b, i, i, a[i]);
-    // b 数组为 1，1，0，-1，1，-1，而b数组的前缀和就是a数组
+    // b 数组为 1，1，0，-1，1，-1；而b数组的前缀和就是a数组
     int k = 0;
     while (k < m)
     {
-        int l = nums[k].first;
-        int r = nums[k].second;
-        int c = 1;
+        int l = nums[k].first;  // 区间左端点
+        int r = nums[k].second; // 区间右端点
+        int c = 1;              // 区间加上的数字
         insert(b, l, r, c);
         k++;
     }
@@ -96,7 +96,7 @@ int main()
     // a[i] 是b[i]的前n项和
     for (int i = 1; i <= n; i++)
     {
-        b[i] += b[i - 1];
+        b[i] += b[i - 1]; // 求数组b的前缀和就是数组a
         printf("%d ", b[i]);
     }
     // 非差分做法

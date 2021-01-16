@@ -12,21 +12,26 @@ int Greater[N], Lower[N];
 int getSum(int x)
 {
     int sum = 0;
-    for (int i = x; i < N; i += lowbit(i))
+    for (int i = x; i > 0; i -= lowbit(i))
         sum += c[i];
     return sum;
 }
 
-int findKth(int k)
+void update(int x, int v)
 {
-    int l = 1, r = N, mid;
-    while (l < r)
+    for (int i = x; i <= n; i += lowbit(i))
+        c[i] += v;
+}
+
+int main()
+{
+    vector<int> res = {0, 1, 2, 2, 1, 2, 1};
+    int n = res.size();
+    for (int i = 1; i < n; i++)
+        update(i, res[i] - res[i - 1]);
+    for (int i = 1; i <n; i++)
     {
-        mid = (l + r) >> 1;
-        if (getSum(mid) >= k)
-            r = mid;
-        else
-            l = mid + 1;
+        cout << c[i] << " ";
     }
-    return l;
+    cout << endl;
 }

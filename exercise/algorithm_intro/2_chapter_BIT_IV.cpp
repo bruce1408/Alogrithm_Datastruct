@@ -3,7 +3,7 @@
 #include <cstring>
 using namespace std;
 /**
- * 楼兰图腾数字
+ * 241 楼兰图腾数字
  * 给出一个长度为nn的数组，完成以下两种操作：
  * 1. 将第ii个数加上kk
  * 2. 输出区间[i,j][i,j]内每个数的和
