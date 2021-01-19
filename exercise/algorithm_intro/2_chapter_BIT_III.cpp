@@ -21,9 +21,7 @@ int getSum(int x)
 void update(int x, int v)
 {
     for (int i = x; i <= n; i += lowbit(i))
-    {
         c[i] += v;
-    }
 }
 
 int main()
