@@ -67,33 +67,33 @@ int main()
     print(res);
 
     // 统计左边部分
-    // for (int i = 0; i < res.size(); i++)
-    // {
-    //     update(res[i], 1);
-    //     // 统计在元素左边比该元素大的元素个数
-    //     left_great.push_back(getSum(N) - getSum(res[i]));
-    //     // 统计在元素左边比该元素小的元素个数
-    //     left_less.push_back(getSum(res[i] - 1));
-    // }
-    // cout << "左边大于该元素的个数：" << endl;
-    // print(left_great);
-    // cout << "左边小于该元素的个数：" << endl;
-    // print(left_less);
-
-    // 统计右边部分
-    for (int i = res.size() - 1; i >= 0; i--)
+    for (int i = 0; i < res.size(); i++)
     {
         update(res[i], 1);
-        // 统计在元素右边比该元素大的元素个数
-        right_great.push_back(getSum(N) - getSum(res[i]));
-        // 统计在元素右边比该元素小的元素个数
-        right_less.push_back(getSum(res[i] - 1));
+        // 统计在元素左边比该元素大的元素个数
+        left_great.push_back(getSum(N) - getSum(res[i]));
+        // 统计在元素左边比该元素小的元素个数
+        left_less.push_back(getSum(res[i] - 1));
     }
-    reverse(right_great.begin(), right_great.end()); // 右边部分需要翻转一下
-    reverse(right_less.begin(), right_less.end());
-    cout << "右边大于该元素的个数：" << endl;
-    print(right_great);
-    cout << "右边小于该元素的个数：" << endl;
-    print(right_less);
-    cout << endl;
+    cout << "左边大于该元素的个数：" << endl;
+    print(left_great);
+    cout << "左边小于该元素的个数：" << endl;
+    print(left_less);
+
+    // 统计右边部分
+    // for (int i = res.size() - 1; i >= 0; i--)
+    // {
+    //     update(res[i], 1);
+    //     // 统计在元素右边比该元素大的元素个数
+    //     right_great.push_back(getSum(N) - getSum(res[i]));
+    //     // 统计在元素右边比该元素小的元素个数
+    //     right_less.push_back(getSum(res[i] - 1));
+    // }
+    // reverse(right_great.begin(), right_great.end()); // 右边部分需要翻转一下
+    // reverse(right_less.begin(), right_less.end());
+    // cout << "右边大于该元素的个数：" << endl;
+    // print(right_great);
+    // cout << "右边小于该元素的个数：" << endl;
+    // print(right_less);
+    // cout << endl;
 }
