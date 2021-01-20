@@ -27,20 +27,23 @@ void update(int x, int v)
 
 int main()
 {
-    vector<int> res = {1, 2, 2, 1, 2, 1};
-    vector<int> p;
+    vector<int> res = {0, 1, 2, 2, 1, 2, 1};
+    vector<int> p(n, 0);
     cout << n << endl;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        p.push_back(getSum(res[i] - 1));
+        p[i] = (getSum(res[i] - 1));
         update(res[i], 1);
+        cout << "前缀和: " << getSum(res[i]) << endl;
     }
-
-    for (int i = 0; i < n; i++)
+    cout << "左边小于该数的个数为：" << endl;
+    for (int i = 1; i <= n; i++)
     {
         cout << p[i] << " ";
     }
     cout << endl;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
         cout << c[i] << " ";
+    cout << endl;
+    // cout << getSum(1) << endl;
 }

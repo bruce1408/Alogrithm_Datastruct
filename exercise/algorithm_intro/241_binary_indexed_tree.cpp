@@ -6,6 +6,12 @@ using namespace std;
 
 /**
  * 241 楼兰图腾
+ * 给定一个数组，然后求出这个数组里面所有的v字形和A字形的个数
+ * 比如输入：
+ * 1，5，3，2，4
+ * 输出：
+ * 3，4
+ * 表示V型的是3个，倒V的是4个
 */
 typedef long long LL;
 #define lowbit(i) ((i) & (-i))
@@ -43,9 +49,9 @@ int main()
         L[i] = getSum(y - 1);
         // 左边的数大于这个数的个数
         G[i] = getSum(n) - getSum(y);
-    }
+    } 
     memset(c, 0, sizeof c);
-    for (int i = n; i > 0; i--)
+    for (int i = n; i > 0; i--) // 从右往左算
     {
         int y = a[i];
         update(y, 1);
