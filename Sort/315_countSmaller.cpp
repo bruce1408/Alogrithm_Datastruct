@@ -35,17 +35,55 @@ vector<int> countSmaller(vector<int> &nums)
     return res;
 }
 
-
 /**
  * 方法 2，使用树状数组的做法
+ * 
 */
-vector<int> countSmaller2(vector<int> &nums)
+class Solution
 {
+public:
+    vector<int> c; // 类内初始化的话在主函数resize一下
+    // vector<int> c{vector<int>(20002,0)}; // 或者使用这个也可以初始化
 
-}
+    int n = 20001;
+    int lowbit(int x)
+    {
+        return x & -x;
+    }
+
+    int getSum(int x)
+    {
+        int sum = 0;
+        for (int i = x; i; i -= lowbit(i))
+            sum += c[i];
+        return sum;
+    }
+
+    void update(int x, int v)
+    {
+        for (int i = x; i <= n; i += lowbit(i))
+            c[i] += v;
+    }
+
+    vector<int> countSmaller(vector<int> &nums)
+    {
+        c.resize(20002);
+        vector<int> res(nums.size());
+        for (int i = nums.size() - 1; i >= 0; i--)
+        {
+            nums[i] += 10001;
+            res[i] = getSum(nums[i] - 1);
+            update(nums[i], 1);
+        }
+        return res;
+    }
+};
+
 int main()
 {
     vector<int> res = {5, 2, 6, 1};
-    for (auto i : countSmaller(res))
-        cout << i << endl;
+    Solution s;
+    for (auto i : s.countSmaller(res))
+        cout << i << " ";
+    cout << endl;
 }
