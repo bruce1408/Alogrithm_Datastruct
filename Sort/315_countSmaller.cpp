@@ -43,7 +43,7 @@ class Solution
 {
 public:
     vector<int> c; // 类内初始化的话在主函数resize一下
-    // vector<int> c{vector<int>(20002,0)}; // 或者使用这个也可以初始化
+    // vector<int> c{vector<int>(20002,0)}; // 或者使用这个也可以初始化，但是好像比较耗时
 
     int n = 20001;
     int lowbit(int x)
@@ -51,6 +51,7 @@ public:
         return x & -x;
     }
 
+    // 求前n项的和
     int getSum(int x)
     {
         int sum = 0;
@@ -67,7 +68,7 @@ public:
 
     vector<int> countSmaller(vector<int> &nums)
     {
-        c.resize(20002);
+        c.resize(20002); // 第一种初始化方法
         vector<int> res(nums.size());
         for (int i = nums.size() - 1; i >= 0; i--)
         {
@@ -78,6 +79,29 @@ public:
         return res;
     }
 };
+
+/**
+ * 方法 3，使用二分查找
+*/
+vector<int> countSmaller3(vector<int> &nums)
+{
+    vector<int> t, res(nums.size());
+    for (int i = nums.size() - 1; i >= 0; --i)
+    {
+        int left = 0, right = t.size();
+        while (left < right)
+        {
+            int mid = left + (right - left) / 2;
+            if (t[mid] >= nums[i])
+                right = mid;
+            else
+                left = mid + 1;
+        }
+        res[i] = right;
+        t.insert(t.begin() + right, nums[i]);
+    }
+    return res;
+}
 
 int main()
 {
