@@ -30,6 +30,7 @@ void add_(int l, int r, int d)
  * 方法 2，使用树状数组+差分的思想来做
  * 树状数组只支持单点操作，比如查找某个数字左边的的大于自己的个数
  * 差分的思想是构造一个差分数组，元数组是差分数组的前缀和
+ * 使用树状数组来完成区间修改，然后使用差分数组的前缀和来完成单点的查询操作
 */
 void update(int x, int v)
 {
@@ -61,12 +62,12 @@ int main()
         if (c == 'Q')
         {
             cin >> l;
-            cout << getSum(l) << endl;
+            cout << getSum(l) << endl; // 单点查询某个数使用差分数组的前缀和来做即可
         }
         else
         {
             cin >> l >> r >> d;
-            update(l, d);
+            update(l, d); // 构造差分数组的区间和操作b[l] + d, b[r+1] - d
             update(r + 1, -d);
         }
     }
