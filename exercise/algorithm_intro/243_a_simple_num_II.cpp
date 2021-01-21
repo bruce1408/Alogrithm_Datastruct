@@ -12,8 +12,7 @@ using namespace std;
  * 
  * 要求的是区间加操作，区间查询操作
  * 区间加操作还是使用差分来做
- * 如果要a[l-r]相加，那么就类似于差分的b[l] +=d, b[r+1]-d;
- * 
+ * 如果要a[l-r]相加，那么就类似于差分的b[l] += d, b[r+1] - d;
 */
 #define lowbit(i) ((i) & (-i))
 typedef long long LL;
@@ -22,6 +21,7 @@ int n, m;
 int a[N];
 LL tr1[N], tr2[N]; // tr1维护的是b的前缀和，tr2表示的时候i*b[i]的前缀和
 
+// 因为这里涉及到两个差分数组，所以加入一个数组的参数，一个是差分数组b[i]，还有一个是 i * b[i] 差分数组；
 void update(LL tr[], int x, LL v)
 {
     for (int i = x; i <= n; i += lowbit(i))
@@ -36,7 +36,7 @@ LL getSum(LL tr[], int x)
     return sum;
 }
 
-// 求解前缀和部分，b1+b2+....bn * (x+1) - (b1+ 2*b2 + 3*b3 +......i*bi)
+// 求解前缀和部分，b1+b2+....bn * (x+1) - (b1+ 2*b2 + 3*b3 +......i * b[i])
 LL prefixSum(int x)
 {
     return getSum(tr1, x) * (x + 1) - getSum(tr2, x);
@@ -63,10 +63,10 @@ int main()
         if (c == 'C')
         {
             scanf("%d", &d);
-            update(tr1, l, d);
+            update(tr1, l, d); // 差分数组区间和，b[l] + d, b[r + 1] - d;
             update(tr1, r + 1, -d);
 
-            update(tr2, l, l * d);
+            update(tr2, l, l * d); // 差分数组区间和，b[l] + d, b[r + 1] - d;
             update(tr2, r + 1, (r + 1) * (-d));
         }
         else
