@@ -31,16 +31,16 @@ void add_(int l, int r, int d)
  * 树状数组只支持单点操作，比如查找某个数字左边的的大于自己的个数
  * 差分的思想是构造一个差分数组，元数组是差分数组的前缀和
 */
-void add(int x, int v)
+void update(int x, int v)
 {
     for (int i = x; i <= n; i += lowbit(i))
-        c[i] += v;       
+        c[i] += v;
 }
 
 LL getSum(int x)
 {
     LL sum = 0;
-    for(int i=x;i>0;i-=lowbit(i))  
+    for (int i = x; i > 0; i -= lowbit(i))
         sum += c[i];
     return sum;
 }
@@ -51,9 +51,8 @@ int main()
     cin >> n >> m;
     for (int i = 1; i <= n; i++)
         cin >> a[i];
-    for(int i=1;i<=n;i++)
-        add(i, a[i] - a[i-1]);
-
+    for (int i = 1; i <= n; i++)
+        update(i, a[i] - a[i - 1]); // 构造差分数组
     while (m--)
     {
         char c;
@@ -61,13 +60,14 @@ int main()
         cin >> c;
         if (c == 'Q')
         {
-            cin >> d;
-            cout << a[d] << endl;
+            cin >> l;
+            cout << getSum(l) << endl;
         }
         else
         {
             cin >> l >> r >> d;
-            add(l, r, d);
+            update(l, d);
+            update(r + 1, -d);
         }
     }
 }

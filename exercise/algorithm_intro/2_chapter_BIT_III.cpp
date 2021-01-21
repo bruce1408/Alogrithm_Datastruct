@@ -24,26 +24,20 @@ void update(int x, int v)
     for (int i = x; i <= n; i += lowbit(i))
         c[i] += v;
 }
-
+vector<int> res = {0, 1, 2, 2, 1, 2, 1};
+vector<int> p(n, 0);
 int main()
 {
-    vector<int> res = {0, 1, 2, 2, 1, 2, 1};
-    vector<int> p(n, 0);
-    cout << n << endl;
+    // 第一个模板，单点修改，区间查询，单点加，区间和
     for (int i = 1; i <= n; i++)
     {
-        p[i] = (getSum(res[i] - 1));
-        update(res[i], 1);
-        cout << "前缀和: " << getSum(res[i]) << endl;
+        update(i, res[i]);
+        // update(res[i], 1); // 这种写法是统计个数
     }
-    cout << "左边小于该数的个数为：" << endl;
-    for (int i = 1; i <= n; i++)
-    {
-        cout << p[i] << " ";
-    }
-    cout << endl;
-    for (int i = 1; i <= n; i++)
-        cout << c[i] << " ";
-    cout << endl;
-    // cout << getSum(1) << endl;
+    cout << "前缀和的：" << getSum(6) << endl;
+    update(2, 4);                              // 给第二个数加上4
+    cout << getSum(4) - getSum(3 - 1) << endl; // 求区间[3, 4]的和
+    cout << getSum(4) - getSum(4 - 1) << endl; // 那么就是单点查询
+
+    // 第二个模板，单点查询， 区间修改，单点和，区间加
 }
