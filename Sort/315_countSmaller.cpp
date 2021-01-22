@@ -74,7 +74,7 @@ public:
         for (int i = nums.size() - 1; i >= 0; i--)
         {
             nums[i] += 10001;
-            res[i] = getSum(nums[i] - 1);
+            res[i] = getSum(nums[i] - 1); 
             update(nums[i], 1);
         }
         return res;
