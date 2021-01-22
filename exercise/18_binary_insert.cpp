@@ -1,10 +1,9 @@
-/*
-二分插入排序算法（升序）
- */
 #include <iostream>
 #include <vector>
 using namespace std;
-
+/**
+ * 二分插入排序法
+*/
 void binSort(vector<int> &a, int len)
 {
     int mid, left, right, temp;
