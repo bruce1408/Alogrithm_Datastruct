@@ -57,11 +57,6 @@ void wiggleSort2(vector<int> &nums)
  *  第2类是等于中位数的数 1
  *  第3类是小于中位数的数 0
 */
-void wiggleSort3(vector<int> &nums)
-{
-
-
-}
 
 int main()
 {
