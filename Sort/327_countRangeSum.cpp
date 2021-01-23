@@ -1,7 +1,6 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include "../utils/cout_vec.h"
 using namespace std;
 
 /**
@@ -10,6 +9,7 @@ using namespace std;
  * 输入: nums = [-2,5,-1], lower = -2, upper = 2,
  * 输出: 3 
  * 解释: 3个区间分别是: [0,0], [2,2], [0,2]，它们表示的和分别为: -2, -1, 2。
+ * 其实就是求解前面有多少个数字在某一个数字范围内
 */
 
 /**
@@ -30,17 +30,17 @@ public:
     // 树状数组更新，给x加上v
     void update(int x, int y)
     {
-        for (; x <= m; x += lowbit(x))
-            c[x] += y;
+        for (int i = x; i <= m; i += lowbit(i))
+            c[i] += y;
     }
 
     // 求前缀和
     int query(int x)
     {
-        int tot = 0;
-        for (; x; x -= lowbit(x))
-            tot += c[x];
-        return tot;
+        int sum = 0;
+        for (int i = x; i > 0; i -= lowbit(i))
+            sum += c[i];
+        return sum;
     }
 
     int countRangeSum(vector<int> &nums, int lower, int upper)
