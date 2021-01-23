@@ -44,10 +44,27 @@ void sortColors2(vector<int> &res)
 	}
 }
 
+/**
+ * 
+*/
+void sortColors3(vector<int> &res)
+{
+	int n = res.size();
+	int mid = res[n/2];
+
+	for (int i = 0, j = 0, k = n - 1; i <= k;)
+	{
+
+	}
+}
 int main()
 {
 	vector<int> num = {0, 2, 1, 0, 1};
 	sortColors2(num);
 	for (auto i : num)
 		cout << i << " ";
+
+	// 做实验测试
+	vector<int>{1, 2, 3, 4, 5, 6, 7};
+	sortColors3(res);
 }

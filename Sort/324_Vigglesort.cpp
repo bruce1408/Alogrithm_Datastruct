@@ -57,14 +57,34 @@ void wiggleSort2(vector<int> &nums)
  *  第2类是等于中位数的数 1
  *  第3类是小于中位数的数 0
 */
+// #define A(i) res[(1 + 2 * i) % (n | 1)] 这个运算的结果是先奇数然后偶数排列 [1,3,5, 0,2,4,6]
+
+void wiggleSort3(vector<int> &res)
+{
+
+    int n = res.size();
+#define A(i) res[(1 + 2 * i) % (n | 1)]
+
+    auto midptr = res.begin() + n / 2;           // 找到原数组中间的这个数
+    nth_element(res.begin(), midptr, res.end()); // 且区间中第n个元素，处理之后，排在第n个位置的数字他前面的都不比它大, 后面的都不比它小，不能保证有序
+    int mid = *midptr;
+    for (int i = 0, j = 0, k = n - 1; i <= k;)
+    {
+        // 先摆奇数的位置，
+        if (A(i) > mid)
+            swap(A(i++), A(j++));
+        else if (A(i) < mid)
+            swap(A(i), A(k--));
+        else
+            i++;
+    }
+}
 
 int main()
 {
     vector<int> res = {1, 5, 1, 1, 6, 4};
-    wiggleSort1(res);
+    wiggleSort3(res);
     for (auto i : res)
-    {
         cout << i << " ";
-    }
     cout << endl;
 }

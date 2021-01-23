@@ -33,7 +33,7 @@ void quickSort1(vector<int> &q, int l, int r)
 }
 
 /**
- * 快速排序2，推荐写法
+ * 快速排序2，推荐写法，模板记住
 */
 void quickSort2(vector<int> &res, int l, int r)
 {
@@ -63,7 +63,7 @@ int main()
     // vector<int> res = {5, 1, 9, 3, 7, 4, 8, 6, 1, 0, 8, 5};
     vector<int> res = {49, 59, 88, 37, 98, 97, 68, 54, 31, 3};
     int n = res.size();
-    quickSort1(res, 0, n - 1);
+    quickSort2(res, 0, n - 1);
     // quickSort2(res, 0, n - 1);
 
     print(res);
