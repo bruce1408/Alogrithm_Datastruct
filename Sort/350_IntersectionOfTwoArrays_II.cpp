@@ -1,5 +1,5 @@
 #include <iostream>
-#include <unordered_set>
+#include <unordered_map>
 #include <vector>
 #include "../utils/cout_vec.h"
 using namespace std;
@@ -14,7 +14,7 @@ using namespace std;
 /**
  * 方法 1，还是使用排序之后再比较大小即可 
 */
-vector<int> intersection(vector<int> &nums1, vector<int> &nums2)
+vector<int> intersect(vector<int> &nums1, vector<int> &nums2)
 {
 	vector<int> res;
 	int i = 0, j = 0;
@@ -40,17 +40,39 @@ vector<int> intersection(vector<int> &nums1, vector<int> &nums2)
  * 方法 2，使用哈希set来保存第一个元素出现的次数，然后遍历第二个数组，如果出现了，那么保存到结果数组
  * 然后哈希表删除这个元素即可，保证不重复
 */
-vector<int> intersection2(vector<int> &a, vector<int> &b)
+vector<int> intersect2(vector<int> &a, vector<int> &b)
 {
 	vector<int> ans;
-	unordered_set<int> res;
+	unordered_map<int, int> res;
+	for (int i = 0; i < a.size(); i++)
+		res[a[i]]++;
+	for (auto i : b)
+	{
+		if (res[i])
+		{
+			ans.push_back(i);
+			res[i]--;
+		}
+	}
+	return ans;
+}
+
+/**
+ * 方法 3，使用multiset，保存多个相同的数
+*/
+vector<int> intersect3(vector<int> &a, vector<int> &b)
+{
+	vector<int> ans;
+	unordered_multiset<int> res;
 	for (int i = 0; i < a.size(); i++)
 		res.insert(a[i]);
 	for (auto i : b)
 	{
 		if (res.count(i))
-			ans.push_back(i); // 这个数在第二个数组存在，那么保存到结果数组
-		res.erase(i);
+		{
+			ans.push_back(i);
+			res.erase(res.find(i));
+		}
 	}
 	return ans;
 }
