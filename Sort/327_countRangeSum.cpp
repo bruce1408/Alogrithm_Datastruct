@@ -10,7 +10,6 @@ using namespace std;
  * 输入: nums = [-2,5,-1], lower = -2, upper = 2,
  * 输出: 3 
  * 解释: 3个区间分别是: [0,0], [2,2], [0,2]，它们表示的和分别为: -2, -1, 2。
- * 
 */
 
 /**
@@ -93,8 +92,4 @@ int main()
     int low = -2, up = 2;
     Solution s;
     cout << s.countRangeSum(res, low, up) << endl;
-
-    // vector<int> num = {1, 2, 3, 4, 5, 7, 8, 9};
-    // auto it = lower_bound(num.begin(), num.end(), 6) - num.begin() + 1;
-    // cout << it << endl;
 }
