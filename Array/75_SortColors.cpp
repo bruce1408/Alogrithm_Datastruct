@@ -45,32 +45,37 @@ void sortColors2(vector<int> &res)
 }
 
 /**
- * 
+ * 方法 3，并非此题目的解答，而是测试，针对排好序的数组，
+ * 按照前一个数小于后一个数，然后后一个数大于前一个数的类型进行重新排列即可
+ * 这里使用的是一个映射关系A(i)
 */
 void sortColors3(vector<int> &res)
 {
 	int n = res.size();
+#define A(i) res[(1 + 2 * i) % (n | 1)]
 	// int mid = res[n/2];
 	sort(res.begin(), res.end());
-	int mid = res[n/2];
-	
-
-
-
-
+	int mid = res[n / 2];
 	for (int i = 0, j = 0, k = n - 1; i <= k;)
 	{
-
+		if (A(i) > mid) 
+			swap(A(i++), A(j++));
+		else if (A(i) < mid)
+			swap(A(i), A(k--));
+		else
+			i++;
 	}
 }
 int main()
 {
-	vector<int> num = {0, 2, 1, 0, 1};
-	sortColors2(num);
-	for (auto i : num)
-		cout << i << " ";
+	// vector<int> num = {0, 2, 1, 0, 1};
+	// sortColors2(num);
+	// for (auto i : num)
+	// 	cout << i << " ";
 
 	// 做实验测试
-	vector<int>{1, 2, 3, 4, 5, 6, 7};
+	vector<int> res = {1, 2, 1, 4, 5, 1, 7};
 	sortColors3(res);
+	for (auto i : res)
+		cout << i << " ";
 }
