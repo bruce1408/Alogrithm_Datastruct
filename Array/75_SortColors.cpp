@@ -50,7 +50,13 @@ void sortColors2(vector<int> &res)
 void sortColors3(vector<int> &res)
 {
 	int n = res.size();
+	// int mid = res[n/2];
+	sort(res.begin(), res.end());
 	int mid = res[n/2];
+	
+
+
+
 
 	for (int i = 0, j = 0, k = n - 1; i <= k;)
 	{
