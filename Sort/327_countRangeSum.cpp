@@ -13,7 +13,7 @@ using namespace std;
 */
 
 /**
- * 方法 1，使用树状数组来做
+ * 方法 1，使用树状数组来做，总的时间复杂度是O(nlogn)
 */
 typedef long long LL;
 
