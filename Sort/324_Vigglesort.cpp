@@ -63,17 +63,20 @@ void wiggleSort3(vector<int> &res)
 {
 
     int n = res.size();
-#define A(i) res[(1 + 2 * i) % (n | 1)]
+    #define A(i) res[(1 + 2 * i) % (n | 1)]
 
     auto midptr = res.begin() + n / 2;           // 找到原数组中间的这个数
     nth_element(res.begin(), midptr, res.end()); // 且区间中第n个元素，处理之后，排在第n个位置的数字他前面的都不比它大, 后面的都不比它小，不能保证有序
     int mid = *midptr;
+    for (auto i : res)
+        cout << i << " ";
+    cout << endl;
     for (int i = 0, j = 0, k = n - 1; i <= k;)
     {
-        // 先摆奇数的位置，
-        if (A(i) > mid)
+        // 先摆奇数的位置，然后再放偶数的位置
+        if (A(i) > mid) // 相当于是奇数的位置大于mid，那么就说明后面的奇数往前面挪，较小位奇数位置填上这个的数
             swap(A(i++), A(j++));
-        else if (A(i) < mid)
+        else if (A(i) < mid) // 否则，直接从最后面选择填补
             swap(A(i), A(k--));
         else
             i++;
