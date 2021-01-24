@@ -55,17 +55,30 @@ void nextPermutation2(vector<int> &nums)
 /**
  * 方法 3，找到第一个非降序的位置，
 */
-void nextPermutation(vector<int>& nums) 
+void nextPermutation3(vector<int> &nums)
 {
-    for(int i=0;i<nums.size();i++)
+    // 第一步找到第一个逆序的数字
+    int j = 0;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (i + 1 < nums.size() && nums[i] > nums[i + 1])
+        {
+            j = i;
+            break;
+        }
+    }
+    if(j==0) 
+        sort(nums.begin(), nums.end());
+    else
     {
         
-    }        
+    }
+    
 }
 int main()
 {
-    vector<int> res = {1, 2, 7, 4, 3, 1};
-    nextPermutation2(res);
+    vector<int> res = {2, 3, 5, 4, 1};
+    nextPermutation3(res);
     for (auto i : res)
     {
         cout << i << " ";
