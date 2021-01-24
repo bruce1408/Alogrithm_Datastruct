@@ -26,8 +26,8 @@ vector<vector<int>> threeSum1(vector<int> &res)
         int l = i + 1, r = n - 1;
         while (l < r)
         {
-            int s = res[i] + res[l] + res[r];
-            if (s == 0)
+            int s = res[i] + res[l] + res[r]; // 设置s为三数的和
+            if (s == 0)                       // 如果和为0的话，那么就保存到结果数组，然后再看是否有重复的数字
             {
                 ans.push_back({res[i], res[l], res[r]});
                 while (l < r && res[l] == res[l + 1])
@@ -47,9 +47,9 @@ vector<vector<int>> threeSum1(vector<int> &res)
 
 int main()
 {
-    vector<int> res = {-2, 0, 1, 1, 2};
+    vector<int> res = {-2, 0, 0, 2, 2};
     // threeSum(res);
-    for (auto &i : threeSum2(res))
+    for (auto &i : threeSum1(res))
     {
         for (auto j : i)
         {
