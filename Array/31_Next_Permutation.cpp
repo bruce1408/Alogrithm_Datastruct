@@ -53,28 +53,32 @@ void nextPermutation2(vector<int> &nums)
 }
 
 /**
- * 方法 3，找到第一个非降序的位置，
+ * 方法 3，找到第一个非降序的位置，推荐解法
+ * 思路比较绕，就是给定一个数组，例如 2,3,5,4,1
+ * 首先从后往前找到第一个前面数小于后面数的位置k，上面的例子是5的时候，前面的数字3小于后面数字5，所以k是2
+ * 如果这个数字小于等于0，那么说明整个数组是逆序的，那么返回翻转的结果即可
+ * 否则，就找出大于nums[k-1]的最小的数字即可，t自加，然后翻转nums[t-1] , nums[k-1];
+ * 最后把k到数组末尾的元素进行翻转
 */
 void nextPermutation3(vector<int> &nums)
 {
-    // 第一步找到第一个逆序的数字
-    int j = 0;
-    for (int i = 0; i < nums.size(); i++)
-    {
-        if (i + 1 < nums.size() && nums[i] > nums[i + 1])
-        {
-            j = i;
-            break;
-        }
-    }
-    if(j==0) 
-        sort(nums.begin(), nums.end());
+    // 第一步找到第一个逆序的数字,从后往前找
+    int k = nums.size() - 1, n = nums.size();
+    while (k > 0 && nums[k - 1] >= nums[k]) // 如果前一个数大于等于后一个数，k--
+        k--;
+    if (k <= 0) // 说明整个数组逆序，翻转一下即可
+        reverse(nums.begin(), nums.end());
     else
     {
-        
+        int t = k;
+        while (t < n && nums[k - 1] > nums[t]) // 找到最小的大于nums[k-1]的数然后交换
+            t++;
+        swap(nums[k - 1], nums[t - 1]);
+        // 对剩下的从k的位置的数字进行反转
+        reverse(nums.begin() + k, nums.end());
     }
-    
 }
+
 int main()
 {
     vector<int> res = {2, 3, 5, 4, 1};
