@@ -28,13 +28,9 @@ int maxArea(vector<int> &height)
         int tempArea = (right - left) * min(height[left], height[right]);
         maxArea = max(tempArea, maxArea);
         if (height[left] < height[right])
-        {
             left++;
-        }
         else
-        {
             right--;
-        }
     }
     return maxArea;
 }
