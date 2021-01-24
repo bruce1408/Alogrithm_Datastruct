@@ -56,12 +56,11 @@ string findLongestWord2(string s, vector<string> &d)
 {
 
 	string ans = "";
-	sort(d.begin(), d.end());
 	for (int i = 0; i < d.size(); i++)
 	{
 		if (compare(s, d[i]))
 		{
-			if (ans.size() < d[i].size() && )
+			if (ans.empty() || ans.size() < d[i].size() || (ans.size() == d[i].size() && ans > d[i]))
 				ans = d[i];
 		}
 	}
