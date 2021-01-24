@@ -44,46 +44,52 @@ vector<vector<int>> fourSum(vector<int> &nums, int target)
 /**
  * 方法 2，不用集合，就是使用两个指针来做即可，和三数之和一样
 */
-vector<vector<int>> fourSum2(vector<int>& nums, int t) {
+vector<vector<int>> fourSum2(vector<int> &nums, int t)
+{
     int n = nums.size();
-    vector<vector<int>>res;
-    sort(nums.begin(), nums.end());
-    for(int i=0;i<n;i++)
+    vector<vector<int>> res;
+    sort(nums.begin(), nums.end()); // 先排序
+    for (int i = 0; i < n; i++)
     {
-        if(i && nums[i] == nums[i-1]) continue;
-        for(int j = i+1;j<n;j++)
+        if (i && nums[i] == nums[i - 1])
+            continue;
+        for (int j = i + 1; j < n - 3; j++)
         {
-            if(j>i+1 && nums[j] == nums[j-1]) continue;
-            int l = j+1, r = n-1;
-            while(l<r)
+            if (j > i + 1 && nums[j] == nums[j - 1])
+                continue;
+            int l = j + 1, r = n - 1; // 两个指针分别是l和r
+            while (l < r)
             {
                 int s = nums[i] + nums[j] + nums[l] + nums[r];
-                if(s==t)
+                // 如果四数之和相同情况，那么保存到结果数组中，然后跳过重复的l和r
+                if (s == t)
                 {
-                    res.push_back({nums[i], nums[j], nums[l],nums[r]});
-                    while(l<r && nums[l] == nums[l+1]) l++;
-                    while(l<r && nums[r] == nums[r-1]) r--;
+                    res.push_back({nums[i], nums[j], nums[l], nums[r]});
+                    // l的下一个位置和当前的l不可以相等
+                    while (l < r && nums[l] == nums[l + 1])
+                        l++;
+                    // r的前一个位置和当前的r不可以相等
+                    while (l < r && nums[r] == nums[r - 1])
+                        r--;
                     l++, r--;
                 }
-                else if(s<t) l++;
-                else r--;
+                else if (s < t)
+                    l++;
+                else
+                    r--;
             }
         }
     }
     return res;
-
 }
 
 int main()
 {
     vector<int> resi = {-1, 0, 1, 2, -1, -4};
-    // threeSum(res);
     for (auto &i : fourSum(resi, 2))
     {
         for (auto j : i)
-        {
             cout << j << " ";
-        }
         cout << endl;
     }
 }

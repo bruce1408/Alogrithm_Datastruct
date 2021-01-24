@@ -2,10 +2,7 @@
 #include <vector>
 using namespace std;
 /**
- * Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
- * If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
- * The replacement must be in-place and use only constant extra memory.
- * Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
+ * 31 下一个排列，给定一个数组，然后输出它的另一个不同的排列
  * 1,2,3 → 1,3,2
  * 3,2,1 → 1,2,3
  * 1,1,5 → 1,5,1
@@ -17,7 +14,6 @@ using namespace std;
  * 记录当前的这个前一位的位置，然后在开始从后往前遍历，找到第一个大于这个位置的数，比如2的数字，发现是3，
  * 那么就交换2和3的位置，就是 [1,3,7,4,2,1],然后开始从3后面所有的位置都翻转一遍即可
  * 最后的数组是[1,3,1,2,4,7]
- * 
 */
 void nextPermutation1(vector<int> &nums)
 {
@@ -38,6 +34,7 @@ void nextPermutation1(vector<int> &nums)
     }
     reverse(nums.begin(), nums.end());
 }
+
 /**
  * 方法 2，使用比上面更加简洁的写法
 */
@@ -55,6 +52,16 @@ void nextPermutation2(vector<int> &nums)
     reverse(nums.begin() + i + 1, nums.end());
 }
 
+/**
+ * 方法 3，找到第一个非降序的位置，
+*/
+void nextPermutation(vector<int>& nums) 
+{
+    for(int i=0;i<nums.size();i++)
+    {
+        
+    }        
+}
 int main()
 {
     vector<int> res = {1, 2, 7, 4, 3, 1};
