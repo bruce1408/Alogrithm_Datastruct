@@ -5,7 +5,11 @@
 using namespace std;
 
 /**
- * 组合之和，给定一个输入的数组，然后给定目标值是7，求出这个数组可以组合成和为7的所有数组。
+ * 39 给定一个无序的数组和一个目标值t，求出所有数组中的组合之和等于t的情况，然后保存到结果数组中
+ * 注意，数组是不含有重复元素的,数组中的元素可以重复使用
+ * 2，3，6，7, t = 7
+ * 输出 2, 2, 3 和 7
+ * 
 */
 
 /**
@@ -58,18 +62,16 @@ vector<vector<int>> combinationSum(vector<int> &candidates, int target)
     return vector<vector<int>>(tempRes.begin(), tempRes.end());
 }
 
-
 /**
- * 方法 2，
+ * 方法 2
 */
-void helper(vector<int>&candidates, int target, int start, vector<int>&out, vector<vector<int>>&res)
+void helper(vector<int> &candidates, int target, int start, vector<int> &out, vector<vector<int>> &res)
 {
-    
 }
 vector<vector<int>> combinationSum(vector<int> &candidates, int target)
 {
-    vector<int>out;
-    vector<vector<int>>res;
+    vector<int> out;
+    vector<vector<int>> res;
     helper(candidates, target, 0, out, res);
     return res;
 }

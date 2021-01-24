@@ -1,75 +1,55 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-// 找出这个目标数的起始位置和结束位置，时间复杂度是O(longn) 总是少边界条件、错误的
-// vector<int> searchRange(vector<int>& nums, int target)
-// {
-//     int left = 0, right = nums.size()-1;
-//     vector<int> res;
-//     // if(nums.size()==1) return {0,0};
-//     while(left<=right)
-//     {
-//         int mid = (left+right)/2;
-//         if(nums[mid]==target && nums[mid-1]==target) return {mid-1, mid};
-//         else if(nums[mid]==target && nums[mid+1]==target) return {mid, mid+1};
-//         else if(nums[mid]==target && nums.size()==1) return {mid, mid};
-//         else if(nums[mid]<target) mid++;
-//         else if(nums[right]>target) right = mid;
-//     }
-//     return {-1,-1};
-// }
+/**
+ * 34 给定一个升序排列的数组和一个目标值，求出这个目标值所在的下标范围，如果不存在返回-1,-1
+*/
 
-
-// 好的解决方案
-// vector<int> searchRange(vector<int> &nums, int target) 
-// {
-
-//     int left = 0, right = nums.size() - 1;
-//     vector<int> ret(2, -1);
-//     // Search for the left one
-//     while (left < right)
-//     {
-//         int mid = (left + right) /2;
-//         if (nums[mid] < target) left = mid + 1;
-//         else right = mid;
-//     }
-//     if (nums[left]!=target) return ret;
-//     else ret[0] = left;
-    
-//     // Search for the right one
-//     right = nums.size()-1;  // We don't have to set i to 0 the second time.
-//     while (left < right)
-//     {
-//         int mid = (left + right) /2 + 1;	// Make mid biased to the right
-//         if (nums[mid] > target) right = mid - 1;  
-//         else left = mid;				// So that this won't make the search range stuck.
-//     }
-//     ret[1] = right;
-//     return ret; 
-// }
-
-
-vector<int> searchRange(vector<int>& nums, int target) 
+/**
+ * 方法 1，经典的二分查找来做。使用两个二分
+ * 第一个二分找到第一个大于等于target的下标
+ * 第二个二分找到最后一个小于等于target的小标
+ * 这样就找到了
+*/
+vector<int> searchRange(vector<int> &nums, int t)
 {
-    // pair<vector<int>::iterator, vector<int>::iterator> bounds;
-
-    auto bounds = equal_range(nums.begin(), nums.end(), target);
-    if (bounds.first == bounds.second)
-    {
+    // 第一个二分查找
+    if (nums.empty())
         return {-1, -1};
-    }    
-    return {bounds.first-nums.begin(), bounds.second-nums.begin() - 1};
+    int start = -1;
+    int l = 0, r = nums.size() - 1;
+    while (l < r)
+    {
+        int mid = (l + r) >> 1;
+        if (nums[mid] >= t)
+            r = mid;
+        else
+            l = mid + 1;
+    }
+    if (nums[l] != t)
+        return {-1, -1};
+
+    // 第二个二分查找
+    start = l;
+    l = 0, r = nums.size() - 1;
+    while (l < r)
+    {
+        int mid = (l + r + 1) >> 1;
+        if (nums[mid] <= t)
+            l = mid;
+        else
+            r = mid - 1;
+    }
+    return {start, l};
 }
 
 int main()
 {
-    vector<int> res = {1,3};
-    searchRange(res, 1);
-    // for(auto i:searchRange(res, 1))
-    // {
-    //     cout<<i<<" ";
-    // }
+    vector<int> res = {1, 3};
+    for (int i : searchRange(res, 1))
+        cout << i << " ";
+
     return 0;
 }
