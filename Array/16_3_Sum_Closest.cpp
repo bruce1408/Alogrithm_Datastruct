@@ -1,41 +1,68 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<unordered_map>
-#include<cmath>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+#include <cmath>
 using namespace std;
 
-/*
-    没有重复数组，标准求解,主要的问题就是重复数组怎么处理，一般想法是去重，但是还要写一个函数
-    下面的解法是直接在程序里去掉重复的数组。
-*/ 
-int threeSumClosest(vector<int>& nums, int target)
+/**
+ * 16 给定一个数组，和一个数看，然后求解数组三数之和最接近k的这个和是多少
+ * 没有重复数组。
+*/
+
+/**
+ * 方法 1，使用双指针来做即可
+*/
+int threeSumClosest(vector<int> &nums, int target)
 {
     sort(nums.begin(), nums.end());
-    int closet = nums[0]+nums[1]+nums[2];
-    int temp, n=nums.size(), diff = abs(closet - target);
-    for(int i=0;i<n;i++)
+    int ans = nums[0] + nums[1] + nums[2];
+    int n = nums.size();
+    for (int i = 0; i < n; i++)
     {
-        int left=i+1, right = n-1;
-        while(left<right)
+        int left = i + 1, right = n - 1;
+        while (left < right)
         {
-            int sum = nums[i]+nums[left] +nums[right];
-            if(abs(sum-target)<diff)
-            {
-                diff = abs(sum-closet);
-                closet = sum;
-            }
-            if(sum<target) ++left;
-            else --right;
+            int sum = nums[i] + nums[left] + nums[right];
+            if (sum == target)
+                return sum;
+            if (abs(sum - target) < abs(ans - target))
+                ans = sum;
+            else if (sum < target)
+                left++;
+            else
+                right--;
         }
     }
-    return closet;
+    return ans;
 }
 
+/**
+ * 方法 2，使用双指针来做即可，参考y总的代码
+*/
+int threeSumClosest2(vector<int> &nums, int target)
+{
+    sort(nums.begin(), nums.end());
+    pair<int, int> res(INT_MAX, INT_MAX);
+    for (int i = 0; i < nums.size(); i++)
+        for (int j = i + 1, k = nums.size() - 1; j < k; j++)
+        {
+            while (k - 1 > j && nums[i] + nums[j] + nums[k - 1] >= target)
+                k--;
+            int s = nums[i] + nums[j] + nums[k];
+            res = min(res, make_pair(abs(s - target), s));
+            if (k - 1 > j)
+            {
+                s = nums[i] + nums[j] + nums[k - 1];
+                res = min(res, make_pair(target - s, s));
+            }
+        }
+    return res.second;
+}
 
 int main()
 {
     vector<int> res = {-1, 2, 1, -4};
-    threeSumClosest(res);
+    cout << threeSumClosest(res, 2);
     return 0;
 }
