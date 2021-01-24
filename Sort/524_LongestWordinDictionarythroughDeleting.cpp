@@ -17,7 +17,7 @@ using namespace std;
  */
 
 /**
- * 方法 1，不用进行排序步骤。
+ * 方法 1，不用进行排序步骤
 */
 string findLongestWord1(string s, vector<string> &d)
 {
@@ -61,7 +61,7 @@ string findLongestWord2(string s, vector<string> &d)
 	{
 		if (compare(s, d[i]))
 		{
-			if (ans.size() < d[i].size())
+			if (ans.size() < d[i].size() && )
 				ans = d[i];
 		}
 	}
