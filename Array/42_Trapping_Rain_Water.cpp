@@ -17,7 +17,6 @@ using namespace std;
 /**
  * 方法 1，使用一个单调栈来做
 */
-
 int trap(vector<int> &height)
 {
     stack<int> res;
@@ -40,6 +39,34 @@ int trap(vector<int> &height)
     return ans;
 }
 
+/**
+ * 方法 2，使用双指针来做
+*/
+int trap(vector<int> &height)
+{
+    int res = 0, l = 0, r = height.size() - 1;
+    while (l < r)
+    {
+        int mn = min(height[l], height[r]); // 找到左边和右边的最小值
+        if (mn == height[l])
+        {
+            ++l;
+            while (l < r && height[l] < mn)
+            {
+                res += mn - height[l++];
+            }
+        }
+        else
+        {
+            --r;
+            while (l < r && height[r] < mn)
+            {
+                res += mn - height[r--];
+            }
+        }
+    }
+    return res;
+}
 int main()
 {
     vector<int> res = {5, 4, 2, 1, 4, 5};
