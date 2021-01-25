@@ -21,8 +21,10 @@ using namespace std;
  * 如果当前的栈不为空且栈顶的元素小于当前元素说明形成了一个U槽，那么
  * ans加上 (栈顶元素的高度 - 上一个栈顶元素高度) * (宽度=当前下标 - 栈顶元素下标 - 1)
  * last更新为栈顶元素高度，然后弹出栈顶元素；
+ * 遍历结束之后还要加上最后一个区间高度，就是(当前元素高度 - 上一个栈顶元素高度) * (当前下标 - 栈顶元素下标 - 1)；
+ * 然后当前元素进栈
  * 
- * 遍历结束之后，
+ * 最后整个数组遍历结束之后返回结果ans即可
 */
 int trap(vector<int> &height)
 {
@@ -40,7 +42,7 @@ int trap(vector<int> &height)
             res.pop();
         }
         if (res.size())
-            ans += (i - res.top() - 1) * (height[i] - last);
+            ans += (height[i] - last) * (i - res.top() - 1);
         res.push(i);
     }
     return ans;
@@ -78,6 +80,7 @@ int trap(vector<int> &height)
     }
     return res;
 }
+
 int main()
 {
     vector<int> res = {5, 4, 2, 1, 4, 5};

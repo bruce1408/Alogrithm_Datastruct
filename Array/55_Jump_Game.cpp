@@ -3,6 +3,7 @@
 using namespace std;
 
 /**
+ * 55 跳跃游戏
  * Example 1:
  * Input: [2,3,1,1,4]
  * Output: true
@@ -11,29 +12,24 @@ using namespace std;
 */
 
 /**
- * 方法 1，贪婪算法 Greedy Algorithm，
- * 因为这里并不是很关心每一个位置上的剩余步数，而只希望知道能否到达末尾，
- * 也就是说我们只对最远能到达的位置感兴趣，所以维护一个变量 reach，
- * 表示最远能到达的位置，初始化为0。遍历数组中每一个数字，
- * 如果当前坐标大于 reach 或者 reach 已经抵达最后一个位置则跳出循环，
- * 否则就更新 reach 的值为其和 i + nums[i] 中的较大值，
- * 其中 i + nums[i] 表示当前位置能到达的最大位置
+ * 方法 1,设置两个变量，一个是i从头开始遍历
+ * 还有一个是j，表示可以最大跳多远，然后如果j<i表示跳的距离不到i，那么就直接返回false
+ * 否则每次找j和i这个位置可以跳最远的最大值，赋值给j
+ * 
 */
 bool canJump(vector<int> &nums)
 {
-    int n = nums.size(), reach = 0;
-    for (int i = 0; i < n; ++i)
+    for (int i = 0, j = 0; i < nums.size(); i++)
     {
-        if (i > reach || reach >= n - 1)
-            break;
-        // 当前位置所能到达的最大位置！
-        reach = max(reach, i + nums[i]);
+        if (j < i)
+            return false;
+        j = max(j, i + nums[i]);
     }
-    return reach >= n - 1;
+    return true;
 }
 
 int main()
 {
-    vector<int> res = {2, 3, 1, 1, 4};
-    cout << canJump2(res) << endl;
+    vector<int> res = {3, 2, 1, 0, 4};
+    cout << canJump(res) << endl;
 }
