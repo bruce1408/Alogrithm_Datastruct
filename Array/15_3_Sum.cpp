@@ -21,6 +21,7 @@ vector<vector<int>> threeSum1(vector<int> &res)
     sort(res.begin(), res.end());
     for (int i = 0; i < n - 2; i++)
     {
+        // 防止重复数字 *
         if (i > 0 && res[i] == res[i - 1])
             continue;
         int l = i + 1, r = n - 1;
