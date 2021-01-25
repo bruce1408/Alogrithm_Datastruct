@@ -13,55 +13,35 @@ using namespace std;
 */
 
 /**
- * 方法 1，方法错误，没有考虑组合，而是利用规律来做，漏掉了几种情况。
+ * 方法 1，不使用递归
+ * 就在一个函数中完成递归，还是要先给数组排序，然后遍历，如果当前数字大于 target，说明肯定无法组成 target，由于排过序，
+ * 之后的也无法组成 target，直接 break 掉。如果当前数字正好等于 target，则当前单个数字就是一个解，组成一个数组然后放到结果 res 中。
+ * 然后将当前位置之后的数组取出来，调用递归函数，注意此时的 target 要减去当前的数字，
+ * 然后遍历递归结果返回的二维数组，将当前数字加到每一个数组最前面，然后再将每个数组加入结果 res 即可
 */
-vector<vector<int>> combinationSum(vector<int> &candidates, int target)
+vector<vector<int>> combinationSum(vector<int> &c, int target)
 {
     vector<vector<int>> res;
-    for (int i = 0; i < candidates.size(); i++)
+    sort(candidates.begin(), c.end());
+    for (int i = 0; i < c.size(); ++i)
     {
-        vector<int> temp;
-        int tempNum = candidates[i];
-        int count = 2;
-        if (target % candidates[i] == 0)
+        if (c[i] > target)
+            break;
+        if (c[i] == target)
         {
-            for (int x = 0; x < target / candidates[i]; x++)
-            {
-                temp.push_back(candidates[i]);
-            }
+            res.push_back({c[i]});
+            break;
         }
-        else
+        vector<int> vec = vector<int>(c.begin() + i, c.end());
+        vector<vector<int>> tmp = combinationSum(vec, target - c[i]);
+        for (auto a : tmp)
         {
-            int tempCount = target / candidates[i];
-            while (tempNum <= target)
-            {
-                int remainNum = target % tempNum;
-                auto iter = find(candidates.begin(), candidates.end(), remainNum);
-                if (iter != candidates.end())
-                {
-                    for (int j = 0; j < tempCount; j++)
-                    {
-                        temp.push_back(candidates[i]);
-                    }
-                    temp.push_back(remainNum);
-                }
-                else
-                {
-                    tempCount = count;
-                }
-                tempNum = pow(candidates[i], count);
-                count += 1;
-            }
-        }
-        if (temp.size() != 0)
-        {
-            res.push_back(temp);
+            a.insert(a.begin(), c[i]);
+            res.push_back(a);
         }
     }
-    set<vector<int>> tempRes(res.begin(), res.end());
-    return vector<vector<int>>(tempRes.begin(), tempRes.end());
+    return res;
 }
-
 /**
  * 方法 2
 */
