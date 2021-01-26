@@ -5,9 +5,7 @@
 using namespace std;
 
 /**
- * Given an array of integers, find if the array contains any duplicates.
- * Your function should return true if any value appears at least twice in the array, 
- * and it should return false if every element is distinct.
+ * 217 给定一个无序的整数数组，然后求出这个整数数组的重复元素即可
  * 
  * Example 1:
  * Input: [1,2,3,1]
@@ -22,8 +20,8 @@ using namespace std;
 
 /**
  * 方法 1 利用448题目的那个方法,只需要一次遍历即可,
- * 时间复杂度是O(n),但是这个前提必须是长度为n的数组，元素
- * 从1-n开始的数字,否则会越界;这种方法有局限性!
+ * 时间复杂度是O(n),但是这个前提必须是长度为n的数组，
+ * 元素从1-n开始的数字,否则会越界;这种方法有局限性!
  * 
 */
 bool containsDuplicate(vector<int> &nums)
@@ -76,8 +74,8 @@ bool containsDuplicate2(vector<int> &nums)
 
 int main()
 {
-	vector<int> nums = {1, 2, 3, 4, 5, 6, 9};
-	if (containsDuplicate(nums))
+	vector<int> nums = {1, 2, 3, 1};
+	if (containsDuplicate3(nums))
 		cout << "有重复的值" << endl;
 	else
 		cout << "no" << endl;

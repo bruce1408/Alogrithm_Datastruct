@@ -13,29 +13,11 @@ using namespace std;
  * 是有序的；
 */
 
-/**
- * 方法 1，和 方法 2的思路完全是一样的。
-*/
-void merge1(vector<int> &nums1, int m, vector<int> &nums2, int n)
-{
-    int len1 = nums1.size(), i = len1 - n - 1, j = n - 1, k = len1 - 1;
-    while (j >= 0 && i >= 0)
-    {
-        if (nums1[i] > nums2[j])
-            nums1[k--] = nums1[i--];
-        else
-            nums1[k--] = nums2[j--];
-    }
-    while (j >= 0)
-    {
-        nums1[k--] = nums2[j--];
-    }
-}
 
 /**
- * 方法 2
+ * 方法 1，使用双指针来做，从后往前遍历即可
  */
-void merge2(vector<int> &nums1, int m, vector<int> &nums2, int n)
+void merge1(vector<int> &nums1, int m, vector<int> &nums2, int n)
 {
     int i = m - 1;
     int j = n - 1;
@@ -47,7 +29,7 @@ void merge2(vector<int> &nums1, int m, vector<int> &nums2, int n)
         else
             nums1[k--] = nums2[j--];
     }
-    while (j >= 0)
+    while (j >= 0) // 如果第二个数没有存完，把第二个数保存进来即可
         nums1[k--] = nums2[j--];
 }
 
