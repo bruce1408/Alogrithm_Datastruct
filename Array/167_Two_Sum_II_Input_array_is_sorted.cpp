@@ -5,20 +5,7 @@
 using namespace std;
 
 /**
- * Given an array of integers that is already sorted in 
- * ascending order, find two numbers such that they 
- * add up to a specific target number.
- * The function twoSum should return indices of the
- *  two numbers such that they add up to the target, 
- * where index1 must be less than index2.
- * 
- * Note:
- * Your returned answers (both index1 and index2) 
- * are not zero-based.
- * You may assume that each input would have 
- * exactly one solution and you may not use 
- * the same element twice.
- * 
+ * 167 给定一个有序数组和一个目标值，求数组中两个数的和等于目标数的下标，下标从1开始计数的
  * Example:
  * Input: numbers = [2,7,11,15], target = 9
  * Output: [1,2]
@@ -41,10 +28,7 @@ vector<int> twoSum1(vector<int> &nums, int target)
 	{
 		int sum = nums[left] + nums[right];
 		if (sum == target)
-		{
-			return {left, right};
-			break;
-		}
+			return {left+1, right+1};
 		else if (sum > target)
 			right--;
 		else
@@ -59,52 +43,19 @@ vector<int> twoSum1(vector<int> &nums, int target)
 */
 vector<int> twoSum2(vector<int> &nums, int target)
 {
-	for (int i = 0; i < nums.size(); i++)
+	for (int i = 0; i < nums.size() - 1; i++)
 	{
-		int left = i + 1, right = nums.size();
-		while (left < right)
+		int l = i + 1, r = nums.size() - 1;
+		while (l < r)
 		{
-			int mid = (left + right) / 2;
-			if (nums[mid] == target - nums[i])
-			{
-				return {i + 1, mid + 1};
-			}
-			else if (nums[mid] > target - nums[i])
-			{
-				right--;
-			}
+			int mid = (l + r) / 2;
+			if (nums[mid] >= target - nums[i])
+				r = mid;
 			else
-				left++;
+				l = mid + 1;
 		}
-	}
-	return {};
-}
-
-/**
- * 方法 3，有序数组，利用查找的思路来做也可以，利用二分查找的思路来做
-*/
-vector<int>twoSum3(vector<int> &nums, int target)
-{
-	
-	for(int i=0;i<nums.size();i++)
-	{
-		int t = target - nums[i], left = i+1, right = nums.size();
-		while(left<right)
-		{
-			int mid = left + (right - left)/2;
-			if(nums[mid]<t)
-			{
-				left = mid+1;
-			}
-			else if(nums[mid]>t)
-			{
-				right = mid;
-			}
-			else
-			{
-				return {i+1, mid+1};
-			}
-		}
+		if (nums[l] == target - nums[i])
+			return {i + 1, l + 1};
 	}
 	return {};
 }

@@ -1,41 +1,47 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 /**
-    给定一个矩阵，顺时针螺旋设置矩阵的数字,
-    基本思路就是从左往右，设定四个变量，上、下、左、右，然后
-    奇数的话就是中间那个数字为k，偶数不用考虑
+ * 59 和 54 基本一样，
+ * 54 是顺时针打印遍历每一个数字，59是给出一个n，然后填进去，构成一个n*n的矩阵
+ * 给定一个矩阵，顺时针螺旋设置矩阵的数字,基本思路就是从左往右，设定四个变量，上、下、左、右，
 */
 
+/**
+ * 方法 1，设置一个方向数组
+*/
 vector<vector<int>> generateMatrix(int n)
 {
-    vector<vector<int>> matrix(n, vector<int>(n, 0));
-    int k=1;
-    int top = 0, bottom = n-1, left = 0, right = n-1;
-    while(left<right && top<bottom)
+    vector<vector<int>> res(n, vector<int>(n));
+    int dx[] = {0, 1, 0, -1};
+    int dy[] = {1, 0, -1, 0};
+    vector<vector<bool>> state(n, vector<bool>(n));
+    for (int i = 0, x = 0, y = 0, d = 0; i < n * n; i++)
     {
-        for(int i = left; i<right; i++) matrix[top][i] = k++;
-        for(int i = top; i<bottom; i++) matrix[i][right] = k++;
-        for(int i = right; i>left; i--) matrix[bottom][i] = k++;
-        for(int i = bottom; i>top; i--) matrix[i][left] = k++;
-        left++;right--;top++;bottom--;
-    }
+        res[x][y] = i + 1;
+        state[x][y] = true;
 
-    // 奇数情况
-    if(n%2!=0)
-    {
-        matrix[n/2][n/2] = k;
+        int a = dx[d] + x;
+        int b = dy[d] + y;
+
+        if (a < 0 || a >= n || b < 0 || b >= n || state[a][b])
+        {
+            d = (d + 1) % 4;
+            a = dx[d] + x;
+            b = dy[d] + y;
+        }
+        x = a, y = b;
     }
-    return matrix;
+    return res;
 }
 
 int main()
 {
-    vector<vector<int>> res = generateMatrix(3);    
-    for(auto i:res)
+    vector<vector<int>> res = generateMatrix(3);
+    for (auto i : res)
     {
-        for(auto j: i) cout<<j<<" ";
-        cout<<endl;
-
+        for (auto j : i)
+            cout << j << " ";
+        cout << endl;
     }
 }

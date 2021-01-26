@@ -9,7 +9,8 @@ using namespace std;
 */
 
 /**
- * 方法 1，设置4个方向的
+ * 方法 1，设置4个方向,按照旋转方向进行，右->下->左->上
+ * 然后每次设置一个变量d来表示当前方向，然后每走过一个位置就标记为true
 */
 vector<int> spiralOrder(vector<vector<int>> &mat)
 {

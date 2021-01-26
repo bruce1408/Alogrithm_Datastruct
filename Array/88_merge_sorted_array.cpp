@@ -2,14 +2,7 @@
 #include <vector>
 using namespace std;
 /**
- * Given two sorted integer arrays nums1 and nums2, 
- * merge nums2 into nums1 as one sorted array.
- * Note:
- * 
- * The number of elements initialized in nums1 and nums2 are m and n respectively.
- * You may assume that nums1 has enough space (size that is greater or equal to m + n)
- *  to hold additional elements from nums2
- * 
+ * 88 合并两个有序数组到其中一个数组之中。
  * Example:
  * Input:
  * nums1 = [1,2,3,0,0,0], m = 3
@@ -39,27 +32,30 @@ void merge1(vector<int> &nums1, int m, vector<int> &nums2, int n)
     }
 }
 
-// 方法 2
+/**
+ * 方法 2
+ */
 void merge2(vector<int> &nums1, int m, vector<int> &nums2, int n)
 {
     int i = m - 1;
     int j = n - 1;
-    int k = m + n - 1;
+    int k = nums1.size() - 1;
     while (i >= 0 && j >= 0)
     {
-        nums1[k--] = nums1[i] > nums2[j] ? nums1[i--] : nums2[j--];
+        if (nums1[i] > nums2[j])
+            nums1[k--] = nums1[i--];
+        else
+            nums1[k--] = nums2[j--];
     }
     while (j >= 0)
-    {
         nums1[k--] = nums2[j--];
-    }
 }
 
 int main()
 {
-    vector<int> a = {0};
-    vector<int> b = {1};
-    merge1(a, 0, b, 1);
+    vector<int> a = {1, 2, 3, 0, 0, 0};
+    vector<int> b = {2, 5, 6};
+    merge2(a, 3, b, 3);
     for (auto i : a)
     {
         cout << i << " ";
