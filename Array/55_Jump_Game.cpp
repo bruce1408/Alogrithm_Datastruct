@@ -15,7 +15,7 @@ using namespace std;
  * 方法 1,设置两个变量，一个是i从头开始遍历
  * 还有一个是j，表示可以最大跳多远，然后如果j<i表示跳的距离不到i，那么就直接返回false
  * 否则每次找j和i这个位置可以跳最远的最大值，赋值给j
- * 
+ * 最后遍历结束返回true
 */
 bool canJump(vector<int> &nums)
 {

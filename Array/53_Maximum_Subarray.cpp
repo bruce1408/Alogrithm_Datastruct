@@ -3,6 +3,7 @@
 using namespace std;
 
 /**
+ * 53, 最大子序列和
  * Given an integer array nums, 
  * find the contiguous subarray (containing at least one number)
  * which has the largest sum and return its sum.
@@ -15,6 +16,31 @@ using namespace std;
  * 求数组中的子数组的最大和
  * 利用kadane 算法
 */
+
+/**
+ * 刚开始是想使用滑窗来做，每次改变窗口的大小，然后设置变量ans保存结果，
+ * 计算窗口内的元素和，然后只要大于ans就不断更新
+ * 但是时间复杂度很高，超时了
+*/
+int maxSubArray_(vector<int> &nums)
+{
+    if (nums.empty())
+        return 0;
+    int n = nums.size(), ans = INT_MIN;
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 0; j <= n - i; j++)
+        {
+            int res = 0;
+            for (int k = j; k < i + j; k++)
+            {
+                res += nums[k];
+            }
+            ans = max(res, ans);
+        }
+    }
+    return ans;
+}
 
 /**
  * 方法 1，给定一个数组，求出数组中元素相加的和是最大的那个连续子数组
@@ -36,14 +62,13 @@ int maxSubArray1(vector<int> &nums)
 }
 
 /**
- * 方法 2；kadane's algorithm 求子序列最大值问题，
+ * 方法 2, 动态规划来做 kadane's algorithm 求子序列最大值问题，
  * 设置当前最大值和全局最大值的初始值都是第一个元素，
  * 遍历数组，每次找到最大的：
  * 当前最大值 = max(nums[i],当前最大值 + nums[i])，
  * 最后保留最大的给global_sum
  * https://afshinm.name/2018/06/24/why-kadane-algorithm-works/
  * */
-
 int maxSubArray2(vector<int> &nums)
 {
 
@@ -56,7 +81,6 @@ int maxSubArray2(vector<int> &nums)
     }
     return global_sum;
 }
-
 
 /**
  * 方法 3，分治法来求解，二分搜索，
@@ -94,7 +118,9 @@ int maxSubArray3(vector<int> &nums)
 
 int main()
 {
-    vector<int> nums = {-2,1,-3,4,-1,2,1,-5,4};
-    cout << maxSubArray2(nums) << endl;
+    vector<int> nums = {-1};
+    cout << maxSubArray3(nums) << endl;
+    cout << maxSubArray_(nums) << endl;
+
     return 0;
 }

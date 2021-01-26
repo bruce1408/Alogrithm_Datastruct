@@ -1,46 +1,49 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 /**
-    给定一个矩阵，顺时针螺旋打印矩阵的数字,
-    基本思路就是从左往右旋转打印，设定四个变量，上、下、左、右，然后
-    循环打印，考虑三种情况，一个是横条，一个是竖条，一个是只有一个元素
+ * 54 旋转数组
+ * 给定一个矩阵，顺时针螺旋打印矩阵的数字,
+ * 基本思路就是从左往右旋转打印，设定四个变量，上、下、左、右，然后
+ * 循环打印，考虑三种情况，一个是横条，一个是竖条，一个是只有一个元素
 */
 
-vector<int> spiralOrder(vector<vector<int>>& matrix) 
+/**
+ * 方法 1，设置4个方向的
+*/
+vector<int> spiralOrder(vector<vector<int>> &mat)
 {
-    if(matrix.empty() || matrix[0].empty()) return {};
-    int m = matrix.size(), n = matrix[0].size();
-    vector<int> res;
-    int top = 0, bottom = m-1, left = 0, right = n-1;
-    while(left<right && top<bottom)
+    int dx[] = {0, 1, 0, -1};
+    int dy[] = {1, 0, -1, 0};
+    int row = mat.size(), col = mat[0].size();
+    vector<int> ans;
+    vector<vector<bool>> res(row, vector<bool>(col));
+    if (!row)
+        return ans;
+    for (int i = 0, x = 0, y = 0, d = 0; i < row * col; i++)
     {
-        for(int i = left;i<right;i++) res.push_back(matrix[top][i]);
-        for(int i = top;i<bottom;i++) res.push_back(matrix[i][right]);
-        for(int i = right;i>left;i--) res.push_back(matrix[bottom][i]);
-        for(int i = bottom;i>top;i--) res.push_back(matrix[i][left]);
-        left++;right--;top++;bottom--;
-    }
+        ans.push_back(mat[x][y]);
+        res[x][y] = true;
 
-    // 出现的竖条情况 ,也包含中间一个数字的情况
-    if(left == right)
-    {
-        for(int i= top;i<bottom;i++) res.push_back(matrix[i][left]);
+        int a = dx[d] + x;
+        int b = dy[d] + y;
+        if (a < 0 || a >= row || b < 0 || b >= col || res[a][b])
+        {
+            d = (d + 1) % 4;
+            a = dx[d] + x, b = dy[d] + y;
+        }
+        x = a, y = b;
     }
-    else if(top==bottom) // 出现横条的情况
-    {
-        for(int i=left;i<right;i++) res.push_back(matrix[top][i]);
-    }
-    return res;
+    return ans;
 }
 
 int main()
 {
-    vector<vector<int>> res = {{1,2},{2,3}};
+    vector<vector<int>> res = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     vector<int> index = spiralOrder(res);
-    for(auto i:index)
+    for (auto i : index)
     {
-        cout<<i<<" ";
+        cout << i << " ";
     }
-    cout<<endl;
+    cout << endl;
 }
