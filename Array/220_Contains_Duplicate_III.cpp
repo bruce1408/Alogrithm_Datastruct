@@ -38,8 +38,11 @@ bool containsNearbyAlmostDuplicate1(vector<int> &nums, int k, int t)
 }
 
 /**
- * 方法 2,思路和方法 1相同，写法略有不同，set使用红黑树实现，所以自动完成排序，
- * 这里插入一个最小值和最大值,hh
+ * 方法 2, 推荐做法
+ * 两数的下标最大不能查过k，所以就是一个大小为k的窗口，然后在这个窗口内，找到和当前数最接近的数字，这个最接近的数
+ * 可以转化为第一个大于等于该数或者最后一个小于该数的数，可以使用lowerbound来记录第一个大于等于该数的位置，
+ * 然后如果lowerbound和nums[i]的差值小于等于t，说明找到了，那么返回true
+ * 否则位置减一，找到最后一个小于该数的位置，然后看他们的差值是不是<=t
 */
 bool containsNearbyAlmostDuplicate2(vector<int> &nums, int k, int t)
 {
