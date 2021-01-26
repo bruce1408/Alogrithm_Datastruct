@@ -1,11 +1,12 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<unordered_map>
-#include<set>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+#include <set>
 using namespace std;
 
 /**
+ * 118 杨辉三角
  * Given a non-negative integer numRows, 
  * generate the first numRows of Pascal's triangle.
  * 
@@ -29,16 +30,17 @@ using namespace std;
  * res[i-1][j-1]位置的和
  * temp[j] = res[i-1][j-1]+res[i-1][j];
 */
-vector<vector<int>> generate1(int numRows) {
-    vector<vector<int>>res;
-    for(int i=0;i<numRows;i++)
+vector<vector<int>> generate1(int n)
+{
+    vector<vector<int>> res;
+    for (int i = 0; i < n; i++)
     {
-        vector<int>temp(i+1, 1); // 每层的初始化是1；
-        for(int j=1; j<temp.size()-1;j++)
+        vector<int> temp(i + 1, 1); // 每层的初始化是1；
+        for (int j = 1; j < temp.size() - 1; j++)
         {
-            temp[j] = res[i-1][j] + res[i-1][j-1];
+            temp[j] = res[i - 1][j] + res[i - 1][j - 1];
         }
-        res.push_back(temp);   
+        res.push_back(temp);
     }
     return res;
 }
@@ -46,31 +48,30 @@ vector<vector<int>> generate1(int numRows) {
 /**
  * 方法 2，只用一个res二维数组，每次就对当前的这个res进行变换即可～
  * res[i][j] = res[i-1][j]+res[i-1][j-1];
- * */ 
+ * */
 vector<vector<int>> generate2(int numRows)
 {
     vector<vector<int>> res(numRows, vector<int>());
-    for(int i=0; i<numRows; i++)
+    for (int i = 0; i < numRows; i++)
     {
-        res[i].resize(i+1, 1); // 对当前的这个数组变换
-        for(int j=1; j<i; j++)
+        res[i].resize(i + 1, 1); // 对当前的这个数组变换
+        for (int j = 1; j < i; j++)
         {
-            res[i][j] = res[i-1][j-1] + res[i-1][j]; 
+            res[i][j] = res[i - 1][j - 1] + res[i - 1][j];
         }
     }
     return res;
 }
 
-
 int main()
 {
     int num = 5;
-    for(auto x:generate2(num))
+    for (auto x : generate2(num))
     {
-        for(auto i:x)
+        for (auto i : x)
         {
-            cout<<i<<" ";
+            cout << i << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
 }
