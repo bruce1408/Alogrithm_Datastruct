@@ -5,7 +5,8 @@
 using namespace std;
 
 /**
- * 220 给定一个数组和数k，t，如果存在两个数的绝对值之差<=t, 两数下标的绝对值之差<=k就返回true；否则返回false
+ * 220 给定一个数组和数k，t，如果存在两个数的绝对值之差<=t, 两数下标的绝对值之差<=k
+ * 就返回true；否则返回false
  * Given an array of integers, 
  * find out whether there are two distinct indices i and j in the array 
  * such that the difference between nums[i] and nums[j] is at most t 
@@ -27,7 +28,7 @@ bool containsNearbyAlmostDuplicate1(vector<int> &nums, int k, int t)
         if (i - j > k)
             res.erase(nums[j++]);
         // 找到第一个大于等于nums[i] - t 的数字
-        auto a = res.lower_bound((long long)nums[i] - t); // long long 转换很关键，防止越界
+        auto a = res.lower_bound((long long)nums[i] - t); // long long 转换防止越界
         cout << "当前的a是：" << a->first << " " << a->second << endl;
         if (a != res.end() && abs(nums[i] - a->first) <= t)
             return true;
