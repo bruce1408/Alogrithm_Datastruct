@@ -1,9 +1,10 @@
-#include<iostream>
-#include<vector>
-#include<unordered_map>
+#include <iostream>
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
 /**
+ * 219 给定一个无序的数组和整数k，如果重复元素的下标之差是k，返回true，否则返回false 
  * Given an array of integers and an integer k, 
  * find out whether there are two distinct indices i and j in the array
  * such that nums[i] = nums[j] and the absolute difference between i and j is at most k.
@@ -18,76 +19,34 @@ using namespace std;
  * 
  * 给一个数组和整数k,找到范围在k的重复数字
 */
-bool containsNearbyDuplicate1(vector<int>& nums, int k)
+
+/**
+ * 方法 1，使用hash表来记录每个元素的下标，然后如果找到重复元素
+ * 对比这两个下标的差值是否小于等于k，如果是的话，那么就返回true
+ * 否则，更新新的下标为当前的下标即可。
+ * 最后遍历结束返回false
+*/
+bool containsNearbyDuplicate(vector<int> &nums, int k)
 {
-	unordered_map<int, int>res;
-	for(int i=0;i<nums.size();i++)
+	unordered_map<int, int> s;
+	for (int i = 0; i < nums.size(); i++)
 	{
-		if(res.find(nums[i])!=res.end())
+		if (s.count(nums[i]))
 		{
-			res[nums[i]]++;
-		}
-		else 
-		{
-			int idx = abs(i-k);
-			if(res[nums[idx]] > 0)
-			{
+			if (i - s[nums[i]] <= k)
 				return true;
-			}
 		}
+		s[nums[i]] = i;
 	}
 	return false;
 }
-/**
- * 求得两数相同，而且下标的差最大不能超过k;
- * 思路是：之前没出现的数全部放到res，如果有这个数，那么看下标是否满足，输出true，否则，继续放进res
-*/
-// bool containsNearbyDuplicate(vector<int>& nums, int k)
-// {
-// 	unordered_map<int,int> res;
-// 	for(int i=0;i<nums.size();i++)
-// 	{
-// 		if(res.find(nums[i])==res.end()) // 如果之前没有出现这个数，那么就加进去。
-// 			res[nums[i]] = i;	
-// 		else
-// 		{
-// 			if(i-res.find(nums[i])->second<=k)
-// 			{
-// 				return true;
-// 			}
-// 			else
-// 				res[nums[i]] = i;	
-// 		}
-// 	}
-// 	return false;
-// }
-
-
-// /**
-//  * 方法 2
-// */
-// class Solution 
-// {
-// 	public:
-//     bool containsNearbyDuplicate(vector<int>& nums, int k) 
-// 	{
-//         unordered_map<int, int> m;
-//         for (int i = 0; i < nums.size(); ++i) 
-// 		{
-//             if (m.find(nums[i]) != m.end() && i - m[nums[i]] <= k) return true; //如果是之前有这个值，而且相减差值满足条件，那么返回true
-//             else m[nums[i]] = i;
-//         }
-//         return false;
-//     }
-// };
-
 
 int main()
 {
-	vector<int> nums = {1,0,1,1};
-	if(containsNearbyDuplicate1(nums,2))
-		cout<<"有重复的值"<<endl;
+	vector<int> nums = {1, 0, 1, 1};
+	if (containsNearbyDuplicate1(nums, 2))
+		cout << "有重复的值" << endl;
 	else
-		cout<<"不满足条件";
+		cout << "不满足条件";
 	return 0;
 }

@@ -5,6 +5,7 @@
 using namespace std;
 
 /**
+ * 220 给定一个数组和数k，t，如果存在两个数的绝对值之差<=t, 两数下标的绝对值之差<=k就返回true；否则返回false
  * Given an array of integers, 
  * find out whether there are two distinct indices i and j in the array 
  * such that the difference between nums[i] and nums[j] is at most t 
