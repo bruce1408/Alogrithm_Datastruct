@@ -35,7 +35,7 @@ bool containsDuplicate1(vector<int> &nums)
 }
 
 /**
- * 方法 2，和上面类似的思路，就是用其他容器来实现
+ * 方法 2，和上面类似的思路，就是用其他容器来实现，推荐做法
 */
 bool containsDuplicate2(vector<int> &nums)
 {
