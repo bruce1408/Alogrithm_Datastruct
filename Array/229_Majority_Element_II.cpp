@@ -8,46 +8,31 @@ using namespace std;
 */
 
 /**
- * 方法 2，投票法，不使用排序算法~,题目要求不能排序
+ * 方法 1，投票法
  * */
-vector<int> majorityElement2(vector<int> &nums)
+vector<int> majorityElement1(vector<int> &nums)
 {
-    vector<int> res;
-    int timesNum = nums.size() / 3;
-    int candidate1 = 0, candidate2 = 0, count1 = 0, count2 = 0;
-    // 第一个for循环选出对多的两个数字
-    for (int i = 0; i < nums.size(); i++)
+    int r1 = 0, r2 = 0, c1 = 0, c2 = 0;
+    int n = nums.size() / 3;
+    for(int i=0;i<nums.size();i++)
     {
-        if (nums[i] == candidate1)
-            count1++;
-        else if (nums[i] == candidate2)
-            count2++;
-        else if (count1 == 0)
-        {
-            candidate1 = nums[i];
-            count1 = 1;
-        }
-        else if (count2 == 0)
-        {
-            candidate2 = nums[i];
-            count2 = 1;
-        }
-        else
-            --count1, --count2;
+        if(c1 && nums[i] == r1) c1++; // 如果当前数和r1相同，c1自加
+        else if(c2 && nums[i]==r2) c2++; // 如果和r2相同，c2自加
+        else if(c1==0) r1 = nums[i], c1 = 1; // c1 等于0的话，当前数给r1且c1自加 
+        else if(c2==0) r2 = nums[i], c2 = 1; // c2等于0的话，当前数给r2且c2自加
+        else c1--, c2--; // c1自减，c2自减
     }
-    count1 = count2 = 0; // 重新开始计数
-    for (int i = 0; i < nums.size(); i++)
+
+    c1 = c2 = 0; // 重新开始统计r1和r2的次数，如果大于要求就存到结果数组
+    for(auto x : nums)
     {
-        if (nums[i] == candidate1)
-            count1++;
-        else if (nums[i] == candidate2)
-            count2++;
+        if(x==r1) c1++; 
+        else if(x==r2) c2++;
     }
-    if (count1 > timesNum)
-        res.push_back(candidate1);
-    if (count2 > timesNum)
-        res.push_back(candidate2);
-    return res;
+    vector<int>res;
+    if(c1 > n) res.push_back(r1);
+    if(c2 > n) res.push_back(r2);
+
 }
 
 int main()
