@@ -4,107 +4,68 @@
 using namespace std;
 /**
  * 287 
- * 题目： n+1个数的范围是 [1, n] 之间，找到重复数字
+ * 题目： n+1个数的范围是 [1, n] 之间，找到重复数字,不能修改原来的数组
  */
 
 /**
  * 方法 1, 使用类似二分查找的方式
- * 思路：
- * 先求出数组的长度的中位数，中位数把数组分成两部分，然后判断两部分是否大于这个中位数的数组的个数，如果是，那么说明重复的数就在大于中位数的那一部分，举例如下
- * [2,3,5,4,3,2,6,7],8个数，那么中位数是4，把这个数组分成两部分，一部分是1~4，5~7，数组在第一部分0~4内出现的小于中位数的个数总和大于中位数，说明就在第一部分，同理，第二部分也
- * 按照这种方法判断，如果是在第一部分，那么继续用二分的思想，求中位数，然后继续下去，直到左端大于等于右端，判断终止；
- * [2,3,5,4,3,2,6,7], mid=4, 数组分成1~4, 5~7两部分，统计每一部分mid的个数，1~4部分，1：0，2：2，3：2，4：1，
- * 总共出现了5次，大于mid，说明重复的数就在这一部分，然后接着使用二分查找
- * 继续搜索
+ * 二分的时候，如果这个值在l和mid之间，那么计算s+1，然后统计s和l到mid区间的个数，如果s大于这个数
+ * 说明重复的数字在这个区间内，所以r更新为mid，否则l更新为mid+1
+ * 最后返回r
 */
 int findDuplicate1(vector<int> &nums)
 {
-    int left = 0, right = nums.size();
-    while (left < right) // 这个只有一个数那么不返回，所以是<号
+    int l = 1, r = nums.size() - 1;
+    while (l < r)
     {
-        int mid = left + (right - left) / 2;
-        int countNum = 0;
-        for (auto i : nums)
+
+        int s = 0, mid = (l + r) >> 1;
+        for (auto x : nums)
         {
-            if (i <= mid)
-                ++countNum;
+            if (x >= l && x <= mid)
+                s++;
         }
-        if (countNum > mid)
-        {
-            right = mid;
-        }
+        if (s > mid - l + 1)
+            r = mid;
         else
-            left = mid + 1;
+            l = mid + 1;
     }
-    return right;
+    return r;
 }
 
 /**
- * 方法2 快慢指针的办法
- * 思路：
- * 数组不是有序的，不能排序，时间复杂度少于O(n^2),空间复杂度是O(1);
+ * 方法2 使用147链表环的思路一样，推荐算法
  * 找到第一个不重复的数，数的范围限定在1--n之间，利用快慢指针，由于是
- * 重复的数，肯定会形成闭环，用快慢指针找到环的起始位置，用两次while，第一次
- * 找到相交的入口处。
- * 第二次就是找重复数的过程。
- * */
+ * 重复的数，肯定会形成闭环，用快慢指针找到环的起始位置，用两次while，第一次找到相交的入口处，第二次就是找重复数的过程。
+ */
 int findDuplicate2(vector<int> &nums)
 {
-    int slow = 0, fast = 0;
+    int a = 0, b = 0;
     while (true)
     {
-        slow = nums[slow];
-        fast = nums[nums[fast]];
-        if (slow == fast)
+        a = nums[a];       // 慢指针走一步
+        b = nums[nums[b]]; // 快指针走两步
+        if (a == b)        // 如果当前a和b相同
         {
-            break;
+            a = 0; // a从0开始，a和b每次走一步，如果再次相遇就是环的入口，也就是重复数字
+            while (a != b)
+            {
+                a = nums[a];
+                b = nums[b];
+            }
+            return a;
         }
-        if (slow == fast)
-            break;
     }
-    int t = 0;
-    while (true)
-    {
-        slow = nums[slow];
-        t = nums[t];
-        if (slow == t)
-            break;
-    }
-    return slow;
-}
-
-/**
- * 和方法2是一个思路，只不过我这里没有用到t，少用了一个变量，代码按照思路更加直观一点
- */
-int findDuplicate3(vector<int> &nums)
-{
-    int slow = 0, fast = 0;
-    while (true)
-    {
-        slow = nums[slow];
-        fast = nums[nums[fast]];
-        if (slow == fast)
-            break;
-    }
-    slow = 0;
-    while (fast != slow)
-    {
-        slow = nums[slow];
-        fast = nums[fast];
-    }
-    return slow;
+    return -1;
 }
 
 /**
  * 方法3 利用位操作
- * 思路：
  * 从0~31范围内，遍历每一个数，从 0~31 中分别和每一个数组中的数进行与运算，结果大于0就累加一次cn1，和每一个数组中的数对应的下标进行与运算，
  * 结果大于0就累加一次cn2，遍历完整个数组之后，正常情况是所有数字的1是固定的，如果cn1>cn2的话，说明有重复的数，累加这个bit的数
- * 
  * 补充，关于负数的移位看c++_code移位相关代码说明；
  */
-
-int findDuplicate4(vector<int> &nums)
+int findDuplicate3(vector<int> &nums)
 {
     int res = 0, n = nums.size();
     for (int i = 0; i < 32; ++i)
@@ -125,6 +86,21 @@ int findDuplicate4(vector<int> &nums)
             res += bit;
     }
     return res;
+}
+
+/**
+ * 方法 4，因为数据范围在1-n之间，所以使用每个数字乘以负数，判断如果这个数字大于0说明是重复数字
+ * 但是会改变原数组的值。
+*/
+int findDuplicate4(vector<int> &nums)
+{
+    for (int i = 0; i < nums.size(); i++)
+    {
+        nums[abs(nums[i]) - 1] = -nums[abs(nums[i]) - 1];
+        if (nums[abs(nums[i]) - 1] > 0)
+            return abs(nums[i]);
+    }
+    return 0;
 }
 
 int main()
