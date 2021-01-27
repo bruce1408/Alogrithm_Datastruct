@@ -3,6 +3,7 @@
 using namespace std;
 
 /**
+ * 189 给定一个常数k，然后旋转数组
  * Given an array, rotate the array to the right by k steps, 
  * where k is non-negative.
  * 对于一个数组来说，把后k个数组提到前面
@@ -19,11 +20,11 @@ using namespace std;
 */
 void rotate1(vector<int> &nums, int k)
 {
-    int len = nums.size();
+    int n = nums.size();
     for (int i = 0; i < k; i++)
     {
-        int temp = nums[len - 1];
-        for (int j = len - 1; j > 0; j--)
+        int temp = nums[n - 1];
+        for (int j = n - 1; j > 0; j--)
         {
             nums[j] = nums[j - 1];
         }
@@ -32,7 +33,8 @@ void rotate1(vector<int> &nums, int k)
 }
 
 /**
- * 方法 2新建一个数组，利用下标之间的映射关系来做i=(i+k)%数组的长度;空间复杂度O(n)
+ * 方法 2新建一个数组，利用下标之间的映射关系来做 i=(i + k) % n
+ * 空间复杂度O(n)
 */
 void rotate2(vector<int> &nums, int k)
 {
@@ -68,8 +70,8 @@ void rotate3(vector<int> &nums, int k)
          * [3,2,1,4]
          * i=3,pre = cur = 1,，idx = 0,cur = a[0] = 3, a[0]=pre =1;
          * [1,2,1,4]
-         * */ 
-        if (idx == start) // 
+         * */
+        if (idx == start) //
         {
             idx = ++start;
             cur = nums[idx];
@@ -82,19 +84,18 @@ void rotate3(vector<int> &nums, int k)
 */
 void rotate4(vector<int> &nums, int k)
 {
-    int len = nums.size();
-    if (nums.empty() || (k %= len) == 0)
-        return;
+    int n = nums.size();
     vector<int> res = nums;
-    reverse(nums.begin(), nums.begin() + len - k);
-    reverse(nums.begin() + len - k, nums.end());
+    k = k % n;
     reverse(nums.begin(), nums.end());
+    reverse(nums.begin(), nums.begin() + k);
+    reverse(nums.begin() + k, nums.end());
 }
 
 int main()
 {
     vector<int> res = {1, 2, 3, 4};
-    rotate3(res, 2);
+    rotate4(res, 2);
     for (auto i : res)
     {
         cout << i << " ";
