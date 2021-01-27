@@ -83,14 +83,20 @@ vector<string> summaryRanges3(vector<int> &nums)
     int j = 0;
     for (int i = 1; i < nums.size(); i++)
     {
-        if (nums[i] - nums[j] != i - j)
+        if (nums[i] - nums[i-1] != 1)
         {
             if (j != i - 1)
                 res.push_back(to_string(nums[j]) + "->" + to_string(nums[i - 1]));
             else
-                res.push_back(to_string(nums[i]));
+                res.push_back(to_string(nums[j]));
             j = i;
-            
+        }
+        if (i == nums.size() - 1)
+        {
+            if (i == j)
+                res.push_back(to_string(nums[i]));
+            else
+                res.push_back(to_string(nums[j]) + "->" + to_string(nums[i]));
         }
     }
     return res;
