@@ -34,15 +34,16 @@ int removeDuplicates2(vector<int> &res)
 }
 
 /**
- * 方法 3，写法略有不同，但是思路一样
+ * 方法 3，写法略有不同，但是思路一样,80题目类似
+ * 就是k在一个数字以内，且x当前数字不等于上面的 res[k-1] 这个值即可
 */
 int removeDuplicates3(vector<int> &res)
 {
     int n = res.size(), k = 0;
-    for (int i = 0; i < n; i++)
+    for (auto x : res)
     {
-        if (i == 0 || res[i] != res[i - 1])
-            res[k++] = res[i];
+        if (k < 1 || x != res[k - 1])
+            res[k++] = x;
     }
     return k;
 }
