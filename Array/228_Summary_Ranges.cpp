@@ -90,6 +90,7 @@ vector<string> summaryRanges3(vector<int> &nums)
             else
                 res.push_back(to_string(nums[i]));
             j = i;
+            
         }
     }
     return res;
