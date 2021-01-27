@@ -3,8 +3,11 @@
 #include<cstring>
 using namespace std;
 
-
-
+/**
+ * 79 单词搜索
+ * 给定一个二维的字符数组，然后和一个目标单词，在二维字符数组中找到这个单词
+ * 字符不允许重复使用
+*/
 
 class Solution {
 public:
@@ -96,7 +99,6 @@ bool exist(vector<vector<char>> &matrix_char,string str)
 }
 
 
-
 int main()
 {
 	vector<vector<char>> matrix_char= {
@@ -109,7 +111,7 @@ int main()
 	cin>>a;
 	Solution ss;
 	
-	if(ss.hasPath(matrix_char,a))
+	if(ss.hasPath(matrix_char, a))
 	// if(exist(matrix_char,a))
 		cout<<"find a path in matrix;"<<endl;
 	else
