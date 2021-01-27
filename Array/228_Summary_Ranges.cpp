@@ -4,6 +4,7 @@
 using namespace std;
 
 /**
+ * 228 区间合并
  * Given a sorted integer array without duplicates, return the summary of its ranges.
  * Example 1:
  * Input:  [0,1,2,4,5,7]
@@ -73,10 +74,31 @@ vector<string> summaryRanges2(vector<int> &nums)
     return res;
 }
 
+/**
+ * 方法 3,使用方法3
+*/
+vector<string> summaryRanges3(vector<int> &nums)
+{
+    vector<string> res;
+    int j = 0;
+    for (int i = 1; i < nums.size(); i++)
+    {
+        if (nums[i] - nums[j] != i - j)
+        {
+            if (j != i - 1)
+                res.push_back(to_string(nums[j]) + "->" + to_string(nums[i - 1]));
+            else
+                res.push_back(to_string(nums[i]));
+            j = i;
+        }
+    }
+    return res;
+}
+
 int main()
 {
     vector<int> res = {0, 1, 2, 4, 5, 7};
-    for (auto i : summaryRanges2(res))
+    for (auto i : summaryRanges3(res))
     {
         cout << i << " ";
     }

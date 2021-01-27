@@ -49,15 +49,15 @@ bool exist(vector<vector<char>> &board, string word)
 
 int main()
 {
-	vector<vector<char>> matrix_char = {
-		{'a', 'b', 't', 'g'},
-		{'c', 'f', 'c', 's'},
-		{'j', 'd', 'e', 'h'}};
+	vector<vector<char>> matrix_char =
+		{
+			{'a', 'b', 't', 'g'},
+			{'c', 'f', 'c', 's'},
+			{'j', 'd', 'e', 'h'}};
 
 	string a = "absfd";
 
-	if (ss.hasPath(matrix_char, a))
-		// if(exist(matrix_char,a))
+	if (exist(matrix_char, a))
 		cout << "find a path in matrix;" << endl;
 	else
 		cout << a << " :has no path in matrix;" << endl;
