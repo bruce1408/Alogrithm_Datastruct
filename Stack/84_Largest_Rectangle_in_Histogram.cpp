@@ -25,7 +25,9 @@ int largestRectangleArea(vector<int> &nums)
 {
     stack<int> res;
     int n = nums.size();
-    vector<int> left(n), right(n);
+    vector<int> left(n), right(n); // 设置两个数组，分别保存左边和右边的小于当前数字的最近的数
+
+    // 左边和当前数字最近的且小于当前数字的情况
     for (int i = 0; i < n; i++)
     {
         while (!res.empty() && nums[res.top()] >= nums[i])
@@ -37,6 +39,7 @@ int largestRectangleArea(vector<int> &nums)
         res.push(i);
     }
 
+    // 做完之后栈情况，然后考虑右边和当前数字最近且小于当前数字的情况
     res = stack<int>();
     for (int i = nums.size() - 1; i >= 0; i--)
     {
@@ -48,14 +51,8 @@ int largestRectangleArea(vector<int> &nums)
             right[i] = res.top();
         res.push(i);
     }
-    for (auto x : left)
-        cout << x << " ";
-    cout << endl;
 
-    for (auto y : right)
-        cout << y << " ";
-    cout << endl;
-
+    // 开始计算结果，把结果保存在s里面，当前数高度和宽度乘积的最大值即可。
     int s = 0;
     for (int i = 0; i < nums.size(); i++)
         s = max(s, (right[i] - left[i] - 1) * nums[i]);
