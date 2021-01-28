@@ -5,13 +5,7 @@
 using namespace std;
 
 /**
- * Say you have an array for which the ith element is 
- * the price of a given stock on day i.
- * If you were only permitted to complete
- *  at most one transaction 
- * (i.e., buy one and sell one share of the stock), 
- * design an algorithm to find the maximum profit.
- * Note that you cannot sell a stock before you buy one.
+ * 121, 给定一个数组，然后数组i表示股票第i天的价格，然后选择一个利益最大化的情况
  * 
  * Example 1:
  * Input: [7,1,5,3,6,4]
@@ -29,7 +23,7 @@ using namespace std;
  * 方法 1，时间复杂度太高了，O(n^2)的时间复杂度，两次遍历，一次头开始，还有一次从上个
  * 位置加1开始遍历，如果取 后面的数减前面的数字的最大值即可，最后返回；
 */
-int maxProfit(vector<int> &prices)
+int maxProfit1(vector<int> &prices)
 {
     int bestSelling = 0, n = prices.size();
     for (int i = 0; i < n; i++)
@@ -43,26 +37,24 @@ int maxProfit(vector<int> &prices)
 }
 
 /**
- * 方法 2，只用一次遍历即可，不用两次遍历
+ * 方法 2，只用一次遍历即可，推荐做法
  * 他利用了 kadane's algorithm 算法的思路，详见leetcode53题
 */
 
-int maxProfit1(vector<int> &prices)
+int maxProfit2(vector<int> &nums)
 {
-    if (prices.size() == 0)
-        return 0;
-    int currentMax = prices[0], maxNum = 0;
-    for (int i = 1; i < prices.size(); i++)
+    int res = 0, minp = INT_MAX;
+    for (int i = 0; i < nums.size(); i++)
     {
-        currentMax = min(prices[i], currentMax);
-        maxNum = max(prices[i] - currentMax, maxNum);
+        res = max(res, nums[i] - minp);
+        minp = min(nums[i], minp);
     }
-    return maxNum;
+    return res;
 }
 
 int main()
 {
-    vector<int> nums = {1};
+    vector<int> nums = {7, 1, 5, 3, 6, 4};
     cout << maxProfit1(nums) << endl;
 
     return 0;
