@@ -19,7 +19,6 @@ using namespace std;
  * 
  * 右边也是一样，处理之前先把栈清空，然后思路一样
  * 最后从头遍历，如果每个位置取面积，求出最大值即可
- * 
 */
 int largestRectangleArea(vector<int> &nums)
 {
