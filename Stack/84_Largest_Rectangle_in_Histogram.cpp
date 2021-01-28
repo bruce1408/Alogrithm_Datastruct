@@ -9,8 +9,7 @@ using namespace std;
  * 给一个直方图，宽都是1，高是数组的值，求出面积最大的直方图。
 */
 /**
- * 方法 1，使用暴力解法，时间复杂度是O(n^2)
- * 不推荐使用
+ * 方法 1，单调栈，推荐使用
 */
 int largestRectangleArea(vector<int>& heights) 
 {
