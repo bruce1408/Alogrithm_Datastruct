@@ -26,12 +26,14 @@ public:
             return *right.begin();
         return ((double)*left.rbegin() + *right.begin()) / 2;
     }
-    
+
     vector<double> medianSlidingWindow(vector<int> &nums, int index)
     {
         k = index;
+        // 先右集合保存k个数字
         for (int i = 0; i < k; i++)
             right.insert(nums[i]);
+        
         for (int i = 0; i < k / 2; i++)
         {
             left.insert(*right.begin());
