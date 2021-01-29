@@ -19,13 +19,14 @@ class Solution
 public:
     int k;
     multiset<int> left, right; // 设置两个set
+    // 求解中位数函数，如果是奇数的话，就选择右边的第一个数字，如果是偶数的话，那么就选择左集合的最右端点，右集合的最左端点
     double get_medium()
     {
-        if (k % 2)
+        if (k % 2) 
             return *right.begin();
         return ((double)*left.rbegin() + *right.begin()) / 2;
     }
-
+    
     vector<double> medianSlidingWindow(vector<int> &nums, int index)
     {
         k = index;
