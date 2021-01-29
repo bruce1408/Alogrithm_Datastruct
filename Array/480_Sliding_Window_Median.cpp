@@ -34,14 +34,18 @@ public:
         for (int i = 0; i < k; i++)
             right.insert(nums[i]);
         
+        // 然后左集合保存k/2-1个数字，同时右集合删除相应的数字，来保证两个集合长度之和是k
         for (int i = 0; i < k / 2; i++)
         {
             left.insert(*right.begin());
             right.erase(right.begin());
         }
 
+        // 设置一个保存结果的数组res
         vector<double> res;
-        res.push_back(get_medium());
+        // res保存第一个窗口的中位数
+        res.push_back(get_medium()); 
+        // 
         for (int i = k; i < nums.size(); i++)
         {
             int x = nums[i], y = nums[i - k];
