@@ -3,6 +3,7 @@
 using namespace std;
 
 /**
+ * 485 最大的连续的1，数组只有0和1，返回数组中连续1出现最多的次数
  * Given a binary array, find the maximum number of consecutive 1s in this array.
  * Example 1:
  * Input: [1,1,0,1,1,1]
