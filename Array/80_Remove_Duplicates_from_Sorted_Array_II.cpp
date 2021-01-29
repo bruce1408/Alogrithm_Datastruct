@@ -8,8 +8,7 @@ using namespace std;
 
 /**
  * 方法 1，使用双指针来做，k从起始位置开始，然后遍历每一个数，k要小于2跳过前两个数
- * 或者当前数x不等于前两个数字，那么就覆盖
- * 
+ * 或者当前数x不等于前两个数字，那么就覆盖 
 */
 int removeDuplicates(vector<int> &nums)
 {
@@ -25,7 +24,7 @@ int removeDuplicates(vector<int> &nums)
 }
 
 /**
- * 方法 1的扩展,重复数字控制两个以内，如果当前数字x大于上上个数组nums[k-2]，那么重复数字就控制在2个以内
+ * 方法 1的优化,重复数字控制两个以内，如果当前数字x大于上上个数组nums[k-2]，那么重复数字就控制在2个以内
  * 不会有第三个重复数字，参考26题做法
 */
 int removeDuplicates_(vector<int> &nums)
