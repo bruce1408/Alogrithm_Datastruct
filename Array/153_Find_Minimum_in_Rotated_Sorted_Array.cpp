@@ -1,50 +1,58 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<unordered_map>
-#include<set>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+#include <set>
 using namespace std;
 
-// 在一个旋转的数组中找出最小的数,但是超时了
-int findMin(vector<int>& nums) 
+/**
+ * 153 和 81 和 33 都类似，使用二分来组找到边界，然后判断边界
+*/
+
+/**
+ * 方法 1，使用二分来做，这样做出来的话是边界的前一个值
+*/
+int findMin(vector<int> &nums)
 {
-    int n = nums.size();
-    if(nums[0]<nums[n-1]) return nums[0]; // 如果是首元素就小，说明没有旋转，那么就直接输出
-    else // 利用二叉搜索。
+    int l = 0, r = nums.size() - 1;
+    while (l < r)
     {
-        int left = 0, right = n-1;
-        while(left!=(right-1)) // 这个就是要保证是相邻的，不能相等
-        {
-            int mid = (left+right)/2;  // 中间数大于左边的数，那么向右移动，否则 向左移动
-            if(nums[mid]>nums[left]) left = mid;
-            else right = mid;
-        }
-        return min(nums[left], nums[right]);
+        int mid = (l + r + 1) >> 1;
+        if (nums[mid] >= nums[0])
+            l = mid; // 边界的前一个值
+        else
+            r = mid - 1;
     }
+    int s = 0;
+    if (l + 1 < nums.size())
+        return nums[l + 1];
+    else
+        return nums[s];
 }
 
-// 和上面思路一样，但是调整部分即可。
-int findMin1(vector<int>& nums) 
+/**
+ * 方法 2，思路一样优化，这样做的是边界的下一个值
+*/
+int findMin2(vector<int> &nums)
 {
-    int n = nums.size();
-    int left = 0, right = n-1;
-    if(nums[left]<nums[right]) return nums[0]; // 如果是首元素就小，说明没有旋转，那么就直接输出
-    else // 利用二叉搜索。
+    int l = 0, r = nums.size() - 1;
+    if (nums[0] < nums[r])
+        return nums[0];
+    while (l < r)
     {
-        
-        while(left<right-1) // 这个就是要保证是相邻的，不能相等
-        {
-            int mid = (left+right)/2;  // 中间数大于左边的数，那么向右移动，否则 向左移动
-            if(nums[mid]>nums[left]) left = mid;
-            else right = mid;
-        }
-        return min(nums[left], nums[right]);
+        int mid = (l + r) >> 1;
+        if (nums[mid] >= nums[0])
+            l = mid + 1; // 边界的下一个值
+        else
+            r = mid;
     }
+    return nums[l];
 }
+
 int main()
 {
     vector<int> res = {4, 5, 6, 7, 0, 1, 2};
     int k = findMin(res);
     int k = findMin1(res);
-    cout<<k<<endl;
+    cout << k << endl;
 }

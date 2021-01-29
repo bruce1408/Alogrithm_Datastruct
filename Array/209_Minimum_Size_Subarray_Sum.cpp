@@ -5,6 +5,7 @@
 using namespace std;
 
 /**
+ * 209 给出一个数组和整数s，求出数组和>=s的最小连续序列长度即可
  * Given an array of n positive integers and a positive integer s, 
  * find the minimal length of a contiguous subarray of which the sum ≥ s. 
  * If there isn't one, return 0 instead.
@@ -20,7 +21,7 @@ using namespace std;
 */
 
 /**
- * 方法 1，利用暴力解法来做；时间复杂度较高，应该是O(n!), 最好参看方法 3的写法。
+ * 方法 1，利用暴力解法来做；时间复杂度较高，应该是O(n!), 最好参看方法3的写法。
  * */
 int minSubArrayLen1(int s, vector<int> &nums)
 {
@@ -43,32 +44,9 @@ int minSubArrayLen1(int s, vector<int> &nums)
 }
 
 /**
- * 方法 2，使用两个指针来做，时间复杂度是O(n)，就是按照逻辑算法来做
+ * 方法 2，使用两个指针来做，时间复杂度是O(n)
 */
 int minSubArrayLen2(int s, vector<int> &nums)
-{
-    int len = nums.size(), left = 0, right = 0, sum = 0, res = len + 1;
-    while (right < len)
-    {
-        while (sum < s && right < len)
-        {
-            sum += nums[right];
-            right += 1;
-        }
-        while (sum >= s)
-        {
-            res = min(res, right - left);
-            sum -= nums[left];
-            left++;
-        }
-    }
-    return res == len + 1 ? 0 : res;
-}
-
-/**
- * 方法 3，同样的思路，另外一种写法
-*/
-int minSubArrayLen3(int s, vector<int> &nums)
 {
     int distance = INT_MAX, left = 0, sum = 0;
     for (int right = 0; right < nums.size(); ++right)
@@ -82,6 +60,29 @@ int minSubArrayLen3(int s, vector<int> &nums)
     }
     return distance == INT_MAX ? 0 : distance;
 }
+
+/**
+ * 方法 3，使用双指针来做，思路一样，推荐做法，考虑单调性，从而简化for循环运算
+*/
+int minSubArrayLen3(int s, vector<int> &nums)
+{
+    int sum = 0, res = INT_MAX;
+    for (int i = 0, j = 0; i < nums.size(); i++)
+    {
+        sum += nums[i];
+        while (sum - nums[j] >= s)
+        {
+            sum = sum - nums[j++];
+        }
+        if (sum >= s)
+            res = min(res, i - j + 1);
+    }
+    if (res == INT_MAX)
+        return 0;
+    else
+        return res;
+}
+
 int main()
 {
 
