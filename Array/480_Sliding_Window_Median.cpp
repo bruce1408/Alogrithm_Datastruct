@@ -19,7 +19,6 @@ class Solution
 public:
     int k;
     multiset<int> left, right; // 设置两个set
-
     double get_medium()
     {
         if (k % 2)
