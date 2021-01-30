@@ -4,6 +4,7 @@
 using namespace std;
 
 /**
+ * 231  判断一个数是不是能够是2的幂次方。
  * Given an integer, write a function to determine if it is a power of two.
  * Example 1:
  * Input: 1
@@ -14,8 +15,6 @@ using namespace std;
  * Input: 16
  * Output: true
  * Explanation: 2^4 = 16
- * 
- * 判断一个数是不是能够是2的幂次方。
  */
 
 /**
@@ -46,25 +45,37 @@ bool isPowerOfTwo2(int n)
 }
 
 /**
- * 方法 3，首先单独解决0，如果输入是0的话，那么直接返回false，然后当前的数字除以2，
+ * 方法 3，首先单独解决<=0，那么直接返回false，然后当前的数字除以2，
  * 判断余数是不是0，如果不是0直接返回false，否则，继续把当前数除以2的商作为下一轮判断的输入继续。
  * 没有上面的解法巧妙
 */
-bool isPowerOfTwo3(int x)
+bool isPowerOfTwo3(int n)
 {
-    if (x == 0)
+    int s = 1;
+    if (n <= 0)
+        return false;
+    if (n == 1)
         return true;
-    int remain = 0;
-    while (x != 1)
+    else
     {
-        remain = x % 2;
-        if (remain != 0)
+        while (n % 2 == 0)
         {
-            return false;
+            n = n / 2;
         }
-        x /= 2;
     }
-    return true;
+    return n == 1 ? true : false;
+}
+
+/**
+ * 方法 4，使用lowbit函数
+*/
+#define lowbit(x) (x & (-x))
+
+bool isPowerOfTwo4(int n)
+{
+    if (n <= 0)
+        return false;
+    return lowbit(n) == n ? true : false;
 }
 
 int main()

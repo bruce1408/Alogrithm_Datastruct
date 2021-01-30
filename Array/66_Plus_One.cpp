@@ -9,8 +9,7 @@ using namespace std;
 */
 
 /**
- * 最高位如果是9，且有进位的话，那么后后面肯定是999，然后最后一位是0；第一位是1，那么push_back(0),然后第一位赋值为1；
- * 标准答案
+ * 推荐最高位如果是9，且有进位的话，那么后后面肯定是999，然后最后一位是0；第一位是1，那么push_back(0),然后第一位赋值为1；
 */
 vector<int> plusOne(vector<int> &digits)
 {
@@ -21,6 +20,7 @@ vector<int> plusOne(vector<int> &digits)
         t = digits[i] / 10;
         digits[i] %= 10;
     }
+
     if (t)
     {
         digits.push_back(0);
