@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_map>
 using namespace std;
 
 /**
@@ -46,8 +47,24 @@ int integerReplacement2(int n)
 
 /**
  * 方法 3
-*/
+ */
 int integerReplacement3(int n)
+{
+    if (n == 1)
+        return 0;
+    if (n % 2 == 0)
+        return 1 + integerReplacement3(n / 2);
+    else
+    {
+        long long t = n; // 考虑溢出操作
+        return 2 + min(integerReplacement3((t + 1) / 2), integerReplacement3((t - 1) / 2));
+    }
+}
+
+/**
+ * 方法 4
+*/
+int integerReplacement4(int n)
 {
     int count = 0;
     while (n != 1)
@@ -55,7 +72,7 @@ int integerReplacement3(int n)
         if (n % 2 != 0)
         {
             cout << n << endl;
-            n = n - 1; // n+1 是17 找到最小的才可以；
+            n = n - 1; // n+1 是17找到最小的才可以；
             count++;
         }
         count++;
@@ -64,27 +81,9 @@ int integerReplacement3(int n)
     return count;
 }
 
-/**
- * 方法 4
- */
-int integerReplacement4(int n)
-{
-    if (n == 1)
-        return 0;
-    if (n % 2 == 0)
-        return 1 + integerReplacement4(n / 2);
-    else
-    {
-        long long t = n; // 考虑溢出操作
-        return 2 + min(integerReplacement4((t + 1) / 2), integerReplacement4((t - 1) / 2));
-    }
-}
-
 int main()
 {
-    int n;
-    cout << "input a num: ";
-    cin >> n;
-    cout << integerReplacement(n) << endl;
+    int n = 9;
+    cout << integerReplacement3(n) << endl;
     return 0;
 }
