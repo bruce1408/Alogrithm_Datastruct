@@ -7,7 +7,7 @@ using namespace std;
 */
 
 /**
- * 方法 1，按照题目要求直接做即可
+ * 方法 1，按照题目要求直接做即可，使用递归来做
 */
 typedef long long LL;
 int f(LL n)
@@ -25,9 +25,29 @@ int integerReplacement1(int n)
 }
 
 /**
- * 方法 2
+ * 方法 2，对方法1的优化
 */
+unordered_map<LL, int> dp;
+int f2(LL n)
+{
+    if (dp.count(n))
+        return dp[n];
+    if (n == 1)
+        return 0;
+    if (n % 2 == 0)
+        return dp[n] = f(n / 2) + 1;
+    return dp[n] = min(f(n + 1), f(n - 1)) + 1;
+}
+
 int integerReplacement2(int n)
+{
+    return f2(n);
+}
+
+/**
+ * 方法 3
+*/
+int integerReplacement3(int n)
 {
     int count = 0;
     while (n != 1)
@@ -44,7 +64,9 @@ int integerReplacement2(int n)
     return count;
 }
 
-// 和方法 2类似
+/**
+ * 方法 4
+ * */
 int integerReplacement4(int n)
 {
     if (n == 1)
@@ -56,30 +78,6 @@ int integerReplacement4(int n)
         long long t = n; // 考虑溢出操作
         return 2 + min(integerReplacement4((t + 1) / 2), integerReplacement4((t - 1) / 2));
     }
-}
-int integerReplacement3(int n)
-{
-    int res = 0;
-    if (n == INT_MAX)
-    {
-        n /= 2;
-        res++;
-    } // 对溢出操作直接定义；
-    while (n != 1)
-    {
-        // 研究发现，除了7和3，所有其他加1是4的倍数的奇数，都适合加1操作；
-        if (n % 2)
-        {
-            if ((n + 1) % 4 == 0 && n != 3)
-                n += 1;
-            else
-                n -= 1;
-        }
-        else
-            n /= 2;
-        res++;
-    }
-    return res;
 }
 
 int main()
