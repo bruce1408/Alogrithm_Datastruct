@@ -34,7 +34,7 @@ int reverseNum(int x)
         // 判断翻转越界
         if (abs(res) > INT_MAX / 10)
             return 0;
-        res = res * 10 + x % 10;
+        res = res * 10 + x % 10; // 这种写法挺爽的
         x /= 10;
     }
     return res;
