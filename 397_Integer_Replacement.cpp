@@ -66,7 +66,7 @@ int integerReplacement3(int n)
 
 /**
  * 方法 4
- * */
+ */
 int integerReplacement4(int n)
 {
     if (n == 1)
