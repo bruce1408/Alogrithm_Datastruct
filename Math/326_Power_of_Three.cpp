@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * 给定一个数，然后判断这个数是不是3的n次幂的结果，比如9是3^2,27是3^3。
+ * 326 给定一个数，然后判断这个数是不是3的n次幂的结果，比如9是3^2,27是3^3。
 */
 
 /**
@@ -21,19 +21,19 @@ bool isPowerOfThree1(int n)
 }
 
 /**
- * 方法 2，循环遍历,居然超时了！丧心病狂啊
+ * 方法 2，循环遍历,居然超时
 */
 bool isPowerOfThree2(int n)
 {
-    int remain = 0;
+    if (n <= 0)
+        return false;
+    int res = 0;
     while (n != 1)
     {
-        remain = n % 3;
-        if (remain != 0)
-            return false;
+        res = n % 3;
         n /= 3;
     }
-    return true;
+    return res == 0;
 }
 
 /**
@@ -63,14 +63,4 @@ bool isPowerOfThree4(int n)
         return false;
     }
 }
-int main()
-{
-    int a, count = 9;
-    cout << "" << endl;
-    while (count)
-    {
-        cin >> a;
-        cout << "the a is:" << a << " !the res is: " << isPowerOfThree4(a) << endl;
-        count--;
-    }
-}
+
