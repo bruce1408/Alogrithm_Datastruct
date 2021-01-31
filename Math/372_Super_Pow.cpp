@@ -26,9 +26,7 @@ int superPow(int a, vector<int> &b)
     return res;
 }
 /**
- * 方法 2，数的很大的次方对1337取余的值，开始一直在想这个1337有什么玄机，
- * 为啥突然给这么一个数，感觉很突兀，后来想来想去也没想出来为啥，估计就是怕结果太大无法表示，
- * 随便找个数取余吧。那么这道题和之前那道Pow(x, n)的解法很类似，我们都得对半缩小，
+ * 方法 2，那么这道题和之前那道Pow(x, n)的解法很类似，我们都得对半缩小，
  * 不同的是后面都要加上对1337取余。由于给定的指数b是一个一维数组的表示方法，我们要是折半缩小处理起来肯定十分不方便，
  * 所以我们采用按位来处理，比如2^23 = (2^2)10 * 2^3, 所以我们可以从b的最高位开始，算出个结果存入res，
  * 然后到下一位是，res的十次方再乘以a的该位次方再对1337取余,推荐
@@ -53,26 +51,28 @@ int superPow2(int a, vector<int> &b)
 }
 /**
  * 方法 3，For 1-digit exponent, 
- * we multiply the result b[sz -1] times by a ^ 1 . For 2-digit exponent, 
- * we multiply the result b[sz - 2] times by a ^ 10. For 3 digits, 
- * we multiply the result b[sz - 3] times by (a ^ 10) ^ 10. And so on.
- * 
- * So, in each iteration, we use the current exponential multiplier mul, 
- * and compute the new multiplier new_mul for the next digit
-*/
-int superPow3(int a, vector<int> &b)
+ */
+
+typedef long long LL;
+int superPow(int a, vector<int> &b)
 {
-    int res = 1, mul = a % 1337;
-    for (int i = b.size() - 1; i >= 0; --i)
+    if (b.empty())
+        return 1;
+    int t = b.back();
+    b.pop_back();
+    return qmi(a, t) * qmi(superPow(a, b), 10) % 1337;
+}
+
+LL qmi(LL a, LL n)
+{
+    LL res = 1;
+    a %= 1337;
+    while (n)
     {
-        int new_mul = 1;
-        for (auto j = 0; j <= 9; ++j)
-        {
-            if (j < b[i])
-                res = (res * mul) % 1337;
-            new_mul = (new_mul * mul) % 1337;
-        }
-        mul = new_mul;
+        if (n & 1)
+            res = res * a % 1337;
+        n >>= 1;
+        a = a * a % 1337;
     }
     return res;
 }
