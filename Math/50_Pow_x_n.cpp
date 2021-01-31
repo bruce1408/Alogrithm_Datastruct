@@ -2,8 +2,8 @@
 #include <cmath>
 using namespace std;
 /**
+ * 50  计算n次幂
  * Implement pow(x, n), which calculates x raised to the power n (xn).
- * 计算n次幂
  * 
  * Example 1:
  * Input: 2.00000, 10
@@ -11,72 +11,13 @@ using namespace std;
 */
 
 /**
- * 方法一：递归，每次折半的计算，
- * 一开始考虑过使用 x *Pow(x, n-1)递归的形式，但是有两点问题，一个是负数的问题怎么办
- * 还有一个是这样的递归，依然效率太低，超时了。
- */ 
-double power(double x, int n)
-{
-    if (x == 0)
-        return 0.0;
-    if (n == 0)
-        return 1.0;
-    double half = power(x, n / 2);
-    if (n % 2 == 0)
-        return half * half;
-    else
-        return half * half * x;
-}
-
-double myPow(double x, int n)
-{
-    if (n < 0)
-        return 1 / power(x, -n);
-    else
-        return power(x, n);
-}
-
-/**
- * 方法 2，使用递归，另一个思路的递归
+ * 方法 1，和上面的思路一样，就是写法不太一样
 */
-double power2(double x, int n)
-{
-    if (x == 0)
-        return 0.0;
-    else if (n == 0)
-        return 1.0;
-    int t = n / 2;
-    double temp = power2(x, t);
-    if (n % 2 == 0)
-    {
-        return temp * temp;
-    }
-    else
-    {
-        return temp * temp * x;
-    }
-}
-
-double myPow2(double x, int n)
-{
-    if (n < 0)
-    {
-        n = abs(n);
-        return 1.0 / power2(x, n);
-    }
-    else
-    {
-        return power2(x, n);
-    }
-}
-/**
- * 方法 3，和上面的思路一样，就是写法不太一样
-*/
-double myPow3(double x, int n)
+double myPow1(double x, int n)
 {
     if (n == 0)
         return 1;
-    double half = myPow3(x, n / 2);
+    double half = myPow1(x, n / 2);
     if (n % 2 == 0)
         return half * half;
     if (n > 0)
@@ -85,74 +26,58 @@ double myPow3(double x, int n)
 }
 
 /**
- * 方法 4，就是如果n选择的是最小的数字，那么取绝对值就会越界，这里需要判断一下
- * 方法 4考虑到了这种情况；方法 1和 方法 2都包含了这种情况了， 就是首先n/2折半，这样即使取绝对值的话，就不会出现
- * 越界的情况了，方法 4的思路是一样的，但是写法更清晰。
+ * 方法 2，其实这道题使用快速幂来求解即可
+ * 递归版本的快速幂计算
+ * 如果是直接做的话，那么时间复杂度是O(n)，但是使用快速幂利用二分的思想
+ * 如果n是奇数那么就是a^b = a^1 * a^b-1
+ * 如果n是偶数那么就是a^b = a^b/2 * a^b/2
+ * n有可能回越界，所以直接用long long 类型
 */
-int myPow4(double x, int n)
+typedef long long LL;
+
+double binpow(double x, LL n)
 {
     if (n == 0)
         return 1;
-    else if (n == 1)
-        return x;
-    else if (n < 0)
-    {
-        if (n == INT_MIN)
-        {
-            n = INT_MAX;
-            return x / (myPow4(x, n));
-        }
-        else
-        {
-            n = n * -1;
-            return 1 / myPow4(x, n);
-        }
-    }
-    int t = n / 2;
-    double temp = myPow4(x, t);
-    if (n % 2 == 0)
-    {
-        return temp * temp;
-    }
+    if (n % 2 == 1)
+        return x * binpow(x, n - 1);
     else
     {
-        return temp * temp * x;
+        double mul = binpow(x, n / 2); // 这里返回的不是两个n/2的乘积，而是计算单个之后再乘
+        return mul * mul;
     }
 }
 
-/**
- * 方法 5，推荐算法
-*/
-double myPow5(double x, int n)
+double myPow2(double x, int n)
 {
-    if (n == 1)
-        return x;
-    if (n == 0)
-        return 1.0;
-    int t = n / 2;
     if (n < 0)
-    {
-        x = 1 / x;
-        t = -t;
-    }
-    double res = myPow5(x, t);
-    if (n % 2 == 0)
-        return res * res;
-    return res * res * x;
+        return 1.0 / binpow(x, abs(LL(n)));
+    else
+        return binpow(x, n);
 }
+
 /**
- * 方法 6，迭代法,推荐算法！
+ * 方法 3，使用快速幂的迭代写法
 */
-double myPow6(double x, int n)
+typedef long long LL;
+double myPow(double x, int n)
 {
-    double res = 1.0;
-    for (int i = n; i != 0; i /= 2)
+    double res = 1;
+    bool minus = false;
+    if (n < 0)
+        minus = true;
+    LL t = abs((LL)(n));
+    while (t)
     {
-        if (i % 2 != 0)
-            res *= x;
-        x *= x;
+        if (t & 1)
+            res = res * x;
+        x = x * x;
+        t >>= 1;
     }
-    return n < 0 ? 1 / res : res;
+    if (minus)
+        return 1 / res;
+    else
+        return res;
 }
 
 int main()
