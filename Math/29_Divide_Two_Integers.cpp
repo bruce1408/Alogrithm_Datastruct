@@ -4,6 +4,7 @@
 using namespace std;
 
 /**
+ * 29 两数相除，不能使用乘，除，mod运算
  * Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.
  * Return the quotient after dividing dividend by divisor.
  * The integer division should truncate toward zero, which means losing its fractional part. 
@@ -14,61 +15,36 @@ using namespace std;
  * Output: 3
  * Explanation: 10/3 = truncate(3.33333..) = 3.
 */
-/**
- * 方法 1，不要使用乘，除，操作来进行计算，求商，注意的是越界问题，如果-2147483648 和 -1，那么结果肯定越界了
- * 方法 1有问题
-*/
-int divide(int dividend, int divisor)
-{
-    int remain = abs(dividend) / abs(divisor);
-    if (remain <= 2147483647)
-    {
-        if (dividend < 0 && divisor < 0)
-        {
-            return remain;
-        }
-        else if (dividend < 0 || divisor < 0)
-        {
-            return remain * -1;
-        }
-    }
-    else
-    {
-        if (dividend < 0 && divisor < 0)
-        {
-            int k = 4294974298 - remain;
-            return k;
-        }
-    }
-    return remain;
-}
 
 /**
- * 方法 2，思路是，如果被除数大于或等于除数，则进行如下循环，定义变量t等于除数，定义计数p，当t的两倍小于等于被除数时，进行如下循环
- * t扩大一倍，p扩大一倍，然后更新 res 和m。这道题的 OJ 给的一些 test case 非常的讨厌，因为输入的都是 int 型，比如被除数是 -2147483648
- * 在 int 范围内，当除数是 -1 时，结果就超出了 int 范围，需要返回 INT_MAX，所以对于这种情况就在开始用 if 判定，将其和除数为0的情况放一起判定，
- * 返回 INT_MAX。然后还要根据被除数和除数的正负来确定返回值的正负，这里采用长整型 long 来完成所有的计算，最后返回值乘以符号即可
+ * 方法 1，使用快速幂的思路，首先，处理两数的符号，如果是负数的话，那么就记录符号然后两数取绝对值即可
+ * 然后利用快速幂的技巧，新开一个数组保存b到a之间的 2^i * b的数值，在后面计算商的时候会用到，只要a >= 2^i * b
+ * 说明a可以减去这个数字，然后知道a小于位置，同时每次累加商左移i位，最后得到的就是商。
 */
-int divide2(int dividend, int divisor)
+typedef long long LL;
+int divide(int x, int y)
 {
-    if (dividend == INT_MIN && divisor == -1)
-        return INT_MAX;
-    long m = abs(dividend), n = abs(divisor), res = 0;
-    int sign = ((dividend < 0) ^ (divisor < 0)) ? -1 : 1;
-    if (n == 1)
-        return sign == 1 ? m : -m;
-    while (m >= n)
+    bool minus = false;
+    if (x < 0 && y > 0 || x > 0 && y < 0)
+        minus = true;
+    LL a = abs((LL)x), b = abs((LL)y);
+    vector<LL> res;
+    for (LL i = b; i <= a; i = i + i)
+        res.push_back(i); // 2^i * y 保存y的乘积
+    LL ans = 0;
+    for (int i = res.size() - 1; i >= 0; i--)
     {
-        long t = n, count = 1;
-        while (m >= (t << 1))
+        if (a >= res[i])
         {
-            t <<= 1;
-            count <<= 1;
+            ans += 1ll << i;
+            a -= res[i];
         }
-        res += count;
-        m -= t;
     }
-    return sign == 1 ? res : -res;
+    if (minus)
+        return ans * -1;
+    if (ans < INT_MIN || ans > INT_MAX)
+        ans = INT_MAX;
+    return ans;
 }
 
 int main()
