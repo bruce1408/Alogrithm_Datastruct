@@ -5,9 +5,7 @@
 using namespace std;
 
 /**
- * Implement a basic calculator to evaluate a simple expression string.
- * The expression string may contain open ( and closing parentheses ), 
- * the plus + or minus sign -, non-negative integers and empty spaces 
+ * 224 基本计算器 
  * 
  * 给定一个字符的表达式，实现一个计算器，核心是使用栈来完成中缀表达式 -> 后缀表达式
  * 然后后缀表达式->计算结果
@@ -125,6 +123,7 @@ vector<ListStack> infixTosuffix(string s)
     }
     return res;
 }
+
 int calculate(string s)
 {
     int sumNum = 0;
@@ -180,53 +179,66 @@ int calculate(string s)
  * 则把当前结果res和符号sign压入栈，res重置为0，sign重置为1；如果遇到了右括号，结果res乘以栈顶的符号，
  * 栈顶元素出栈，结果res加上栈顶的数字，栈顶元素出栈。
 */
+void eval(stack<int> &nums, stack<char> &op)
+{
+    int b = nums.top();
+    nums.pop();
+    int a = nums.top();
+    nums.pop();
+    char c = op.top();
+    op.pop();
+    int r;
+    if (c == '+')
+        r = a + b;
+    else
+        r = a - b;
+    nums.push(r);
+}
+
 int calculate2(string s)
 {
-    int res = 0, sign = 1, n = s.size();
-    stack<int> st;
+    stack<int> nums;
+    stack<char> op;
+    s = '0' + s;
+    int n = s.size();
     for (int i = 0; i < n; i++)
     {
-        if (s[i] >= '0')
+        if (s[i] == ' ')
+            continue;
+        if (isdigit(s[i]))
         {
-            int num = 0;
-            while (s[i] >= '0' && i < n)
-            {
-                num = num * 10 + (s[i++] - '0');
-            }
-            res += num * sign;
-            --i;
+            int j = i, res = 0;
+            while (j < n && isdigit(s[j]))
+                res = res * 10 + (s[j++] - '0');
+            nums.push(res);
+            i = j - 1;
         }
         else if (s[i] == '(')
-        {
-            st.push(res);
-            st.push(sign);
-            res = 0;
-            sign = 1;
-        }
+            op.push(s[i]);
         else if (s[i] == ')')
         {
-            res *= st.top();
-            st.pop();
-            res += st.top();
-            st.pop();
+            while (op.top() != '(')
+            {
+                eval(nums, op);
+            }
+            op.pop();
         }
-        else if (s[i] == '-')
+        else
         {
-            sign = -1;
-        }
-        else if (s[i] == '+')
-        {
-            sign = 1;
+            while (op.size() && op.top() != '(')
+            {
+                eval(nums, op);
+            }
+            op.push(s[i]);
         }
     }
-    return res;
+    while (op.size())
+        eval(nums, op);
+    return nums.top();
 }
 
 int main()
 {
-    string s = "1+2*3+(2-3)+4";
-    string infix = s, perfix;
-    Trans(infix, perfix);
-    cout << perfix << endl;
-    calculate2(s);
+    string s = "1+2-3+(2-3)+4";
+    cout << calculate2(s) << endl;
 }
