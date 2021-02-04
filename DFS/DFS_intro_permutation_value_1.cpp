@@ -103,13 +103,13 @@ void dfs2(int index, int sumW, int sumC)
     {
         return; // 已经完成了对n件物品的选择
     }
-    dfs1(index + 1, sumW, sumC); // 不选第index物品
+    dfs2(index + 1, sumW, sumC); // 不选第index物品
     // 只有加入index物品之后没有查过限定重量，才可以继续
     if (sumW + w[index] <= V && sumC + c[index] > ans)
     {
         ans = sumC + c[index]; // 更新最大的价值
         // 选择第index+1件商品
-        dfs1(index + 1, sumW + w[index], sumC + c[index]);
+        dfs2(index + 1, sumW + w[index], sumC + c[index]);
     }
 }
 

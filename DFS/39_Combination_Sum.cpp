@@ -71,6 +71,35 @@ vector<vector<int>> combinationSum2(vector<int> &candidates, int target)
     return res;
 }
 
+/**
+ * 方法 3，使用背包问题的写法来写
+ * */
+vector<vector<int>> combinationSum3(vector<int> &c, int t)
+{
+    vector<int> out;
+    vector<vector<int>> res;
+    dfs(c, t, 0, 0, out, res);
+    return res;
+}
+
+void dfs(vector<int> &c, int t, int sum, int index, vector<int> &out, vector<vector<int>> &res)
+{
+    if (sum == t)
+    {
+        res.push_back(out);
+        return;
+    }
+    if (sum > t || index == c.size())
+        return;
+
+    // 选择index数字
+    out.push_back(c[index]);
+    dfs(c, t, sum + c[index], index, out, res); // 这里是index而不是index+1的原因是可以重复选择这个数，如果是index+1，那么只能选择1次
+    // 恢复现场
+    out.pop_back();
+    // 不选择index
+    dfs(c, t, sum, index + 1, out, res);
+}
 int main()
 {
     vector<int> res = {1, 3, 5};
