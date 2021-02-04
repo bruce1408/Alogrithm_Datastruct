@@ -33,8 +33,8 @@ void dfs(vector<int> &c, int t, int start, vector<int> &out, vector<vector<int>>
     for (int i = start; i < c.size(); i++)
     {
         out.push_back(c[i]);
-        dfs(c, t - c[i], i, out, res);
-        out.pop_back(); // 恢复现场
+        dfs(c, t - c[i], i, out, res); // 这里i不是i+1因为可以重复使用
+        out.pop_back();                // 恢复现场
     }
 }
 
