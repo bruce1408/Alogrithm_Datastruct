@@ -18,33 +18,6 @@ using namespace std;
  * 然后将当前位置之后的数组取出来，调用递归函数，注意此时的 target 要减去当前的数字，
  * 然后遍历递归结果返回的二维数组，将当前数字加到每一个数组最前面，然后再将每个数组加入结果 res 即可
 */
-vector<vector<int>> combinationSum1(vector<int> &c, int target)
-{
-    vector<vector<int>> res;
-    sort(c.begin(), c.end());
-    for (int i = 0; i < c.size(); ++i)
-    {
-        if (c[i] > target)
-            break;
-        if (c[i] == target)
-        {
-            res.push_back({c[i]});
-            break;
-        }
-        // 当前元素之后的保存到新的数组，然后target减去当前元素，使用递归
-        vector<int> vec = vector<int>(c.begin() + i, c.end());
-        vector<vector<int>> tmp = combinationSum1(vec, target - c[i]);
-        for (auto a : tmp)
-        {
-            a.insert(a.begin(), c[i]);
-            res.push_back(a);
-        }
-    }
-    return res;
-}
-/**
- * 方法 2，暴搜，使用dfs
-*/
 void dfs(vector<int> &c, int t, int start, vector<int> &out, vector<vector<int>> &res)
 {
     if (t < 0)
@@ -59,7 +32,7 @@ void dfs(vector<int> &c, int t, int start, vector<int> &out, vector<vector<int>>
     {
         out.push_back(c[i]);
         dfs(c, t - c[i], i, out, res);
-        out.pop_back();
+        out.pop_back(); // 恢复现场
     }
 }
 
@@ -100,6 +73,7 @@ void dfs(vector<int> &c, int t, int sum, int index, vector<int> &out, vector<vec
     // 不选择index
     dfs(c, t, sum, index + 1, out, res);
 }
+
 int main()
 {
     vector<int> res = {1, 3, 5};
