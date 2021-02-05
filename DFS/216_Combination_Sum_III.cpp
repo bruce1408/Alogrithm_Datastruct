@@ -41,7 +41,7 @@ vector<vector<int>> combinationSum3(int k, int sum)
 }
 
 /**
- * 方法 2，使用dfs
+ * 方法 2，使用dfs和方法 1类似，但是写法不同
 */
 vector<int> out;
 vector<vector<int>> res;
@@ -66,18 +66,34 @@ void dfs(int k, int n, int start, int index)
     for (int i = start; i <= 9; i++)
     {
         out.push_back(i);
-        dfs(k, n - i, i + 1, index + 1);
+        dfs(k, n - i, i + 1, index + 1); // 每次递归n-i，然后
         out.pop_back();
     }
 }
 
-int main()
+/**
+ * 方法 3，使用dfs的背包模板来做
+*/
+vector<int> out;
+vector<vector<int>> res;
+vector<vector<int>> combinationSum3(int k, int n)
 {
-    int k = 3, n = 7;
-    for (auto i : combinationSum3(k, n))
+    dfs(k, n, 1, 0, 0);
+    return res;
+}
+
+void dfs(int k, int n, int start, int index, sum)
+{
+    if (sum > n || index > k)
+        return;
+    if (sum == n && k == index)
     {
-        for (auto j : i)
-            cout << j << " ";
-        cout << endl;
+        res.push_back(out);
+        return;
     }
+
+    out.push_back(start);
+    dfs(k, n, start+1, index+1, sum+start);
+    out.pop_back();
+    dfs(k, n, start+1, index+1, sum);
 }
