@@ -75,11 +75,11 @@ string getPermutation(int n, int k)
         {
             if (visited[j] == false) // 如果数字j之前没有出现
             {
-                if (fact < k)
+                if (fact < k) // fact阶乘是不是小于k，如果小于那么k-=fact
                     k -= fact;
                 else
                 {
-                    res += to_string(j);
+                    res += to_string(j); // 否则当前j保存在i位置，然后j对应的bool设置为true，break
                     visited[j] = true;
                     break;
                 }
@@ -88,5 +88,16 @@ string getPermutation(int n, int k)
     }
     return res;
 }
+
+/**
+ * 方法 3，回家等通知算法,使用库函数next_permutation函数
+*/
+string getPermutation(int n, int k)
+{
+    string res;
+    for (int i = 1; i <= n; i++)
+        res += to_string(i);
+    for (int i = 0; i < k - 1; i++)
+        next_permutation(res.begin(), res.end());
+    return res;
 }
-;
