@@ -9,7 +9,7 @@ using namespace std;
 int n;
 const int N = 20;
 char g[N][N];
-int row[N], path[N], col[N], dg[N], udg[N];
+int row[N], path[N], col[N], dg[N], udg[N]; // 
 
 void dfs1(int u)
 {
