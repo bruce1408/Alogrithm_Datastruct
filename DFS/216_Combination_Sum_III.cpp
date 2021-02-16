@@ -43,7 +43,6 @@ vector<vector<int>> combinationSum3(int k, int sum)
 /**
  * 方法 2，使用dfs和方法 1类似，但是写法不同
 */
-vector<int> out;
 vector<vector<int>> res;
 vector<vector<int>> combinationSum3(int k, int n)
 {

@@ -56,7 +56,6 @@ void dfs(vector<int> &nums, int index, vector<bool> &visited)
 vector<vector<int>> permute(vector<int> &nums)
 {
     vector<bool> visited(nums.size(), 0);
-
     dfs(nums, 0, visited);
     return res;
 }

@@ -20,6 +20,10 @@ using namespace std;
  * Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
  * 这里数组里面可能包含重复元素
 */
+
+/**
+ * 方法 1，使用dfs，但是写法上没有解决重复问题，使用了集合来做
+*/
 void dfsLeetcode(int index, vector<int> &path, vector<bool> &visited, vector<int> &nums, vector<vector<int>> &temp)
 {
     int len = nums.size();
@@ -33,6 +37,7 @@ void dfsLeetcode(int index, vector<int> &path, vector<bool> &visited, vector<int
         temp.push_back(res);
         return;
     }
+
     for (int i = 0; i < len; i++)
     {
         if (visited[i] == false)
@@ -59,6 +64,48 @@ vector<vector<int>> permute(vector<int> &nums)
     vector<vector<int>> s(res.begin(), res.end());
     return s;
 }
+
+/**
+ * 方法 2，使用dfs来做，这里要考虑重复元素的话去重，和46题目非常类似，但是要考虑重复元素的相对顺序
+ * 
+*/
+class Solution
+{
+public:
+    vector<int> out;
+    vector<vector<int>> res;
+    vector<vector<int>> permuteUnique(vector<int> &nums)
+    {
+        vector<bool> visited(nums.size());
+        sort(nums.begin(), nums.end());
+        dfs(nums, visited, 0);
+        return res;
+    }
+
+    void dfs(vector<int> &nums, vector<bool> &visited, int index)
+    {
+        if (index == nums.size())
+        {
+            res.push_back(out);
+            return;
+        }
+
+        for (int i = 0; i < nums.size(); i++)
+        {
+            // 如果当前元素和前一个元素相同且前一个元素没有用过，那么就不能使用当前的这个元素，保持相对顺序，直接退出
+            if (i > 0 && nums[i] == nums[i - 1] && visited[i - 1] == false)
+                continue;
+            if (visited[i] == false)
+            {
+                out.push_back(nums[i]);
+                visited[i] = true;
+                dfs(nums, visited, index + 1);
+                visited[i] = false;
+                out.pop_back();
+            }
+        }
+    }
+};
 
 int main()
 {
