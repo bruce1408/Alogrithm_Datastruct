@@ -47,7 +47,7 @@ void letterStr(string digits, vector<string> &dict, int num, string s, vector<st
 vector<string> letterCombinations2(string digits)
 {
     vector<string> res;
-    string charmap[10] = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    string charmap[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
     res.push_back("");
     for (int i = 0; i < digits.size(); i++)
     {

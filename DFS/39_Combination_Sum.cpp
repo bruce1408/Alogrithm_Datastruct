@@ -47,9 +47,9 @@ vector<vector<int>> combinationSum2(vector<int> &candidates, int target)
 }
 
 /**
- * 方法 3，使用背包问题的写法来写
+ * 方法 2，使用背包问题的写法来写
  * */
-vector<vector<int>> combinationSum3(vector<int> &c, int t)
+vector<vector<int>> combinationSum2(vector<int> &c, int t)
 {
     vector<int> out;
     vector<vector<int>> res;
