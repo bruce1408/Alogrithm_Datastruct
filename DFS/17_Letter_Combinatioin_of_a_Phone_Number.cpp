@@ -14,7 +14,7 @@ using namespace std;
 */
 
 /**
- * 方法 1，使用DFS深度优先遍历来做
+ * 方法 1，使用DFS深度优先遍历来做。
 */
 void letterStr(string digits, vector<string> &dict, int num, string s, vector<string> &res);
 vector<string> letterCombinations(string digits)
