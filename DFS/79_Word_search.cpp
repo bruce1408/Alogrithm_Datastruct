@@ -21,7 +21,7 @@ bool dfs(vector<vector<char>> &board, string &word, int start, int x, int y)
 	int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, 1, 0, -1};
 
 	char t = board[x][y];
-	board[x][y] = '.';
+	board[x][y] = '.'; // 用点表示已经走过了这个格子了
 	for (int i = 0; i < 4; i++)
 	{
 		int a = dx[i] + x, b = dy[i] + y;
