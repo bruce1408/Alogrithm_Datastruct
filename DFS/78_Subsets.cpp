@@ -50,10 +50,8 @@ public:
 
     void dfs2(vector<int> &nums, int index)
     {
-        if (index <= nums.size())
-            res.push_back(out);
-        if (index > nums.size())
-            return;
+        if (index <= nums.size()) res.push_back(out);
+        if (index > nums.size()) return;
         for (int i = index; i < nums.size(); i++)
         {
             out.push_back(nums[i]);

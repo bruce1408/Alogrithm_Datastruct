@@ -73,28 +73,27 @@ void dfs(int k, int n, int start, int index)
 /**
  * 方法 3，使用dfs的背包模板来做
 */
-void dfs(int k, int n, int num, vector<int> &result, vector<vector<int>> &ans)
+vector<int>out;
+vector<vector<int>>res;
+void dfs(int k, int n, int num)
 {
     if (k == 0 && n == 0)
     {
-        ans.push_back(result);
+        res.push_back(out);
         return;
     }
 
-    if (k <= 0 || n <= 0 || num > 9)
-        return;
-    result.push_back(num);
-    dfs(k - 1, n - num, num + 1, result, ans);
-    result.pop_back();
-    dfs(k, n, num + 1, result, ans);
+    if (k <= 0 || n <= 0 || num > 9) return;
+    out.push_back(num);
+    dfs(k - 1, n - num, num + 1);
+    out.pop_back();
+    dfs(k, n, num + 1);
 }
 
 vector<vector<int>> combinationSum3(int k, int n)
 {
-    vector<vector<int>> ans;
-    vector<int> result;
-    dfs(k, n, 1, result, ans);
-    return ans;
+    dfs(k, n, 1);
+    return res;
 }
 
 int main()
