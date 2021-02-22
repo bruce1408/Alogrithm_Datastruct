@@ -3,7 +3,7 @@
 using namespace std;
 
 /**
- * 90 subsets II
+ * 90 subsets II,这个题目和40题目的组合2很类似
  * 给定一个包含重复的元素，然后输出不含有重复元素的所有子集情况
 */
 
