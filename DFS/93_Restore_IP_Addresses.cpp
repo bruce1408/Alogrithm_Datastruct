@@ -4,6 +4,7 @@
 using namespace std;
 
 /**
+ * 93 复原ip地址
  * Given a string containing only digits, restore it by returning all possible valid IP address combinations.
  * Example:
  * Input: "25525511135"
@@ -66,7 +67,7 @@ void dfs(int u, int k, string &s, vector<int> &path, vector<string> &ans)
 }
 
 /**
- * 方法 2，思路相同，写法略不同
+ * 方法 2，思路相同，写法略不同，推荐写法
 */
 void dfs1(string &s, int u, int k, string path, vector<string> &ans)
 {
