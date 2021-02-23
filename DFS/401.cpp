@@ -17,9 +17,7 @@ vector<string> readBinaryWatch(int num)
         for (int j = 0; j < 10; j++)
         {
             if (i >> j & 1)
-            {
                 s++;
-            }
         }
         if (s == num)
         {
@@ -36,7 +34,7 @@ vector<string> readBinaryWatch(int num)
 
 int main()
 {
-    int n = 0;
+    int n = 6;
     for (auto x : readBinaryWatch(n))
     {
         cout << x << endl;
