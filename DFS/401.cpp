@@ -15,13 +15,18 @@ vector<string> readBinaryWatch(int num)
 {
     vector<string> res;
     char str[10];
+    // 一共有10个1
     for (int i = 0; i < 1 << 10; i++)
     {
+        int u = 1<<10;
         int s = 0;
         for (int j = 0; j < 10; j++)
         {
             if (i >> j & 1)
+            {
                 s++;
+                int u1 = i>>j & 1;
+            }
         }
         if (s == num)
         {
