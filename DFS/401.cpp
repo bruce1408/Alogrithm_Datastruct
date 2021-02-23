@@ -7,6 +7,10 @@ using namespace std;
  * 输入: n = 1
  * 返回: ["1:00", "2:00", "4:00", "8:00", "0:01", "0:02", "0:04", "0:08", "0:16", "0:32"]
 */
+
+/**
+ * 方法 1，使用sprintf来做
+*/
 vector<string> readBinaryWatch(int num)
 {
     vector<string> res;
