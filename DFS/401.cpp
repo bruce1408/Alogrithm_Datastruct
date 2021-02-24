@@ -15,17 +15,16 @@ vector<string> readBinaryWatch(int num)
 {
     vector<string> res;
     char str[10];
-    // 一共有10个1
+    // 一共有10个1, i < 2^10 = 1024;
     for (int i = 0; i < 1 << 10; i++)
     {
-        int u = 1<<10;
+        int u = 1 << 10;
         int s = 0;
         for (int j = 0; j < 10; j++)
         {
             if (i >> j & 1)
             {
                 s++;
-                int u1 = i>>j & 1;
             }
         }
         if (s == num)
@@ -43,9 +42,12 @@ vector<string> readBinaryWatch(int num)
 
 int main()
 {
-    int n = 6;
+    int n = 0;
     for (auto x : readBinaryWatch(n))
     {
         cout << x << endl;
     }
+    int v = 1023;
+    v = v >> 6;
+    cout << v << endl;
 }
