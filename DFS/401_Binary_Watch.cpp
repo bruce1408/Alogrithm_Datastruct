@@ -26,9 +26,7 @@ vector<string> readBinaryWatch(int num)
         for (int j = 0; j < 10; j++)
         {
             if (i >> j & 1)
-            {
                 s++;
-            }
         }
         if (s == num)
         {
