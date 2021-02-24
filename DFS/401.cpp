@@ -9,7 +9,10 @@ using namespace std;
 */
 
 /**
- * 方法 1，使用sprintf来做
+ * 方法 1，使用sprintf来保存时间格式
+ * 首先一共是10位，然后枚举10个1的所有情况，然后再看当前的情况有多少个1，
+ * 如果当前的1的个数和num相同，那么让i右移6位，就是小时，i&63就表示的是
+ * 分钟，如果小时和分钟满足要求，就保存到该数组中去
 */
 vector<string> readBinaryWatch(int num)
 {
@@ -29,6 +32,7 @@ vector<string> readBinaryWatch(int num)
         }
         if (s == num)
         {
+            // 小时右移6位腾出高4位，分钟是低6位直接和63与即可
             int a = i >> 6, b = i & 63;
             if (a < 12 && b < 60)
             {
@@ -47,7 +51,7 @@ int main()
     {
         cout << x << endl;
     }
-    int v = 1023;
+    int v = 623;
     v = v >> 6;
     cout << v << endl;
 }
