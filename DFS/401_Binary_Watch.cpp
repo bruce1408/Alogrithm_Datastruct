@@ -50,8 +50,5 @@ int main()
     for (auto x : readBinaryWatch(n))
     {
         cout << x << endl;
-    }
-    int v = 623;
-    v = v >> 6;
-    cout << v << endl;
+    } 
 }

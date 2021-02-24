@@ -33,7 +33,7 @@ vector<vector<string>> partition(string s) {
             }
         }
     }    
-
+    
     dfs(s, 0);
     return res;
 }
@@ -41,9 +41,7 @@ vector<vector<string>> partition(string s) {
 void dfs(string &s, int u)
 {
     if(u == s.size())
-    {
         res.push_back(out);
-    }
     else
     {
         for(int i = u; i<s.size(); i++)

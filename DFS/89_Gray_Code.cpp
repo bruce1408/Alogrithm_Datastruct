@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 /**
@@ -13,14 +13,14 @@ using namespace std;
  * 如果n=2，那么就把上个格雷码的结果拿来然后镜像复制一次，
  * 前半部分最后加0，后半部分最后加1即可
 */
-vector<int>grayCode(int n)
+vector<int> grayCode(int n)
 {
-    vector<int>res(1, 0);
-    while(n--)
+    vector<int> res(1, 0);
+    while (n--)
     {
-        for(int i = res.size()-1;i>=0;i--)
+        for (int i = res.size() - 1; i >= 0; i--)
         {
-            res[i] *=2;
+            res[i] *= 2;
             res.push_back(res[i] + 1);
         }
     }
