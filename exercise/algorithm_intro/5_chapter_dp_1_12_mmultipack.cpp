@@ -19,7 +19,6 @@ void totalpack1()
     cin >> n >> m;
     for (int i = 1; i <= n; i++)
         cin >> v[i] >> w[i]>>s[i];
-        
     for (int i = 1; i <= n; i++)
     {
         for (int j = 0; j <= m; j++)
