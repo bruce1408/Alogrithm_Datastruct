@@ -75,19 +75,3 @@ void totalpack2()
     }
     cout<<f[m]<<endl;
 }
-
-/**
- * 方法 3，优化为一维数组
-*/
-void totalpack2()
-{
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++)
-        cin >> v[i] >> w[i];
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = v[i]; j <= m; j++)
-            f[j] = max(f[j], f[j - v[i]] + w[i]);
-    }
-    cout << f[m] << endl;
-}
