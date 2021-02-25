@@ -75,3 +75,6 @@ void totalpack2()
     }
     cout<<f[m]<<endl;
 }
+
+
+
