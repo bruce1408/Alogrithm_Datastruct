@@ -20,7 +20,6 @@ int f[N][N], dp[N][N];
  * 如果需要求解dp[i][j]，那么一定要求出他的两个子问题
  * 
  * dp[i][j] = max(dp[i+1][j], dp[i+1][j+1]) + f[i][j];
- * 
 */
 int main()
 {
