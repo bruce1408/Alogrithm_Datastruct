@@ -1,11 +1,9 @@
+#include <iostream>
+#include <algorithm>
 /**
  * 分组背包问题
 */
-#include <iostream>
-#include <algorithm>
-
 using namespace std;
-
 const int N = 110;
 
 int n, m;
@@ -15,7 +13,6 @@ int f[N];
 int main()
 {
     cin >> n >> m;
-
     for (int i = 1; i <= n; i++)
     {
         cin >> s[i];
@@ -30,6 +27,5 @@ int main()
                     f[j] = max(f[j], f[j - v[i][k]] + w[i][k]);
 
     cout << f[m] << endl;
-
     return 0;
 }
