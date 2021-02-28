@@ -3,7 +3,14 @@
 using namespace std;
 
 /**
- * 方法 1，使用动态规划来做，但是超时了
+ * 70 爬楼梯
+ * 给定一个整数n表示楼梯数，然后每次可以爬1格或者是2格
+ * 最后计算n的所有种爬楼梯的方案数即可
+ * 
+*/
+
+/**
+ * 方法 1，使用递归来做，但是会超时
 */
 int climbStairs(int n)
 {
@@ -15,23 +22,29 @@ int climbStairs(int n)
 }
 
 /**
- * 方法 2，时间复杂度为O(n)
+ * 方法 2，使用动态规划来做，时间复杂度为O(n)
+ * 状态f[i]表示第i节楼梯的所有方案的总和，那么它和i-1或者是i-2个楼梯方案
+ * 总和有关系，所以利用状态方程进行计算即可
 */
+
 int climbStairs2(int n)
 {
-    vector<int> res(n);
-    if (n >= 1)
-        res[0] = 1;
-    if (n >= 2)
-        res[1] = 2;
-    for (int i = 2; i < n; i++)
+    vector<int> f(n + 1);
+    if (n < 2)
+        return n;
+    else
     {
-        res[i] = res[i - 1] + res[i - 2];
+        f[0] = 0, f[1] = 1, f[2] = 2;
     }
-    return res[n - 1];
+
+        for (int i = 3; i <= n; i++)
+    {
+        f[i] = f[i - 1] + f[i - 2];
+    }
+    return f[n];
 }
 
 int main()
 {
-    cout << climbStairs2(3) << endl;
+    cout << climbStairs2(5) << endl;
 }
