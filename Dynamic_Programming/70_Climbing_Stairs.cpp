@@ -37,14 +37,30 @@ int climbStairs2(int n)
         f[0] = 0, f[1] = 1, f[2] = 2;
     }
 
-        for (int i = 3; i <= n; i++)
+    for (int i = 3; i <= n; i++)
     {
         f[i] = f[i - 1] + f[i - 2];
     }
     return f[n];
 }
 
+/**
+ * 方法 3，数学归纳
+ * n : 0  1  2  3  4  5  6.....
+ * s : 1  1  2  3  5  8
+*/
+int climbStairs3(int n)
+{
+    int a = 0, b = 1, c = 0;
+    while (n--)
+    {
+        c = a + b;
+        a = b, b = c;
+    }
+    return c;
+}
+
 int main()
 {
-    cout << climbStairs2(5) << endl;
+    cout << climbStairs3(5) << endl;
 }
