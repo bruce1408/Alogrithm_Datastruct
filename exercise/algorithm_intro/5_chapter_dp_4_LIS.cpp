@@ -12,29 +12,53 @@ using namespace std;
  * 长度是5
  * 
  * 设置一个数组d[i]表示以A[i]结尾的最长不下降子序列
- * res[i]之前的存在元素res[j]<=res[i]
- * 且 d[j] + 1 > d[i] j结尾的元素长度+1要大于以i结尾的元素
+ * a[i]之前的存在元素a[j]<=a[i]
+ * 且 f[j] + 1 > f[i] j结尾的元素长度+1要大于以i结尾的元素
  * 满足上面两条
 */
 const int N = 20;
-int d[N];
+int f[N]; // 状态情况
+int g[N]; // 求出最长序列打印出来
 
 int main()
 {
-    vector<int> res = {1, 2, 3, -1, -2, 7, 9, 10, -2, -9}; // 最长子序列是1,2,3,7,9,10
-    int n = res.size();
+    vector<int> a = {1, 2, 3, -1, -2, 7, 9, 10, -2, -9}; // 最长子序列是1,2,3,7,9,10
+    int n = a.size();
     int maxnum = 0;
     for (int i = 0; i < n; i++)
     {
-        d[i] = 1; // 边界初始条件
+        f[i] = 1; // 边界初始条件
+        g[i] = 0;
         for (int j = 0; j < i; j++)
         {
-            if (res[i] > res[j] && (d[j] + 1 > d[i]))
+            // 写法 1
+            // if (res[i] > res[j])
+            //     d[i] = max(d[i], d[j] + 1);
+
+            if (a[i] > a[j])
             {
-                d[i] = max(d[j] + 1, 1);
+                // 记录每个i是从j转移过来的
+                if (f[i] < f[j] + 1)
+                    g[i] = j, f[i] = f[j] + 1;
             }
         }
-        maxnum = max(maxnum, d[i]);
+        maxnum = max(maxnum, f[i]); // 最长的序列数值
     }
+    for (int i = 0; i <= n; i++)
+        cout << g[i] << " ";
+    cout << endl;
+    int k = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        if (f[k] < f[i])
+            k = i;
+    }
+    cout << f[k] << endl;
+    for (int i = 0, len = f[k]; i < len; i++)
+    {
+        cout << a[k] << " ";
+        k = g[k];
+    }
+
     cout << maxnum << endl;
 }
