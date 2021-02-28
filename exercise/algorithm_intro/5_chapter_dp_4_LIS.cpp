@@ -2,8 +2,8 @@
 #include <vector>
 using namespace std;
 /**
- *
- * 最长不下降子序列 LIS (longest increase sequence)
+ * 
+ * 最长上升子序列问题 LIS (longest increase sequence)
  * 在一个数字序列中，找到最长的子序列保证它是不下降的
  * 例如 
  * 1 2 3 -1 -2 7 9
@@ -18,6 +18,7 @@ using namespace std;
 */
 const int N = 20;
 int d[N];
+
 int main()
 {
     vector<int> res = {1, 2, 3, -1, -2, 7, 9, 10, -2, -9}; // 最长子序列是1,2,3,7,9,10
