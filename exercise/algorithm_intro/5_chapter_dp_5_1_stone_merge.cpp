@@ -25,8 +25,9 @@ int main()
             f[l][r] = 1e9;
             for(int k = l; k<r;k++)
             {
-                
+                f[l][r] = min(f[l][r], f[l][k] + f[k+1][r] + s[r] - s[l-1]);
             }
         }
     }
+    cout<<f[1][n];
 }
