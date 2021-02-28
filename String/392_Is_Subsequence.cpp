@@ -31,6 +31,20 @@ public:
     }
 };
 
+/**
+ * 方法 2，使用双指针算法来做,写法更加简洁
+*/
+bool isSubsequence(string s, string t)
+{
+    int k = 0;
+    for (auto c : t)
+    {
+        if (s[k] == c)
+            k++;
+    }
+    return k == s.size();
+}
+
 int main()
 {
     string s = "abcf", t = "dfghdfsa";
