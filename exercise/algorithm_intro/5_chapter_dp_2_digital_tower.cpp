@@ -21,7 +21,7 @@ int f[N][N], dp[N][N];
  * 
  * dp[i][j] = max(dp[i+1][j], dp[i+1][j+1]) + f[i][j];
 */
-int main()
+void triangle1()
 {
     int n;
     cin >> n;
@@ -32,7 +32,7 @@ int main()
             cin >> f[i][j];
         }
     }
-    // 最后一层的所有数字都是等于f值，也是边界,初始化
+    // 初始化数组dp，需要一个额外的dp数组来记录状态
     for (int j = 1; j <= n; j++)
         dp[n][j] = f[n][j];
 
@@ -58,7 +58,10 @@ int main()
     */
 }
 
-int main()
+/**
+ * 和上面的思路一样，都是从下到上来写，但是不需要额外的数组来记录状态
+*/
+void triangle2()
 {
     cin>>n;
     for(int i= 1;i<=n;i++)
