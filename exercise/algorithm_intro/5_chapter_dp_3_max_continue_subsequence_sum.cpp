@@ -49,5 +49,28 @@ bool isMatch(string s, string p)
 }
 
 /**
- * 
+ * 方法 2，时间复杂度是n^2
 */
+const int N = 1000;
+int f[N];
+int a[N];
+int main()
+{
+    cin>>n;
+    for(int =1; i<=n;i++)
+    {
+        cin>>a[i];
+    }
+    for(int i = 1; i<=n;i++)
+    {
+        f[i] = 1; // 只有i是一个数
+        for(int j = 1;j<i;j++)
+        {
+            if(a[j]<a[i]) f[i] = max(f[j] + 1, f[i]); 
+        }
+    }
+
+    int res = 0;
+    for(int i =1;i<=n;i++) res = max(res, f[i]);
+    cout<<res;
+}

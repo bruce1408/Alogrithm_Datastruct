@@ -5,7 +5,6 @@ using namespace std;
 /**
  * 最长公共子序列 LCS(longest common subsequence)
  * 给定两个字符串；A和B，求一个字符串，使得字符串是A和B的最长公共部分；
- * 
 */
 
 /**
@@ -72,13 +71,9 @@ int getcom1(string a, string b)
         for (int j = 1; j < n2; j++)
         {
             if (a[i] == b[j])
-            {
                 d[i][j] = d[i - 1][j - 1] + 1;
-            }
             else
-            {
                 d[i][j] = max(d[i - 1][j], d[i][j - 1]);
-            }
         }
     }
     return d[n1 - 1][n2 - 1];
