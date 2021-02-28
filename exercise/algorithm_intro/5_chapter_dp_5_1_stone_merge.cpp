@@ -19,7 +19,7 @@ int main()
     // 先循环区间长度，然后再循环左右端点
     for (int len = 2; len <= n; len++) 
     {
-        for (int i = 1; i + len - 1 < n; i++)
+        for (int i = 1; i + len - 1 <= n; i++)
         {
             int l = i, r = i + len - 1;
             f[l][r] = 1e9;
