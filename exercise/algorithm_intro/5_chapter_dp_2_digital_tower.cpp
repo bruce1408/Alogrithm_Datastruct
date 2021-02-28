@@ -32,7 +32,7 @@ int main()
             cin >> f[i][j];
         }
     }
-    // 最后一层的所有数字都是等于f值，也是边界
+    // 最后一层的所有数字都是等于f值，也是边界,初始化
     for (int j = 1; j <= n; j++)
         dp[n][j] = f[n][j];
 
@@ -56,4 +56,47 @@ int main()
      * 输出
      * 44 
     */
+}
+
+/**
+ * 方法 2，从上往下计算 
+*/
+const int N = 510, INF = 1e9;
+int n;
+int a[N][N];
+int f[N][N];
+
+int main()
+{
+    cin>>n;
+    for(int i = 1; i<=n;i++)
+    {
+        for(int j = 1; j<=i;j++)
+        {
+            cin>>a[i][j];
+        }
+    }
+    
+    for(int i = 0; i<=n;i++)
+    {
+        for(int j = 0;j<=i+1;j++)
+            f[i][j] = -INF;
+    }
+    
+    f[1][1] = a[1][1];w
+    for(int i=2; i<=n; i++)
+    {
+        for(int j = 1; j<=i; j++)
+        {
+            f[i][j] = max(f[i-1][j], f[i-1][j-1] ) + a[i][j];
+        }
+    }
+
+    int res = -INF;
+    for(int i =1; i<=n;i++)
+    {
+        res = max(res, f[n][i]);
+    }
+    cout<<res<<endl;
+
 }

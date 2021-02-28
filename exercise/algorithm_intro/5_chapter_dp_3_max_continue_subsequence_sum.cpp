@@ -10,8 +10,7 @@ using namespace std;
  * dp[0] = -2;
  * dp[1] = 11;
  * dp[2] = 11-4 = 7;
- * ...
- * 
+ * ... 
 */
 const int N = 20;
 int dp[N], maxnum = 0;
@@ -48,3 +47,7 @@ bool isMatch(string s, string p)
     }
     return dp[m][n];
 }
+
+/**
+ * 
+*/
