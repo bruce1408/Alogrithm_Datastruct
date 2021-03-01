@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 /**
@@ -27,6 +28,15 @@ vector<int> countBits(int num)
 }
 
 /**
- * 方法 2，使用dp
+ * 方法 2，使用O(n)时间复杂度来做
+ * 因为f[i] = f[i>>1] + i&1 的结果
 */
-
+vector<int> countBits(int num)
+{
+    vector<int> f(num + 1);
+    for (int i = 1; i <= num; i++)
+    {
+        f[i] = f[i >> 1] + (i & 1);
+    }
+    return f;
+}
