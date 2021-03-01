@@ -36,4 +36,24 @@ public:
 /**
  * 方法 2，优化上面算法
 */
-
+int lengthOfLIS2(vector<int> &nums)
+{
+    int len = 0, n = nums.size();
+    vector<int> q(n);
+    for (int i = 0; i < n; i++)
+    {
+        int l = 0, r = len;
+        while (l < r)
+        {
+            int mid = (l + r + 1) >> 1;
+            if (q[mid] < nums[i])
+                l = mid;
+            else
+                r = mid - 1;
+        }
+        len = max(len, r + 1);
+        q[r + 1] = a[i];
+    }
+    cout << len << endl;
+    return len;
+}
