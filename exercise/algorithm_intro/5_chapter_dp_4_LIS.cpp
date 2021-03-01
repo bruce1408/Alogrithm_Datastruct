@@ -62,3 +62,8 @@ int main()
 
     cout << maxnum << endl;
 }
+
+/**
+ * 方法 2，使用优化来做
+*/
+ 
