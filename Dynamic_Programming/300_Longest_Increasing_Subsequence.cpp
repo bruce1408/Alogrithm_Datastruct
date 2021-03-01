@@ -34,7 +34,7 @@ public:
 };
 
 /**
- * 方法 2，优化上面算法
+ * 方法 2，使用nlogn的算法
 */
 int lengthOfLIS2(vector<int> &nums)
 {
