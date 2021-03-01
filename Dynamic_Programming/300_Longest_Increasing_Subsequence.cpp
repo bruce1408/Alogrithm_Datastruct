@@ -7,6 +7,7 @@ using namespace std;
 
 /**
  * 方法 1，使用DP动态规划来做
+ * 两个指针，一个i从0-n，然后另一个从0到i开始指向
 */
 class Solution
 {
