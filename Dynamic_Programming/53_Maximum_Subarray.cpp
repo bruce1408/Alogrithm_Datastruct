@@ -54,8 +54,8 @@ int maxSubArray1(vector<int> &nums)
         int tempSum = 0;
         for (int j = i; j < n; j++)
         {
-            tempSum += nums[j];
-            maxSum = max(maxSum, tempSum);
+            // tempSum += nums[j];
+            maxSum = max(maxSum, tempSum + nums[j]);
         }
     }
     return maxSum;
