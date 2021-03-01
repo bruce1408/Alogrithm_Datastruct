@@ -36,24 +36,32 @@ public:
 /**
  * 方法 2，使用nlogn的算法
 */
-int lengthOfLIS2(vector<int> &nums)
+int lengthOfLIS(vector<int> &nums)
 {
-    int len = 0, n = nums.size();
-    vector<int> q(n);
-    for (int i = 0; i < n; i++)
+    if (nums.empty())
+        return 0;
+    vector<int> f;
+    f.push_back(nums[0]); //长度为1的序列的末尾值为nums[0]
+    for (int i = 1; i < nums.size(); i++)
     {
-        int l = 0, r = len;
-        while (l < r)
+        if (nums[i] > f.back())
+            f.push_back(nums[i]);
+        else
         {
-            int mid = (l + r + 1) >> 1;
-            if (q[mid] < nums[i])
-                l = mid;
-            else
-                r = mid - 1;
+            //然后在f[0]到f[i-1]中找到最后一个大于f[i]的，若没有则长度加1
+            int l = 0, r = f.size() - 1;
+            while (l < r)
+            {
+                int mid = (l + r) >> 1;
+                if (f[mid] >= nums[i])
+                    r = mid;
+                else
+                    l = mid + 1;
+            }
+            if (f[l] >= nums[i])
+                f[l] = nums[i];
         }
-        len = max(len, r + 1);
-        q[r + 1] = a[i];
     }
-    cout << len << endl;
-    return len;
+
+    return f.size();
 }
