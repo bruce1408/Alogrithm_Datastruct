@@ -12,7 +12,7 @@ using namespace std;
  * Input: a = 1, b = 2
  * Output: 3
  * 
- * 使用位操作来计算 + 或者 -的运算
+ * 使用位操作来计算 + 或者 - 的运算
 */
 
 /**
