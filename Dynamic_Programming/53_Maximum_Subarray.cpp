@@ -117,7 +117,7 @@ int maxSubArray3(vector<int> &nums)
 }
 
 /**
- * 方法 4，使用dp动态规划这个算法
+ * 方法 4，使用dp动态规划这个算法，推荐做法
  * 1.设 f(i)f(i) 表示以第i个数字为结尾的最大连续子序列的总和是多少。
  * 2.初始化 f(0)=nums[0]f(0)=nums[0]。
  * 3.转移方程 f(i)=max(f(i−1)+nums[i], nums[i]); 
