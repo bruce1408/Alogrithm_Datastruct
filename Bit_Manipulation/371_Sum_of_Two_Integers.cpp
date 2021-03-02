@@ -20,11 +20,10 @@ using namespace std;
 */
 int getSum(int a, int b)
 {
-    if (b == 0)
-        return a;
-    int sum = a ^ b;
-    int carry = (a & b & 0x7fffffff) << 1;
-    return getSum(sum, carry);
+    if (!a)
+        return b;
+    int sum = a ^ b, carry = (unsigned)(a & b) << 1;
+    return getSum(carry, sum);
 }
 
 /**
@@ -37,7 +36,7 @@ int getSum2(int a, int b)
     for (int i = 0; i < 32; i++)
     {
         int lastDig = (a & 1) ^ (b & 1); // 异或的情况
-        if (carry) // 没有进位的情况
+        if (carry)                       // 没有进位的情况
         {
             if (lastDig) // 如果最后一位的数字是0，1组合，那么就没有进位，同时把lastDig设置为0
                 lastDig = 0;

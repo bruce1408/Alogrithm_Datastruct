@@ -38,7 +38,4 @@ int main()
 {
     vector<vector<int> > res = {{1, 0}};
     cout << uniquePathsWithObstacles(res) << endl;
-    int a = 3, b = 5;
-    int c = a ^ b;
-    cout << c << endl;
 }
