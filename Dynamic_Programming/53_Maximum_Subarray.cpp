@@ -95,11 +95,14 @@ int helper(vector<int> &nums, int left, int right)
     int leftMax = helper(nums, left, mid - 1);
     int rightMax = helper(nums, mid + 1, right);
     int midMax = nums[mid], t = midMax;
+
     for (int i = mid - 1; i >= left; i--)
     {
         t += nums[i];
         midMax = max(midMax, t);
     }
+    cout << t << " " << midMax << endl;
+
     t = midMax;
     for (int i = mid + 1; i <= right; i++)
     {
@@ -141,7 +144,7 @@ int maxSubArray4(vector<int> &nums)
 
 int main()
 {
-    vector<int> nums = {-1};
+    vector<int> nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
     cout << maxSubArray3(nums) << endl;
     cout << maxSubArray4(nums) << endl;
 
