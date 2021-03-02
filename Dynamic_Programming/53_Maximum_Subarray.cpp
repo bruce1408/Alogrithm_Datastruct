@@ -91,7 +91,7 @@ int helper(vector<int> &nums, int left, int right)
 {
     if (left >= right)
         return nums[left];
-    int mid = left + (right - left) / 2;
+    int mid = (left + right) >> 1;
     int leftMax = helper(nums, left, mid - 1);
     int rightMax = helper(nums, mid + 1, right);
     int midMax = nums[mid], t = midMax;
