@@ -127,16 +127,16 @@ int maxSubArray3(vector<int> &nums)
 */
 int maxSubArray4(vector<int> &nums)
 {
-    int n = nums.size(), ans;
+    int n = nums.size();
     vector<int> f(n);
     f[0] = nums[0];
-    ans = f[0];
+    int maxNum = nums[0];
     for (int i = 1; i < n; i++)
     {
         f[i] = max(f[i - 1] + nums[i], nums[i]);
-        ans = max(ans, f[i]);
+        maxNum = max(f[i], maxNum);
     }
-    return ans;
+    return maxNum;
 }
 
 int main()
