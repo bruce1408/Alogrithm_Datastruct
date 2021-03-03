@@ -8,9 +8,11 @@ using namespace std;
 */
 
 /**
- * 方法 1，使用动态规划算法来做
+ * 方法 1，尽可能分成3和2，且最多是2个2
 */
 int integerBreak(int n)
 {
-
+    if(n<=3) return 1 *(n-1);
+    int s =1;
+    if(n >5) n-=3, p*=3;
 }
