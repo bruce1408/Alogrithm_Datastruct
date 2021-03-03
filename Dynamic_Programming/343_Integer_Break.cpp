@@ -5,7 +5,6 @@ using namespace std;
 /**
  * 343 整数拆分，把一个整数进行拆分，将其拆分成至少两个整数的和，然后使得这个
  * 整数的乘积的最大化，返回这个乘积的最大乘积即可；
- * 
 */
 
 /**
@@ -13,5 +12,5 @@ using namespace std;
 */
 int integerBreak(int n)
 {
-    
+
 }
