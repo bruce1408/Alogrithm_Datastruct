@@ -27,7 +27,7 @@ int maximalRectangle(vector<vector<char> > &matrix)
     for (int i = 0; i < r; ++i)
         for (int j = 0; j < c; ++j)
         {
-            // 如果ij是1，且j是第一列的话，那么这个矩形的长永远是1，否则就是dpij-1 + 1
+            // 如果ij是1，且j是第一列的话，那么这个矩形的长永远是1，否则就是dp[i][j-1] + 1
             if (matrix[i][j] == '1')
             {
                 if (j == 0)
