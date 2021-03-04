@@ -9,9 +9,9 @@ using namespace std;
 
 /**
  * 方法 1，使用动态规划算法来做
- * fij状态表示ij结尾的这个矩形的长宽的最大长是多少
+ * f[i][j]状态表示ij作为右下角结尾的这个矩形的边长
  * 参考链接：https://leetcode.wang/leetCode-85-Maximal-Rectangle.html
- * 也可以使用单调栈来做
+ * 也可以使用单调栈来做, 参考84题目
 */
 int maximalRectangle(vector<vector<char> > &matrix)
 {
