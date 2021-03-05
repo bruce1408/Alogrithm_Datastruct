@@ -11,6 +11,7 @@ using namespace std;
 */
 
 /**
+ * 方法 1
  * 若p为空，若s也为空，返回 true，反之返回 false。
  * 若p的长度为1，若s长度也为1，且相同或是p为 '.' 则返回 true，反之返回 false。
  * 若p的第二个字符不为*，若此时s为空返回 false，否则判断首字符是否匹配，且从各自的第二个字符开始调用递归函数匹配。
@@ -52,26 +53,32 @@ bool isMatch(string s, string p)
 
 /**
  * 方法 2，使用动态规划，使用上面边界条件不容易想到所有的情况
+ * 状态d[i][j]就是表示所有第一个字符串[1-i]中和第二个字符串[1-j]匹配的方案
  * 状态计算部分
- * 如果是p[j] !='*',考虑*使用了0次，那么dij  = d[i,j-2]
+ * 如果是p[j] !='*',直接匹配就可以了，s[i] 和 p[j]匹配的两种情况，
+ * 第一种情况是s[i]==p[j]的情况，
+ * 第二种情况是p[j]=='.'的情况
+ * 然后考虑*使用了0次，那么dij  = d[i,j-2]
  * 如果使用超过1次d[ij] = d[i-1][j],因为上次j没有使用到*符号，而本次才使用了*，所以当前的d[ij]=上次i-1和j
  * 并且当前s[i-1]==p[j-2] || p[j-2]=='.',使用ab 和a*b举例即可
 */
 bool isMatch2(string s, string p)
 {
     int n = s.size(), m = p.size();
-    vector<vector<bool>> dp(n + 1, vector<bool>(m + 1, false));
+    vector<vector<bool> > dp(n + 1, vector<bool>(m + 1, false));
     dp[0][0] = true;
     for (int i = 0; i <= n; i++) //i从0开始
     {
         for (int j = 1; j <= m; j++) //j从1开始，j从0没有意义
         {
+            // 这里p[j-1]是*的情况
             if (p[j - 1] == '*' && j > 1)
             {
+                // *表示的是一个字符的情况
                 dp[i][j] = dp[i][j - 2] || (i && dp[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.'));
             }
             else
-                dp[i][j] = i>0 && dp[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '.');
+                dp[i][j] = (i > 0 && dp[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '.'));
         }
     }
     return dp[n][m];
