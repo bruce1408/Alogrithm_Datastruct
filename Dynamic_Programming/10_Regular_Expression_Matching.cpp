@@ -66,7 +66,7 @@ bool isMatch2(string s, string p)
     {
         for (int j = 1; j <= m; j++) //j从1开始，j从0没有意义
         {
-            if (p[j - 1] == '*' ** j > 1)
+            if (p[j - 1] == '*' && j > 1)
             {
                 dp[i][j] = dp[i][j - 2] || (i && dp[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.'));
             }
