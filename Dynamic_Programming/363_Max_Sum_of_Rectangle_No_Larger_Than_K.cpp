@@ -7,7 +7,7 @@ using namespace std;
 */
 
 /**
- * 
+ * 方法 1，使用动态规划来做；
 */
 int maxSumSubmatrix(vector<vector<int>>& matrix, int k) 
 {
