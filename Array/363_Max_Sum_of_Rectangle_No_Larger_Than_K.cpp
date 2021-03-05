@@ -9,7 +9,7 @@ using namespace std;
 /**
  * 方法 1，使用二维数组的前缀和来做即可，但是暴力解法，时间复杂度是O(n^2 * m^2)
 */
-int maxSumSubmatrix(vector<vector<int> > &matrix, int k)
+int maxSumSubmatrix1(vector<vector<int> > &matrix, int k)
 {
     if (matrix.empty() || matrix[0].empty())
         return 0;
@@ -46,4 +46,36 @@ int maxSumSubmatrix(vector<vector<int> > &matrix, int k)
         }
     }
     return res;
+}
+
+/**
+ * 方法 2，使用二分 + 二维数组矩阵
+*/
+int maxSumSubmatrix(vector<vector<int> > &matrix, int k)
+{
+    int m = matrix.size(), n = matrix[0].size();
+    int ans = INT_MIN;
+
+    for (int lo = 0; lo < n; lo++)
+    {
+        vector<int> row(m, 0);
+        for (int hi = lo; hi < n; hi++)
+        {
+            set<int> pre;
+            int sum = 0;
+
+            pre.insert(0);
+            for (int i = 0; i < m; i++)
+            {
+                row[i] += matrix[i][hi];
+                sum += row[i];
+                auto it = pre.lower_bound(sum - k);
+                if (it != pre.end())
+                    ans = max(ans, sum - *it);
+                pre.insert(sum);
+            }
+        }
+    }
+
+    return ans;
 }
