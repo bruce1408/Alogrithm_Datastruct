@@ -60,19 +60,30 @@ int numDecodings(string s)
 }
 
 /**
- * 方法 2， 使用动态规划，dp[i]表示前i个字符组成的有效解码方法的个数
+ * 方法 2， 使用动态规划来做
+ * 状态表示：dp[i]表示前i个字符组成的有效解码方法的个数
  * dp[0] = 1;
+ * dp[i]最后可以划分最后一位数字要么是1位数字满足1-9，要么是两位数字满足11-26才可以
+ * dp[i] = dp[i-1] + dp[i-2]
 */
-int numDecodings2(string s)
+int numDecodings(string s)
 {
-    int res = 0;
-    vector<int> dp(s.size() + 1, 0);
-    if (s.empty() || s[0] == '0')
-        return 0;
-    for (int i = 1; i < s.size(); i++)
+    int n = s.size();
+    s = ' ' + s;
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1; // 如果1个数都没有的话那么就是空，就是1种方案
+    for (int i = 1; i <= n; i++)
     {
-        dp[i] = (s[i - 1] == '0') ?
+        if (s[i] >= '1' && s[i] <= '9')
+            dp[i] += dp[i - 1];
+        if (i > 1)
+        {
+            int t = (s[i - 1] - '0') * 10 + s[i] - '0';
+            if (t >= 10 && t <= 26)
+                dp[i] += dp[i - 2];
+        }
     }
+    return dp[n];
 }
 
 int main()
