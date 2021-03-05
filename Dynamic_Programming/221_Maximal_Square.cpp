@@ -70,6 +70,15 @@ public:
 
 /**
  * 方法 2，使用动态规划来做，和上面的思路一样，但是写法不一样
+ * 边界条件处理完了，再来看一般情况的递推公式怎么办，对于任意一点dp[i][j]，
+ * 由于该点是正方形的右下角，所以该点的右边，下边，右下边都不用考虑，
+ * 关心的就是左边，上边，和左上边。这三个位置的dp值 suppose 都应该算好的，
+ * 还有就是要知道一点，只有当前 (i, j) 位置为1，dp[i][j] 才有可能大于0，
+ * 否则 dp[i][j] 一定为0。当 (i, j) 位置为1，
+ * 此时要看 dp[i-1][j-1], dp[i][j-1]，和 dp[i-1][j] 这三个位置，
+ * 我们找其中最小的值，并加上1，就是 dp[i][j] 的当前值了，
+ * 这个并不难想，毕竟不能有0存在，所以只能取交集，
+ * 最后再用 dp[i][j] 的值来更新结果 res 的值即可，
 */
 int maximalSquare(vector<vector<char> > &matrix)
 {
@@ -77,7 +86,7 @@ int maximalSquare(vector<vector<char> > &matrix)
         return 0;
     int m = matrix.size(), n = matrix[0].size(), res = 0;
     vector<vector<int> > dp(m, vector<int>(n, 0));
-    
+
     for (int i = 0; i < m; ++i)
     {
         for (int j = 0; j < n; ++j)
@@ -86,6 +95,7 @@ int maximalSquare(vector<vector<char> > &matrix)
                 dp[i][j] = matrix[i][j] - '0';
             else if (matrix[i][j] == '1')
             {
+                // ij这个位置的左上，上边，左边的三个情况取最小即可
                 dp[i][j] = min(dp[i - 1][j - 1], min(dp[i][j - 1], dp[i - 1][j])) + 1;
             }
             res = max(res, dp[i][j]);
@@ -93,5 +103,3 @@ int maximalSquare(vector<vector<char> > &matrix)
     }
     return res * res;
 }
-}
-;
