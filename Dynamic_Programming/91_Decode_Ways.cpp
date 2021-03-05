@@ -78,6 +78,7 @@ int numDecodings(string s)
             dp[i] += dp[i - 1];
         if (i > 1)
         {
+            // 判断两位数是不是在10-26之间
             int t = (s[i - 1] - '0') * 10 + s[i] - '0';
             if (t >= 10 && t <= 26)
                 dp[i] += dp[i - 2];
