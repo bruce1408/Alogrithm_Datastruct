@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 /**
@@ -9,11 +9,38 @@ using namespace std;
 
 /**
  * 方法 1，使用动态规划来做
- * 状态f[i]表示数字结尾的所有的序列的方案
+ * 状态f[i]表示第i个数字结尾的所有的序列乘积的最大值
  * 状态划分：
- * 
+ * 要么只包含nums[i]自己，或者是包含前面的部分
 */
-int maxProduct(vector<int>& nums) 
+int maxProduct(vector<int> &nums)
 {
+    int res = nums[0], n = nums.size();
+    vector<int> f(n, 0), g(n, 0);
+    f[0] = nums[0];
+    g[0] = nums[0];
+    for (int i = 1; i < n; ++i)
+    {
+        f[i] = max(max(f[i - 1] * nums[i], g[i - 1] * nums[i]), nums[i]);
+        g[i] = min(min(f[i - 1] * nums[i], g[i - 1] * nums[i]), nums[i]);
+        res = max(res, f[i]);
+    }
+    return res;
+}
 
+/**
+ * 方法 2，上面的优化版本，使用滚动数组优化空间复杂度
+*/
+int maxProduct(vector<int> &nums)
+{
+    int res = nums[0];
+    int f = nums[0], g = nums[0];
+    for (int i = 1; i < nums.size(); i++)
+    {
+        int a = nums[i], fa = f * a, ga = g * a;
+        f = max(a, max(fa, ga));
+        g = min(a, min(fa, ga));
+        res = max(res, f);
+    }
+    return res;
 }
