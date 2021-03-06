@@ -18,6 +18,8 @@ using namespace std;
 
 /**
  * 方法 1，拆分单词，然后在字典中逐个查找即可
+ * 然后设置一个新的数组visited来保存这个i位置是不是可以进行拆分。
+ * 
 */
 bool check(string s, unordered_set<string> &wordSet, int start, vector<int> &memo)
 {
@@ -27,6 +29,7 @@ bool check(string s, unordered_set<string> &wordSet, int start, vector<int> &mem
         return memo[start];
     for (int i = start + 1; i <= s.size(); ++i)
     {
+        // 从start开始，i-start长度的单词和从i开始的单词进行判断
         if (wordSet.count(s.substr(start, i - start)) && check(s, wordSet, i, memo))
         {
             return memo[start] = 1;
