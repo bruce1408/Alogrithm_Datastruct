@@ -2,6 +2,7 @@
 #include <vector>
 using namespace std;
 /**
+ * 213 打家劫舍II
  * Given a list of non-negative integers representing the amount of money of each house,
  * determine the maximum amount of money you can rob tonight without alerting the police.
  * Example 1:
@@ -11,33 +12,14 @@ using namespace std;
  * Explanation: 
  * Rob house 1 (money = 1) and then rob house 3 (money = 3). Total amount you can rob = 1 + 3 = 4.
  * 
- * 打家劫舍，给定一个数组，然后取数组中最大的数字之和，要求是相邻的数组不可以取值，
- * 比如，取1，就不能取2。例子中，取1，然后取3，中间不可以取相邻的数字，
- * 返回他们的和即可
+ * 打家劫舍II，这里考虑环，给定一个数组，然后取数组中最大的数字之和，
+ * 要求是相邻的数组不可以取值，比如，取1，就不能取2。例子中，取1，然后取3，
+ * 中间不可以取相邻的数字
+ * 
 */
 
 /**
- * 方法 1，是认为不能相邻的取数字，那么就是隔一个取数字，但是还可以相隔多个数字,所以方法 1有问题
-*/
-int rob(vector<int> &nums)
-{
-    int n = nums.size(), sum = 0;
-    for (int i = 0; i < n; i++)
-    {
-        int j = i;
-        int temp = 0;
-        while (j < n)
-        {
-            temp += nums[j];
-            j += 2;
-        }
-        sum = max(sum, temp);
-    }
-    return sum;
-}
-
-/**
- * 方法 2，使用动态规划。一列数组中取出一个或多个不相邻数，使其和最大。
+ * 方法 1，使用动态规划。一列数组中取出一个或多个不相邻数，使其和最大。
  * 那么对于这类求极值的问题首先考虑动态规划 Dynamic Programming 来解，
  * 维护一个一位数组 dp，其中 dp[i] 表示 [0, i] 区间可以抢夺的最大值，
  * 对当前i来说，有抢和不抢两种互斥的选择，不抢即为 dp[i-1]（等价于去掉 nums[i] 只抢 [0, i-1] 区间最大值），
@@ -58,7 +40,7 @@ int rob2(vector<int> &nums)
         return nums.empty() ? 0 : nums[0];
     vector<int> f(n);
     f[0] = nums[0], f[1] = max(nums[1], nums[0]);
-    for (int i = 2; i < nums.size(); ++i)
+    for (int i = 2; i < nums.size()-1; ++i)
     {
         // 抢的话就是i-2再加上nums[i],如果不抢的话那么就是i-1
         f[i] = max(f[i-1], f[i-2] + nums[i]);
