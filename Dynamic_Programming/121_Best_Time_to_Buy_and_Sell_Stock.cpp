@@ -20,8 +20,9 @@ using namespace std;
  */
 
 /**
- * 方法 1，时间复杂度太高了，O(n^2)的时间复杂度，两次遍历，一次头开始，还有一次从上个
- * 位置加1开始遍历，如果取 后面的数减前面的数字的最大值即可，最后返回；
+ * 方法 1，暴力搜索，时间复杂度太高了，O(n^2)的时间复杂度，两次遍历，
+ * 一次头开始，还有一次从上个位置加1开始遍历，如果取 后面的数减前面的数字的最大值即可，
+ * 最后返回；
 */
 int maxProfit1(vector<int> &prices)
 {
@@ -37,17 +38,15 @@ int maxProfit1(vector<int> &prices)
 }
 
 /**
- * 方法 2，只用一次遍历即可，推荐做法
- * 他利用了 kadane's algorithm 算法的思路，详见leetcode53题
+ * 方法 2，只用一次遍历即可，推荐做法，详见leetcode53题
 */
-
-int maxProfit2(vector<int> &nums)
+int maxProfit2(vector<int> &prices)
 {
-    int res = 0, minp = INT_MAX;
-    for (int i = 0; i < nums.size(); i++)
+    int res = 0, buy = INT_MAX;
+    for (int price : prices)
     {
-        res = max(res, nums[i] - minp);
-        minp = min(nums[i], minp);
+        buy = min(buy, price);       // 买到的最小值
+        res = max(res, price - buy); // 卖出的收益最大
     }
     return res;
 }
