@@ -17,6 +17,7 @@ using namespace std;
  * 所以第一家和最后一家只能抢其中的一家，或者都不抢，那这里变通一下，
  * 如果把第一家和最后一家分别去掉，各算一遍能抢的最大值，
  * 然后比较两个值取其中较大的一个即为所求
+ * 时间复杂度是O(n)
 */
 int robcheck(vector<int> &nums, int start, int n)
 {
@@ -26,6 +27,7 @@ int robcheck(vector<int> &nums, int start, int n)
     f[start] = nums[start], f[start + 1] = max(nums[start], nums[start + 1]);
     for (int i = start + 2; i < n; i++)
     {
+        // 要么不选nums[i], 和选择nums[i] 加上i-2的最大值
         f[i] = max(f[i - 1], f[i - 2] + nums[i]);
     }
     return f.back(); // 或者用f[n-1]代替都可以
@@ -35,6 +37,7 @@ int rob(vector<int> &nums)
 {
     if (nums.size() <= 1)
         return nums.empty() ? 0 : nums[0];
+    // 返回选择环的第一个元素，还是选择环的最后一个元素的最大值
     return max(robcheck(nums, 0, nums.size() - 1), robcheck(nums, 1, nums.size()));
 }
 
