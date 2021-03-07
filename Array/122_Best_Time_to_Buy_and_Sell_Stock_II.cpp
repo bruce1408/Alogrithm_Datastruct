@@ -14,7 +14,8 @@ using namespace std;
  * Then buy on day 4 (price = 3) and sell on day 5 (price = 6), 
  * profit = 6-3 = 3.
  * 
- * 这道跟之前那道 Best Time to Buy and Sell Stock 买卖股票的最佳时间很类似，这道题由于可以无限次买入和卖出
+ * 这道跟之前那道 Best Time to Buy and Sell Stock 买卖股票的最佳时间很类似，
+ * 这道题由于可以无限次买入和卖出
 */
 
 /**
@@ -38,10 +39,13 @@ int maxProfit(vector<int> &prices)
     return sumNum;
 }
 
+/**
+ * 方法 2,不限制次数，只要当前的价格大于前一天的价格，就今天卖出
+*/
 int maxProfit(vector<int> &p)
 {
-    int res = 0;
-    for (int i = 1; i < p.size(); i++)
+    int res = 0, n = p.size();
+    for (int i = 1; i < n; i++)
     {
         if (p[i - 1] < p[i])
             res += (p[i] - p[i - 1]);
