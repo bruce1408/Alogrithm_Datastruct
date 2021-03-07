@@ -28,7 +28,7 @@ int robcheck(vector<int> &nums, int start, int n)
     {
         f[i] = max(f[i - 1], f[i - 2] + nums[i]);
     }
-    return f.back();
+    return f.back(); // 或者用f[n-1]代替都可以
 }
 
 int rob(vector<int> &nums)
