@@ -1,5 +1,5 @@
-#include<isotream>
-#include<vector>
+#include <isotream>
+#include <vector>
 using namespace std;
 
 /**
@@ -12,7 +12,34 @@ using namespace std;
 /**
  * 方法 1，和139-140题目类似
 */
-vector<string> findAllConcatenatedWordsInADict(vector<string>& words) 
+vector<string> findAllConcatenatedWordsInADict(vector<string> &words)
 {
-
+    unordered_set<string> res(words.begin(), words.end());
+    vector<string> word;
+    if (words.size() <= 2)
+        return {};
+    for (auto str : words)
+    {
+        res.erase(str);
+        int len = str.size();
+        if (len == 0)
+            continue;
+        vector<bool> v(len + 1, false);
+        v[0] = true;
+        for (int i = 0; i < len + 1; ++i)
+        {
+            for (int j = 0; j < i; ++j)
+            {
+                if (v[j] && dict.count(word.substr(j, i - j)))
+                {
+                    v[i] = true;
+                    break;
+                }
+            }
+        }
+        if (v.back())
+            res.push_back(word);
+        dict.insert(word);
+    }
+    return res;
 }
