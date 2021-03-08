@@ -1,17 +1,13 @@
-/*145. Binary Tree Postorder Traversal
-	二叉树的后序遍历
-	
-	
-*/
-	
-	
-	
-#include<iostream>
-#include<vector>
-#include<stack>
+#include <iostream>
+#include <vector>
+#include <stack>
 using namespace std;
+/**
+ * 145. Binary Tree Postorder Traversal 二叉树的后序遍历
+ * 使用迭代算法来做
+*/
 
-struct TreeNode 
+struct TreeNode
 {
 	int val;
 	TreeNode *left;
@@ -19,61 +15,61 @@ struct TreeNode
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+/**
+ * 方法 1，使用递归法
+ * */
+void postTrave(TreeNode *root, vector<int> &res)
+{
+	if (!root)
+		return;
+	else
+	{
+		postTrave(root->left, res);
+		postTrave(root->right, res);
+		res.push_back(root->val);
+	}
+}
 
-//方法1；递归法
-// void postTrave(TreeNode* root,vector<int> &res)
-// {
-	// if(!root)
-		// return ;
-	// else
-	// {
-		// postTrave(root->left,res);
-		// postTrave(root->right,res);
-		// res.push_back(root->val);
-	// }
-// }
-
-// vector<int> postorderTraversal(TreeNode* root)
-// {
-	// vector<int>res;
-	// postTrave(root,res);
-	// return res;
-// }
-
-//方法2：非递归算法，最符合思路后序遍历的思路。
-vector<int> postorderTraversal(TreeNode* root)
+vector<int> postorderTraversal(TreeNode *root)
 {
 	vector<int> res;
-	TreeNode* curNode;
-	TreeNode* lastNode=NULL;
-	stack<TreeNode*> Q;
-	
+	postTrave(root, res);
+	return res;
+}
+
+/**
+ * 方法 2，使用迭代算法
+*/
+vector<int> postorderTraversal(TreeNode *root)
+{
+	vector<int> res;
+	TreeNode *curNode;
+	TreeNode *lastNode = NULL;
+	stack<TreeNode *> Q;
+
 	curNode = root;
-	while(!Q.empty() || curNode)
+	while (!Q.empty() || curNode)
 	{
-		if(curNode)  //所有的左节点入栈
+		if (curNode) //所有的左节点入栈
 		{
 			Q.push(curNode);
 			curNode = curNode->left;
 		}
 		else
 		{
-			TreeNode* topNode  = Q.top();  //对最后一个左节点判断是否有右节点
-			if(topNode->right && topNode->right!=lastNode) 
+			TreeNode *topNode = Q.top(); //对最后一个左节点判断是否有右节点
+			if (topNode->right && topNode->right != lastNode)
 				curNode = topNode->right;
-			else  //没有的话输出，
+			else //没有的话输出，
 			{
-				res.push_back(topNode ->val);
-				lastNode = topNode ;
+				res.push_back(topNode->val);
+				lastNode = topNode;
 				Q.pop();
 			}
 		}
 	}
-	return res;	
+	return res;
 }
-
-
-
 
 int main()
 {
@@ -88,35 +84,8 @@ int main()
 	h2->right = h4;
 	vector<int> rest;
 	rest = postorderTraversal(head);
-	for(auto i:rest)
-		cout<<i<<" ";
-	
-	
+	for (auto i : rest)
+		cout << i << " ";
+
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
