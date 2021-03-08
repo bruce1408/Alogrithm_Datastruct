@@ -6,7 +6,6 @@ using namespace std;
  * 94. Binary Tree Inorder Traversal
  * 二叉树的中序遍历
 */
-
 struct TreeNode
 {
 	int val;
@@ -16,26 +15,7 @@ struct TreeNode
 };
 
 /**
- * 方法1：使用递归的方式，但是res每次递归的时候要重建，所以索性把
- * res变成静态变量。或者是其他方法。比如方法2
- * */
-vector<int> res;
-
-vector<int> inorderTraversal1(TreeNode *root)
-{
-	if (!root)
-		return {};
-	else
-	{
-		inorderTraversal1(root->left);
-		res.push_back(root->val);
-		inorderTraversal1(root->right);
-	}
-	return res;
-}
-
-/**
- * 方法 2，不用静态变量
+ * 方法 1，使用递归来做
  **/
 void midTraversal(TreeNode *root, vector<int> &res) //res必须加上引用
 {
@@ -57,7 +37,7 @@ vector<int> inorderTraversal2(TreeNode *root)
 }
 
 /**
- * 方法 3.1, 中序遍历二叉树，利用迭代的方法,而没有使用递归来遍历二叉树
+ * 方法 2, 中序遍历二叉树，利用迭代的方法,而没有使用递归来遍历二叉树
  * */
 vector<int> inorderTraversal3_1(TreeNode *root)
 {
