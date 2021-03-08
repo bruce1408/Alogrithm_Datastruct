@@ -71,6 +71,29 @@ vector<int> postorderTraversal(TreeNode *root)
 	return res;
 }
 
+/**
+ * 方法 3，使用递归来做，按照根右左的前序的思路来，然后最后结果翻转一下即可
+ * 推荐做法
+*/
+vector<int> postorderTraversal(TreeNode *root)
+{
+	vector<int> res;
+	stack<TreeNode *> stk;
+	while (root || stk.size())
+	{
+		while (root)
+		{
+			res.push_back(root->val);
+			stk.push(root);
+			root = root->right;
+		}
+		root = stk.top()->left;
+		stk.pop();
+	}
+	reverse(res.begin(), res.end());
+	return res;
+}
+
 int main()
 {
 	TreeNode *head = new TreeNode(3);
