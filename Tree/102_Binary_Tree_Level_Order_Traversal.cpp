@@ -30,7 +30,7 @@ struct TreeNode
  * 使用队列来实现二叉树的层序遍历，对于这道题来说，打印出来的写法显然不够
  * 还需要装进容器中输出出来
 */
-void levelOrder_queue1(TreeNode *root)
+void levelOrder1(TreeNode *root)
 {
 	if (root == nullptr)
 		return;
@@ -49,71 +49,37 @@ void levelOrder_queue1(TreeNode *root)
 }
 
 /**
- * 方法 2，使用两个队列来做，核心就是BFS宽度有限搜索；这里用了两个空间，可以继续优化
-*/
-vector<vector<int>> levelorder_queue2(TreeNode *root)
+ * 方法 2，BFS来做，用到的是队列实现，推荐做法;
+ */
+vector<vector<int> > levelOrder3(TreeNode *root)
 {
-	vector<vector<int>> t;
+	vector<vector<int> > res;
 	queue<TreeNode *> q;
-	queue<TreeNode *> h;
-	if (root == nullptr)
-		return {};
-	q.push(root);
-	while (!q.empty())
+	if (root)
+		q.push(root);
+	while (q.size())
 	{
-		vector<int> res;
-		while (!q.empty())
+		vector<int> level;
+		int len = q.size();
+		while (len--)
 		{
-			TreeNode *temp = q.front();
-			res.push_back(temp->val);
+			auto t = q.front();
 			q.pop();
-			if (temp->left)
-				h.push(temp->left);
-			if (temp->right)
-				h.push(temp->right);
+			level.push_back(t->val);
+			if (t->left)
+				q.push(t->left);
+			if (t->right)
+				q.push(t->right);
 		}
-		t.push_back(res);
-		while (!h.empty())
-		{
-			TreeNode *temp1 = h.front();
-			q.push(temp1);
-			h.pop();
-		}
-	}
-	return t;
-}
-
-/**
- * 方法 3，BFS来做，用到的是队列实现，是对方法 2 的优化;
- * */
-vector<vector<int>> levelOrder(TreeNode *root)
-{
-	vector<vector<int>> res;
-	queue<TreeNode *> Q;
-	TreeNode *q;
-	if (!root) return {};
-	Q.push(root);
-	while (!Q.empty())
-	{
-		vector<int> temp;
-		int n = Q.size();
-		while (n--)
-		{
-			q = Q.front();
-			Q.pop();
-			temp.push_back(q->val);
-			if (q->left) Q.push(q->left);
-			if (q->right) Q.push(q->right);
-		}
-		res.push_back(temp);
+		res.push_back(level);
 	}
 	return res;
 }
 
 /**
- * 方法 4，使用dfs来优化
+ * 方法 3，使用dfs来优化
 */
-vector<vector<int>> ans;
+vector<vector<int> > ans;
 void dfs(TreeNode *root, int level)
 {
 	if (!root)
@@ -126,10 +92,10 @@ void dfs(TreeNode *root, int level)
 	dfs(root->left, level + 1);
 	dfs(root->right, level + 1);
 }
-vector<vector<int>> levelOrder3(TreeNode *root)
+
+vector<vector<int> > levelOrder3(TreeNode *root)
 {
 	dfs(root, 0);
-
 	return ans;
 }
 
@@ -149,7 +115,7 @@ int main()
 	// int n = rest.size();
 	// cout << n << endl;
 	// levelOrder_stack(head);
-	for (auto i : levelorder_queue2(head))
+	for (auto i : levelOrder3(head))
 	{
 		for (auto j : i)
 		{
