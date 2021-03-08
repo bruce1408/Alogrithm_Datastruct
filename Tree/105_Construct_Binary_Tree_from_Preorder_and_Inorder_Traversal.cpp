@@ -127,6 +127,33 @@ TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder)
     return helper(preorder, inorder, 0, 0, inorder.size() - 1, m);
 }
 
+/**
+ * 方法 4，使用哈希表来记录中序遍历每一个数的位置，把O(n)时间降到O(1)
+ * 所以哈希保存的是中序的值对应的下标
+*/
+class Solution
+{
+public:
+    unordered_map<int, int> pos;
+    TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder)
+    {
+        for (int i = 0; i < inorder.size(); i++)
+            pos[inorder[i]] = i;
+        return build(preorder, inorder, 0, preorder.size() - 1, 0, inorder.size() - 1);
+    }
+
+    TreeNode *build(vector<int> &preorder, vector<int> &inorder, int pl, int pr, int il, int ir)
+    {
+        if (pl > pr)
+            return nullptr;
+        auto root = new TreeNode(preorder[pl]);
+        int k = pos[root->val]; // 画图最好解释
+        root->left = build(preorder, inorder, pl + 1, pl + 1 + k - 1 - il, il, k - 1);
+        root->right = build(preorder, inorder, pl + 1 + k - 1 - il + 1, pr, k + 1, ir);
+        return root;
+    }
+};
+
 int main()
 {
     vector<int> preorder = {3, 9, 20, 15, 7};

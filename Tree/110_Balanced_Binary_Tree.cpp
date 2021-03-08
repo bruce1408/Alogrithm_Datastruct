@@ -16,7 +16,9 @@ struct TreeNode
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-/*  depthTree  函数是判断树的深度的函数*/
+/**
+ * 方法 1，depthTree  函数是判断树的深度的函数
+ */
 int getHeight(TreeNode *root)
 {
 	if (!root)
