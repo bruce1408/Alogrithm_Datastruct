@@ -1,16 +1,13 @@
-/*
-144. Binary Tree Preorder Traversal
-二叉树的前序遍历方法
-
+#include <iostream>
+#include <vector>
+#include <stack>
+using namespace std;
+/**
+ * 144. Binary Tree Preorder Traversal
+ * 二叉树的前序遍历方法
 */
 
-
-#include<iostream>
-#include<vector>
-#include<stack>
-using namespace std;
-
-struct TreeNode 
+struct TreeNode
 {
 	int val;
 	TreeNode *left;
@@ -18,81 +15,52 @@ struct TreeNode
 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-//方法1：前序遍历递归算法
-void qianxu(TreeNode* root,vector<int> &res)
+/**
+ * 方法 1，使用递归来做
+*/
+void dfs(TreeNode *root, vector<int> &res)
 {
-	if(!root) return;
+	if (!root)
+		return;
 	else
 	{
 		res.push_back(root->val);
-		qianxu(root->left,res);
-		qianxu(root->right,res);
+		dfs(root->left, res);
+		dfs(root->right, res);
 	}
 }
 
-vector<int> preorderTraversal(TreeNode* root)
+vector<int> preorderTraversal(TreeNode *root)
 {
-	vector<int>res;
-	qianxu(root,res);
+	vector<int> res;
+	dfs(root, res);
 	return res;
 }
 
-
-//方法2.1：非递归算法，利用栈的思想
-vector<int> preorderTraversal(TreeNode* root)
+/**
+ * 方法 2，使用迭代来做，用栈
+ * 先把左子树全部放到栈里面，然后拿出栈顶元素，
+ * 找到栈顶元素的右子树开始遍历即可
+*/
+vector<int> preorderTraversal2(TreeNode *root)
 {
-	stack<TreeNode*>Q;
-	TreeNode* p;
-	vector<int>res;
-	if(!root) return {};
-	p = root;
-	while(!Q.empty() || p)
+	vector<int> res;
+	stack<TreeNode *> stk;
+	// 是否根节点不是空或者栈不是空
+	while (root || stk.size())
 	{
-		while(p)
+		// 根节点不是空
+		while (root)
 		{
-			res.push_back(p->val);
-			Q.push(p);
-			p = p->left;
+			res.push_back(root->val); // 先把所有的根节点存到res
+			stk.push(root);			  // 栈保存该节点
+			root = root->left;		  // 继续遍历下一个节点即可
 		}
-		if(!Q.empty())
-		{
-			p = Q.top();
-			Q.pop();
-			p = p->right;
-		}
+		root = stk.top()->right; // 找到栈顶元素的右节点
+		stk.pop();				 // 同时栈顶元素删除
 	}
 	return res;
 }
-
-//方法2.2 非递归算法，没有while，只用了判断语句。
-class Solution 
-{
-	public:
-    vector<int> preorderTraversal(TreeNode* root) 
-	{
-        vector<int> res;
-        stack<TreeNode*> s;
-        TreeNode *p = root;
-        while (!s.empty() || p) 
-		{
-            if (p) 
-			{
-                s.push(p);
-                res.push_back(p->val);
-                p = p->left;
-            } 
-			else 
-			{
-                TreeNode *t = s.top(); s.pop();
-                p = t->right;
-            }
-        }
-        return res;
-    }
-};
-
-
-
 
 int main()
 {
@@ -106,28 +74,9 @@ int main()
 	h2->left = h3;
 	h2->right = h4;
 	vector<int> rest;
-	Solution ss;
-	
-	rest = ss.preorderTraversal(head);
-	for(auto i:rest)
-		cout<<i<<" ";
-	
-	
+	rest = preorderTraversal(head);
+	for (auto i : rest)
+		cout << i << " ";
+
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
