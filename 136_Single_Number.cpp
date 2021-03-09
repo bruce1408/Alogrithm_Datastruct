@@ -1,11 +1,3 @@
-/*136. Single Number
-Input: [2,2,1]
-Output: 1
-Example 2:
-不重复的数字
-Input: [4,1,2,1,2]
-Output: 4
-*/
 
 #include<iostream>
 #include<vector>
@@ -13,6 +5,16 @@ Output: 4
 #include<string>
 #include<algorithm>
 using namespace std;
+
+/**
+ * 136. Single Number
+ * Input: [2,2,1]
+ * Output: 1
+ * Example 2:
+ * 不重复的数字
+ * Input: [4,1,2,1,2]
+ * Output: 4
+*/
 
 /*第一种方法：哈希思路*/
 int singleNumber(vector<int>& nums)
