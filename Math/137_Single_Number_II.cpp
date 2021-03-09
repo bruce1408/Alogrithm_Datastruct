@@ -32,10 +32,28 @@ int singleNumber(vector<int> &nums)
 	return 0;
 }
 
+/**
+ * 方法 2，使用位运算来做, 推荐做法
+*/
+int singleNumber2(vector<int> &nums)
+{
+	int res = 0;
+	for (int i = 0; i < 32; i++)
+	{
+		int sum = 0;
+		for (int j = 0; j < nums.size(); j++)
+		{
+			sum += (nums[j] >> i) & 1;
+		}
+		res |= (sum % 3) << i;
+	}
+	return res;
+}
+
 int main()
 {
-	vector<int> nums = {0, 10, 1, 0, 1, 99};
-	cout << singleNumber(nums);
+	vector<int> nums = {2, 2, 3, 2};
+	cout << singleNumber2(nums) << endl;
 
 	return 0;
 }

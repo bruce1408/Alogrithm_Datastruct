@@ -7,7 +7,7 @@
 using namespace std;
 
 /**
- * 136. Single Number
+ * 136. Single Number，找出一个重复数组中出现一次的数字
  * Input: [2,2,1]
  * Output: 1
  * Example 2:
@@ -38,7 +38,6 @@ int singleNumber(vector<int> &nums)
 /**
  * 方法 2，利用异或！！但是这种方法只能求解一个不重复的数
 */
-
 int singleNumber2(vector<int> &nums)
 {
 	int res = 0;
