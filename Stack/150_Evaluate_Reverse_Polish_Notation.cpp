@@ -1,9 +1,11 @@
-/*150. Evaluate Reverse Polish Notation 大话数据结构 中缀表达式*/
 #include<iostream>
 #include<vector>
 #include<string>
 #include<stack>
 using namespace std;
+/**
+ * 150. Evaluate Reverse Polish Notation 中缀表达式
+ */
 
 
 //方法1
@@ -27,13 +29,9 @@ int evalRPN(vector<string>& tokens)
 			if(tokens[i]=="-") s.push(b-a);
 			if(tokens[i]=="*") s.push(b*a);
 			if(tokens[i]=="/") s.push(b/a);
-
 		}
-		
 	}
-
 	return s.top();
-	
 }
 
 
