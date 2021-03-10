@@ -56,7 +56,7 @@ ListNode *reverseList2(ListNode *head)
 /**
  * 方法 3，使用两个指针来维护，一个从头指针开始a，一个从
  * 头指针的下一位开始b，然后每次后面的指针指向前一位，b->next = a;
- * a = b;b再指向下一位，所以再来一个临时指针，一开始就指向b
+ * a = b; b再指向下一位，所以再来一个临时指针，一开始就指向b
 */
 ListNode *reverseList3(ListNode *head)
 {
