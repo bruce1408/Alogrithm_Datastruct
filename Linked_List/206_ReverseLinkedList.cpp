@@ -84,11 +84,12 @@ ListNode *reverseList3(ListNode *head)
  * 然后把head->next->next  = head，也就是2的指向1，然后1next指向NULL
  * head->next = nullptr即可
 */
-//这个函数以head为头结点翻转
 ListNode *reverseList4(ListNode *head)
 {
 	if (head == nullptr || head->next == nullptr)
 		return head;
+
+	// 这个函数以head为头结点翻转
 	auto tail = reverseList4(head->next); // 返回翻转之后的头指针
 	head->next->next = head;			  // 原来链表断开的地方指向head，然后head指向空即可
 	head->next = nullptr;
