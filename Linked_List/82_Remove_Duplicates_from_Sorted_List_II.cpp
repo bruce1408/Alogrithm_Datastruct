@@ -2,7 +2,8 @@
 #include <cstring>
 using namespace std;
 
-/**
+/** 
+ * 82 删除所有的重复元素
  * Input: 1->2->3->3->4->4->5
  * Output: 1->2->5
  * 删除一个单链表的重复节点,只要是重复的都删除；
@@ -20,7 +21,7 @@ struct ListNode
 void print_list(struct ListNode *head);
 
 /**
- * 方法 1，使用两层while循环判断,教科书解法，
+ * 方法 1，使用两层while循环判断,推荐解法，
  * 找一个步长是1的节点之间的关系即可，
  * 用before和cur两个节点，因为可能开头的元素就是要删除的元素，
  * 所以设置头结点，每次遍历before这个节点，before后面的设置cur节点，
@@ -28,22 +29,20 @@ void print_list(struct ListNode *head);
  * 那就相当于before子链cur没有重复数字，接着遍历，否则，有重复数字，
  * before->next = cur->next;这一句是关键。
  */
-ListNode *deleteDuplicates1(ListNode *head)
+ListNode *deleteDuplicates(ListNode *head)
 {
-	if (!head || !head->next)
-		return head;
 	ListNode *dummy = new ListNode(-1);
 	dummy->next = head;
 	ListNode *cur = dummy;
 	while (cur->next)
 	{
-		ListNode *a = cur->next;
-		while (a->next && a->next->val == a->val)
-			a = a->next;
-		if (cur->next != a)
-			cur->next = a->next;
-		else
+		auto q = cur->next;
+		while (q && q->val == cur->next->val)
+			q = q->next;
+		if (cur->next->next == q) // 如果长度是1那么就cur后移一位即可
 			cur = cur->next;
+		else // 如果中间间隔了好几个重复的数字，直接指向q即可
+			cur->next = q;
 	}
 	return dummy->next;
 }
