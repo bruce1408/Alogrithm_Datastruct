@@ -52,7 +52,8 @@ string largestNumber1(vector<int> &nums)
 */
 string largestNumber2(vector<int> &nums)
 {
-	sort(nums.begin(), nums.end(), [](int x, int y) {
+	sort(nums.begin(), nums.end(), [](int x, int y)
+	 {
 		string a = to_string(x), b = to_string(y);
 		return a + b > b + a;
 	});
