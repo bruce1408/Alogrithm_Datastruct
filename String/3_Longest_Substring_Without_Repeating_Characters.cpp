@@ -87,17 +87,15 @@ int lengthOfLongestSubstring3(string s)
 */
 int lengthOfLongestSubstring4(string s)
 {
-    int n = s.size(), res = 1;
-    int index = 0;
-    while (index < n)
+    int n = s.size(), res = 0;
+    unordered_map<char, int> hash;
+    int j = 0;
+    for (int i = 0; i < s.size(); i++)
     {
-        int j = index - 1;
-        while (j >= 0 && s[index] != s[j])
-        {
-            res = max(res, index - j + 1);
-            j--;
-        }
-        index++;
+        hash[s[i]]++;
+        while (hash[s[i]] > 1)
+            hash[s[j++]]--;
+        res = max(res, i - j + 1);
     }
     return res;
 }
