@@ -82,9 +82,29 @@ int lengthOfLongestSubstring3(string s)
     return maxlen;
 }
 
+/**
+ * 方法 4，使用hash来做，计算区间i和j之间的字符的哈希数量
+*/
+int lengthOfLongestSubstring4(string s)
+{
+    int n = s.size(), res = 1;
+    int index = 0;
+    while (index < n)
+    {
+        int j = index - 1;
+        while (j >= 0 && s[index] != s[j])
+        {
+            res = max(res, index - j + 1);
+            j--;
+        }
+        index++;
+    }
+    return res;
+}
+
 int main()
 {
-    string s = "abcabcbb";
-    cout << lengthOfLongestSubstring2(s) << endl;
+    string s = "pwwkew";
+    cout << lengthOfLongestSubstring4(s) << endl;
     return 0;
 }
