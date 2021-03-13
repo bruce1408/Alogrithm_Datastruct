@@ -87,8 +87,12 @@ string reverseWords2(string s)
 
 /**
  * 方法 3，首先对每一个字符进行翻转，然后在对每个单词进行翻转即可
- * 比如s="hello world",翻转每个字符，"dlrow olleh",接着翻转每个单词"world hello"完成
+ * 比如s="hello world",
+ * 第一就是翻转每个字符，"dlrow olleh",
+ * 第二就是接着翻转每个单词"world hello"完成
  * 用双指针算法来做
+ * 注意：这里处理首尾空格的方式是把字符串前移到首位即可，覆盖原来的空格，最后每个字符翻转以后删除最后空白的多余空格
+ * 这里start要减去1才可以，因为最后一个字符会多加一个空格
 */
 string reverseWords3(string s)
 {

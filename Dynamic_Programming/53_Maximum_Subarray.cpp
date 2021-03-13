@@ -101,7 +101,6 @@ int helper(vector<int> &nums, int left, int right)
         t += nums[i];
         midMax = max(midMax, t);
     }
-    cout << t << " " << midMax << endl;
 
     t = midMax;
     for (int i = mid + 1; i <= right; i++)
@@ -121,7 +120,7 @@ int maxSubArray3(vector<int> &nums)
 
 /**
  * 方法 4，使用dp动态规划这个算法，推荐做法
- * 1.设 f(i)f(i) 表示以第i个数字为结尾的最大连续子序列的总和是多少。
+ * 1.设 f(i) 表示以第i个数字为结尾的最大连续子序列的总和是多少。
  * 2.初始化 f(0)=nums[0]f(0)=nums[0]。
  * 3.转移方程 f(i)=max(f(i−1)+nums[i], nums[i]); 
  * f(i)=max(f(i−1)+nums[i],nums[i])。可以理解为当前有两种决策，一种是将第i个数字和前边的数字拼接起来；
