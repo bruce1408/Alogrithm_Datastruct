@@ -26,7 +26,7 @@ using namespace std;
  * 使用一个额外的visited数组来记录每个数字是否之前已经用过
 */
 vector<int> out;
-vector<vector<int>> res;
+vector<vector<int> > res;
 
 void dfs(vector<int> &nums, int index, vector<bool> &visited)
 {
@@ -40,9 +40,7 @@ void dfs(vector<int> &nums, int index, vector<bool> &visited)
     // 这里遍历每一个节点，然后每个节点进行n！次搜索，总的时间复杂度是n*n！
     for (int i = 0; i < nums.size(); i++)
     {
-        if (visited[i] == true)
-            continue;
-        else
+        if (visited[i] == false)
         {
             out.push_back(nums[i]);
             visited[i] = true;             // 修改这个数的状态
@@ -53,7 +51,7 @@ void dfs(vector<int> &nums, int index, vector<bool> &visited)
     }
 }
 
-vector<vector<int>> permute(vector<int> &nums)
+vector<vector<int> > permute(vector<int> &nums)
 {
     vector<bool> visited(nums.size(), 0);
     dfs(nums, 0, visited);
