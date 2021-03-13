@@ -24,7 +24,7 @@ using namespace std;
 /**
  * 方法 1，使用dfs，但是写法上没有解决重复问题，使用了集合来做
 */
-void dfsLeetcode(int index, vector<int> &path, vector<bool> &visited, vector<int> &nums, vector<vector<int>> &temp)
+void dfsLeetcode(int index, vector<int> &path, vector<bool> &visited, vector<int> &nums, vector<vector<int> > &temp)
 {
     int len = nums.size();
     if (index == len)
@@ -50,18 +50,18 @@ void dfsLeetcode(int index, vector<int> &path, vector<bool> &visited, vector<int
     }
 }
 
-vector<vector<int>> permute(vector<int> &nums)
+vector<vector<int> > permute(vector<int> &nums)
 {
 
     // 假设这个数组是已经排序好的
     int n = nums.size();
     // sort(nums.begin(), nums.end());
-    vector<vector<int>> temp;
+    vector<vector<int> > temp;
     vector<int> path(n, 0);
     vector<bool> visited(n, false);
     dfsLeetcode(0, path, visited, nums, temp);
-    set<vector<int>> res(temp.begin(), temp.end());
-    vector<vector<int>> s(res.begin(), res.end());
+    set<vector<int> > res(temp.begin(), temp.end());
+    vector<vector<int> > s(res.begin(), res.end());
     return s;
 }
 
@@ -73,8 +73,8 @@ class Solution
 {
 public:
     vector<int> out;
-    vector<vector<int>> res;
-    vector<vector<int>> permuteUnique(vector<int> &nums)
+    vector<vector<int> > res;
+    vector<vector<int> > permuteUnique(vector<int> &nums)
     {
         vector<bool> visited(nums.size());
         sort(nums.begin(), nums.end());
@@ -106,6 +106,44 @@ public:
         }
     }
 };
+
+/**
+ * 方法 3，使用dfs，但是写法简单。不太好理解
+*/
+class Solution
+{
+    public:
+    vector<vector<int> > ans;
+    vector<int> path;
+
+    vector<vector<int> > permuteUnique(vector<int> &nums)
+    {
+        sort(nums.begin(), nums.end());
+        path.resize(nums.size());
+        dfs(nums, 0, 0, 0);
+        return ans;
+    }
+
+    void dfs(vector<int> &nums, int u, int start, int state)
+    {
+        if (u == nums.size())
+        {
+            ans.push_back(path);
+            return;
+        }
+
+        if (!u || nums[u] != nums[u - 1])
+            start = 0;
+
+        for (int i = start; i < nums.size(); i++)
+            if (!(state >> i & 1))
+            {
+                path[i] = nums[u];
+                dfs(nums, u + 1, i + 1, state + (1 << i));
+            }
+    }
+}
+
 
 int main()
 {
