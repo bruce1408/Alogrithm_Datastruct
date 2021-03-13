@@ -47,14 +47,14 @@ int majorityElement1(vector<int> &nums)
  * */
 int majorityElement2(vector<int> &nums)
 {
-    int r, c = 0;
+    int value, cnt = 0;
     for (int i = 0; i < nums.size(); i++)
     {
-        if (c == 0) r = nums[i], c = 1;
-        else if (nums[i] == r) c++;
-        else if (nums[i] != r) c--;
+        if (cnt == 0) value = nums[i], cnt = 1;
+        else if (nums[i] == value) cnt++;
+        else if (nums[i] != value) cnt--;
     }
-    return r;
+    return value;
 }
 
 int main()
