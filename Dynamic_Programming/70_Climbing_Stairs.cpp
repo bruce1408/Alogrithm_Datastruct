@@ -22,25 +22,18 @@ int climbStairs(int n)
 }
 
 /**
- * 方法 2，使用动态规划来做，时间复杂度为O(n)
+ * 方法 2，使用动态规划来做，时间复杂度为O(n)，n的范围是1到n
  * 状态f[i]表示第i节楼梯的所有方案的总和，那么它和i-1或者是i-2个楼梯方案
  * 总和有关系，所以利用状态方程进行计算即可
 */
-
-int climbStairs2(int n)
+int climbStairs(int n)
 {
+    if (n <= 2) return n;
     vector<int> f(n + 1);
-    if (n < 2)
-        return n;
-    else
-    {
-        f[0] = 0, f[1] = 1, f[2] = 2;
-    }
+    f[1] = 1, f[2] = 2;
 
     for (int i = 3; i <= n; i++)
-    {
         f[i] = f[i - 1] + f[i - 2];
-    }
     return f[n];
 }
 
