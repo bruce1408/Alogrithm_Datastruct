@@ -111,9 +111,42 @@ public:
     }
 };
 
+/**
+ * 方法 4，手写再实现一遍
+ * */
+int strTonum3(string s)
+{
+    int n = s.size();
+    int i = 0, minus = 1; // minus=1表示正数
+    while (i < n && s[i] == ' ')
+        i++;
+    s = s.substr(i, n - i);
+    i = 0;
+    if (s[i] == '-' || s[i] == '+')
+    {
+        minus = (s[i] == '-') ? 0 : 1;
+        i++;
+    }
+    int j = i;
+    while (j < s.size() && s[j] >= '0' && s[j] <= '9')
+        j++;
+    string str = s.substr(i, j - i);
+    int res = 0;
+    for (int i = 0; i < str.size(); i++)
+    {
+        cout << res << endl;
+        if (res > INT_MAX / 10 || ((res == INT_MAX / 10) && (s[i] - '0') > 7))
+            return (minus == 1) ? INT_MAX : INT_MIN;
+        res = res * 10 + (str[i] - '0');
+    }
+    if (minus)
+        return res;
+    return -1 * res;
+}
+
 int main()
 {
-    string a = "     -9807";
-    cout << strTonum(a) << endl;
+    string a = "-2147483648";
+    cout << strTonum3(a) << endl;
     return 0;
 }
