@@ -118,6 +118,7 @@ void HeapSort::push_heap(vector<int>&res, int num)
     int newlength = res.size();
     swim_adjuest(res, newlength-1);
 }
+
 template <class T>
 void print(vector<T>&res)
 {

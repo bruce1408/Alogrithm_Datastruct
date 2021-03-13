@@ -52,49 +52,28 @@ void print(priority_queue<int> q)
 /**
  * 例子 1，优先队列的用法，默认是输出大顶堆，也就是从大到小的顺序
  */
-void coutBigNum()
+
+void insert_num(priority_queue<int> &p)
 {
-	priority_queue<int> p;
 	p.push(1);
 	p.push(2);
 	p.push(8);
 	p.push(5);
 	p.push(43);
+	// return p;
+}
+
+void coutBigNum()
+{
+	priority_queue<int> p;
+	insert_num(p);
+	cout << "大根堆：" << endl;
 	print(p);
 	cout << endl;
 }
 
 /**
- * 例子 2，优先队列输出从小到大的顺序，使用greater<int>来说明,
- * 或者自己定义一个排序方案，cmp，return x < y,大的在前，返回逆序排列，和sort的自定义排序正好相反
-*/
-struct cmp // 重写仿生函数
-{
-	bool operator()(int x, int y)
-	{
-		return x < y;
-	}
-};
-
-void coutSmallNum()
-{
-	priority_queue<int, vector<int>, cmp> p;
-	p.push(1);
-	p.push(2);
-	p.push(8);
-	p.push(5);
-	p.push(43);
-	cout << "the greater is:" << endl;
-	for (int i = 0; i < 5; i++)
-	{
-		cout << p.top() << " ";
-		p.pop();
-	}
-	cout << endl;
-}
-
-/**
- * 例子 3，自定义优先级别
+ * 例子 2，自定义优先级别
 */
 struct Node
 {
@@ -115,19 +94,19 @@ struct cmp1 // 重写仿生函数
 /**
  * 优先队列基本使用，定义结构，使用运算符重载,自定义优先级1
 */
-struct cmp2
+struct cmpless
 {
 	bool operator()(int &a, int &b)
 	{
-		return a > b; //最小值优先
+		return a > b; //最小值优先,小根堆
 	}
 };
 
-struct cmp3
+struct cmpgreater
 {
 	bool operator()(int &a, int &b)
 	{
-		return a < b; //最大值优先
+		return a < b; //最大值优先，大根堆
 	}
 };
 
@@ -159,11 +138,11 @@ void priority_queue_example()
 	number2 num2[] = {14, 10, 56, 7, 83, 22, 36, 91, 3, 47, 72, 0};
 	priority_queue<int> que; //采用默认优先级构造队列,大顶堆
 
-	priority_queue<int, vector<int>, cmp2> que1; //最小值优先
-	priority_queue<int, vector<int>, cmp3> que2; //最大值优先
+	priority_queue<int, vector<int>, cmpless> que1;	   //最小值优先
+	priority_queue<int, vector<int>, cmpgreater> que2; //最大值优先
 
-	priority_queue<int, vector<int>, greater<int>> que3; //注意“>>”会被认为错误，这是右移运算符，所以这里用空格号隔开，从小到大
-	priority_queue<int, vector<int>, less<int>> que4;	 // 从大到小
+	priority_queue<int, vector<int>, greater<int> > que3; // 小根堆，注意“>>”会被认为错误，这是右移运算符，所以这里用空格号隔开
+	priority_queue<int, vector<int>, less<int> > que4;	  // 大根堆
 
 	priority_queue<number1> que5;
 	priority_queue<number2> que6;
@@ -191,7 +170,6 @@ void priority_queue_example()
 		que.pop();
 	}
 	puts("");
-	puts("");
 
 	printf("采用结构体自定义优先级方式一:\n(priority_queue<int,vector<int>,cmp>que;)\n");
 	printf("Queue 1:\n");
@@ -207,7 +185,6 @@ void priority_queue_example()
 		printf("%3d", que2.top());
 		que2.pop();
 	}
-	puts("");
 	puts("");
 	printf("采用头文件\"functional\"内定义优先级:\n(priority_queue<int,vector<int>,greater<int>/less<int> >que;)\n");
 	printf("Queue 3:\n");
@@ -286,9 +263,8 @@ int main()
 		cout << p.top().x << ' ' << p.top().y << endl;
 		p.pop();
 	}
-	// coutBigNum();
-	// coutSmallNum();
-	// priority_queue_example();
+	coutBigNum();
+	priority_queue_example();
 	modifyValue1();
 	return 0;
 }
