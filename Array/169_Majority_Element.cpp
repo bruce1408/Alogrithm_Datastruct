@@ -50,12 +50,9 @@ int majorityElement2(vector<int> &nums)
     int r, c = 0;
     for (int i = 0; i < nums.size(); i++)
     {
-        if (c == 0)
-            r = nums[i], c = 1;
-        else if (nums[i] == r)
-            c++;
-        else if (nums[i] != r)
-            c--;
+        if (c == 0) r = nums[i], c = 1;
+        else if (nums[i] == r) c++;
+        else if (nums[i] != r) c--;
     }
     return r;
 }
