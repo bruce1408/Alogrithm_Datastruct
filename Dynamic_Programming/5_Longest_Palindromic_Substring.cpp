@@ -15,76 +15,79 @@ using namespace std;
 */
 
 /**
- * 方法 1,查找字符子串的最长回文串长度, 两层for循环来做.babad
+ * 方法 1,查找字符子串的最长回文串长度, 两层for循环来做, 肯定超时了
 */
-string longestPalindrome(string s)
+class Solution
 {
-    int len = s.size(), left = 0, right = len - 1;
-    if (len == 1)
-        return s;
-    return s;
-}
-/**
- * 方法 2，动态规划
-*/
-
-string longestPalindrome2_1(string s)
-{
-    //最长的回文子串
-    const int N = 1010;
-    int ans = 0;
-    string temp = "", res = "";
-    vector<vector<int>> d(N, vector<int>(N, 0)); // res[i][j]表示a i-j之间是否是回文串
-    int n = s.size();
-    for (int i = 0; i < n; i++)
+public:
+    bool isPalidrome(string s)
     {
-        d[i][i] = 1;
-        temp = s[i];
-        if (i < n - 1)
+        if (s.size() == 0)
+            return true;
+        int l = 0, r = s.size() - 1;
+        while (l < r)
         {
-            if (s[i] == s[i + 1])
+            if (s[l] != s[r])
+                return false;
+            l++, r--;
+        }
+        return true;
+    }
+
+    string longestPalindrome(string s)
+    {
+        if (s.empty())
+            return s;
+        string res;
+        int ans = 0;
+        for (int i = 0; i < s.size(); i++)
+        {
+            for (int j = i; j < s.size(); j++)
             {
-                d[i][i + 1] = 1;
-                ans = 2;
-                temp = s.substr(i, 2);
-                if (temp.size() > res.size())
+                string temp = s.substr(i, j - i + 1);
+                if (isPalidrome(temp) && temp.size() > ans)
                 {
                     res = temp;
-                    cout << res << endl;
+                    ans = temp.size();
                 }
             }
         }
+        return res;
     }
+};
 
-    for (int L = 3; L <= n; L++) // 枚举子串的长度
+/**
+ * 方法 2，双指针算法，每次找到这个字符串的中心点，然后左指针和右指针分别朝左右两个方向走，如果不同就停止，找到最大回文串。 
+*/
+string longestPalindrome2(string s)
+{
+    string res;
+    for (int i = 0; i < s.size(); i++)
     {
-        for (int i = 0; i + L - 1 < n; i++)
-        {
-            int j = i + L - 1;
-            if (s[i] == s[j] && d[i + 1][j - 1] == 1)
-            {
-                d[i][j] = 1;
-                if (L > ans)
-                {
-                    temp = s.substr(i, L);
-                }
-                ans = L;
-            }
-        }
+        int l = i - 1, r = i + 1;
+        while (l >= 0 && r < s.size() && s[l] == s[r])
+            l--, r++;
+        if (res.size() < r - l - 1)
+            res = s.substr(l + 1, r - l - 1);
+
+        l = i, r = i + 1;
+        while (l >= 0 && r < s.size() && s[l] == s[r])
+            l--, r++;
+        if (res.size() < r - l - 1)
+            res = s.substr(l + 1, r - l - 1);
     }
-    return res.size() > temp.size() ? res : temp;
+    return res;
 }
 
 /**
- * 方法 2，思路和上面一样，写法更加简单
- * dp[i][j] 表示区间i到j之间是否是回文串
+ * 方法 3，使用动态规划来做，思路和上面一样，写法更加简单，dp[i][j] 表示区间i到j之间是否是回文串
 */
 string longestPalindrome2_2(string s)
 {
     if (s.empty())
         return "";
     int n = s.size();
-    int dp[n][n] = {0}; // 初始化dp数组为0
+    vector<vector<int> > dp(n, vector<int>(n, 0)); // 初始化dp数组为0
     int left = 0, len = 1;
     for (int i = 0; i < n; ++i)
     {
@@ -93,10 +96,10 @@ string longestPalindrome2_2(string s)
         {
             // 如果s[i] == s[j] 并且 i和j相邻
             if (s[i] == s[j] && (i - j < 2 || dp[j + 1][i - 1]))
-            {
                 dp[j][i] = 1;
-            }
-            if (dp[j][i] && len < i - j + 1) // 如果i和j区间的个数大于1不相邻的话且i和j是回文串，那么回文串长度是i-j+1
+
+            // 如果i和j区间的个数大于1不相邻的话且i和j是回文串，那么回文串长度是i-j+1
+            if (dp[j][i] && len < i - j + 1)
             {
                 len = i - j + 1;
                 left = j;
@@ -105,15 +108,10 @@ string longestPalindrome2_2(string s)
     }
     return s.substr(left, len);
 }
-/**
- * 方法 3，字符串哈希+二分
- * 
-*/
 
 /**
- * 方法 4，马拉车算法，最偏算法且只适合这个题目
+ * 方法 4，马拉车算法，偏门算法且只适合这个题目
 */
-
 string longestPalindrome4(string s)
 {
     string t = "$#";
@@ -122,7 +120,9 @@ string longestPalindrome4(string s)
         t += s[i];
         t += '#';
     }
-    int p[t.size()] = {0}, id = 0, mx = 0, resId = 0, resMx = 0;
+
+    vector<int> p(t.size(), 0);
+    int id = 0, mx = 0, resId = 0, resMx = 0;
     for (int i = 1; i < t.size(); ++i)
     {
         p[i] = mx > i ? min(p[2 * id - i], mx - i) : 1;
@@ -142,8 +142,11 @@ string longestPalindrome4(string s)
     return s.substr((resId - resMx) / 2, resMx - 1);
 }
 
+// todo 字符串+哈希做法
+
 int main()
 {
     string s = "babad";
-    cout << longestPalindrome(s) << endl;
+    Solution ss;
+    cout << ss.longestPalindrome(s) << endl;
 }
