@@ -27,3 +27,53 @@ void deleteNode1(ListNode *node)
 	node->next = temp->next;
 	delete temp;
 }
+
+void print(ListNode *cur)
+{
+	while (cur)
+	{
+		cout << cur->val << endl;
+		cur = cur->next;
+	}
+}
+
+ListNode *deleteHead(ListNode *head, ListNode *p)
+{
+	if (p->next)
+	{
+		p->val = p->next->val;
+		p->next = p->next->next;
+	}
+	else
+	{
+		cout << "delete last node : " << endl;
+		p->val = head->val;
+		head = head->next;
+	}
+	return head;
+}
+
+int main()
+{
+	ListNode *head = new ListNode(3);
+	head->next = new ListNode(4);
+	head->next->next = new ListNode(5);
+	print(head);
+
+	ListNode *cur = head;
+	ListNode *p = nullptr;
+	while (cur)
+	{
+		if (cur->val == 5)
+		{
+			p = cur;
+			break;
+		}
+		cur = cur->next;
+	}
+	cout << p->val << endl;
+	cout << "after delete is: " << endl;
+
+	ListNode *q = deleteHead(head, p);
+	print(q);
+}
