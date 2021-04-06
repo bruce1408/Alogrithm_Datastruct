@@ -31,7 +31,7 @@ int maxProduct(vector<int> &nums)
 /**
  * 方法 2，上面的优化版本，使用滚动数组优化空间复杂度
 */
-int maxProduct(vector<int> &nums)
+int maxProduct2(vector<int> &nums)
 {
     int res = nums[0];
     int f = nums[0], g = nums[0];
@@ -43,4 +43,11 @@ int maxProduct(vector<int> &nums)
         res = max(res, f);
     }
     return res;
+}
+
+int main()
+{
+    int ans = 0;
+    vector<int> res = {1, 2, 1, 5, -4, 7, -3, 2, 0, 1};
+    cout << maxProduct(res) << endl;
 }
