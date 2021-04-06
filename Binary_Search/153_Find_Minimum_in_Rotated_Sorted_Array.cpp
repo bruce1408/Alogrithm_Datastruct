@@ -66,7 +66,7 @@ int findMin(vector<int> &nums)
     while (l < r)
     {
         int mid = (l + r) >> 1;
-        if (nums[mid] < nums[0])
+        if (nums[mid] < nums[0]) // 这里务必是0，因为和第一个元素比较
             r = mid;
         else
             l = mid + 1;
