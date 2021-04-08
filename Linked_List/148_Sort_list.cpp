@@ -32,6 +32,52 @@ void print_list(struct ListNode *head)
 }
 
 /**
+ * 方法 1，推荐做法
+*/
+class Solution
+{
+public:
+    ListNode *sortList(ListNode *head)
+    {
+        ListNode *dummy = new ListNode(-1);
+        dummy->next = head;
+        ListNode *cur = head;
+        int cnt = 0; // 求出总长度
+        while (cur)
+        {
+            cnt++;
+            cur = cur->next;
+        }
+        // 遍历长度从1，2，4，8...
+        for (int len = 1; len < cnt; len *= 2)
+        {
+            cur = dummy;
+            for (int j = 1; j + len <= cnt; j += len * 2)
+            {
+                auto p = cur->next, q = p;
+                for (int step = 0; step < len; step++)
+                    q = q->next;
+                int x = 0, y = 0;
+                while (x < len && y < len && q && q)
+                {
+                    if (p->val <= q->val)
+                        cur->next = p, p = p->next, x++;
+                    else
+                        cur->next = q, q = q->next, y++;
+                    cur = cur->next;
+                }
+                while (x < len && p)
+                    cur->next = p, p = p->next, x++, cur = cur->next;
+                while (y < len && q)
+                    cur->next = q, q = q->next, y++, cur = cur->next;
+                cur->next = q;
+            }
+        }
+        return dummy->next;
+    }
+};
+
+/**
  * 方法 1， 使用自底向上策略,空间复杂度O(1)，时间复杂度O(NlgN)
  * 链表最底下的是一个节点一个区间，然后从下往上做，第一次迭代是长度为1的链表合并为长度为2
  * 的区间，然后继续合并。
