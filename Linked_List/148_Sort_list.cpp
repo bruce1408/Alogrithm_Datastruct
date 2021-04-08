@@ -39,38 +39,44 @@ class Solution
 public:
     ListNode *sortList(ListNode *head)
     {
+        if (!head)
+            return nullptr;
+        int n = 0;
         ListNode *dummy = new ListNode(-1);
         dummy->next = head;
+
         ListNode *cur = head;
-        int cnt = 0; // 求出总长度
+        // 得到总长度了
         while (cur)
         {
-            cnt++;
+            n++;
             cur = cur->next;
         }
-        // 遍历长度从1，2，4，8...
-        for (int len = 1; len < cnt; len *= 2)
+        // 每一次归并的长度
+        for (int len = 1; len < n; len *= 2)
         {
             cur = dummy;
-            for (int j = 1; j + len <= cnt; j += len * 2)
+
+            for (int j = 1; j + len <= n; j += len * 2) // j表示每次归并的第一段的开头位置
             {
-                auto p = cur->next, q = p;
+                auto p = cur->next, q = cur->next;
                 for (int step = 0; step < len; step++)
-                    q = q->next;
-                int x = 0, y = 0;
-                while (x < len && y < len && q && q)
+                    q = q->next;  // 第二段走len步长
+                int x = 0, y = 0; // 记录当前归并的长度是多少
+                while (x < len && y < len && p && q)
                 {
-                    if (p->val <= q->val)
-                        cur->next = p, p = p->next, x++;
+                    if (p->val < q->val)
+                        cur->next = p, p = p->next, x++; //
                     else
                         cur->next = q, q = q->next, y++;
                     cur = cur->next;
                 }
+                // 有一个链表没有走完的情况
                 while (x < len && p)
                     cur->next = p, p = p->next, x++, cur = cur->next;
                 while (y < len && q)
                     cur->next = q, q = q->next, y++, cur = cur->next;
-                cur->next = q;
+                cur->next = q; // 排好序的链表的尾节点接第二个链表的头结点
             }
         }
         return dummy->next;
