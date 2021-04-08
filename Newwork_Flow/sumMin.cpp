@@ -8,9 +8,7 @@ using namespace std;
  **/
 int numMin(vector<vector<int> > res)
 {
-    int n = res.size(), m = res[0].size(); // n = 3 , m = 5
-    // int ans = INT_MAX;
-
+    int n = res.size(), m = res[0].size();
     vector<int> preSum(n, 0);
     vector<int> minsum(n, 0);
     for (int col = 1; col < m; col++)
@@ -25,11 +23,9 @@ int numMin(vector<vector<int> > res)
             }
         }
 
-        for (auto x : minsum)
-            cout << x << " ";
-        cout << endl;
-        preSum = vector<int>(minsum);
+        preSum = minsum;
     }
+
     int cnt = INT_MAX;
     for (auto x : minsum)
         cnt = min(cnt, x);
@@ -42,5 +38,5 @@ int main()
         {5, 9},
         {4, 7},
         {2, 9}};
-    cout << numMin(res);
+    cout << numMin(res) << endl;
 }
