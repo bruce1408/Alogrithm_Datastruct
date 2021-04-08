@@ -10,7 +10,7 @@ using namespace std;
  * Input: 4->2->1->3
  * Output: 1->2->3->4
  * 快速排序时间复杂度满足，但是空间复杂度不满足
- * 归并排序时间复杂度满足，非递归版本空间复杂度满足
+ * 归并排序时间复杂度满足，递归写的话空间复杂度logn，非递归版本空间复杂度满足
  * 因此选择归并非递归做法
  * */
 struct ListNode
@@ -33,6 +33,8 @@ void print_list(struct ListNode *head)
 
 /**
  * 方法 1， 使用自底向上策略,空间复杂度O(1)，时间复杂度O(NlgN)
+ * 链表最底下的是一个节点一个区间，然后从下往上做，第一次迭代是长度为1的链表合并为长度为2
+ * 的区间，然后继续合并。
 */
 ListNode *split(ListNode *head, int n);
 ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head);
@@ -40,7 +42,7 @@ ListNode *sortList(ListNode *head)
 {
     ListNode *dummy = new ListNode(-1), *cur = head;
     dummy->next = head;
-    int cnt = 0;
+    int cnt = 0; // 先求解链表长度
     while (cur)
     {
         cnt++;
@@ -48,15 +50,17 @@ ListNode *sortList(ListNode *head)
     }
     cur = head;
     ListNode *left, *right, *tail;
-    for (int step = 1; step < cnt; step <<= 1) // 从1开始，每次从下往上合并链表，然后step乘2
+    // 从长度为1的节点开始遍历
+    for (int len = 1; len < cnt; len *= 2) // 从1开始，每次从下往上合并链表，然后step乘2
     {
+        // 每一层头结点可能会变，用一个虚拟头结点
         cur = dummy->next;
         tail = dummy;
         while (cur)
         {
             left = cur;
-            right = split(left, step);
-            cur = split(right, step);
+            right = split(left, len);
+            cur = split(right, len);
             tail = merge(left, right, tail);
         }
     }
