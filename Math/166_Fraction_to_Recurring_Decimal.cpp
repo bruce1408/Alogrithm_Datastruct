@@ -8,6 +8,8 @@ using namespace std;
 
 /**
  * 方法 1，按照正常的逻辑思路一步一步求解即可
+ * 因为数字可能会越界，所以数据范围使用long long；这里其实使用一个hash表来记录
+ * 余数，因为只要余数有相同的情况，就会一直循环，所以看是否余数之前已经出现过了。
 */
 string fractionToDecimal(int x1, int y1)
 {
