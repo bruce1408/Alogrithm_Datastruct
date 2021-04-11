@@ -141,10 +141,25 @@ int maxSubArray4(vector<int> &nums)
     return maxNum;
 }
 
+// 方法 4的优化,使用滚动数组来做，不用开额外的数组，时间O(n)，空间O(1)
+int maxSubArray5(vector<int> &nums)
+{
+    if (nums.empty())
+        return -1;
+    int last = nums[0];
+    int res = INT_MIN;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        last = nums[i] + max(last, 0);
+        res = max(last, res);
+    }
+    return res;
+}
+
 int main()
 {
     vector<int> nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
     cout << maxSubArray3(nums) << endl;
-    cout << maxSubArray4(nums) << endl;
+    cout << maxSubArray5(nums) << endl;
     return 0;
 }
