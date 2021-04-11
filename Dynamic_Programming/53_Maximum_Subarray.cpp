@@ -87,35 +87,45 @@ int maxSubArray2(vector<int> &nums)
  * 需要把数组一分为二，分别找出左边和右边的最大子数组之和，然后还要从中间开始向左右分别扫描，
  * 求出的最大值分别和左右两边得出的最大值相比较取最大的那一个
  * */
-int helper(vector<int> &nums, int left, int right)
+int dfs(vector<int>&nums, int left ,int right)
 {
-    if (left >= right)
-        return nums[left];
+    if(left >= right) return nums[left];
+    // 找到区间中点
     int mid = (left + right) >> 1;
-    int leftMax = helper(nums, left, mid - 1);
-    int rightMax = helper(nums, mid + 1, right);
+
+    // 找到左区间的最大字段和
+    int lmax = dfs(nums, left, mid-1);
+
+    // 找到右区间的最大字段和
+    int rmax = dfs(nums, mid+1, right);
+
+    // 设置当前区间的中点
     int midMax = nums[mid], t = midMax;
 
-    for (int i = mid - 1; i >= left; i--)
+    // 然后开始从右往左累加左半部分的
+    for(int i = mid-1; i>=left; i--)
     {
-        t += nums[i];
-        midMax = max(midMax, t);
+        t+=nums[i];
+        midMax = max(t, midMax);
     }
 
+    // 从左往右累加右边的区间
     t = midMax;
-    for (int i = mid + 1; i <= right; i++)
+    for(int i = mid+1; i<=right;i++)
     {
-        t += nums[i];
-        midMax = max(midMax, t);
+        t+=nums[i];
+        midMax = max(t, midMax);
     }
-    return max(midMax, max(leftMax, rightMax));
+
+    // 比较中间区间和左右两个子区间的最大字段和到底是多少
+    return max(midMax, max(lmax, rmax));
 }
 
-int maxSubArray3(vector<int> &nums)
+int maxSubArray3(vector<int>&nums)
 {
-    if (nums.size() == 0)
-        return 0;
-    return helper(nums, 0, nums.size() - 1);
+    if(nums.empty()) return 0;
+    // 分治的思路
+    return dfs(nums, 0, nums.size()-1);
 }
 
 /**
@@ -141,7 +151,10 @@ int maxSubArray4(vector<int> &nums)
     return maxNum;
 }
 
-// 方法 4的优化,使用滚动数组来做，不用开额外的数组，时间O(n)，空间O(1)
+/**
+ * 方法 4的优化,使用滚动数组来做，不用开额外的数组，时间O(n)，空间O(1)
+ * 使用线段树来扩展，动态的求解某个区间内的最大字段和:acm245
+ * */ 
 int maxSubArray5(vector<int> &nums)
 {
     if (nums.empty())
