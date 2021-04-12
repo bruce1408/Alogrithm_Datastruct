@@ -128,10 +128,8 @@ void mergeSort4(vector<int> &A, int l, int r)
     int temp[r - l + 1], k = 0, i, j;
     for (i = l, j = mid + 1; i <= mid && j <= r; k++)
     {
-        if (A[i] < A[j])
-            temp[k] = A[i++];
-        else
-            temp[k] = A[j++];
+        if (A[i] < A[j]) temp[k] = A[i++];
+        else temp[k] = A[j++];
     }
     while (i <= mid)
         temp[k++] = A[i++];
@@ -151,8 +149,8 @@ void mergeSort4(vector<int> &A, int l, int r)
 void mergeSort5(vector<int> &res, vector<int> &temp, int l, int r)
 {
     // 递归终止条件
-    if (l >= r)
-        return;
+    if (l >= r) return;
+
     // 确定分界点
     int mid = (l + r) >> 1;
     // 划分成子问题
@@ -171,6 +169,7 @@ void mergeSort5(vector<int> &res, vector<int> &temp, int l, int r)
         temp[k++] = res[i++];
     while (j <= r)
         temp[k++] = res[j++];
+    
     for (int i = l, j = 0; i <= r; i++, j++)
     {
         res[i] = temp[j];

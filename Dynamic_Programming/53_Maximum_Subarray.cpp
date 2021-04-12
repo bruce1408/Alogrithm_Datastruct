@@ -87,33 +87,34 @@ int maxSubArray2(vector<int> &nums)
  * 需要把数组一分为二，分别找出左边和右边的最大子数组之和，然后还要从中间开始向左右分别扫描，
  * 求出的最大值分别和左右两边得出的最大值相比较取最大的那一个
  * */
-int dfs(vector<int>&nums, int left ,int right)
+int dfs(vector<int> &nums, int left, int right)
 {
-    if(left >= right) return nums[left];
+    if (left >= right)
+        return nums[left];
     // 找到区间中点
     int mid = (left + right) >> 1;
 
     // 找到左区间的最大字段和
-    int lmax = dfs(nums, left, mid-1);
+    int lmax = dfs(nums, left, mid - 1);
 
     // 找到右区间的最大字段和
-    int rmax = dfs(nums, mid+1, right);
+    int rmax = dfs(nums, mid + 1, right);
 
     // 设置当前区间的中点
     int midMax = nums[mid], t = midMax;
 
     // 然后开始从右往左累加左半部分的
-    for(int i = mid-1; i>=left; i--)
+    for (int i = mid - 1; i >= left; i--)
     {
-        t+=nums[i];
+        t += nums[i];
         midMax = max(t, midMax);
     }
 
     // 从左往右累加右边的区间
     t = midMax;
-    for(int i = mid+1; i<=right;i++)
+    for (int i = mid + 1; i <= right; i++)
     {
-        t+=nums[i];
+        t += nums[i];
         midMax = max(t, midMax);
     }
 
@@ -121,11 +122,12 @@ int dfs(vector<int>&nums, int left ,int right)
     return max(midMax, max(lmax, rmax));
 }
 
-int maxSubArray3(vector<int>&nums)
+int maxSubArray3(vector<int> &nums)
 {
-    if(nums.empty()) return 0;
+    if (nums.empty())
+        return 0;
     // 分治的思路
-    return dfs(nums, 0, nums.size()-1);
+    return dfs(nums, 0, nums.size() - 1);
 }
 
 /**
@@ -154,7 +156,7 @@ int maxSubArray4(vector<int> &nums)
 /**
  * 方法 4的优化,使用滚动数组来做，不用开额外的数组，时间O(n)，空间O(1)
  * 使用线段树来扩展，动态的求解某个区间内的最大字段和:acm245
- * */ 
+ * */
 int maxSubArray5(vector<int> &nums)
 {
     if (nums.empty())
@@ -169,10 +171,36 @@ int maxSubArray5(vector<int> &nums)
     return res;
 }
 
+vector<int> maxSum(vector<int> &nums)
+{
+    if (nums.empty())
+        return {};
+    int res = nums[0], n = nums.size();
+    int l = 0, r = n - 1;
+    vector<int> f(n);
+    f[0] = nums[0];
+    for (int i = 1; i < n; i++)
+    {
+        if (f[i - 1] + nums[i] < nums[i])
+            l = i;
+        f[i] = max(f[i - 1] + nums[i], nums[i]);
+        if (res < f[i])
+            r = i;
+        res = max(res, f[i]);
+    }
+    cout << l << " " << r << endl;
+    return vector<int>(nums.begin() + l, nums.begin() + (r + 1));
+}
+
 int main()
 {
-    vector<int> nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-    cout << maxSubArray3(nums) << endl;
+    vector<int> nums = {1, 4, -1, 2, 1};
+    // cout << maxSubArray3(nums) << endl;
     cout << maxSubArray5(nums) << endl;
+
+    for (auto x : maxSum(nums))
+    {
+        cout << x << " ";
+    }
     return 0;
 }
