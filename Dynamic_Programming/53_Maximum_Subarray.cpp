@@ -62,28 +62,7 @@ int maxSubArray1(vector<int> &nums)
 }
 
 /**
- * 方法 2, 动态规划来做 kadane's algorithm 求子序列最大值问题，
- * 设置当前最大值和全局最大值的初始值都是第一个元素，
- * 遍历数组，每次找到最大的：
- * 当前最大值 = max(nums[i],当前最大值 + nums[i])，
- * 最后保留最大的给global_sum
- * https://afshinm.name/2018/06/24/why-kadane-algorithm-works/
- * */
-int maxSubArray2(vector<int> &nums)
-{
-
-    int global_sum = nums[0], current_sum = nums[0];
-    for (int i = 1; i < nums.size(); i++)
-    {
-        current_sum = max(nums[i], current_sum + nums[i]);
-        if (current_sum > global_sum)
-            global_sum = current_sum;
-    }
-    return global_sum;
-}
-
-/**
- * 方法 3，分治法来求解，二分搜索，
+ * 方法 2，分治法来求解，二分搜索，
  * 需要把数组一分为二，分别找出左边和右边的最大子数组之和，然后还要从中间开始向左右分别扫描，
  * 求出的最大值分别和左右两边得出的最大值相比较取最大的那一个
  * */
@@ -122,7 +101,7 @@ int dfs(vector<int> &nums, int left, int right)
     return max(midMax, max(lmax, rmax));
 }
 
-int maxSubArray3(vector<int> &nums)
+int maxSubArray2(vector<int> &nums)
 {
     if (nums.empty())
         return 0;
@@ -131,7 +110,7 @@ int maxSubArray3(vector<int> &nums)
 }
 
 /**
- * 方法 4，使用dp动态规划这个算法，推荐做法
+ * 方法 3，使用dp动态规划这个算法，推荐做法
  * 1.设 f(i) 表示以第i个数字为结尾的最大连续子序列的总和是多少。
  * 2.初始化 f(0)=nums[0]f(0)=nums[0]。
  * 3.转移方程 f(i)=max(f(i−1)+nums[i], nums[i]); 
@@ -139,7 +118,7 @@ int maxSubArray3(vector<int> &nums)
  * 另一种是第i个数字单独作为一个新的子序列的开始。
  * 4.最终答案为 ans=max(f(k)), 0≤k<nans=max(f(k)), 0≤k<n 。
 */
-int maxSubArray4(vector<int> &nums)
+int maxSubArray3(vector<int> &nums)
 {
     int n = nums.size();
     vector<int> f(n);
@@ -154,7 +133,7 @@ int maxSubArray4(vector<int> &nums)
 }
 
 /**
- * 方法 4的优化,使用滚动数组来做，不用开额外的数组，时间O(n)，空间O(1)
+ * 方法 4 进行优化,使用滚动数组来做，不用开额外的数组，时间O(n)，空间O(1)
  * 使用线段树来扩展，动态的求解某个区间内的最大字段和:acm245
  * */
 int maxSubArray5(vector<int> &nums)
