@@ -176,6 +176,33 @@ void mergeSort5(vector<int> &res, vector<int> &temp, int l, int r)
     }
 }
 
+
+/**
+ * 归并排序 merge_Sort
+*/
+vector<int>mergeSort(vector<int>&nums)
+{
+    if(nums.empty()) return {};
+    merge(nums, 0, nums.size()-1);
+    return nums;
+    
+}
+
+void merge(vector<int>&nums, int left, int right)
+{
+    if(left > right) return ;
+    int mid  = (left + right) >> 1;
+    vector<int>temp;
+    merge(nums, left, mid);
+    merge(nums, mid+1, right);
+    int i = left, j = right;
+    
+    while(i <= mid && j <=right)
+    {
+
+    }
+}
+
 int main()
 {
     vector<int> res = {7, 6, 4, 3, 4, 1};
