@@ -84,8 +84,6 @@ int main()
     vector<int> temp(res.size());
     mergeSort2(res, temp, 0, res.size() - 1);
     for (auto x : res)
-    {
         cout << x << endl;
-    }
     // print(res);
 }
