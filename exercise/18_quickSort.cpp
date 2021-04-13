@@ -86,7 +86,13 @@ void quickSort3(vector<int> &res, int l, int r)
 */
 
 
-void quickSort_self(vector<int>&res, )
+
+void quickSort_self(vector<int>&res, int l, int r)
+{
+    int pviot = res[(l + r)>>1];
+    
+
+}
 int main()
 {
     // vector<int> res = {5, 1, 9, 3, 7, 4, 8, 6, 1, 0, 8, 5};
