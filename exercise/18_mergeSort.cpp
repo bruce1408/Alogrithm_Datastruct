@@ -80,10 +80,8 @@ void mergeSort2(vector<int> &res, vector<int> &temp, int l, int r)
 int main()
 {
     vector<int> res = {7, 6, 4, 3, 4, 1};
-
     vector<int> temp(res.size());
     mergeSort2(res, temp, 0, res.size() - 1);
     for (auto x : res)
         cout << x << endl;
-    // print(res);
 }
