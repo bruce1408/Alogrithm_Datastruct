@@ -8,7 +8,6 @@ using namespace std;
  * 之后再合并即可
 */
 
-
 /**
  * 方法 1，二路归并算法实现
 */
@@ -40,8 +39,6 @@ void mergeSort1(vector<int> &res, vector<int> &temp, int left, int right)
     merge1(res, temp, left, mid, right);
 }
 
-
-
 /**
  * 方法 2， 归并排序更加简单 推荐做法
  * 1、首先是确定分界点mid=l+r>>1
@@ -60,7 +57,7 @@ void mergeSort2(vector<int> &res, vector<int> &temp, int l, int r)
     // 划分成子问题
     mergeSort2(res, temp, l, mid);
     mergeSort2(res, temp, mid + 1, r);
-    
+
     // 合并子问题区间
     int i = l, j = mid + 1, k = 0;
     while (i <= mid && j <= r)
@@ -80,14 +77,13 @@ void mergeSort2(vector<int> &res, vector<int> &temp, int l, int r)
         res[i] = temp[j];
 }
 
-
 int main()
 {
     vector<int> res = {7, 6, 4, 3, 4, 1};
-    
 
-
-    for (auto x : mergeSort2(res))
+    vector<int> temp(res.size());
+    mergeSort2(res, temp, 0, res.size() - 1);
+    for (auto x : res)
     {
         cout << x << endl;
     }
