@@ -194,7 +194,7 @@ vector<int> maxSum(vector<int> &nums)
 
 int main()
 {
-    vector<int> nums = {1, 4, -1, 2, 1};
+    vector<int> nums = {0, 0, 0, 0, 0};
     // cout << maxSubArray3(nums) << endl;
     cout << maxSubArray5(nums) << endl;
 
