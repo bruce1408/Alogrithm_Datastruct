@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "../utils/cout_vec.h"
+// #include "../Utils/cout_vec.h"
 using namespace std;
 
 /**
@@ -32,74 +32,11 @@ void quickSort1(vector<int> &q, int l, int r)
     quickSort1(q, j + 1, r);
 }
 
-/**
- * 快速排序2，推荐写法，模板记住
-*/
-void quickSort2(vector<int> &res, int l, int r)
-{
-    if (l >= r)
-        return;
-    int pivot = res[(l + r) >> 1];
-    int i = l - 1, j = r + 1;
-    while (i < j)
-    {
-        do
-        {
-            i++;
-        } while (res[i] < pivot);
-        do
-        {
-            j--;
-        } while (res[j] > pivot);
-        if (i < j)
-            swap(res[i], res[j]);
-    }
-    quickSort2(res, l, j);
-    quickSort2(res, j + 1, r);
-}
-
-/**
- * 快速排序3，推荐模板记住即可不再使用do-while,而是使用while循环
- * 参考 https://www.acwing.com/solution/content/16777/
-*/
-void quickSort3(vector<int> &res, int l, int r)
-{
-    if (l >= r) // 终止条件
-        return;
-    int x = res[(l + r) / 2];
-    int i = l - 1, j = r + 1;
-    while (i < j)
-    {
-        while (res[++i] < x)
-            ;
-        while (res[--j] > x)
-            ;
-        if (i < j)
-            swap(res[i], res[j]);
-    }
-    quickSort3(res, l, j); // j 作为判断边界的条件不是i，因为最后循环结束的是i>=j，j是最小的满足条件的边界
-    quickSort3(res, j + 1, r);
-}
-
-/**
- * 快速排序
-*/
-
-
-
-void quickSort_self(vector<int>&res, int l, int r)
-{
-    int pviot = res[(l + r)>>1];
-    
-
-}
 int main()
 {
-    // vector<int> res = {5, 1, 9, 3, 7, 4, 8, 6, 1, 0, 8, 5};
     vector<int> res = {49, 59, 88, 37, 98, 97, 68, 54, 31, 3};
     int n = res.size();
-    quickSort3(res, 0, n - 1);
-    // quickSort2(res, 0, n - 1);
-
-    print(res);
+    quickSort1(res, 0, n - 1);
+    for (auto x : res)
+        cout << x << " ";
 }
