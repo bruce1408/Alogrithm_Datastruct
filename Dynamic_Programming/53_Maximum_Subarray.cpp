@@ -105,7 +105,6 @@ int maxSubArray2(vector<int> &nums)
 {
     if (nums.empty())
         return 0;
-    // 分治的思路
     return dfs(nums, 0, nums.size() - 1);
 }
 
