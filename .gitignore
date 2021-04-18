@@ -1,0 +1,11 @@
+*.out
+*.txt
+*.csv
+*.swn
+*.swp
+*.swm
+*.swo
+*.exec
+*.exe
+!*.cpp*
+!.md
