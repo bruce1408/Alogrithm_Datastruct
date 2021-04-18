@@ -10,3 +10,5 @@
 !*.cpp*
 !.md
 *.DS_Store"
+.vscode
+*.pdf
