@@ -9,3 +9,4 @@
 *.exe
 !*.cpp*
 !.md
+*.DS_Store"
