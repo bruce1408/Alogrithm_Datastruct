@@ -48,7 +48,7 @@ bool isAdditiveNumber(string num)
             while (true)
             {
                 // 前导0的情况去掉
-                if (b - a > 1 && num[a + 1] == '0' || c - b > 1 && num[b + 1] == '0')
+                if ((b - a > 1 && num[a + 1] == '0' )|| (c - b > 1 && num[b + 1] == '0'))
                     break;
                 auto x = num.substr(a + 1, b - a), y = num.substr(b + 1, c - b);
                 auto z = add(x, y);

@@ -72,8 +72,8 @@ void dfs(int u)
  * 总重量和总价格。
  * 如果sumW不超过V且sumC大于最大的值，那么就记录一个全局的最大值，更新这个
  * 价格的最大值即可；
- * 
 */
+
 // const int maxn = 30;
 int n1, V, ans, maxValue = 0; // 物品件数n，背包容量V，最大价值
 // int w[maxn], c[maxn];
