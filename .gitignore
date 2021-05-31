@@ -9,7 +9,7 @@
 *.exe
 !*.cpp*
 !.md
-*.DS_Store"
+*.DS_Store
 .vscode
 *.pdf
 *.plist
