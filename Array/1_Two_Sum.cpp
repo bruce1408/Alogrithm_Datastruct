@@ -153,7 +153,7 @@ int main()
 {
 	// vector<int> nums = {-10, -1, -18, -19};
 	vector<int> nums = {3, 2, 4};
-	int t = 6;
+	int t = 8;
 	// int t = -19;
 	for (auto i : twoSum5(nums, t))
 		cout << i << " ";
