@@ -143,7 +143,6 @@ string longestPalindrome4(string s)
 }
 
 // todo 字符串+哈希做法
-
 int main()
 {
     string s = "babad";
