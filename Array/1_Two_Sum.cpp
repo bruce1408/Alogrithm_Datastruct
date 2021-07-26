@@ -88,31 +88,31 @@ vector<int> twoSum3(vector<int> &nums, int target)
  * 给定两个指针，一个指向开头，一个指向结尾，如果开头的和结尾的相加，看sum是不是等于目标值target，如果
  * 大于这个数，尾指针--，如果小于这个数，头指针++；可是排序后数组的下标会乱掉；
  * */
-// vector<int> twoSum4(vector<int> &nums, int k)
-// {
-// 	int sum;
-// 	vector<int> res;
-// 	for (int i = 0; i < nums.size(); i++)
-// 	{
-// 		int left = i, right = nums.size() - 1;
-// 		while (left < right && res.empty())
-// 		{
-// 			sum = nums[left] + nums[right];
-// 			if (sum == k)
-// 			{
-// 				res.push_back(left);
-// 				res.push_back(right);
-// 				cout << left << " " << right << endl;
-// 				break;
-// 			}
-// 			else if (sum > k)
-// 				right--;
-// 			else
-// 				left++;
-// 		}
-// 	}
-// 	return res;
-// }
+vector<int> twoSum4(vector<int> &nums, int k)
+{
+	int sum;
+	vector<int> res;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		int left = i, right = nums.size() - 1;
+		while (left < right && res.empty())
+		{
+			sum = nums[left] + nums[right];
+			if (sum == k)
+			{
+				res.push_back(left);
+				res.push_back(right);
+				cout << left << " " << right << endl;
+				break;
+			}
+			else if (sum > k)
+				right--;
+			else
+				left++;
+		}
+	}
+	return res;
+}
 
 /**
  * 方法 5是在方法 4的基础上改的，方法 4虽然思路对的，但是实现的话没有利用多个多个键值的哈希表，
