@@ -41,8 +41,13 @@ int removeElement2(vector<int> &nums, int val)
 
 int main()
 {
-    vector<int> nums = {3, 2, 2, 3};
+    vector<int> nums = {5, 3, 1, 2, 2, 3};
     // vector<int> nums = {3,3};
-    cout << removeElement2(nums, 3) << endl;
+    // cout << removeElement2(nums, 3) << endl;
+    removeElement(nums, 5);
+    for(auto x: nums)
+    {
+        cout<<x<<" ";
+    }
     return 0;
 }

@@ -30,7 +30,7 @@ void continus_K(string s, int k)
 int main()
 {
     string s = "abcdefg";
-    int k = 3;
+    int k = 2;
     interval_K(s, k);
     continus_K(s, k);
 }
