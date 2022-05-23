@@ -84,6 +84,31 @@ ListNode *mergeTwoLists2(ListNode *l1, ListNode *l2)
     return dummy.next; // 这里注意如果dummy不是指针的话，那么next应该是点，不是->，它只是普通的节点
 }
 
+
+ListNode *mergeTwoLists3(ListNode *l1, ListNode *l2)
+{
+    if(l1==nullptr) return l2;
+    if(l2==nullptr) return l1;
+
+    ListNode *dummy = new ListNode(-1);
+    ListNode *cur = dummy;
+    while(l1 && l2){
+        // l1 小
+        if(l1->val <= l2->val){
+            cur->next = new ListNode(l1->val);
+            l1 = l1->next;
+        }
+        else{
+            cur->next = new ListNode(l2->val);
+            l2 = l2->next;
+        }
+    }
+
+    cur->next = l1==nullptr?l2:l1;
+    return dummy->next;
+}
+
+
 /**
  * 方法 3，二路归并递归算法。
 */

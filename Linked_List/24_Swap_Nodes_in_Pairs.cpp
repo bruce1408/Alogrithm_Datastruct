@@ -34,6 +34,28 @@ ListNode *swapPairs1(ListNode *head)
     return dummy->next;
 }
 
+
+/**
+ * @brief 
+ * p表示虚拟头结点，a是第一个节点，b是第二个节点
+ */
+ListNode *swapPairs1(ListNode *head)
+{
+    if(head==nullptr) return nullptr;
+    ListNode* dummy = new ListNode(-1);
+    dummy->next = head;
+    for(auto p = dummy;p->next && p->next->next;)
+    {
+        ListNode*a = p->next;
+        ListNode*b = a->next;
+        p->next = b;
+        a->next = b->next;
+        b->next = a ;
+        p = a;
+    }
+    return dummy->next;
+}
+
 /**
  * 方法 2，使用回溯的思想。使用递归到链表的末尾，然后交换末尾的两个
 */

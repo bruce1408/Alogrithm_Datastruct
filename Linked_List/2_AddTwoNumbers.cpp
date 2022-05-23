@@ -139,7 +139,7 @@ ListNode *addTwoNum3(ListNode *l1, ListNode *l2)
 	return dummy->next;
 }
 
-ListNode *addTwoNum5(ListNode *l1, ListNode *l2)
+ListNode *addTwoNum4(ListNode *l1, ListNode *l2)
 {
     if(l1==nullptr) return l2;
     if(l2==nullptr) return l1;

@@ -36,26 +36,20 @@ struct ListNode
  * 比如当 n=4 时，此时 k=2，那么0和2合并，1和3合并
  */
 
-ListNode *mergeListNode(ListNode *l1, ListNode *l2)
+ListNode *mergeTwoLists1(ListNode *l1, ListNode *l2)
 {
-    ListNode *res = new ListNode(-1);
-    ListNode *cur = res;
-    while (l1 && l2)
+    if (!l1 || !l2)
+        return l1 ? l1 : l2;
+    if (l1->val < l2->val)
     {
-        if (l1->val < l2->val)
-        {
-            cur->next = l1;
-            l1 = l1->next;
-        }
-        else
-        {
-            cur->next = l2;
-            l2 = l2->next;
-        }
-        cur = cur->next;
+        l1->next = mergeTwoLists1(l1->next, l2);
+        return l1;
     }
-    cur->next = l1 ? l1 : l2;
-    return res->next;
+    else
+    {
+        l2->next = mergeTwoLists1(l1, l2->next);
+        return l2;
+    }
 }
 
 ListNode *mergeKLists(vector<ListNode *> &lists)
@@ -68,7 +62,7 @@ ListNode *mergeKLists(vector<ListNode *> &lists)
         int k = (n + 1) / 2; // 参考归并排序的方法。
         for (int i = 0; i < n && i + k < n; i++)
         {
-            lists[i] = mergeListNode(lists[i], lists[i + k]);
+            lists[i] = mergeTwoLists1(lists[i], lists[i + k]);
         }
         n = k;
     }
