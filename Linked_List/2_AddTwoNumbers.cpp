@@ -139,6 +139,46 @@ ListNode *addTwoNum3(ListNode *l1, ListNode *l2)
 	return dummy->next;
 }
 
+ListNode *addTwoNum5(ListNode *l1, ListNode *l2)
+{
+    if(l1==nullptr) return l2;
+    if(l2==nullptr) return l1;
+    ListNode *p1 = l1, *p2 = l2;
+    int carry = 0, sum = 0;
+    ListNode *dummy = new ListNode(-1);
+    ListNode*cur = dummy;
+
+    while(p1 && p2){
+        sum = p1->val + p2->val + carry;
+        cur->next = new ListNode(sum % 10);
+        carry = sum / 10;
+        cur = cur->next;
+        p1 = p1->next;
+        p2 = p2->next;
+        
+    }
+    while(p1){
+        sum = p1->val + carry;
+        cur->next = new ListNode(sum % 10);
+        carry = sum / 10;
+        cur = cur->next;
+        p1 = p1->next;
+    }
+
+    while(p2){
+        sum = p2->val + carry;
+        cur->next = new ListNode(sum % 10);
+        carry = sum / 10;
+        cur = cur->next;
+        p2 = p2->next;
+    }
+
+    if(carry != 0) {
+        cur->next = new ListNode(carry);
+    }
+    return dummy->next;
+}
+
 int main()
 {
 	// 链表 1生成过程
@@ -164,7 +204,8 @@ int main()
 	// Solution s;
 	// before = s.addTwoNumbers(head1,head2);
 	// before = addTwoNum(head1,head2);
-	before = addTwoNumbers1(head1, head2);
+	// before = addTwoNumbers1(head1, head2);
+    before = addTwoNum5(head1, head2);
 	print_list(before);
 	return 0;
 }
