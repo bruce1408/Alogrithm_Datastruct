@@ -12,7 +12,7 @@ using namespace std;
  * 返回第一个大于等于该数的位置
 */
 int firstK(vector<int> &res, int k)
-{ n
+{ 
     int l = 0, r = res.size();
     while (l < r)
     {
