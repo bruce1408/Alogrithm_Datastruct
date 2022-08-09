@@ -11,32 +11,25 @@ using namespace std;
  * 4、如果i和j要是相遇或者i>j的话，那么退出，否则交换i和j的值，然后i继续自加，j继续自减一位即可；
  * 5、最后继续递归遍历，左边的从l到j，右边的从j+1到r，这里因为不选择i的原因是，可能i最后大于j，选择i可能指向最后一位死循环
 */
-void quickSort1(vector<int> &q, int l, int r)
-{
-    if (l >= r)
-        return;
+void quickSort(vector<int>&q, int l ,int r){
+    if (l >= r) return ; 
     int x = q[(l + r) >> 1], i = l, j = r;
-    while (1)
-    {
-        while (q[i] < x)
-            i++;
-        while (q[j] > x)
-            j--;
-        if (i >= j)
-            break;
+    while(1){
+        while(q[i] < x) i++;
+        while(q[j] > x) j--;
+        if(i >= j) break;
         swap(q[i], q[j]);
         i++, j--;
     }
-    cout << i << " " << j << endl;
-    quickSort1(q, l, j); // 这个地方不能把j换成i，否则可能死循环
-    quickSort1(q, j + 1, r);
+    quickSort(q, l, j);  // 这个地方不能把j换成i，否则可能死循环
+    quickSort(q, j+1, r);
 }
 
 int main()
 {
     vector<int> res = {49, 59, 88, 37, 98, 97, 68, 54, 31, 3};
     int n = res.size();
-    quickSort1(res, 0, n - 1);
+    quickSort(res, 0, n-1);
     for (auto x : res)
         cout << x << " ";
 }

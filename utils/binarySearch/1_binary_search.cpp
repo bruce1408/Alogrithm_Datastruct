@@ -102,10 +102,39 @@ int lower_bound0(vector<int> &res, int k)
             right = mid - 1;
         else
             left = mid + 1;
-    }d
+    }
     return left; // 这个是标准的lower_bound输出，不存在的数且大于所有元素，返回最大下标，
     // left 是左侧边界；
     // return left <= n ? left : -1; // 不存在的数字返回-1；提醒找不到,下面这种写法也是可以的；
+}
+
+// yxc推荐写法
+int low_bound3(vector<int> &res, int target)
+{
+    int l = 0, r = res.size() - 1;
+    while (l < r)
+    {
+        int mid = (l + r) >> 1;
+        if (res[mid] >= target)
+            r = mid;
+        else
+            l = mid + 1;
+    }
+    return r;
+}
+
+int upper_bound(vector<int> &res, int k)
+{
+    int left = 0, right = res.size() - 1;
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        if (res[mid] <= k)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return left;
 }
 
 /**
@@ -141,34 +170,15 @@ int lower_bound2(vector<int> &res, int k)
     {
         int mid = left + (right - left) / 2;
         if (res[mid] < k)
-        {
             left = mid + 1;
-        }
         else
-        {
             right = mid;
-        }
     }
     return left; // standord lower_bound 标准写法
     //// return res[left] >= k ? left : -1; 会越界，不能这么写！！
     // return left < n ? left : -1;
 }
-/**
- * low_bund 4,使用yxc的写法,参考这种写法并记忆
-*/
-int low_bound3(vector<int> &res, int target)
-{
-    int l = 0, r = res.size() - 1;
-    while (l < r)
-    {
-        int mid = (l + r) >> 1;
-        if (res[mid] >= target)
-            r = mid;
-        else
-            l = mid + 1;
-    }
-    return r;
-}
+
 
 /** {1, 2, 2, 2, 3, 5, 7};
  * 查找第一个大于某个数的下标；也是stl里面 upper_bound的实现

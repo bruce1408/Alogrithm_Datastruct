@@ -77,11 +77,32 @@ void mergeSort2(vector<int> &res, vector<int> &temp, int l, int r)
         res[i] = temp[j];
 }
 
+void mergeSort_cdd(vector<int>&nums, vector<int>&temp, int l, int r){
+    if(l >=r) return ;
+    int mid = (l+r)>>1, i=l, j=mid+1;
+
+    mergeSort_cdd(nums, temp, l, mid);
+    mergeSort_cdd(nums, temp, mid+1, r);
+
+    int k = 0;
+    while(i<=mid && j<=r){
+        if(nums[i] < nums[j] ) temp[k++] = nums[i++];
+        else temp[k++] = nums[j++];
+    }
+    while(i<=mid) temp[k++] = nums[i++];
+    while(j<=r) temp[k++] = nums[j++];
+
+    for(int i = l, j = 0;i<=r;i++, j++){
+        nums[i] = temp[j];
+    }
+}
+
 int main()
 {
     vector<int> res = {7, 6, 4, 3, 4, 1};
     vector<int> temp(res.size());
-    mergeSort2(res, temp, 0, res.size() - 1);
+    // mergeSort2(res, temp, 0, res.size() - 1);
+    mergeSort_cdd(res, temp, 0, res.size()-1);
     for (auto x : res)
         cout << x << " ";
 }
