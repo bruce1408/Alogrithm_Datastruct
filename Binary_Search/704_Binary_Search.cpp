@@ -2,7 +2,10 @@
 #include<vector>
 using namespace std;
 
-// 二分查找，前提条件是必须是有序的数组，然后可以利用二分查找
+/**
+ * @brief 
+ * 给定一个数组，然后查找其中目标值是否存在数组之中，返回即可
+ */
 class Solution {
 public:
     // solution one; easy to write ,and the time complex is equal to the solution two;

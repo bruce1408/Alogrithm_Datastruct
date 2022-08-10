@@ -47,6 +47,29 @@ ListNode *deleteDuplicates(ListNode *head)
 	return dummy->next;
 }
 
+// 中间隔了一个节点，这种写法好理解一点
+class Solution {
+public:
+    ListNode* deleteDuplication(ListNode* head) {
+        if(head==nullptr) return nullptr;
+        
+        ListNode* dummy = new ListNode(-1);
+        dummy->next = head;
+        ListNode*cur = dummy;
+        
+        while(cur->next){
+            ListNode*p = cur->next;
+            while(p->next && p->next->val==cur->next->val){
+                p = p->next;
+            }
+            if(cur->next==p) cur = p;
+            else cur->next = p->next;
+            
+        }
+        return dummy->next;
+    }
+};
+
 /**
  * 方法 2，看图说话，两层while循环，如果找到相同的节点，
  * 那么进入第二层while循环，判断到底是有多少个相同的节点，然后开始把这些节点删除即可。

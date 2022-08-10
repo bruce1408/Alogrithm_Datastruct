@@ -39,7 +39,7 @@ int removeDuplicates2(vector<int> &res)
 */
 int removeDuplicates3(vector<int> &res)
 {
-    int n = res.size(), k = 0;
+    int k = 0;
     for (auto x : res)
     {
         if (k < 1 || x != res[k - 1])

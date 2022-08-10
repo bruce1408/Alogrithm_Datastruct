@@ -21,11 +21,10 @@ struct ListNode
 };
 
 /**
- * 方法 1，
+ * 方法 1， 这里有个细节，就是cur 在 cur->next的前面写，否则很有可能应为cur->next 指针是野指针
 */
 void print_list(struct ListNode *head); // 链表打印
-
-ListNode *deleteDuplicates1(ListNode *head) // 这里有个细节，就是cur 在 cur->next的前面写，否则很有可能应为cur->next 指针是野指针
+ListNode *deleteDuplicates1(ListNode *head)
 {
 	ListNode *cur = head, *after = head;
 	while (cur && cur->next)
@@ -46,9 +45,9 @@ ListNode *deleteDuplicates1(ListNode *head) // 这里有个细节，就是cur �
  */
 ListNode *deleteDuplicates2(ListNode *head)
 {
-	if (!head || !head->next)
-		return head;
-	ListNode *start = head;
+	if (!head || !head->next) return head;
+	
+    ListNode *start = head;
 	while (start && start->next)
 	{
 		if (start->val == start->next->val)
@@ -69,13 +68,9 @@ ListNode *deleteDuplicates(ListNode *head)
 	while (curr && curr->next)
 	{
 		if (curr->val == curr->next->val)
-		{
 			curr->next = curr->next->next;
-		}
 		else
-		{
 			curr = curr->next;
-		}
 	}
 	return head;
 }
@@ -94,7 +89,7 @@ int main()
 	d->next = e;
 	ListNode *before = head;
 	print_list(head);
-	print_list(deleteDuplicates3(before));
+	print_list(deleteDuplicates(before));
 	return 0;
 }
 

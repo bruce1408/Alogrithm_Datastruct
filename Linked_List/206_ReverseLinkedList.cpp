@@ -34,7 +34,8 @@ ListNode *reverseList1(ListNode *pHead)
 }
 
 /**
- * 方法 2，带头结点的写法,temp指针来保存cur 的下一个地址即可 
+ * 方法 2，带头结点的写法,temp指针来保存cur 的下一个地址即可，推荐使用这种清晰的思路；
+ * 秘诀就是首个节点指向下一个的下一个节点；然后中间隔开的那个节点要进行临时保存；
 */
 ListNode *reverseList2(ListNode *head)
 {
@@ -54,7 +55,8 @@ ListNode *reverseList2(ListNode *head)
 }
 
 /**
- * 方法 3，使用两个相邻的指针来维护，一个从头指针开始a，一个从头指针的下一位开始b，
+ * 方法 3，yxc推荐使用没有头节点的算法：
+ * 使用两个相邻的指针来维护，一个从头指针开始a，一个从头指针的下一位开始b，
  * 然后每次后面的指针指向前一位，b->next = a;然后两个指针向后移动一位；
 */
 ListNode *reverseList3(ListNode *head)
