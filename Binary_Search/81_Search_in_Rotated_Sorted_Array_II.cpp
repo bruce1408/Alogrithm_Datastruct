@@ -4,6 +4,7 @@ using namespace std;
 
 /**
  * 81 找到旋转数组中的某个数，和33题目类似
+ * 但是它里面是有重复数字
 */
 
 /**
@@ -15,13 +16,14 @@ bool search(vector<int> &nums, int t)
     {
         return false;
     }
+
     int l = 0, s = nums.size() - 1;
-    // 删除前后相同的数字
-    while (s > 0 && nums[s] == nums[0])
-        s--;
-    // s 是新的数组长度
-    int r = s;
-    // 二分查找边界
+    
+    while (s > 0 && nums[s] == nums[0]) s--; // 删除前后相同的数字
+    
+    int r = s; // s 是新的数组长度
+    
+
     while (l < r)
     {
         int mid = (l + r + 1) >> 1;
@@ -43,4 +45,10 @@ bool search(vector<int> &nums, int t)
             l = mid + 1;
     }
     return nums[r] == t;
+}
+
+
+int main(){
+    vector<int>res = {2,3,4,5,0,0,0,1,2};
+    cout<<search(res, 3)<<endl;
 }

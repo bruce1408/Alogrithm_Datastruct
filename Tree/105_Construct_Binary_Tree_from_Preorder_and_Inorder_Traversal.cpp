@@ -13,13 +13,13 @@ using namespace std;
  * inorder = [9,3,15,20,7]
  * Return the following binary tree:
  * 
- *   3
- *  / \
+ *    3
+ *   / \
  *  9  20
- *  /  \
- *  15   7
+ *    /  \
+ *   15   7
  * 重构一颗二叉树
- * 给定中序遍历和先序遍历，然后重构一颗二叉树
+ * 给定中序遍历和前序遍历，然后重构一颗二叉树
 */
 
 struct TreeNode
@@ -52,6 +52,7 @@ TreeNode *create(vector<int> &preorder, vector<int> &inorder, int preL, int preR
         return nullptr;
     TreeNode *root = new TreeNode;
     root->val = preorder[preL]; // preL 即是根节点
+    // 这里是为了在中序遍历中找到前序遍历的根节点的位置
     int k;
     for (k = inL; k <= inR; k++)
     {
