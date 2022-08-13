@@ -30,9 +30,6 @@ int findMin(vector<int> &nums)
 
 /**
  * 第二种方法
- * 
- * @param nums 
- * @return int 
  */
 int findMin(vector<int>& nums) {
     if(nums.size()==0) return -1;
