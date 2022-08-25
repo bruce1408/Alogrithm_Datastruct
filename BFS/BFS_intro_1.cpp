@@ -16,7 +16,7 @@ using namespace std;
  *   }
  * }
  * 
- * 给定一个数组，n*m大小，然后数组的数组要么是1，要么是0
+ * 给定一个数组，n * m大小，然后数组的数组要么是1，要么是0
  * i，j 位置与上下左右四个位置相邻，如果这个数组的若干个1是相邻的(不必两两相邻)，那么这些1构成一个块
  * 求数组中的块的大小
 */
@@ -39,7 +39,10 @@ void bfs(int x, int y)
         for (int i = 0; i < 4; i++)
         {
             int newx = t.first + dx[i], newy = t.second + dy[i];
-            if (newx >= 0 && newx < n && newy >= 0 && newy < m && path[newx][newy] == 1 && visited[newx][newy] == false)
+            if (newx >= 0 && newx < n 
+            && newy >= 0 && newy < m 
+            && path[newx][newy] == 1 
+            && visited[newx][newy] == false)
             {
                 q.push({newx, newy});
                 visited[newx][newy] = true;
