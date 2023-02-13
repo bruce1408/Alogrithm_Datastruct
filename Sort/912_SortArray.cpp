@@ -19,7 +19,6 @@ void quick_sort(vector<int> &res, int l, int r)
     int x = res[(l + r) / 2];
     while (i < j)
     {
-
         while (res[++i] < x)
             ;
         while (res[--j] > x)
@@ -36,6 +35,7 @@ vector<int> sortArray(vector<int> &res)
     quick_sort(res, 0, res.size() - 1);
     return res;
 }
+
 
 int main()
 {

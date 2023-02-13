@@ -75,13 +75,6 @@ int binarySearch1(vector<int> &res, int k)
      * 时候数组的下标会越界
      * */
 
-    /**
-     * 3.直接在while中满足条件就进行return mid;
-    */
-    // 以下是错误的示范,有数组越界的可能
-    //// cout<<"the left is: "<<left<<endl;
-    //// cout<<"the res[left] is: "<<res[left]<<endl;
-    //// return res[left] == k ? left : -1;
     return -1;
 }
 
@@ -120,7 +113,7 @@ int low_bound3(vector<int> &res, int target)
         else
             l = mid + 1;
     }
-    return r;
+    return l;
 }
 
 int upper_bound(vector<int> &res, int k)
