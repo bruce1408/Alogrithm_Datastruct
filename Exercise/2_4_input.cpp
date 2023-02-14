@@ -502,7 +502,6 @@ void print_three(string res[8][8])
 			res[i][4] = to_string(2);
 			i++;
 		}
-
 	}
 }
 
@@ -514,8 +513,6 @@ void print_four(string res[8][8])
 		res[i][4] = to_string(1);
 	}
 }
-
-
 
 void print_six(string res[8][8])
 {
@@ -530,9 +527,6 @@ void print_six(string res[8][8])
 int main()
 {
 	// string res[8][8]={" "};
-	
-
-	
 	// print_three(res);
 	// print_num(res);
 	// print_two(res);
@@ -545,8 +539,6 @@ int main()
 	}
 	for(auto i:res)
 		cout<<i<<" ";
-	
-	
 	return 0;
 	
 	

@@ -1,17 +1,18 @@
 /**
  * 常数据成员，常量必须要在初始化列表中对它进行赋值。
- * a(i) 这种赋值，不能是在大括号体内。
+ * 必须是这种的复制，如a(i) ，不能是在大括号体内。
  * */
 #include<iostream>
 using namespace std;
 
 class A{
 	public:
-	A(int i);
-	void print();
-	private:
-	const int a;
-	static const int b;
+	    A(int i);
+	    void print();
+	
+    private:
+        const int a;
+        static const int b;
 };
 
 const int A::b =10;

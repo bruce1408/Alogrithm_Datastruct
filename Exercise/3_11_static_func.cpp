@@ -24,13 +24,19 @@ class Point {
     count++;
     }
 	
-    ~Point() {  count--; }//析构函数 每次减一
+    //析构函数 每次减一
+    ~Point() {  count--; }
     int getX() { return x; }
     int getY() { return y; }
-	static void showCount() {           //输出静态数据成员
-    cout << "  Object count = " << count << endl;
+    
+    //输出静态数据成员
+	static void showCount() 
+    {
+        cout << "  Object count = " << count << endl;
     }
-	private:      //私有数据成员
+	
+    //私有数据成员
+    private: 
     int x, y;
     static int count;       //静态数据成员声明，用于记录点的个数
 };
@@ -38,7 +44,6 @@ class Point {
 int Point::count = 0;//静态数据成员定义和初始化，使用类名限定, 必须在类外初始化和定义
 int main() 
 {  
-
      //主函数
 	   Point::showCount();
        Point a(4, 5);     //定义对象a，其构造函数会使count增1

@@ -15,7 +15,10 @@ void quickSort(vector<int>&q, int l ,int r){
     if (l >= r) return ; 
     int x = q[(l + r) >> 1], i = l, j = r;
     while(1){
+        // 如果左边值小于x 那么指针左移
         while(q[i] < x) i++;
+
+        // 如果右边值大于x 那么指针右移
         while(q[j] > x) j--;
         if(i >= j) break;
         swap(q[i], q[j]);

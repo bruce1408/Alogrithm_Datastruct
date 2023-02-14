@@ -45,7 +45,6 @@ void Merge(int res_arr2[], int modi_arr[], int i, int m, int n)
 	while (i <= m && j <= n)
 	{
 		if (res_arr2[i] < res_arr2[j])
-
 			modi_arr[k++] = res_arr2[i++];
 		else
 			modi_arr[k++] = res_arr2[j++];
@@ -98,14 +97,8 @@ void MergeArray(vector<int> &array, int start, int mid, int end, vector<int> tem
 	int i = start, j = mid + 1, k = 0;
 	while (i <= mid && j <= end)
 	{
-		if (array[i] < array[j])
-		{
-			temp[k++] = array[i++];
-		}
-		else
-		{
-			temp[k++] = array[j++];
-		}
+		if (array[i] < array[j]) temp[k++] = array[i++];
+		else temp[k++] = array[j++];
 	}
 	while (i <= mid)
 	{

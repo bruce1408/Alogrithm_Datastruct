@@ -19,7 +19,7 @@ void swap(sqlist *l,int i,int j)
 
 void BubbleSort1(sqlist *l)              // 冒泡排序(升序)代码一：
 {
-	int i,j;
+	int i, j;
 	for (i=1;i<l->length;i++)
 	{
 		for (j=i+1;j<=l->length;j++)
@@ -34,7 +34,7 @@ void BubbleSort2(sqlist *l)              // 冒泡排序(升序)代码二 升级
 {
 	int i,j;
 	for (i=1;i<l->length;i++)
-	{
+	{      
 		for (j=l->length-1;j>=i;j--)
 		{
 			if(l->r[j]>l->r[j+1])

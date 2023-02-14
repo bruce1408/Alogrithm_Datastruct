@@ -98,6 +98,20 @@ ListNode *reverseList4(ListNode *head)
 	return tail;
 }
 
+ListNode *reverseListNode(ListNode* head){
+    if(head == nullptr) return head;
+    ListNode* dummy = new ListNode(-1);
+    dummy->next = head;
+    ListNode*cur = head;
+    while(cur->next){
+        ListNode*temp = cur->next;
+        cur->next = temp->next;
+        temp->next = dummy->next;
+        dummy->next = temp;
+    }
+    return dummy->next;
+}
+
 int main()
 {
 	//自己造一个回文链表
@@ -114,7 +128,8 @@ int main()
 
 	print_list(a1);
 	// print_list(ReverseList(a1));
-	print_list(reverseList4(a1));
+	// print_list(reverseList4(a1));
+    print_list(reverseListNode(a1));
 	delete a1;
 	delete a2;
 	delete a3;

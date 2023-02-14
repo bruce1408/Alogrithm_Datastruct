@@ -51,9 +51,6 @@ void HeapSort(sqlist *l)
 	}
 }
 
-
-
-
 int main()
 {
 	sqlist *l;

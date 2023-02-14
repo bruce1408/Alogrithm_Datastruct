@@ -17,16 +17,13 @@ void Clock::setTime(int newH, int newM, int newS)
 {
 	hour = newH;
 	minute = newM;
-	second = newS;
-	
+	second = newS;	
 }
 
 void Clock::showTime()
 {
 	cout<<hour<<":"<<minute<<":"<<second<<endl;
 }
-
-
 
 int main()
 {
