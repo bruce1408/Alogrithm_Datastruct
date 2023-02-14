@@ -19,57 +19,6 @@ struct ListNode
 
 void print_list(struct ListNode *head);
 
-/**
- * 方法 1，创建一个新的链表，然后逐位相加即可，这里要注意进位，
- * 是否进位，怎么进位，进位是否传递等方法
- * 和方法 2相比，多了进位判断，就是下文注释掉的if-else语句，
- * 可以直接用carry = sumValue / 10;来代替
- * 这样写法就很简单。时间复杂度是O(n)，空间是O(max(m,n))；
- * 
- * 虚拟头结点很重要
-*/
-ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2)
-{
-	int carry = 0;
-	ListNode *p1 = l1, *p2 = l2;
-	ListNode *head = new ListNode(0); // 开始建立一个头结点，最后返回这个头结点的下一个链表作为开头；
-	ListNode *cur = head;
-	while (p1 && p2)
-	{
-		int tempSum = p1->val + p2->val + carry;
-		carry = tempSum / 10;
-		ListNode *temp = new ListNode(tempSum % 10);
-		head->next = temp;
-		head = temp;
-		p1 = p1->next;
-		p2 = p2->next;
-	}
-	while (p1)
-	{
-		int p1Sum = p1->val + carry;
-		p1->val = p1Sum % 10;
-
-		carry = p1Sum / 10;
-		head->next = p1;
-		head = p1;
-		p1 = p1->next;
-	}
-	while (p2)
-	{
-		int p2Sum = p2->val + carry;
-		p2->val = p2Sum % 10;
-		carry = p2Sum / 10;
-		head->next = p2;
-		head = p2;
-		p2 = p2->next;
-	}
-	if (carry)
-	{
-		head->next = new ListNode(carry);
-	}
-	return cur->next;
-}
-
 void print_list(struct ListNode *head)
 {
 	while (head)
@@ -112,6 +61,7 @@ ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2)
 		l2 = l2->next;
 		res = res->next;
 	}
+
 	// 最后考虑 carray 是否还有进位，如果有，就再增加一位；
 	if (carry > 0)
 	{
@@ -119,8 +69,10 @@ ListNode *addTwoNumbers2(ListNode *l1, ListNode *l2)
 	}
 	return head->next;
 }
+
 /**
  * 方法 3，非常简洁的写法，代码优雅
+ * 借鉴两个分支进行合并的写法；
 */
 ListNode *addTwoNum3(ListNode *l1, ListNode *l2)
 {
@@ -137,46 +89,6 @@ ListNode *addTwoNum3(ListNode *l1, ListNode *l2)
 		t /= 10;
 	}
 	return dummy->next;
-}
-
-ListNode *addTwoNum4(ListNode *l1, ListNode *l2)
-{
-    if(l1==nullptr) return l2;
-    if(l2==nullptr) return l1;
-    ListNode *p1 = l1, *p2 = l2;
-    int carry = 0, sum = 0;
-    ListNode *dummy = new ListNode(-1);
-    ListNode*cur = dummy;
-
-    while(p1 && p2){
-        sum = p1->val + p2->val + carry;
-        cur->next = new ListNode(sum % 10);
-        carry = sum / 10;
-        cur = cur->next;
-        p1 = p1->next;
-        p2 = p2->next;
-        
-    }
-    while(p1){
-        sum = p1->val + carry;
-        cur->next = new ListNode(sum % 10);
-        carry = sum / 10;
-        cur = cur->next;
-        p1 = p1->next;
-    }
-
-    while(p2){
-        sum = p2->val + carry;
-        cur->next = new ListNode(sum % 10);
-        carry = sum / 10;
-        cur = cur->next;
-        p2 = p2->next;
-    }
-
-    if(carry != 0) {
-        cur->next = new ListNode(carry);
-    }
-    return dummy->next;
 }
 
 int main()
@@ -201,11 +113,7 @@ int main()
 	print_list(head1);
 	print_list(head2);
 
-	// Solution s;
-	// before = s.addTwoNumbers(head1,head2);
-	// before = addTwoNum(head1,head2);
-	// before = addTwoNumbers1(head1, head2);
-    before = addTwoNum5(head1, head2);
+	before = addTwoNum3(head1, head2);
 	print_list(before);
 	return 0;
 }
