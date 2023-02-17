@@ -8,6 +8,38 @@ using namespace std;
  * 之后再合并即可
 */
 
+void MergeArray(vector<int> &array, int start, int mid, int end, vector<int> temp)
+{
+	int i = start, j = mid + 1, k = 0;
+	while (i <= mid && j <= end)
+	{
+		if (array[i] < array[j]) temp[k++] = array[i++];
+		else temp[k++] = array[j++];
+	}
+	while (i <= mid)
+	{
+		temp[k++] = array[i++];
+	}
+	while (j <= end)
+	{
+		temp[k++] = array[j++];
+	}
+	for (int i = 0; i < k; i++)
+	{
+		array[start + i] = temp[i];
+	}
+}
+// 归并排序，将数组前半部分后半部分分成最小单元，然后在合并
+void MergeSort1(vector<int> &array, int start, int end, vector<int> temp)
+{
+	if (start < end)
+	{
+		int mid = (start + end) / 2;
+		MergeSort1(array, start, mid, temp);
+		MergeSort1(array, mid + 1, end, temp);
+		MergeArray(array, start, mid, end, temp);
+	}
+}
 /**
  * 方法 1，二路归并算法实现
 */
@@ -102,7 +134,7 @@ int main()
     vector<int> res = {7, 6, 4, 3, 4, 1};
     vector<int> temp(res.size());
     // mergeSort2(res, temp, 0, res.size() - 1);
-    mergeSort_cdd(res, temp, 0, res.size()-1);
+    MergeSort1(res, 0, res.size()-1, temp);
     for (auto x : res)
         cout << x << " ";
 }

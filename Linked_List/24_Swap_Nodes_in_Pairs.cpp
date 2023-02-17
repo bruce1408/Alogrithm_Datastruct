@@ -19,7 +19,7 @@ struct ListNode
 /**
  * 方法 1，因为头结点会替换，所以使用新的头结点来做。
 */
-ListNode *swapPairs1(ListNode *head)
+ListNode *swapPairs0(ListNode *head)
 {
     ListNode *dummy = new ListNode(-1), *cur = dummy;
     dummy->next = head;
@@ -36,8 +36,7 @@ ListNode *swapPairs1(ListNode *head)
 
 
 /**
- * @brief 
- * p表示虚拟头结点，a是第一个节点，b是第二个节点
+ * 表示虚拟头结点，a是第一个节点，b是第二个节点
  */
 ListNode *swapPairs1(ListNode *head)
 {
@@ -78,6 +77,6 @@ int main()
     head->next = a;
     a->next = b;
     b->next = c;
-    swapPairs1(head);
+    swapPairs0(head);
     return 0;
 }

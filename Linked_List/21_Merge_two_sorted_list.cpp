@@ -58,7 +58,6 @@ ListNode *mergeTwoLists0(ListNode *l1, ListNode *l2)
 
     // 最后这里因为是有序链表，直接合并即可
     cur->next = l1? l1 : l2;
-    
     return head->next;
 }
 

@@ -52,6 +52,7 @@ public:
             n++;
             cur = cur->next;
         }
+
         // 每一次归并的长度
         for (int len = 1; len < n; len *= 2)
         {
@@ -90,16 +91,20 @@ public:
 */
 ListNode *split(ListNode *head, int n);
 ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head);
+
 ListNode *sortList(ListNode *head)
 {
     ListNode *dummy = new ListNode(-1), *cur = head;
     dummy->next = head;
-    int cnt = 0; // 先求解链表长度
+    int cnt = 0; 
+
+    // 先求解链表长度
     while (cur)
     {
         cnt++;
         cur = cur->next;
     }
+
     cur = head;
     ListNode *left, *right, *tail;
     // 从长度为1的节点开始遍历
@@ -143,8 +148,7 @@ ListNode *merge(ListNode *l1, ListNode *l2, ListNode *head)
         }
     }
     l1 ? cur->next = l1 : cur->next = l2;
-    while (cur->next)
-        cur = cur->next;
+    while (cur->next) cur = cur->next;
     return cur;
 }
 
@@ -236,6 +240,7 @@ ListNode *merge3(ListNode *l1, ListNode *l2)
     return dummy->next;
 }
 
+// 推荐算法
 ListNode *sortList3(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
@@ -262,14 +267,14 @@ int main()
     ListNode b1(5, &c1);
     ListNode a1(-1, &b1);
     ListNode *head = &a1;
-    // print_list(sortList(head));
+    print_list(sortList3(head));
 
     print_list(head);
 
-    ListNode *cur = head;
-    ListNode *left = split(cur, 1);
-    print_list(left);
-    print_list(split(left, 1));
+    // ListNode *cur = head;
+    // ListNode *left = split(cur, 1);
+    // print_list(left);
+    // print_list(split(left, 1));
     // print_list(split(head, 2));
     // print_list(split(head, 4));
 }

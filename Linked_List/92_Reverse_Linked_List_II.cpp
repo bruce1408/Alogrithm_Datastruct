@@ -45,7 +45,7 @@ ListNode *reverseBetween(ListNode *head, int m, int n)
  * 先从虚拟头结点跳m-1次到达翻转的前一个节点；
  * 然后再用两个指针来进行反转
 */
-ListNode *reverseBetween(ListNode *head, int m, int n)
+ListNode *reverseBetween2(ListNode *head, int m, int n)
 {
 	if (!head || n == m == 1)
 		return head;
