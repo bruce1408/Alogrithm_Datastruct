@@ -13,8 +13,10 @@ void MergeArray(vector<int> &array, int start, int mid, int end, vector<int> tem
 	int i = start, j = mid + 1, k = 0;
 	while (i <= mid && j <= end)
 	{
-		if (array[i] < array[j]) temp[k++] = array[i++];
-		else temp[k++] = array[j++];
+		if (array[i] < array[j]) 
+            temp[k++] = array[i++];
+		else 
+            temp[k++] = array[j++];
 	}
 	while (i <= mid)
 	{
@@ -24,6 +26,7 @@ void MergeArray(vector<int> &array, int start, int mid, int end, vector<int> tem
 	{
 		temp[k++] = array[j++];
 	}
+    
 	for (int i = 0; i < k; i++)
 	{
 		array[start + i] = temp[i];
