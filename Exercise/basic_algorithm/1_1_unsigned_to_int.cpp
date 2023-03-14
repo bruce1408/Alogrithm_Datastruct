@@ -44,10 +44,18 @@ using namespace std;
 */
 int main()
 {
-	int x = 9;
-	int y = -8;
-	unsigned int a = y;
-	cout << a << endl;
-	cout << a + x << endl;
-	cout << sizeof(a) << endl;
+    int a[5] = {1,2,3,4,5};
+    
+    int *p = a;
+    for(int i = 0; i<5;i++)
+    {
+        cout<<*(p+i)<<endl;
+        // p++;   
+    }
+	// int x = 9;
+	// int y = -8;
+	// unsigned int a = y;
+	// cout << a << endl;
+	// cout << a + x << endl;
+	// cout << sizeof(a) << endl;
 }
