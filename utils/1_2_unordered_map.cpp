@@ -119,7 +119,7 @@ void mapexample2()
 }
 
 /**
- * 数据的插入--第三种：使用insert函数插入value_type数据
+ * 数据的插入--第三种: 使用insert函数插入value_type数据
 */
 void mapexample3()
 {
