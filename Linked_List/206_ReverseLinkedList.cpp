@@ -112,6 +112,17 @@ ListNode *reverseListNode(ListNode* head){
     return dummy->next;
 }
 
+// 递归的方法来反转链表
+ListNode *reverseList(ListNode *head)
+{
+    if(head->next==nullptr || head==nullptr) return head;
+    ListNode *t1 = reverseList(head->next);
+    ListNode *l1 = head->next;
+    l1->next = head;
+    head->next = nullptr;
+    return t1;
+}
+
 int main()
 {
 	//自己造一个回文链表
