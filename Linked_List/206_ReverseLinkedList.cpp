@@ -39,11 +39,18 @@ ListNode *reverseList1(ListNode *pHead)
 */
 ListNode *reverseList2(ListNode *head)
 {
+    // 头结点判空逻辑
 	if (head == nullptr)
 		return head;
+    
+    // 虚拟头结点
 	ListNode *dummy = new ListNode(-1);
 	dummy->next = head;
+    
+    // 工作指针
 	ListNode *cur = head;
+    
+    // 循环条件
 	while (cur->next)
 	{
 		ListNode *p = cur->next;
