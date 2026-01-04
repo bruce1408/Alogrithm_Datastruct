@@ -13,3 +13,4 @@
 .vscode
 *.pdf
 *.plist
+delete_out.sh
