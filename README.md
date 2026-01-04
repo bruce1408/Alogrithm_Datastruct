@@ -1,20 +1,15 @@
-根据你提供的截图，你的仓库结构非常清晰，是按照**算法/数据结构类型**进行扁平化分类的。
+# 📚 Algorithm & Data Structures
 
-这是更新后的完整 **README.md**。我已经把你的真实目录结构填入到了 `📂 项目结构` 部分，并给每个文件夹加上了对应的中文注释，方便阅读。
+> 记录 LeetCode 刷题历程，以及常用算法与数据结构的 C++ 实现。
 
-你可以直接复制替换原来的内容：
+![Language](https://img.shields.io/badge/language-C++-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-```markdown
-# 🚀 Algorithm & Data Structures (C++)
+## 📖 简介 (Introduction)
 
-[![Language](https://img.shields.io/badge/language-C++17-blue.svg)](https://en.cppreference.com/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![LeetCode](https://img.shields.io/badge/LeetCode-Solving-orange.svg)](https://leetcode.com/)
+本仓库 (`Alogrithm_Datastruct`) 主要用于记录个人的算法学习与 LeetCode 刷题过程。内容涵盖了常见的数据结构实现、经典算法模板以及 LeetCode 高频题目的解法。
 
-> **Talk is cheap. Show me the code.** > 本仓库 (`Alogrithm_Datastruct`) 用于记录我的算法学习之路，包含经典数据结构的底层实现 (Wheel Reinvention) 以及 LeetCode 高频题目的 C++ 题解。
 
----
 
 ## 📖 目录 (Table of Contents)
 
@@ -137,7 +132,3 @@ g++ -std=c++17 Binary_Search/001_Example.cpp -o main
 ---
 
 **如果觉得这个项目对你有帮助，请给一个 ⭐️ Star！谢谢！**
-
-```
-
-```
